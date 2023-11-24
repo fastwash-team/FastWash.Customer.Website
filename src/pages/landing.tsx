@@ -98,7 +98,7 @@ const Landing: React.FC = () => {
               </button>
             </div>
           </div>
-          <div className='row app-landing_section-two'>
+          {/* <div className='row app-landing_section-two'>
             <div>
               <h1>Wash, dry, fold and delivered on the same day</h1>
               <div className='_attributes'>
@@ -111,7 +111,7 @@ const Landing: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
