@@ -1,0 +1,142 @@
+$wash-black: #020d1c;
+$wash-orange: #f2ca89;
+$wash-blue: #17499f;
+$wash-yellow: #f26419;
+
+.app-landing {
+  p {
+    color: $wash-black;
+    line-height: normal;
+  }
+
+  &_section-one {
+    background: url("../imgs/BBackground.png");
+    height: 100dvh;
+    background-size: cover;
+
+    &_header-container {
+      padding-top: 24px;
+      align-items: center;
+
+      ul {
+        display: flex;
+        list-style: none;
+        font-size: 14px;
+        font-weight: 700;
+        column-gap: 24px;
+        align-items: center;
+        justify-content: center;
+        color: $wash-black;
+        margin: 0;
+      }
+
+      .login-section {
+        display: flex;
+        align-items: center;
+        column-gap: 56px;
+        justify-content: center;
+
+        p {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+        button {
+          border-radius: 8px;
+          background: $wash-blue;
+          color: #fff;
+          font-size: 14px;
+          font-weight: 700;
+          padding: 20px 32px;
+          border: none;
+        }
+      }
+    }
+
+    &_body {
+      margin-top: 56px;
+
+      ._location {
+        &-info {
+          display: flex;
+          align-items: center;
+          border-radius: 24px;
+          background: $wash-orange;
+          width: fit-content;
+          padding: 12px;
+          column-gap: 5px;
+
+          i {
+            font-size: 11px;
+            line-height: normal;
+          }
+
+          p {
+            margin: 0;
+            font-weight: 600;
+            font-size: 14px;
+          }
+        }
+
+        &-prompt {
+          font-size: 16px;
+          font-weight: 500;
+          margin-top: 19px;
+        }
+
+        &-input-wrapper {
+          height: 56px;
+          width: 480px;
+
+          &-addon {
+            width: 45px;
+            background: white;
+            display: flex;
+            justify-content: center;
+          }
+
+          &-inputbox {
+            border-left: none;
+
+            &::placeholder {
+              color: #d9d9d9;
+            }
+
+            &:focus,
+            &:active {
+              box-shadow: none;
+              outline: none;
+              border: 1px solid #dee2e6;
+              border-left: none;
+            }
+          }
+        }
+
+        &-schedule-button {
+          background: $wash-blue;
+          color: white;
+          font-size: 14px;
+          font-weight: 700;
+          margin-top: 16px;
+          width: 480px;
+          height: 56px;
+          border-radius: 8px;
+          border: none;
+        }
+      }
+
+      h1 {
+        font-size: 64px;
+        margin-top: 16px;
+        font-weight: 600;
+        width: 546px;
+
+        span {
+          display: block;
+          color: $wash-yellow;
+        }
+      }
+    }
+  }
+}
