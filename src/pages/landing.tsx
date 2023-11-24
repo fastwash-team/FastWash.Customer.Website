@@ -6,7 +6,7 @@ const Landing: React.FC = () => {
     <div className='app-landing'>
       <div className='app-landing_section-one'>
         <div className='container'>
-          <div className='row app-landing_section-one_header-container'>
+          {/* <div className='row app-landing_section-one_header-container'>
             <div className='col-1'>
               <img src={FashWashLogo} alt='fash-wash' />
             </div>
@@ -24,7 +24,50 @@ const Landing: React.FC = () => {
               <p>Login</p>
               <button>Schedule Now</button>
             </div>
-          </div>
+          </div> */}
+
+          <nav className='navbar navbar-expand-lg app-landing_section-one_header-container'>
+            <a className='navbar-brand' href='#'>
+              <img src={FashWashLogo} alt='fash-wash' />
+            </a>
+            <button
+              className='navbar-toggler'
+              type='button'
+              data-bs-toggle='collapse'
+              data-bs-target='#navbarScroll'
+              aria-controls='navbarScroll'
+              aria-expanded='false'
+              aria-label='Toggle navigation'
+            >
+              <span className='navbar-toggler-icon'></span>
+            </button>
+            <div className='collapse navbar-collapse' id='navbarScroll'>
+              <ul className='navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll'>
+                <li className='nav-item'>
+                  <a className='nav-link active' aria-current='page' href='#'>
+                    How it works
+                  </a>
+                </li>
+                <li className='nav-item'>
+                  <a className='nav-link' href='#'>
+                    Our Services
+                  </a>
+                </li>
+                <li className='nav-item dropdown'>
+                  <a className='nav-link' href='#'>
+                    Pricing
+                  </a>
+                </li>
+                <li className='nav-item'>
+                  <a className='nav-link'>Customers</a>
+                </li>
+              </ul>
+              <div className='login-section'>
+                <p>Login</p>
+                <button>Schedule Now</button>
+              </div>
+            </div>
+          </nav>
           <div className='row app-landing_section-one_body'>
             <div className='col-6 _location'>
               <div className='_location-info'>
@@ -53,6 +96,20 @@ const Landing: React.FC = () => {
               <button className='_location-schedule-button'>
                 Schedule Pickup
               </button>
+            </div>
+          </div>
+          <div className='row app-landing_section-two'>
+            <div>
+              <h1>Wash, dry, fold and delivered on the same day</h1>
+              <div className='_attributes'>
+                <div>
+                  <p></p>
+                  <div className=''>
+                    <p>Affordable</p>
+                    <p>Get your laundry pickup for as low as N1000</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

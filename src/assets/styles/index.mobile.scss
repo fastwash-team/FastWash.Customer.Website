@@ -1,0 +1,50 @@
+$wash-black: #020d1c;
+$wash-orange: #f2ca89;
+$wash-blue: #17499f;
+$wash-yellow: #f26419;
+
+@media screen and (max-width: 767px) {
+  /* Styles for small devices */
+
+  .app-landing {
+    .navbar-toggler {
+      border: none;
+      font-size: 28px;
+      margin-top: -10px;
+      &:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+    }
+    &_section-one {
+      &_header-container {
+        ul {
+          font-size: 16px;
+        }
+        .login-section {
+          p {
+            font-size: 16px;
+          }
+          flex-flow: column;
+          row-gap: 11px;
+        }
+      }
+      &_body {
+        ._location {
+          h1 {
+            // width: calc(100% + 12em);
+            width: 350px;
+            font-size: 46px;
+          }
+          &-input-wrapper {
+            width: calc(100% + 12em);
+          }
+          &-schedule-button {
+            width: calc(100% + 13.7em);
+          }
+        }
+      }
+    }
+  }
+}
