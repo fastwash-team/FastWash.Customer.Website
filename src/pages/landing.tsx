@@ -217,6 +217,44 @@ const Landing: React.FC = () => {
             </div>
           </div>
         </div>
+        <div className='container'>
+          <div className='_pricing'>
+            <h1>Pricing</h1>
+            <div className='pricing-flex'>
+              <div className='pricing'>
+                <h2>One Wash</h2>
+                <p className='_price'>N2700</p>
+                <p className='_loads'>One load of laundry</p>
+                <div className='_benefits'>
+                  <p>One detergent</p>
+                  <p>Free wrap bags</p>
+                </div>
+                <button className='pickup-button'>Schedule Pickup</button>
+              </div>
+              <div className='pricing'>
+                <h2>Two Washes</h2>
+                <p className='_price'>N4500</p>
+                <p className='_loads'>Two loads of laundry</p>
+                <div className='_benefits'>
+                  <p>Two detergent</p>
+                  <p>Free wrap bags</p>
+                </div>
+                <button className='pickup-button'>Schedule Pickup</button>
+              </div>
+              <div className='pricing'>
+                <h2>PRO</h2>
+                <p className='_price'>2+ washes</p>
+                <p className='_loads'>Minimum of three loads of laundry</p>
+                <div className='_benefits'>
+                  <p>Discounted wash</p>
+                  <p>Detergents</p>
+                  <p>Free wrap bags</p>
+                </div>
+                <button className='pickup-button'>Schedule Pickup</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

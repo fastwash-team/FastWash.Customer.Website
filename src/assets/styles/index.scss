@@ -3,6 +3,19 @@ $wash-orange: #f2ca89;
 $wash-blue: #17499f;
 $wash-yellow: #f26419;
 
+.pickup-button {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  width: 100%;
+  height: 56px;
+  color: $wash-blue;
+  border: none;
+  letter-spacing: 0.28px;
+  border-radius: 8px;
+  background: linear-gradient(0deg, #fff 0%, #fff 100%), #fff;
+}
+
 .app-landing {
   p {
     color: $wash-black;
@@ -263,6 +276,7 @@ $wash-yellow: #f26419;
         display: flex;
         margin-top: 40px;
         column-gap: 24px;
+        margin-bottom: 120px;
 
         .service {
           border-radius: 16px;
@@ -303,6 +317,59 @@ $wash-yellow: #f26419;
             letter-spacing: 0.28px;
             border-radius: 8px;
             background: linear-gradient(0deg, #fff 0%, #fff 100%), #fff;
+          }
+        }
+      }
+    }
+
+    ._pricing {
+      h1 {
+        text-align: center;
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 600;
+        color: $wash-black;
+        margin-bottom: 40px;
+      }
+
+      .pricing-flex {
+        display: flex;
+        column-gap: 24px;
+
+        .pricing {
+          color: $wash-black;
+          border-radius: 16px;
+          background: #fbe8ca;
+          padding: 40px;
+          width: 100%;
+
+          h2 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 150%;
+            margin-bottom: 24px;
+          }
+
+          ._price {
+            color: #666;
+            font-size: 40px;
+            font-weight: 400;
+            margin-bottom: 24px;
+          }
+
+          ._loads {
+            margin-bottom: 24px;
+            font-size: 16px;
+            font-weight: 600;
+          }
+
+          ._benefits {
+            height: 115px;
+
+            p {
+              font-size: 14px;
+              font-weight: 400;
+            }
           }
         }
       }

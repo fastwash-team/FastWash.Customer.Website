@@ -100,6 +100,13 @@ $wash-yellow: #f26419;
           }
         }
       }
+
+      ._pricing {
+        .pricing-flex {
+          flex-flow: column;
+          row-gap: 24px;
+        }
+      }
     }
   }
 }
