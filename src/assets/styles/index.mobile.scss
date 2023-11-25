@@ -46,5 +46,59 @@ $wash-yellow: #f26419;
         }
       }
     }
+
+    &_section-two {
+      ._attributes {
+        &-body {
+          flex-flow: column;
+        }
+      }
+
+      .benefits-flex {
+        flex-flow: column;
+      }
+
+      .benefit {
+        p {
+          width: 100% !important;
+        }
+
+        img {
+          width: 47%;
+          bottom: 0px;
+        }
+
+        &:first-child {
+          img {
+            width: 27%;
+          }
+        }
+
+        &:last-child {
+          img {
+            width: 32%;
+          }
+        }
+      }
+
+      ._services {
+        .services-flex {
+          flex-flow: column;
+          row-gap: 24px;
+
+          .service {
+            text-align: center;
+            p {
+              width: 100%;
+              text-align: left;
+            }
+
+            button {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -1,5 +1,13 @@
 import React from "react";
 import FashWashLogo from "../assets/imgs/fashwash-logo.png";
+import Hanger from "../assets/svgs/hanger.svg";
+import AffordableWallet from "../assets/svgs/affordable-wallet.svg";
+import CustomerCare from "../assets/svgs/customer.svg";
+import LaundryBag from "../assets/svgs/laundry-bag.svg";
+import Motorcycle from "../assets/svgs/motorcycle.svg";
+import Calendar from "../assets/svgs/calender-half.svg";
+import CircleCalendar from "../assets/svgs/circle-calendar.svg";
+import CircleTruck from "../assets/svgs/circle-truck.svg";
 
 const Landing: React.FC = () => {
   return (
@@ -98,20 +106,116 @@ const Landing: React.FC = () => {
               </button>
             </div>
           </div>
-          {/* <div className='row app-landing_section-two'>
-            <div>
-              <h1>Wash, dry, fold and delivered on the same day</h1>
-              <div className='_attributes'>
-                <div>
-                  <p></p>
-                  <div className=''>
-                    <p>Affordable</p>
-                    <p>Get your laundry pickup for as low as N1000</p>
-                  </div>
+        </div>
+      </div>
+      <div className='app-landing_section-two'>
+        <div className='container'>
+          <div className='_attributes'>
+            <h1 className='attributes_head'>
+              Wash, dry, fold and delivered on the same day
+            </h1>
+            <div className='_attributes-body'>
+              <div className='_attributes-body-item'>
+                <p className='icon-wrapper'>
+                  <img src={AffordableWallet} />
+                </p>
+                <div className=''>
+                  <p className='header'>Affordable</p>
+                  <p className='info'>
+                    Get your laundry pickup for as low as N1000
+                  </p>
+                </div>
+              </div>
+              <div className='_attributes-body-item'>
+                <p className='icon-wrapper'>
+                  <img src={Hanger} />
+                </p>
+                <div className=''>
+                  <p className='header'>Convenience</p>
+                  <p className='info'>Tailored services for your comfort.</p>
+                </div>
+              </div>
+              <div className='_attributes-body-item'>
+                <p className='icon-wrapper'>
+                  <img src={CustomerCare} />
+                </p>
+                <div className=''>
+                  <p className='header'>Fast</p>
+                  <p className='info'>Same day delivery on all requests</p>
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
+          <div className='benefit'>
+            <h1>Pack up your Laundry</h1>
+            <p>Gather all your dirty laundry in a bag</p>
+            <p>
+              One wash load typically consists of either one duvet or
+              approximately 15 to 25 items of clothing.
+            </p>
+            <p>
+              We offer complimentary wrap bags with every order, or you can opt
+              to include a laundry bag in your laundry cycle.
+            </p>
+            <img src={LaundryBag} alt='' />
+          </div>
+          <div className='benefits-flex'>
+            <div className='benefit'>
+              <h1>Schedule Wash</h1>
+              <p>
+                Enter your address, choose your desired <br />
+                service, and the your most convenient <br /> schedule.
+              </p>
+              <p>
+                Select the number of washes and any
+                <br /> other laundry extras you may need.
+              </p>
+              <p>
+                Simple make payment, your fast and <br />
+                convenient laundry experience begins.
+              </p>
+              <img src={Calendar} alt='' />
+            </div>
+            <div className='benefit'>
+              <h1>Fast Cycle</h1>
+              <p>Pickup Laundry</p>
+              <p>Wash Laundry</p>
+              <p>Dry Laundry</p>
+              <p>Fold Laundry</p>
+              <p>Deliver Laundry the same day</p>
+              <img src={Motorcycle} alt='' />
+            </div>
+          </div>
+        </div>
+        <div className='container'>
+          <div className='_services'>
+            <h1>Our Services</h1>
+            <div className='services-flex'>
+              <div className='service'>
+                <img src={CircleCalendar} alt='' />
+                <h2>Pre Scheduled Wash</h2>
+                <p>Do you want affordable pickup and delivery fee?</p>
+                <p>
+                  Select a pre-scheduled time for your location and have your
+                  laundry, picked up, washed and delivered the same day.
+                </p>
+                <button>Schedule Bulk Pickup</button>
+              </div>
+              <div className='service'>
+                <img src={CircleTruck} alt='' />
+                <h2>Classic Wash</h2>
+                <p>
+                  Need your laundry picked up on your time? Looking for fast
+                  delivery? We've got you covered!
+                </p>
+                <p>
+                  We pick up your dirty laundry, get it washed, and deliver it
+                  on time, all on the same day.
+                </p>
+                <button>Schedule Pickup</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
