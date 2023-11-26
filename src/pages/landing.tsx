@@ -8,6 +8,8 @@ import Motorcycle from "../assets/svgs/motorcycle.svg";
 import Calendar from "../assets/svgs/calender-half.svg";
 import CircleCalendar from "../assets/svgs/circle-calendar.svg";
 import CircleTruck from "../assets/svgs/circle-truck.svg";
+import ReviewerOne from "../assets/svgs/customer-one.svg";
+import QuotesMark from "../assets/svgs/quotation.svg";
 
 const Landing: React.FC = () => {
   return (
@@ -253,6 +255,114 @@ const Landing: React.FC = () => {
                 <button className='pickup-button'>Schedule Pickup</button>
               </div>
             </div>
+          </div>
+        </div>
+        <div className='container'>
+          <div className='_extras'>
+            <h1>Extras</h1>
+            <div className='_extras-box'>
+              <div className='extra'>
+                <p>Softner</p>
+                <p>N250</p>
+              </div>
+              <div className='extra'>
+                <p>Bleach</p>
+                <p>N250</p>
+              </div>
+              <div className='extra'>
+                <p>Color Catcher</p>
+                <p>N300</p>
+              </div>
+              <div className='extra'>
+                <p>Stain remover</p>
+                <p>N500</p>
+              </div>
+              <div className='extra'>
+                <p>Laundry Bags(E)</p>
+                <p>N1500</p>
+              </div>
+              <div className='extra'>
+                <p>Laundry Bags(X)</p>
+                <p>N2500</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='container'>
+          <div className='_reviews'>
+            <h1>What our customers are saying</h1>
+            <div className='reviews-flex'>
+              <div className='review-container'>
+                <img
+                  src={QuotesMark}
+                  alt='quotemarks'
+                  className='quotes-mark'
+                />
+                <p>
+                  FastWash is incredibly efficient and reliable. Their services
+                  are truly express. I particularly like the scent of my laundry
+                  when they deliver. They mentioned it's due to the laundry
+                  softener they use. All in all, I'm quite pleased with their
+                  service.
+                </p>
+                <div className='reviewer'>
+                  <div className='info'>
+                    <span>Ayomide</span>
+                    <span>Architect</span>
+                  </div>
+                  <img src={ReviewerOne} alt='' />
+                </div>
+              </div>
+              <div className='review-container'>
+                <img
+                  src={QuotesMark}
+                  alt='quotemarks'
+                  className='quotes-mark'
+                />
+                <p>
+                  FastWash is incredibly efficient and reliable. Their services
+                  are truly express. I particularly like the scent of my laundry
+                  when they deliver. They mentioned it's due to the laundry
+                  softener they use. All in all, I'm quite pleased with their
+                  service.
+                </p>
+                <div className='reviewer'>
+                  <div className='info'>
+                    <span>Ayomide</span>
+                    <span>Architect</span>
+                  </div>
+                  <img src={ReviewerOne} alt='' />
+                </div>
+              </div>
+              <div className='review-container'>
+                <img
+                  src={QuotesMark}
+                  alt='quotemarks'
+                  className='quotes-mark'
+                />
+                <p>
+                  FastWash is incredibly efficient and reliable. Their services
+                  are truly express. I particularly like the scent of my laundry
+                  when they deliver. They mentioned it's due to the laundry
+                  softener they use. All in all, I'm quite pleased with their
+                  service.
+                </p>
+                <div className='reviewer'>
+                  <div className='info'>
+                    <span>Ayomide</span>
+                    <span>Architect</span>
+                  </div>
+                  <img src={ReviewerOne} alt='' />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='app-landing_section-three'>
+        <div className='container'>
+          <div className='_faqs'>
+            <h1>Your questions, answered</h1>
           </div>
         </div>
       </div>
