@@ -56,11 +56,21 @@ $wash-yellow: #f26419;
 
       .benefits-flex {
         flex-flow: column;
+        margin-bottom: 40px;
       }
 
       .benefit {
+        h1 {
+          margin-bottom: 24px;
+        }
         p {
           width: 100% !important;
+          margin-bottom: 18px !important;
+        }
+
+        li {
+          margin-bottom: 15px !important;
+          list-style: square;
         }
 
         img {
@@ -86,16 +96,27 @@ $wash-yellow: #f26419;
         .services-flex {
           flex-flow: column;
           row-gap: 24px;
+          margin-bottom: 40px;
 
           .service {
             text-align: center;
             p {
               width: 100%;
               text-align: left;
+              font-size: 17px;
             }
 
             button {
               width: 100%;
+            }
+
+            img {
+              width: 35%;
+            }
+
+            h2 {
+              font-size: 30px;
+              text-align: left;
             }
           }
         }
@@ -103,6 +124,15 @@ $wash-yellow: #f26419;
 
       ._pricing {
         .pricing-flex {
+          flex-flow: column;
+          row-gap: 24px;
+        }
+      }
+      ._extras {
+      }
+
+      ._reviews {
+        .reviews-flex {
           flex-flow: column;
           row-gap: 24px;
         }

@@ -180,11 +180,16 @@ const Landing: React.FC = () => {
             </div>
             <div className='benefit'>
               <h1>Fast Cycle</h1>
-              <p>Pickup Laundry</p>
+              <li>Pickup Laundry</li>
+              <li>Wash Laundry</li>
+              <li>Dry Laundry</li>
+              <li>Folded Laundry</li>
+              <li>Deliver Laundry the same day</li>
+              {/* <p>Pickup Laundry</p>
               <p>Wash Laundry</p>
               <p>Dry Laundry</p>
               <p>Fold Laundry</p>
-              <p>Deliver Laundry the same day</p>
+              <p>Deliver Laundry the same day</p> */}
               <img src={Motorcycle} alt='' />
             </div>
           </div>
@@ -363,6 +368,228 @@ const Landing: React.FC = () => {
         <div className='container'>
           <div className='_faqs'>
             <h1>Your questions, answered</h1>
+            <div className='row'>
+              <div className='col-md-6 col-sm-12'>
+                <div className='accordion' id='accordionExample'>
+                  <div className='accordion-item'>
+                    <button
+                      className='accordion-button'
+                      type='button'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#collapseOne'
+                      aria-expanded='false'
+                      aria-controls='collapseOne'
+                    >
+                      How do I schedule my first FastWash?
+                    </button>
+
+                    <div
+                      id='collapseOne'
+                      className='accordion-collapse collapse show'
+                      data-bs-parent='#accordionExample'
+                    >
+                      <div className='accordion-body'>
+                        <strong>
+                          This is the first item's accordion body.
+                        </strong>{" "}
+                        It is shown by default, until the collapse plugin adds
+                        the appropriate classes that we use to style each
+                        element. These classes control the overall appearance,
+                        as well as the showing and hiding via CSS transitions.
+                        You can modify any of this with custom CSS or overriding
+                        our default variables. It's also worth noting that just
+                        about any HTML can go within the{" "}
+                        <code>.accordion-body</code>, though the transition does
+                        limit overflow.
+                      </div>
+                    </div>
+                  </div>
+                  <div className='accordion-item'>
+                    <button
+                      className='accordion-button collapsed'
+                      type='button'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#collapseTwo'
+                      aria-expanded='false'
+                      aria-controls='collapseTwo'
+                    >
+                      What is the latest time to schedule for pickup for that
+                      day?
+                    </button>
+                    <div
+                      id='collapseTwo'
+                      className='accordion-collapse collapse'
+                      data-bs-parent='#accordionExample'
+                    >
+                      <div className='accordion-body'>
+                        <strong>
+                          This is the second item's accordion body.
+                        </strong>{" "}
+                        It is hidden by default.
+                      </div>
+                    </div>
+                  </div>
+                  <div className='accordion-item'>
+                    <button
+                      className='accordion-button collapsed'
+                      type='button'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#collapseThree'
+                      aria-expanded='false'
+                      aria-controls='collapseThree'
+                    >
+                      How many clothes are in one wash load?
+                    </button>
+                    <div
+                      id='collapseThree'
+                      className='accordion-collapse collapse'
+                      data-bs-parent='#accordionExample'
+                    >
+                      <div className='accordion-body'>
+                        <strong>
+                          This is the second item's accordion body.
+                        </strong>{" "}
+                        It is hidden by default.
+                      </div>
+                    </div>
+                  </div>{" "}
+                  <div className='accordion-item'>
+                    <button
+                      className='accordion-button collapsed'
+                      type='button'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#collapseFour'
+                      aria-expanded='false'
+                      aria-controls='collapseFour'
+                    >
+                      What is Softener?
+                    </button>
+                    <div
+                      id='collapseFour'
+                      className='accordion-collapse collapse'
+                      data-bs-parent='#accordionExample'
+                    >
+                      <div className='accordion-body'>
+                        <strong>
+                          This is the second item's accordion body.
+                        </strong>{" "}
+                        It is hidden by default.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='col-md-6 col-sm-12'>
+                <div className='accordion' id='accordionExample'>
+                  <div className='accordion-item'>
+                    <button
+                      className='accordion-button'
+                      type='button'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#collapseFive'
+                      aria-expanded='false'
+                      aria-controls='collapseFive'
+                    >
+                      Will I be notified prior to pick up or delivery of my
+                      laundry?
+                    </button>
+
+                    <div
+                      id='collapseFive'
+                      className='accordion-collapse collapse show'
+                      data-bs-parent='#accordionExample'
+                    >
+                      <div className='accordion-body'>
+                        <strong>
+                          This is the first item's accordion body.
+                        </strong>{" "}
+                        It is shown by default, until the collapse plugin adds
+                        the appropriate classes that we use to style each
+                        element. These classes control the overall appearance,
+                        as well as the showing and hiding via CSS transitions.
+                        You can modify any of this with custom CSS or overriding
+                        our default variables. It's also worth noting that just
+                        about any HTML can go within the{" "}
+                        <code>.accordion-body</code>, though the transition does
+                        limit overflow.
+                      </div>
+                    </div>
+                  </div>
+                  <div className='accordion-item'>
+                    <button
+                      className='accordion-button collapsed'
+                      type='button'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#collapseSix'
+                      aria-expanded='false'
+                      aria-controls='collapseSix'
+                    >
+                      How do I make payment for my wash?
+                    </button>
+                    <div
+                      id='collapseSix'
+                      className='accordion-collapse collapse'
+                      data-bs-parent='#accordionExample'
+                    >
+                      <div className='accordion-body'>
+                        <strong>
+                          This is the second item's accordion body.
+                        </strong>{" "}
+                        It is hidden by default.
+                      </div>
+                    </div>
+                  </div>
+                  <div className='accordion-item'>
+                    <button
+                      className='accordion-button collapsed'
+                      type='button'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#collapse7'
+                      aria-expanded='false'
+                      aria-controls='collapse7'
+                    >
+                      How does laundry service work?
+                    </button>
+                    <div
+                      id='collapse7'
+                      className='accordion-collapse collapse'
+                      data-bs-parent='#accordionExample'
+                    >
+                      <div className='accordion-body'>
+                        <strong>
+                          This is the second item's accordion body.
+                        </strong>{" "}
+                        It is hidden by default.
+                      </div>
+                    </div>
+                  </div>
+                  <div className='accordion-item'>
+                    <button
+                      className='accordion-button collapsed'
+                      type='button'
+                      data-bs-toggle='collapse'
+                      data-bs-target='#collapse8'
+                      aria-expanded='false'
+                      aria-controls='collapse8'
+                    >
+                      What if I am not at home at time of delivery ?
+                    </button>
+                    <div
+                      id='collapse8'
+                      className='accordion-collapse collapse'
+                      data-bs-parent='#accordionExample'
+                    >
+                      <div className='accordion-body'>
+                        <strong>
+                          This is the second item's accordion body.
+                        </strong>{" "}
+                        It is hidden by default.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
