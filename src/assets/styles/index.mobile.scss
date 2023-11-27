@@ -93,6 +93,9 @@ $wash-yellow: #f26419;
       }
 
       ._services {
+        h1 {
+          font-size: 33px;
+        }
         .services-flex {
           flex-flow: column;
           row-gap: 24px;
@@ -123,18 +126,46 @@ $wash-yellow: #f26419;
       }
 
       ._pricing {
+        h1 {
+          font-size: 33px;
+        }
         .pricing-flex {
           flex-flow: column;
           row-gap: 24px;
+
+          .pricing {
+            ._benefits {
+              height: 90px;
+            }
+          }
         }
       }
       ._extras {
       }
 
       ._reviews {
+        margin-top: 90px;
+
+        h1 {
+          font-size: 33px;
+        }
         .reviews-flex {
           flex-flow: column;
           row-gap: 24px;
+        }
+      }
+    }
+
+    &_section-three {
+      ._faqs {
+        h1 {
+          padding-top: 60px;
+        }
+      }
+
+      ._current-location {
+        div {
+          column-gap: 20px;
         }
       }
     }

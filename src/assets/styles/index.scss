@@ -490,5 +490,30 @@ $wash-yellow: #f26419;
         }
       }
     }
+
+    ._current-location {
+      margin-top: 100px;
+      color: white;
+      h1 {
+        text-align: center;
+      }
+
+      div {
+        display: flex;
+        border-radius: 16px;
+        border: 1px solid #1b2e40;
+        background: #021024;
+        justify-content: center;
+        column-gap: 120px;
+        height: 83px;
+        align-items: center;
+        p {
+          color: white;
+          font-weight: 600;
+          font-size: 16px;
+          margin: none;
+        }
+      }
+    }
   }
 }

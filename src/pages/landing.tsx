@@ -587,6 +587,16 @@ const Landing: React.FC = () => {
             </div>
           </div>
         </div>
+        <div className='container'>
+          <div className='_current-location'>
+            <h1>Currently live in</h1>
+            <div>
+              <p>Yaba</p>
+              <p>Gbagada</p>
+              <p>Surulere</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
