@@ -180,16 +180,11 @@ const Landing: React.FC = () => {
             </div>
             <div className='benefit'>
               <h1>Fast Cycle</h1>
-              <li>Pickup Laundry</li>
-              <li>Wash Laundry</li>
-              <li>Dry Laundry</li>
-              <li>Folded Laundry</li>
-              <li>Deliver Laundry the same day</li>
-              {/* <p>Pickup Laundry</p>
+              <p>Pickup Laundry</p>
               <p>Wash Laundry</p>
               <p>Dry Laundry</p>
               <p>Fold Laundry</p>
-              <p>Deliver Laundry the same day</p> */}
+              <p>Deliver Laundry the same day</p>
               <img src={Motorcycle} alt='' />
             </div>
           </div>
@@ -548,7 +543,7 @@ const Landing: React.FC = () => {
                       aria-expanded='false'
                       aria-controls='collapse7'
                     >
-                      How does laundry service work?
+                      How many clothes are in one wash load?
                     </button>
                     <div
                       id='collapse7'
@@ -562,7 +557,7 @@ const Landing: React.FC = () => {
                         It is hidden by default.
                       </div>
                     </div>
-                  </div>
+                  </div>{" "}
                   <div className='accordion-item'>
                     <button
                       className='accordion-button collapsed'
@@ -572,7 +567,7 @@ const Landing: React.FC = () => {
                       aria-expanded='false'
                       aria-controls='collapse8'
                     >
-                      What if I am not at home at time of delivery ?
+                      What is Softener?
                     </button>
                     <div
                       id='collapse8'
