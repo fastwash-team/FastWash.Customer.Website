@@ -35,6 +35,11 @@ $wash-yellow: #f26419;
     height: 100dvh;
     background-size: cover;
 
+    .navbar-toggler-icon {
+      width: 1em;
+      height: 1em;
+    }
+
     &_header-container {
       padding-top: 24px;
       align-items: center;
