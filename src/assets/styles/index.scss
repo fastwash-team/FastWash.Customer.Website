@@ -493,6 +493,7 @@ $wash-yellow: #f26419;
 
     ._current-location {
       margin-top: 100px;
+      padding-bottom: 77px;
       color: white;
       h1 {
         text-align: center;
@@ -511,7 +512,36 @@ $wash-yellow: #f26419;
           color: white;
           font-weight: 600;
           font-size: 16px;
-          margin: none;
+          margin: 0;
+        }
+      }
+    }
+
+    ._footer {
+      border-top: 1px solid #041b3d;
+      padding: 120px 90px;
+      padding-bottom: 180px;
+
+      &-elements {
+        display: grid;
+        grid-template-columns: 150px 470px 555px 0px;
+        align-items: baseline;
+        color: #fafafa;
+        font-size: 14px;
+        font-weight: 500;
+        p {
+          color: #fff;
+          margin-bottom: 0;
+        }
+        img {
+          width: 116px;
+          height: 56px;
+        }
+        ul {
+          list-style: none;
+          display: flex;
+          gap: 16px;
+          color: #5d8ef9;
         }
       }
     }

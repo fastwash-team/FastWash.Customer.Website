@@ -168,6 +168,19 @@ $wash-yellow: #f26419;
           column-gap: 20px;
         }
       }
+
+      ._footer {
+        padding: 40px 20px;
+        &-elements {
+          display: flex;
+          flex-flow: column;
+          gap: 25px;
+
+          ul {
+            padding: 0;
+          }
+        }
+      }
     }
   }
 }

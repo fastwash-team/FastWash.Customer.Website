@@ -1,5 +1,6 @@
 import React from "react";
 import FashWashLogo from "../assets/imgs/fashwash-logo.png";
+import FashWashTransparent from "../assets/imgs/fash-wash-transparent.png";
 import Hanger from "../assets/svgs/hanger.svg";
 import AffordableWallet from "../assets/svgs/affordable-wallet.svg";
 import CustomerCare from "../assets/svgs/customer.svg";
@@ -9,6 +10,7 @@ import Calendar from "../assets/svgs/calender-half.svg";
 import CircleCalendar from "../assets/svgs/circle-calendar.svg";
 import CircleTruck from "../assets/svgs/circle-truck.svg";
 import ReviewerOne from "../assets/svgs/customer-one.svg";
+import ReviewerTwo from "../assets/svgs/customer-two.svg";
 import QuotesMark from "../assets/svgs/quotation.svg";
 
 const Landing: React.FC = () => {
@@ -16,26 +18,6 @@ const Landing: React.FC = () => {
     <div className='app-landing'>
       <div className='app-landing_section-one'>
         <div className='container'>
-          {/* <div className='row app-landing_section-one_header-container'>
-            <div className='col-1'>
-              <img src={FashWashLogo} alt='fash-wash' />
-            </div>
-            <div className='col-8'>
-              <ul>
-                <li>How it works</li>
-                <li>Our Services</li>
-                <li>Pricing</li>
-                <li>Customers</li>
-                <li>FAQs</li>
-                <li>Locations</li>
-              </ul>
-            </div>
-            <div className='col-3 login-section'>
-              <p>Login</p>
-              <button>Schedule Now</button>
-            </div>
-          </div> */}
-
           <nav className='navbar navbar-expand-lg app-landing_section-one_header-container'>
             <a className='navbar-brand' href='#'>
               <img src={FashWashLogo} alt='fash-wash' />
@@ -320,18 +302,17 @@ const Landing: React.FC = () => {
                   className='quotes-mark'
                 />
                 <p>
-                  FastWash is incredibly efficient and reliable. Their services
-                  are truly express. I particularly like the scent of my laundry
-                  when they deliver. They mentioned it's due to the laundry
-                  softener they use. All in all, I'm quite pleased with their
-                  service.
+                  My first time using FastWash and I tried the classic wash
+                  option. The experience was superb, I was impressed with the
+                  speed of their service. I had my laundry back in less than 3
+                  hours, all neatly folded.
                 </p>
                 <div className='reviewer'>
                   <div className='info'>
-                    <span>Ayomide</span>
-                    <span>Architect</span>
+                    <span>Yusuf Hakeem</span>
+                    <span>Chef</span>
                   </div>
-                  <img src={ReviewerOne} alt='' />
+                  <img src={ReviewerTwo} alt='' />
                 </div>
               </div>
               <div className='review-container'>
@@ -341,16 +322,15 @@ const Landing: React.FC = () => {
                   className='quotes-mark'
                 />
                 <p>
-                  FastWash is incredibly efficient and reliable. Their services
-                  are truly express. I particularly like the scent of my laundry
-                  when they deliver. They mentioned it's due to the laundry
-                  softener they use. All in all, I'm quite pleased with their
-                  service.
+                  FastWash is a lifesaver! As a busy entrepreneur, I barely have
+                  time for laundry. I am so relieved that FastWash takes care of
+                  the most time-consuming chore for me, allowing me to save
+                  time, money, and not worry about the weather.
                 </p>
                 <div className='reviewer'>
                   <div className='info'>
-                    <span>Ayomide</span>
-                    <span>Architect</span>
+                    <span>David Olamide</span>
+                    <span>Entrepreneur</span>
                   </div>
                   <img src={ReviewerOne} alt='' />
                 </div>
@@ -380,13 +360,13 @@ const Landing: React.FC = () => {
 
                     <div
                       id='collapseOne'
-                      className='accordion-collapse collapse show'
+                      className='accordion-collapse collapse'
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
                         <strong>
                           This is the first item's accordion body.
-                        </strong>{" "}
+                        </strong>
                         It is shown by default, until the collapse plugin adds
                         the appropriate classes that we use to style each
                         element. These classes control the overall appearance,
@@ -447,7 +427,7 @@ const Landing: React.FC = () => {
                         It is hidden by default.
                       </div>
                     </div>
-                  </div>{" "}
+                  </div>
                   <div className='accordion-item'>
                     <button
                       className='accordion-button collapsed'
@@ -491,7 +471,7 @@ const Landing: React.FC = () => {
 
                     <div
                       id='collapseFive'
-                      className='accordion-collapse collapse show'
+                      className='accordion-collapse collapse'
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
@@ -594,6 +574,37 @@ const Landing: React.FC = () => {
               <p>Yaba</p>
               <p>Gbagada</p>
               <p>Surulere</p>
+            </div>
+          </div>
+        </div>
+        <div className='_footer'>
+          <div className='container'>
+            <div className='_footer-elements'>
+              <img src={FashWashTransparent} alt='' />
+              <p>FastWash Technologies Nigeria Limited</p>
+              <a>Terms & Conditions</a>
+              <ul>
+                <li>
+                  <a>
+                    <i className='bi bi-linkedin'></i>
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    <i className='bi bi-facebook'></i>
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    <i className='bi bi-twitter'></i>
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    <i className='bi bi-instagram'></i>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
