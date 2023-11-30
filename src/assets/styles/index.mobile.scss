@@ -18,9 +18,12 @@ $wash-yellow: #f26419;
       }
     }
     &_section-one {
+      height: 100%;
       &_header-container {
         ul {
           font-size: 16px;
+          align-items: baseline;
+          padding: 0 16px;
         }
         .login-section {
           p {
@@ -28,12 +31,15 @@ $wash-yellow: #f26419;
           }
           flex-flow: column;
           row-gap: 11px;
+          margin-top: 30px;
+          align-items: flex-start;
+          padding: 0 16px;
         }
       }
       &_body {
+        margin-top: 15px;
         ._location {
           h1 {
-            // width: calc(100% + 12em);
             width: 350px;
             font-size: 46px;
           }
@@ -42,6 +48,7 @@ $wash-yellow: #f26419;
           }
           &-schedule-button {
             width: calc(100% + 13.7em);
+            margin-bottom: 35px;
           }
         }
       }
