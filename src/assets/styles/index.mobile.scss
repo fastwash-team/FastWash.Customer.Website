@@ -178,8 +178,8 @@ $wash-yellow: #f26419;
       }
 
       ._current-location {
-        flex-wrap: wrap;
         div {
+          flex-wrap: wrap;
           column-gap: 20px;
         }
       }
