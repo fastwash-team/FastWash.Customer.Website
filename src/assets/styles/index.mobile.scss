@@ -157,7 +157,8 @@ $wash-yellow: #f26419;
       }
 
       ._reviews {
-        margin-top: 90px;
+        margin-top: 60px;
+        padding-bottom: 60px;
 
         h1 {
           font-size: 33px;
@@ -177,6 +178,7 @@ $wash-yellow: #f26419;
       }
 
       ._current-location {
+        flex-wrap: wrap;
         div {
           column-gap: 20px;
         }
