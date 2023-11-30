@@ -150,6 +150,10 @@ $wash-yellow: #f26419;
         }
       }
       ._extras {
+        &-box {
+          flex-wrap: wrap;
+          gap: 30px;
+        }
       }
 
       ._reviews {
