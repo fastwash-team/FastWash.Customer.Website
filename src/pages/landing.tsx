@@ -93,8 +93,9 @@ const Landing: React.FC = () => {
         </div>
       </div>
       <div className='app-landing_section-two'>
-        <div className='container'>
-          <div className='_attributes'>
+        {/* <div className='container'> */}
+        <div className='_attributes'>
+          <div className='container'>
             <h1 className='attributes_head'>
               Wash, dry, fold and delivered on the same day
             </h1>
@@ -130,6 +131,8 @@ const Landing: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className='container'>
           <div className='benefit'>
             <h1>Pack up your Laundry</h1>
             <p>Gather all your dirty laundry in a bag</p>
@@ -162,15 +165,16 @@ const Landing: React.FC = () => {
             </div>
             <div className='benefit'>
               <h1>Fast Cycle</h1>
-              <p>Pickup Laundry</p>
-              <p>Wash Laundry</p>
-              <p>Dry Laundry</p>
-              <p>Fold Laundry</p>
-              <p>Deliver Laundry the same day</p>
+              <p className='check-icon'>Pickup Laundry</p>
+              <p className='check-icon'>Wash Laundry</p>
+              <p className='check-icon'>Dry Laundry</p>
+              <p className='check-icon'>Fold Laundry</p>
+              <p className='check-icon'>Deliver Laundry the same day</p>
               <img src={Motorcycle} alt='' />
             </div>
           </div>
         </div>
+
         <div className='container'>
           <div className='_services'>
             <h1>Our Services</h1>
@@ -574,6 +578,9 @@ const Landing: React.FC = () => {
               <p>Yaba</p>
               <p>Gbagada</p>
               <p>Surulere</p>
+              <p>Ikoyi</p>
+              <p>VI</p>
+              <p>Lekki Phase I</p>
             </div>
           </div>
         </div>
