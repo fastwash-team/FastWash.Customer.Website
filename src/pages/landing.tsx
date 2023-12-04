@@ -15,6 +15,8 @@ import QuotesMark from "../assets/svgs/quotation.svg";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 
+console.log("proces", process.env.GOOGLE_LOCATION_KEY);
+
 const Landing: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const Landing: React.FC = () => {
 
   useEffect(() => {
     const googleScript = document.createElement("script");
-    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTa4JnSNnsj0FmSDgOFr4ESmTUUUp1kE&libraries=places`;
+    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=''&libraries=places`;
     googleScript.async = true;
     googleScript.defer = true;
 

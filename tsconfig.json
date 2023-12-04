@@ -3,7 +3,8 @@
     "target": "es5",
     "types": [
       "*.png",
-      "@types/googlemaps"
+      "@types/googlemaps",
+      "node"
     ],
     "lib": [
       "dom",
