@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import FashWashTransparent from "../assets/imgs/fash-wash-transparent.png";
 import Hanger from "../assets/svgs/hanger.svg";
@@ -12,8 +12,69 @@ import CircleTruck from "../assets/svgs/circle-truck.svg";
 import ReviewerOne from "../assets/svgs/customer-one.svg";
 import ReviewerTwo from "../assets/svgs/customer-two.svg";
 import QuotesMark from "../assets/svgs/quotation.svg";
+import { useNavigate } from "react-router-dom";
+import { TypeAnimation } from "react-type-animation";
 
 const Landing: React.FC = () => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
+  const [address, setAddress] = useState<string>("");
+  const locations = [
+    "Yaba",
+    1500,
+    "Gbagada",
+    1500,
+    "Surulere",
+    1500,
+    "Ikoyi",
+    1500,
+    "VI",
+    1500,
+    "Lekki Phase I",
+    1500,
+  ];
+
+  useEffect(() => {
+    const googleScript = document.createElement("script");
+    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTa4JnSNnsj0FmSDgOFr4ESmTUUUp1kE&libraries=places`;
+    googleScript.async = true;
+    googleScript.defer = true;
+
+    googleScript.onload = () => {
+      // Initialize Autocomplete after Google Maps script is loaded
+      if (inputRef.current) {
+        const autocomplete = new window.google.maps.places.Autocomplete(
+          inputRef.current,
+          {
+            types: ["geocode"],
+            bounds: new window.google.maps.LatLngBounds(
+              new window.google.maps.LatLng(6.5047, 3.3746), // Yaba, Nigeria - Southwest coordinates
+              new window.google.maps.LatLng(6.5385, 3.3987) // Yaba, Nigeria - Northeast coordinates
+            ),
+            componentRestrictions: { country: "NG" },
+          }
+        );
+
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          console.log("Selected Place:", place);
+          setAddress(place.formatted_address || "");
+        });
+      }
+    };
+
+    document.head.appendChild(googleScript);
+
+    return () => {
+      // Cleanup: remove the script when the component unmounts
+      document.head.removeChild(googleScript);
+    };
+  }, []); // Empty dependency array ensures that this useEffect runs only once on mount
+
+  const handleSchedulePickup = () => {
+    navigate("/schedule-pickup", { state: { address } });
+  };
+
   return (
     <div className='app-landing'>
       <div className='app-landing_section-one'>
@@ -64,7 +125,15 @@ const Landing: React.FC = () => {
             <div className='col-6 _location'>
               <div className='_location-info'>
                 <i className='bi bi-geo-alt'></i>
-                <p>Live in Yaba</p>
+                <p>
+                  Live in{" "}
+                  <TypeAnimation
+                    sequence={locations}
+                    speed={40}
+                    repeat={Infinity}
+                    cursor={false}
+                  />
+                </p>
               </div>
               <h1>
                 Affordable laundry service in less than <span>24 hours</span>
@@ -78,6 +147,7 @@ const Landing: React.FC = () => {
                   <i className='bi bi-geo-alt'></i>
                 </span>
                 <input
+                  ref={inputRef}
                   type='text'
                   className='form-control _location-input-wrapper-inputbox'
                   placeholder='Enter Pick up location'
@@ -85,7 +155,10 @@ const Landing: React.FC = () => {
                   aria-describedby='addon-wrapping'
                 />
               </div>
-              <button className='_location-schedule-button'>
+              <button
+                className='_location-schedule-button'
+                onClick={handleSchedulePickup}
+              >
                 Schedule Pickup
               </button>
             </div>

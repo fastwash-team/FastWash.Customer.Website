@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "es5",
     "types": [
-      "*.png"
+      "*.png",
+      "@types/googlemaps"
     ],
     "lib": [
       "dom",
