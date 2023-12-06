@@ -9,8 +9,8 @@ import { CLASSIC_WASH, PRESCHEDULED_WASH } from "../utils";
 export function SchedulePickup() {
   const location = useLocation();
   const [selectedWashType, setWashType] = useState(PRESCHEDULED_WASH);
-  const [pickupRange, setPickupRange] = useState("09:00 - 10:00");
-  const [step, setStep] = useState(1);
+  const [pickupRange] = useState("09:00 - 10:00");
+  const [step] = useState(1);
   console.log({ location });
   return (
     <div className='schedule-pickup'>
