@@ -16,6 +16,14 @@ $wash-yellow: #f26419;
   background: linear-gradient(0deg, #fff 0%, #fff 100%), #fff;
 }
 
+input,
+select {
+  height: 56px;
+}
+label {
+  margin-bottom: 8px;
+}
+
 .check-icon::before {
   content: "\f26e"; /* Unicode for the check mark icon in Font Awesome */
   font-family: "bootstrap-icons";
@@ -633,7 +641,124 @@ $wash-yellow: #f26419;
     }
 
     &__steps-view {
-      display: flex;
+      &-render {
+        h2 {
+          font-size: 36px;
+          color: $wash-black;
+          font-weight: 600;
+        }
+        p {
+          color: #666;
+          font-size: 16px;
+          font-weight: 400;
+        }
+
+        .__options {
+          display: flex;
+          gap: 24px;
+          cursor: pointer;
+          .option {
+            width: 288px;
+            border-radius: 8px;
+            border: 2px solid #d9d9d9;
+            background: #fff;
+            padding: 24px;
+
+            &.active {
+              border: 2px solid #efaf33;
+            }
+
+            .imgs {
+              display: flex;
+              justify-content: space-between;
+
+              img {
+                width: 24px;
+                height: 24px;
+              }
+
+              .option-img {
+                width: 56px;
+                height: 56px;
+              }
+            }
+
+            h3 {
+              font-size: 20px;
+              font-weight: 600;
+              margin-top: 24px;
+              margin-bottom: 16px;
+            }
+
+            p {
+              color: #666;
+              font-size: 14px;
+              font-weight: 300;
+              line-height: 150%;
+            }
+          }
+        }
+
+        .input-group {
+          input {
+            border-left: 0;
+            padding-left: 0;
+          }
+          .input-group-text {
+            background: white;
+          }
+        }
+
+        label {
+          font-size: 14px;
+          font-weight: 500;
+        }
+        select {
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .etd {
+          display: flex;
+          border-radius: 8px;
+          background: #d6e7ff;
+          padding: 16px;
+          gap: 8px;
+          align-items: center;
+          i {
+            font-size: 24px;
+          }
+          p {
+            margin-bottom: 0;
+            color: $wash-black;
+            font-size: 14px;
+            font-weight: 300;
+
+            b {
+              font-weight: 600;
+            }
+          }
+        }
+
+        textarea {
+          height: 120px;
+          &::placeholder {
+            color: #d9d9d9;
+            font-size: 14px;
+            font-weight: 400;
+          }
+        }
+
+        .next-button {
+          border-radius: 8px;
+          border: none;
+          background: #17499f;
+          color: #fafafa;
+          font-size: 14px;
+          font-weight: 700;
+          width: 100%;
+          padding: 19px;
+        }
+      }
     }
   }
 }

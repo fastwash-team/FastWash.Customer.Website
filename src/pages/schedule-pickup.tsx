@@ -32,8 +32,15 @@ export function SchedulePickup() {
           </div>
         </div>
         <div className='schedule-pickup__body__steps-view'>
-          <PickupDelivery />
-          <div className='schedule-pickup__body__steps-summary'></div>
+          <div className='row'>
+            <div className='col-md-5 col-sm-12'>
+              <PickupDelivery />
+            </div>
+            <div className='col-2'></div>
+            <div className='col-md-5 col-sm-12'>
+              <div className='schedule-pickup__body__steps-summary'></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
