@@ -2,18 +2,27 @@ import React from "react";
 import CircleCalendar from "../../assets/svgs/1.svg";
 import CircleTruck from "../../assets/svgs/2.svg";
 import CheckedRadioButton from "../../assets/svgs/input-radio-checked.svg";
-import { supportedAreas } from "../../utils";
+import { CLASSIC_WASH, PRESCHEDULED_WASH, supportedAreas } from "../../utils";
+import { PickupDeliveryProps } from "../../utils/types";
 
-export function PickupDelivery() {
+export function PickupDelivery({
+  selectedWashType,
+  changeWashType,
+}: PickupDeliveryProps) {
+  const isWashPrescheduled = selectedWashType === PRESCHEDULED_WASH;
+  const isClassicWash = selectedWashType === CLASSIC_WASH;
   return (
     <div className='schedule-pickup__body__steps-view-render'>
       <h2>Pick up & Delivery</h2>
       <p>Where and how are we picking up your clothes?</p>
       <div className='__options'>
-        <div className='option active'>
+        <div
+          className={`option ${isWashPrescheduled && "active"}`}
+          onClick={() => changeWashType(PRESCHEDULED_WASH)}
+        >
           <div className='imgs'>
             <img src={CircleCalendar} alt='' className='option-img' />
-            <img src={CheckedRadioButton} alt='' />
+            {isWashPrescheduled && <img src={CheckedRadioButton} alt='' />}
           </div>
           <h3>Pre-Scheduled Wash</h3>
           <p>
@@ -21,10 +30,13 @@ export function PickupDelivery() {
             based on your location during the week.
           </p>
         </div>
-        <div className='option'>
+        <div
+          className={`option ${isClassicWash && "active"}`}
+          onClick={() => changeWashType(CLASSIC_WASH)}
+        >
           <div className='imgs'>
             <img src={CircleTruck} alt='' className='option-img' />
-            {false && <img src={CheckedRadioButton} alt='' />}
+            {isClassicWash && <img src={CheckedRadioButton} alt='' />}
           </div>
           <h3>Classic Wash</h3>
           <p>
@@ -52,7 +64,7 @@ export function PickupDelivery() {
         <label>Choose area</label>
         <select className='form-select' aria-label='Default select example'>
           {supportedAreas.map((el) => (
-            <option>{el}</option>
+            <option key={el}>{el}</option>
           ))}
         </select>
       </div>
@@ -61,9 +73,11 @@ export function PickupDelivery() {
           <div className='col-md-6 col-sm-12'>
             <label>Choose Day</label>
             <select className='form-select' aria-label='Default select example'>
-              {["Today", "Tomorrow", "Next Tomorrow"].map((el) => (
-                <option>{el}</option>
-              ))}
+              {["Today", "Tomorrow", "Wed, 18th Oct", "Thu, 19th Oct"].map(
+                (el, i) => (
+                  <option key={i}>{el}</option>
+                )
+              )}
             </select>
           </div>
           <div className='col-md-6 col-sm-12'>
@@ -91,8 +105,6 @@ export function PickupDelivery() {
           id='floatingTextarea'
         />
       </div>
-
-      <button className='mt-4 next-button'>Next</button>
     </div>
   );
 }

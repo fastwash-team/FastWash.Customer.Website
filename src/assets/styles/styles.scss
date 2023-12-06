@@ -3,6 +3,10 @@ $wash-orange: #f2ca89;
 $wash-blue: #17499f;
 $wash-yellow: #f26419;
 
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
 .pickup-button {
   margin-top: 16px;
   font-size: 14px;
@@ -615,6 +619,10 @@ label {
         gap: 121px;
         padding: 40px 0;
         margin-bottom: 40px;
+
+        &-mobile {
+          display: none;
+        }
       }
       &-tracker {
         display: flex;
@@ -747,16 +755,73 @@ label {
             font-weight: 400;
           }
         }
+      }
 
-        .next-button {
-          border-radius: 8px;
-          border: none;
-          background: #17499f;
-          color: #fafafa;
-          font-size: 14px;
-          font-weight: 700;
-          width: 100%;
-          padding: 19px;
+      .next-button {
+        border-radius: 8px;
+        border: none;
+        background: #17499f;
+        color: #fafafa;
+        font-size: 14px;
+        font-weight: 700;
+        width: 41%;
+        padding: 19px;
+      }
+    }
+
+    &__steps-summary {
+      border-radius: 8px;
+      background: #fafafa;
+      padding: 24px;
+
+      h3 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #020d1c;
+        margin-bottom: 24px;
+      }
+
+      .address-block {
+        border-bottom: 1px solid #d9d9d9;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+        p {
+          margin-bottom: 12px;
+          color: #666;
+          font-size: 16px;
+          font-weight: 400;
+        }
+        b {
+          color: #020d1c;
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+
+      .billing-items {
+        .item {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 24px;
+        }
+      }
+
+      .total {
+        border-radius: 8px;
+        background: #d6e7ff;
+        display: flex;
+        padding: 24px 16px;
+        justify-content: space-between;
+        font-size: 24px;
+        color: #020d1c;
+        margin-top: 100px;
+
+        span {
+          font-weight: 400;
+        }
+        b {
+          font-weight: 600;
         }
       }
     }

@@ -38,7 +38,7 @@ const Landing: React.FC = () => {
 
   useEffect(() => {
     const googleScript = document.createElement("script");
-    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=''&libraries=places`;
+    googleScript.src = `https://maps.googleapis.com/maps/api/js?key='AIzaSyCFTa4JnSNnsj0FmSDgOFr4ESmTUUUp1kE'&libraries=places`;
     googleScript.async = true;
     googleScript.defer = true;
 
@@ -49,10 +49,6 @@ const Landing: React.FC = () => {
           inputRef.current,
           {
             types: ["geocode"],
-            bounds: new window.google.maps.LatLngBounds(
-              new window.google.maps.LatLng(6.5047, 3.3746), // Yaba, Nigeria - Southwest coordinates
-              new window.google.maps.LatLng(6.5385, 3.3987) // Yaba, Nigeria - Northeast coordinates
-            ),
             componentRestrictions: { country: "NG" },
           }
         );
@@ -124,7 +120,7 @@ const Landing: React.FC = () => {
             </div>
           </nav>
           <div className='row app-landing_section-one_body'>
-            <div className='col-6 _location'>
+            <div className='col-md-6 col-sm-12 _location'>
               <div className='_location-info'>
                 <i className='bi bi-geo-alt'></i>
                 <p>

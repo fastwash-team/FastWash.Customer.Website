@@ -40,14 +40,14 @@ $wash-yellow: #f26419;
         margin-top: 15px;
         ._location {
           h1 {
-            width: 350px;
+            width: 340px;
             font-size: 46px;
           }
           &-input-wrapper {
-            width: calc(100% + 12em);
+            width: 100%;
           }
           &-schedule-button {
-            width: calc(100% + 13.7em);
+            width: 100%;
             margin-bottom: 35px;
           }
         }
@@ -58,8 +58,12 @@ $wash-yellow: #f26419;
       padding-top: 40px;
       ._attributes {
         margin-bottom: 30px;
+        h1 {
+          margin-bottom: 30px;
+        }
         &-body {
           flex-flow: column;
+          gap: 14px;
         }
       }
 
@@ -203,6 +207,116 @@ $wash-yellow: #f26419;
           ul {
             padding: 0;
           }
+        }
+      }
+    }
+  }
+
+  .schedule-pickup {
+    &__header {
+      padding: 16px;
+      margin-bottom: 0;
+
+      nav {
+        width: 100%;
+        padding: 0;
+
+        img {
+          width: 60%;
+        }
+
+        .navbar-toggler {
+          width: fit-content;
+          background: none;
+          border: none;
+        }
+      }
+    }
+    &__body {
+      padding: 0 16px;
+
+      &__flow-tracker-wrapper {
+        display: none;
+      }
+
+      &__flow-tracker-wrapper-mobile {
+        display: flex;
+        padding: 16px;
+        background: #fafafa;
+        justify-content: space-between;
+        font-size: 12px;
+        margin-bottom: 24px;
+
+        i {
+          margin-right: 8px;
+        }
+
+        p {
+          margin-bottom: 0;
+          color: $wash-black;
+          font-weight: 600;
+
+          &.step-count {
+            color: #758e4f;
+          }
+        }
+      }
+
+      &__steps-view {
+        .row {
+          gap: 24px;
+        }
+        &-render {
+          h2 {
+            font-size: 24px;
+          }
+          p {
+            font-size: 14px;
+          }
+          .__options {
+            flex-flow: column;
+
+            .option {
+              width: 100%;
+              padding: 16px;
+
+              h3 {
+                font-size: 16px;
+                margin-top: 16px;
+                margin-bottom: 8px;
+              }
+              p {
+                font-size: 13px;
+              }
+            }
+          }
+        }
+
+        .next-button {
+          width: 100%;
+        }
+      }
+
+      &__steps-summary {
+        h3 {
+          font-size: 16px;
+        }
+
+        .address-block {
+          p,
+          b {
+            font-size: 14px;
+          }
+        }
+
+        .billing-items {
+          .item {
+            font-size: 14px;
+          }
+        }
+
+        .total {
+          font-size: 16px;
         }
       }
     }
