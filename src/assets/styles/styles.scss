@@ -774,6 +774,10 @@ label {
       background: #fafafa;
       padding: 24px;
 
+      &_mobile {
+        display: none;
+      }
+
       h3 {
         font-size: 24px;
         font-weight: 600;

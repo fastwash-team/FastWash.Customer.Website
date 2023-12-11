@@ -298,25 +298,80 @@ $wash-yellow: #f26419;
       }
 
       &__steps-summary {
-        h3 {
-          font-size: 16px;
+        display: none;
+      }
+
+      &__steps-summary_mobile {
+        display: block;
+        background: #fafafa;
+        border-radius: 8px;
+        height: 100%;
+
+        .accordion {
+          &-item {
+            background: none;
+            border: none;
+
+            &:focus-visible {
+              outline: none;
+            }
+
+            .accordion-header {
+              button {
+                background: none;
+                box-shadow: none;
+                color: #020d1c;
+                font-size: 16px;
+                font-weight: 600;
+                &:focus {
+                  outline: none;
+                  box-shadow: none;
+                }
+              }
+            }
+          }
+
+          .accordion-body {
+            padding-top: 0;
+          }
         }
 
         .address-block {
+          border-bottom: 1px solid #d9d9d9;
+          padding-bottom: 16px;
+          margin-bottom: 16px;
           p,
           b {
+            margin-bottom: 8px;
+            color: #666;
+            font-weight: 400;
             font-size: 14px;
+          }
+          b {
+            color: #020d1c;
+            font-weight: 600;
           }
         }
 
         .billing-items {
           .item {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
             font-size: 14px;
+            margin-bottom: 16px;
           }
         }
 
         .total {
-          font-size: 16px;
+          border-radius: 8px;
+          background: #d6e7ff;
+          display: flex;
+          padding: 24px 16px;
+          justify-content: space-between;
+          font-size: 14px;
+          color: #020d1c;
+          margin: 16px;
         }
       }
     }
