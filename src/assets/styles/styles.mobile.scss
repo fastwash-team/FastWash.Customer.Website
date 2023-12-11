@@ -247,6 +247,12 @@ $wash-yellow: #f26419;
         font-size: 12px;
         margin-bottom: 24px;
 
+        ._back {
+          width: fit-content;
+          border: none;
+          background: none;
+        }
+
         i {
           margin-right: 8px;
         }

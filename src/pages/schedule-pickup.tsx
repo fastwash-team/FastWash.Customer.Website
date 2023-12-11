@@ -5,20 +5,25 @@ import RadioCheckedDisabled from "../assets/svgs/input-radio-checked-disabled.sv
 import { useLocation } from "react-router-dom";
 import { PickupDelivery } from "../components/schedule-pickup/pickup-delivery";
 import { CLASSIC_WASH, PRESCHEDULED_WASH } from "../utils";
+import { CustomizeWash } from "../components/schedule-pickup/customize-wash";
+import { ContactDetails } from "../components/schedule-pickup/contact-details";
 
 export function SchedulePickup() {
   const location = useLocation();
   const [selectedWashType, setWashType] = useState(PRESCHEDULED_WASH);
   const [pickupRange] = useState("09:00 - 10:00");
-  const [step] = useState(1);
+  const [step, increaseStep] = useState(3);
   console.log({ location });
+
+  const handleNextStep = () => {
+    if (step < 3) {
+      increaseStep(step + 1);
+    }
+  };
+
   return (
     <div className='schedule-pickup'>
       <div className='schedule-pickup__header'>
-        {/* <a href='/'>
-          <img src={FashWashLogo} alt='fash-wash' className='img-fluid' />
-        </a>
-        <button>Menu</button> */}
         <nav className='navbar navbar-expand-lg app-landing_section-one_header-container'>
           <a className='navbar-brand' href='#'>
             <img src={FashWashLogo} alt='fash-wash' className='img-fluid' />
@@ -47,8 +52,16 @@ export function SchedulePickup() {
       </div>
       <div className='schedule-pickup__body__flow-tracker-wrapper-mobile'>
         <p>
-          <i className='bi bi-chevron-left'></i>
-          {step === 1 ? "Pick up & Delivery" : ""}
+          <button className='_back'>
+            <i className='bi bi-chevron-left'></i>
+          </button>
+          {step === 1
+            ? "Pick up & Delivery"
+            : step === 2
+            ? "Customize Wash"
+            : step === 3
+            ? "Contact Details"
+            : null}
         </p>
         <p className='step-count'>Step {step} of 3</p>
       </div>
@@ -70,10 +83,16 @@ export function SchedulePickup() {
         <div className='schedule-pickup__body__steps-view'>
           <div className='row'>
             <div className='col-md-5 col-sm-12'>
-              <PickupDelivery
-                selectedWashType={selectedWashType}
-                changeWashType={(type: string) => setWashType(type)}
-              />
+              {step === 1 ? (
+                <PickupDelivery
+                  selectedWashType={selectedWashType}
+                  changeWashType={(type: string) => setWashType(type)}
+                />
+              ) : step === 2 ? (
+                <CustomizeWash />
+              ) : step === 3 ? (
+                <ContactDetails />
+              ) : null}
             </div>
             <div className='col-2'></div>
             <div className='col-md-5 col-sm-12'>
@@ -164,7 +183,7 @@ export function SchedulePickup() {
                       </div>
                     </div>
                   </div>
-                </div>{" "}
+                </div>
                 <div className='total'>
                   <span>Total</span>
                   <b>NGN 5690</b>
@@ -172,7 +191,9 @@ export function SchedulePickup() {
               </div>
             </div>
           </div>
-          <button className='mt-4 next-button'>Next</button>
+          <button className='mt-4 next-button' onClick={handleNextStep}>
+            Next
+          </button>
         </div>
       </div>
     </div>

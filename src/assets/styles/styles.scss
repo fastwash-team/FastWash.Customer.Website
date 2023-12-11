@@ -24,6 +24,11 @@ input,
 select {
   height: 56px;
 }
+input {
+  &::placeholder {
+    color: #d9d9d9 !important;
+  }
+}
 label {
   margin-bottom: 8px;
 }
@@ -34,6 +39,40 @@ label {
   margin-right: 3px;
   top: 2.5px;
   position: relative;
+}
+
+.wash-counter {
+  display: flex;
+  font-size: 24px;
+  align-items: center;
+  border-radius: 24px;
+  background: #fafafa;
+  width: fit-content;
+  height: fit-content;
+  gap: 40px;
+
+  p {
+    margin-bottom: 0 !important;
+    font-size: 20px !important;
+  }
+
+  .sign {
+    height: 50px;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+
+    &._add {
+      background: #ffd59a;
+      border: none;
+    }
+    &._minus {
+      background: #fff8ec;
+      border: 1px solid #ffe6bc;
+    }
+  }
 }
 
 .app-landing {
@@ -668,7 +707,7 @@ label {
           .option {
             width: 288px;
             border-radius: 8px;
-            border: 2px solid #d9d9d9;
+            border: 1px solid #d9d9d9;
             background: #fff;
             padding: 24px;
 
@@ -766,6 +805,150 @@ label {
         font-weight: 700;
         width: 41%;
         padding: 19px;
+      }
+    }
+
+    &__steps-view-render.customize-wash {
+      .option {
+        width: 100%;
+
+        .wash-counter-flex {
+          display: flex;
+          justify-content: space-between;
+          .wash-counter {
+            display: flex;
+            font-size: 24px;
+            align-items: center;
+            border-radius: 24px;
+            background: #fafafa;
+            width: fit-content;
+            height: fit-content;
+            gap: 40px;
+
+            p {
+              margin-bottom: 0;
+              font-size: 20px;
+            }
+
+            .sign {
+              height: 50px;
+              display: flex;
+              border-radius: 50%;
+              justify-content: center;
+              align-items: center;
+              width: 50px;
+
+              &._add {
+                background: #ffd59a;
+                border: none;
+              }
+              &._minus {
+                background: #fff8ec;
+                border: 1px solid #ffe6bc;
+              }
+            }
+          }
+        }
+      }
+
+      .wash-description {
+        border-bottom: 1px solid #d9d9d9;
+        padding-bottom: 16px;
+        padding-top: 16px;
+        width: 100%;
+        margin-bottom: 24px;
+        color: #17499f;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+
+        i {
+          margin-left: 4px;
+          color: black;
+        }
+      }
+
+      h2 {
+        color: #020d1c;
+        font-size: 24px;
+        font-weight: 500;
+      }
+      p {
+        color: #666;
+        font-size: 14px;
+        font-weight: 300;
+        margin-bottom: 24px;
+      }
+      .extras {
+        .extra {
+          display: flex;
+          justify-content: space-between;
+          border-radius: 8px;
+          border: 1px solid #d9d9d9;
+          padding: 16px;
+          margin-bottom: 8px;
+
+          .-info {
+            p {
+              margin-bottom: 0;
+            }
+            ._name {
+              color: #020d1c;
+              font-size: 14px;
+              font-weight: 500;
+              margin-bottom: 8px;
+            }
+            ._price {
+              color: #666;
+              font-size: 16px;
+              font-weight: 400;
+            }
+          }
+
+          .wash-counter {
+            gap: 24px;
+          }
+        }
+      }
+    }
+
+    &__steps-view-render.contact-details {
+      .payments {
+        h3 {
+          font-size: 24px;
+          font-weight: 400;
+        }
+
+        p {
+          color: #666;
+          font-size: 14px;
+          font-weight: 300;
+          margin-bottom: 24px;
+        }
+
+        .payment-option {
+          display: flex;
+          border-radius: 8px;
+          border: 1px solid #d9d9d9;
+          padding: 26px 24px;
+          align-items: center;
+          gap: 32px;
+          cursor: pointer;
+
+          i {
+            font-size: 22px;
+          }
+
+          p {
+            margin-bottom: 0;
+            font-size: 16px;
+            color: #020d1c;
+
+            b {
+              font-weight: 600;
+            }
+          }
+        }
       }
     }
 
