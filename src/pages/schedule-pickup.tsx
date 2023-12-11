@@ -68,15 +68,24 @@ export function SchedulePickup() {
       <div className='schedule-pickup__body'>
         <div className='schedule-pickup__body__flow-tracker-wrapper'>
           <div className='schedule-pickup__body__flow-tracker'>
-            <img src={RadioChecked} alt='' />
+            <img
+              src={step === 1 || step > 1 ? RadioChecked : RadioCheckedDisabled}
+              alt=''
+            />
             <p>Pick up & Delivery</p>
           </div>
           <div className='schedule-pickup__body__flow-tracker disabled'>
-            <img src={RadioCheckedDisabled} alt='' />
+            <img
+              src={step === 2 || step > 2 ? RadioChecked : RadioCheckedDisabled}
+              alt=''
+            />
             <p>Customize Wash</p>
           </div>
           <div className='schedule-pickup__body__flow-tracker disabled'>
-            <img src={RadioCheckedDisabled} alt='' />
+            <img
+              src={step === 3 ? RadioChecked : RadioCheckedDisabled}
+              alt=''
+            />
             <p>Payment</p>
           </div>
         </div>
