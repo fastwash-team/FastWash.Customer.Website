@@ -9,3 +9,9 @@ export const supportedAreas = [
 
 export const PRESCHEDULED_WASH = "pre-scheduled";
 export const CLASSIC_WASH = "classic-wash";
+export const PAYMENT_TYPES = {
+  WALLET: "wallet",
+  PAYSTACK: "paystack",
+  OPAY: "opay",
+  PAY_FOR_ME: "pay-for-me",
+};

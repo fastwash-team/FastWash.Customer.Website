@@ -137,6 +137,7 @@ const Landing: React.FC = () => {
                 Affordable laundry service in less than <span>24 hours</span>
               </h1>
               <p className='_location-prompt'>Enter a pick location to start</p>
+
               <div className='input-group flex-nowrap _location-input-wrapper'>
                 <span
                   className='input-group-text _location-input-wrapper-addon'
@@ -151,6 +152,7 @@ const Landing: React.FC = () => {
                   placeholder='Enter Pick up location'
                   aria-label='location-pickup'
                   aria-describedby='addon-wrapping'
+                  required
                 />
               </div>
               <button

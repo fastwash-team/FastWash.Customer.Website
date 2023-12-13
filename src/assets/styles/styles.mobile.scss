@@ -244,6 +244,7 @@ $wash-yellow: #f26419;
         padding: 16px;
         background: #fafafa;
         justify-content: space-between;
+        align-items: center;
         font-size: 12px;
         margin-bottom: 24px;
 
@@ -296,6 +297,53 @@ $wash-yellow: #f26419;
               }
             }
           }
+          &.customize-wash {
+            .__options {
+              .option {
+                .wash-counter-flex {
+                  flex-flow: column;
+                  gap: 10px;
+                }
+              }
+            }
+
+            .wash-counter {
+              gap: 15px;
+              p {
+                font-size: 17px !important;
+              }
+              .sign {
+                width: 40px;
+                height: 40px;
+              }
+            }
+            ._name {
+              width: 95px;
+            }
+          }
+          &.contact-details {
+            .payment-option {
+              input[type="radio"] {
+                top: -3px;
+                right: 20px !important;
+                width: 16px !important;
+              }
+
+              span {
+                display: block;
+                font-weight: 400;
+              }
+            }
+          }
+          &.complete-schedule-screen {
+            margin-bottom: -30px;
+            p {
+              width: 100%;
+            }
+            button {
+              display: none;
+            }
+          }
         }
 
         .next-button {
@@ -305,6 +353,37 @@ $wash-yellow: #f26419;
 
       &__steps-summary {
         display: none;
+      }
+
+      &__steps-tracker {
+        width: 100%;
+        padding: 20px;
+        &_mobile {
+          display: block;
+        }
+
+        .tracker-wrapper {
+          padding: 20px;
+          .step {
+            margin-left: 35px;
+            &::before {
+              left: 44px;
+              height: 72px;
+            }
+
+            h4 {
+              &::before {
+                width: 16px;
+                height: 16px;
+                margin-top: 5px;
+                left: 39px;
+              }
+            }
+            p {
+              font-size: 12px;
+            }
+          }
+        }
       }
 
       &__steps-summary_mobile {
