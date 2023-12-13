@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import RadioChecked from "../assets/svgs/input-radio-checked.svg";
 import RadioCheckedDisabled from "../assets/svgs/input-radio-checked-disabled.svg";
 
@@ -10,7 +9,7 @@ import { PickupDelivery } from "../components/schedule-pickup/pickup-delivery";
 import { CustomizeWash } from "../components/schedule-pickup/customize-wash";
 import { ContactDetails } from "../components/schedule-pickup/contact-details";
 
-import { CLASSIC_WASH, PRESCHEDULED_WASH } from "../utils";
+import { PRESCHEDULED_WASH } from "../utils";
 import { activate_background_loader } from "../pipelines/layout/reducer";
 import { CompleteScheduleScreen } from "../components/schedule-pickup/completed";
 import { ScheduleSummary } from "../components/schedule-pickup/schedule-summary";
