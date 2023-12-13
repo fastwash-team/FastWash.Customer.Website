@@ -1228,6 +1228,11 @@ label {
       color: #17499f;
       font-weight: 700;
       text-decoration: none;
+
+      &:hover {
+        color: #17499f;
+        cursor: pointer;
+      }
     }
   }
 }
