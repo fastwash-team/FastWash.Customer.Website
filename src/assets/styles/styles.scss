@@ -159,8 +159,12 @@ label {
 
           p {
             margin: 0;
-            font-weight: 600;
+            font-weight: 400;
             font-size: 14px;
+
+            span {
+              font-weight: 700;
+            }
           }
         }
 

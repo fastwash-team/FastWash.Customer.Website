@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export function ScheduleTracker() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <>
       <div className='schedule-pickup__body__steps-tracker'>
@@ -31,7 +38,9 @@ export function ScheduleTracker() {
             <p>Your request is being processed for pickup</p>
           </div>
         </div>
-        <button className='login-btn'>Login</button>
+        <button className='login-btn' onClick={handleLogin}>
+          Login
+        </button>
       </div>
       {/* <div className='schedule-pickup__body__steps-tracker_mobile'>
         <div className='accordion' id='accordionExample'>
