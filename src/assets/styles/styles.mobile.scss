@@ -368,7 +368,7 @@ $wash-yellow: #f26419;
             margin-left: 35px;
             &::before {
               left: 44px;
-              height: 72px;
+              height: 69px;
             }
 
             h4 {
@@ -465,6 +465,10 @@ $wash-yellow: #f26419;
   .login {
     .form {
       padding: 10px 30px;
+    }
+
+    h2 {
+      margin-top: 15px;
     }
   }
 }
