@@ -648,7 +648,7 @@ label {
     display: flex;
     justify-content: space-between;
     border-bottom: 8px solid #ffe6bc;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 
     button {
       border-radius: 8px;
@@ -675,7 +675,7 @@ label {
         display: flex;
         justify-content: center;
         gap: 121px;
-        padding: 40px 0;
+        padding: 30px 0;
         margin-bottom: 40px;
 
         &-mobile {
@@ -818,7 +818,7 @@ label {
 
       .col-summary {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         height: fit-content;
       }
 
