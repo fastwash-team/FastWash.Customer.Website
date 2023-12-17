@@ -254,25 +254,30 @@ const Landing: React.FC = () => {
             <div className='services-flex'>
               <div className='service'>
                 <img src={CircleCalendar} alt='' />
-                <h2>Pre Scheduled Wash</h2>
-                <p>Do you want affordable pickup and delivery fee?</p>
-                <p>
-                  Select a pre-scheduled time for your location and have your
-                  laundry, picked up, washed and delivered the same day.
-                </p>
+                <div className='_text-section'>
+                  <h2>Pre Scheduled Wash</h2>
+                  <p>Do you want affordable pickup and delivery fee?</p>
+                  <p>
+                    Select a pre-scheduled time for your location and have your
+                    laundry, picked up, washed and delivered the same day.
+                  </p>
+                </div>
+
                 <button>Schedule Bulk Pickup</button>
               </div>
               <div className='service'>
                 <img src={CircleTruck} alt='' />
-                <h2>Classic Wash</h2>
-                <p>
-                  Need your laundry picked up on your time? Looking for fast
-                  delivery? We've got you covered!
-                </p>
-                <p>
-                  We pick up your dirty laundry, get it washed, and deliver it
-                  on time, all on the same day.
-                </p>
+                <div className='_text-section'>
+                  <h2>Classic Wash</h2>
+                  <p>
+                    Need your laundry picked up on your time? Looking for fast
+                    delivery? We've got you covered!
+                  </p>
+                  <p>
+                    We pick up your dirty laundry, get it washed, and deliver it
+                    on time, all on the same day.
+                  </p>
+                </div>
                 <button>Schedule Pickup</button>
               </div>
             </div>
@@ -660,8 +665,10 @@ const Landing: React.FC = () => {
         <div className='_footer'>
           <div className='container'>
             <div className='_footer-elements'>
-              <img src={FashWashTransparent} alt='' />
-              <p>FastWash Technologies Nigeria Limited</p>
+              <div className='logo-section'>
+                <img src={FashWashTransparent} alt='' />
+                <p>FastWash Technologies Nigeria Limited</p>
+              </div>
               <a>Terms & Conditions</a>
               <ul>
                 <li>

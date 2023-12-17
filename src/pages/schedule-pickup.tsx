@@ -116,7 +116,7 @@ export function SchedulePickup() {
               ) : null}
             </div>
             <div className='col-2'></div>
-            <div className='col-md-5 col-sm-12'>
+            <div className='col-md-5 col-sm-12 col-summary'>
               {step === 4 && completeScheduling ? (
                 <ScheduleTracker />
               ) : (

@@ -308,6 +308,7 @@ label {
       padding-bottom: 104px;
       margin-bottom: 24px;
       position: relative;
+      overflow: hidden;
 
       h1 {
         font-size: 32px;
@@ -366,6 +367,10 @@ label {
           color: $wash-black;
           width: 100%;
 
+          ._text-section {
+            height: 210px;
+          }
+
           img {
             width: 100px;
           }
@@ -390,7 +395,7 @@ label {
             margin-top: 40px;
             font-size: 14px;
             font-weight: 700;
-            width: 508px;
+            width: 100%;
             height: 56px;
             color: $wash-blue;
             border: none;
@@ -606,8 +611,8 @@ label {
       padding-bottom: 180px;
 
       &-elements {
-        display: grid;
-        grid-template-columns: 150px 470px 555px 0px;
+        display: flex;
+        justify-content: space-between;
         align-items: baseline;
         color: #fafafa;
         font-size: 14px;
@@ -626,6 +631,11 @@ label {
           gap: 16px;
           color: #5d8ef9;
         }
+
+        .logo-section {
+          display: flex;
+          align-items: baseline;
+        }
       }
     }
   }
@@ -634,7 +644,7 @@ label {
 .schedule-pickup {
   &__header {
     background: #fff8ec;
-    padding: 24px 120px;
+    padding: 0px 120px;
     display: flex;
     justify-content: space-between;
     border-bottom: 8px solid #ffe6bc;
@@ -714,7 +724,8 @@ label {
           gap: 24px;
           cursor: pointer;
           .option {
-            width: 288px;
+            // width: 288px;
+            width: 100%;
             border-radius: 8px;
             border: 1px solid #d9d9d9;
             background: #fff;
@@ -803,6 +814,12 @@ label {
             font-weight: 400;
           }
         }
+      }
+
+      .col-summary {
+        display: flex;
+        justify-content: end;
+        height: fit-content;
       }
 
       .next-button {
@@ -1029,6 +1046,7 @@ label {
       border-radius: 8px;
       background: #fafafa;
       padding: 24px;
+      width: 480px;
 
       &_mobile {
         display: none;
