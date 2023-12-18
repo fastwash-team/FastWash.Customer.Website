@@ -4,7 +4,7 @@ export function Header() {
   return (
     <div className='schedule-pickup__header'>
       <nav className='navbar navbar-expand-lg app-landing_section-one_header-container'>
-        <a className='navbar-brand' href='#'>
+        <a className='navbar-brand' href='/'>
           <img src={FashWashLogo} alt='fash-wash' className='img-fluid' />
         </a>
         <button
@@ -19,13 +19,15 @@ export function Header() {
           <span className='navbar-toggler-icon'></span>
         </button>
         <div className='collapse navbar-collapse' id='navbarScroll'>
-          <ul className='navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll'>
+          <ul className='navbar-nav me-auto mb-2 mb-lg-0'></ul>
+          <button className='d-flex'>Menu</button>
+          {/* <ul className='navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll'>
             <li className='nav-item'>
               <a className='nav-link active' aria-current='page' href='#'>
                 How it works
               </a>
             </li>
-          </ul>
+          </ul> */}
         </div>
       </nav>
     </div>

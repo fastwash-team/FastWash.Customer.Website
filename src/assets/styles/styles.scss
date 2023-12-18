@@ -645,8 +645,6 @@ label {
   &__header {
     background: #fff8ec;
     padding: 0px 120px;
-    display: flex;
-    justify-content: space-between;
     border-bottom: 8px solid #ffe6bc;
     margin-bottom: 30px;
 
@@ -662,6 +660,10 @@ label {
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .app-landing_section-one_header-container {
+      padding-top: 10px;
     }
   }
 
@@ -989,7 +991,7 @@ label {
             }
           }
           img {
-            width: 10%;
+            width: 30px;
             margin-right: -10px;
           }
         }
