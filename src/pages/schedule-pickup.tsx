@@ -106,6 +106,7 @@ export function SchedulePickup() {
                 <PickupDelivery
                   selectedWashType={selectedWashType}
                   changeWashType={(type: string) => setWashType(type)}
+                  address={location.state.address}
                 />
               ) : step === 2 ? (
                 <CustomizeWash />

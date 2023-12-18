@@ -58,7 +58,6 @@ export function CustomizeWash() {
                 +
               </button>
             </div>
-            {/* <Counter/> */}
             <h3>N2700 per wash</h3>
           </div>
         </div>

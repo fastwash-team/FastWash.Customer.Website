@@ -2,6 +2,7 @@ import { CLASSIC_WASH, PRESCHEDULED_WASH } from ".";
 
 export interface PickupDeliveryProps {
   selectedWashType: string;
+  address: string;
   changeWashType: (e: string) => void;
 }
 

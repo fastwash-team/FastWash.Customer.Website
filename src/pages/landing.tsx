@@ -14,13 +14,20 @@ import ReviewerTwo from "../assets/svgs/customer-two.svg";
 import QuotesMark from "../assets/svgs/quotation.svg";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
-
-console.log("proces", process.env.GOOGLE_LOCATION_KEY);
+import { useFormik } from "formik";
+import { LandingPageSchema } from "../utils/schemas";
 
 const Landing: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
-  const [address, setAddress] = useState<string>("");
+  const formik = useFormik({
+    initialValues: { address: "" },
+    onSubmit: (values) => {
+      console.log({ values });
+      navigate("/schedule-pickup", { state: { address: values.address } });
+    },
+    validationSchema: LandingPageSchema,
+  });
   const locations = [
     "Yaba",
     1500,
@@ -38,7 +45,7 @@ const Landing: React.FC = () => {
 
   useEffect(() => {
     const googleScript = document.createElement("script");
-    googleScript.src = `https://maps.googleapis.com/maps/api/js?key='AIzaSyCFTa4JnSNnsj0FmSDgOFr4ESmTUUUp1kE'&libraries=places`;
+    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_LOCATION_KEY}&libraries=places`;
     googleScript.async = true;
     googleScript.defer = true;
 
@@ -56,7 +63,7 @@ const Landing: React.FC = () => {
         autocomplete.addListener("place_changed", () => {
           const place = autocomplete.getPlace();
           console.log("Selected Place:", place);
-          setAddress(place.formatted_address || "");
+          formik.setFieldValue("address", place.formatted_address);
         });
       }
     };
@@ -69,12 +76,8 @@ const Landing: React.FC = () => {
     };
   }, []); // Empty dependency array ensures that this useEffect runs only once on mount
 
-  const handleSchedulePickup = () => {
-    navigate("/schedule-pickup", { state: { address } });
-  };
-
   return (
-    <div className='app-landing'>
+    <div className='app-landing' data-bs-spy='scroll'>
       <div className='app-landing_section-one'>
         <div className='container'>
           <nav className='navbar navbar-expand-lg app-landing_section-one_header-container'>
@@ -95,27 +98,35 @@ const Landing: React.FC = () => {
             <div className='collapse navbar-collapse' id='navbarScroll'>
               <ul className='navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll'>
                 <li className='nav-item'>
-                  <a className='nav-link active' aria-current='page' href='#'>
+                  <a
+                    className='nav-link active'
+                    aria-current='page'
+                    href='#how-it-works'
+                  >
                     How it works
                   </a>
                 </li>
                 <li className='nav-item'>
-                  <a className='nav-link' href='#'>
+                  <a className='nav-link' href='#services'>
                     Our Services
                   </a>
                 </li>
                 <li className='nav-item dropdown'>
-                  <a className='nav-link' href='#'>
+                  <a className='nav-link' href='#pricing'>
                     Pricing
                   </a>
                 </li>
                 <li className='nav-item'>
-                  <a className='nav-link'>Customers</a>
+                  <a className='nav-link' href='#customers'>
+                    Customers
+                  </a>
                 </li>
               </ul>
               <div className='login-section'>
-                <p>Login</p>
-                <button>Schedule Now</button>
+                <a href='/login'>Login</a>
+                <button onClick={() => formik.handleSubmit()}>
+                  Schedule Now
+                </button>
               </div>
             </div>
           </nav>
@@ -136,9 +147,14 @@ const Landing: React.FC = () => {
               <h1>
                 Affordable laundry service in less than <span>24 hours</span>
               </h1>
-              <p className='_location-prompt'>Enter a pick location to start</p>
-
-              <div className='input-group flex-nowrap _location-input-wrapper'>
+              <p className='_location-prompt' id='pickup-address'>
+                Enter a pick location to start
+              </p>
+              <div
+                className={`input-group flex-nowrap _location-input-wrapper ${
+                  formik.errors.address && "error-message-border"
+                }`}
+              >
                 <span
                   className='input-group-text _location-input-wrapper-addon'
                   id='addon-wrapping'
@@ -152,12 +168,18 @@ const Landing: React.FC = () => {
                   placeholder='Enter Pick up location'
                   aria-label='location-pickup'
                   aria-describedby='addon-wrapping'
-                  required
+                  name='address'
+                  id='address'
+                  onChange={formik.handleChange}
+                  value={formik.values.address}
                 />
               </div>
+              {formik.errors.address && (
+                <p className='error-message-text'>{formik.errors.address}</p>
+              )}
               <button
                 className='_location-schedule-button'
-                onClick={handleSchedulePickup}
+                onClick={() => formik.handleSubmit()}
               >
                 Schedule Pickup
               </button>
@@ -165,9 +187,9 @@ const Landing: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className='app-landing_section-two'>
+      <div className='app-landing_section-two' data-bs-spy='scroll'>
         {/* <div className='container'> */}
-        <div className='_attributes'>
+        <div className='_attributes' id='how-it-works'>
           <div className='container'>
             <h1 className='attributes_head'>
               Wash, dry, fold and delivered on the same day
@@ -248,7 +270,7 @@ const Landing: React.FC = () => {
           </div>
         </div>
 
-        <div className='container'>
+        <div className='container' id='services'>
           <div className='_services'>
             <h1>Our Services</h1>
             <div className='services-flex'>
@@ -262,8 +284,13 @@ const Landing: React.FC = () => {
                     laundry, picked up, washed and delivered the same day.
                   </p>
                 </div>
-
-                <button>Schedule Bulk Pickup</button>
+                <a
+                  href='#pickup-address'
+                  type='button'
+                  className='schedule-pickup-btn'
+                >
+                  Schedule Bulk Pickup
+                </a>
               </div>
               <div className='service'>
                 <img src={CircleTruck} alt='' />
@@ -278,12 +305,18 @@ const Landing: React.FC = () => {
                     on time, all on the same day.
                   </p>
                 </div>
-                <button>Schedule Pickup</button>
+                <a
+                  href='#pickup-address'
+                  type='button'
+                  className='schedule-pickup-btn'
+                >
+                  Schedule Pickup
+                </a>
               </div>
             </div>
           </div>
         </div>
-        <div className='container'>
+        <div className='container' id='pricing'>
           <div className='_pricing'>
             <h1>Pricing</h1>
             <div className='pricing-flex'>
@@ -295,7 +328,13 @@ const Landing: React.FC = () => {
                   <p>One detergent</p>
                   <p>Free wrap bags</p>
                 </div>
-                <button className='pickup-button'>Schedule Pickup</button>
+                <a
+                  href='#pickup-address'
+                  type='button'
+                  className='schedule-pickup-btn'
+                >
+                  Schedule Pickup
+                </a>
               </div>
               <div className='pricing'>
                 <h2>Two Washes</h2>
@@ -305,7 +344,13 @@ const Landing: React.FC = () => {
                   <p>Two detergent</p>
                   <p>Free wrap bags</p>
                 </div>
-                <button className='pickup-button'>Schedule Pickup</button>
+                <a
+                  href='#pickup-address'
+                  type='button'
+                  className='schedule-pickup-btn'
+                >
+                  Schedule Pickup
+                </a>
               </div>
               <div className='pricing'>
                 <h2>PRO</h2>
@@ -316,7 +361,13 @@ const Landing: React.FC = () => {
                   <p>Detergents</p>
                   <p>Free wrap bags</p>
                 </div>
-                <button className='pickup-button'>Schedule Pickup</button>
+                <a
+                  href='#pickup-address'
+                  type='button'
+                  className='schedule-pickup-btn'
+                >
+                  Schedule Pickup
+                </a>
               </div>
             </div>
           </div>
@@ -352,7 +403,7 @@ const Landing: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className='container'>
+        <div className='container' id='customers'>
           <div className='_reviews'>
             <h1>What our customers are saying</h1>
             <div className='reviews-flex'>

@@ -20,6 +20,18 @@ $wash-yellow: #f26419;
   background: linear-gradient(0deg, #fff 0%, #fff 100%), #fff;
 }
 
+.error-message-border {
+  outline: 1px solid #f26419;
+  border-radius: 8px;
+}
+
+.error-message-text {
+  margin-bottom: 0;
+  font-size: 12px;
+  margin-top: 5px;
+  color: #f26419 !important;
+}
+
 input,
 select {
   height: 56px;
@@ -86,6 +98,21 @@ label {
     line-height: normal;
   }
 
+  .schedule-pickup-btn {
+    border-radius: 8px;
+    background: #fff;
+    color: #17499f;
+    letter-spacing: 0.32px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+
   &_section-one {
     background: url("../imgs/BBackground.png");
     background-size: cover;
@@ -120,6 +147,13 @@ label {
         align-items: center;
         column-gap: 56px;
         justify-content: center;
+
+        a {
+          color: #000;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 14px;
+        }
 
         p {
           margin: 0;
@@ -368,7 +402,7 @@ label {
           width: 100%;
 
           ._text-section {
-            height: 210px;
+            height: 240px;
           }
 
           img {
@@ -892,7 +926,7 @@ label {
 
         i {
           margin-left: 4px;
-          color: black;
+          color: #17499f;
         }
       }
 
@@ -1084,6 +1118,12 @@ label {
           display: flex;
           justify-content: space-between;
           margin-bottom: 24px;
+          font-weight: 500;
+
+          span {
+            color: #666;
+            font-weight: 400;
+          }
         }
       }
 

@@ -8,6 +8,7 @@ import { PickupDeliveryProps } from "../../utils/types";
 export function PickupDelivery({
   selectedWashType,
   changeWashType,
+  address,
 }: PickupDeliveryProps) {
   const isWashPrescheduled = selectedWashType === PRESCHEDULED_WASH;
   const isClassicWash = selectedWashType === CLASSIC_WASH;
@@ -57,6 +58,7 @@ export function PickupDelivery({
             className='form-control'
             placeholder='Selected Address'
             aria-describedby='basic-addon1'
+            value={address}
           />
         </div>
       </div>

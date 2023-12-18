@@ -31,7 +31,14 @@ export function ScheduleSummary(props: ScheduleSummaryProps) {
             <b>Today</b>
           </div>
           <div className='item'>
-            <span>Logistics</span>
+            <span>
+              Logistics{" "}
+              <i
+                data-bs-toggle='tooltip'
+                data-bs-title='Default tooltip'
+                className='bi bi-info-circle-fill'
+              />
+            </span>
             <b>NGN 1000</b>
           </div>
         </div>
