@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { CounterComponentProps } from "../../utils/types";
+import React, { useEffect, useState } from "react";
+import { CounterComponentProps, CustomizeWashProps } from "../../utils/types";
 
 const Counter = (props: CounterComponentProps) => {
   return (
@@ -23,8 +23,14 @@ const Counter = (props: CounterComponentProps) => {
   );
 };
 
-export function CustomizeWash() {
+export function CustomizeWash(props: CustomizeWashProps) {
   const [washcount, setWashCount] = useState(1);
+
+  useEffect(() => {
+    if (!props.scheduleInfo.washcount) {
+      props.changePDInfo("washcount", 1);
+    }
+  }, []);
 
   const handleWashCount = (variant: string) => {
     if (variant === "add") return setWashCount(washcount + 1);

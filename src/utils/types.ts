@@ -25,5 +25,11 @@ export interface ScheduleSummaryProps {
   pickupRange: string;
   address: string;
   pickupday: string;
-  area: string;
+  area?: string;
+  washcount?: number;
+}
+
+export interface CustomizeWashProps {
+  scheduleInfo: ScheduleSummaryProps;
+  changePDInfo: (e: string, f: string | number) => void;
 }

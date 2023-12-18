@@ -28,7 +28,7 @@ export function SchedulePickup() {
   const [completeScheduling, setCompleteSchedule] = useState(false); // should be controlled from redux
   const dispatch = useDispatch();
 
-  const handleChangeInfo = (key: string, value: string) => {
+  const handleChangeInfo = (key: string, value: string | number) => {
     return setScheduleInfo({ ...scheduleInfo, [key]: value });
   };
 
@@ -117,7 +117,12 @@ export function SchedulePickup() {
                   address={scheduleInfo.address}
                 />
               ) : step === 2 ? (
-                <CustomizeWash />
+                <CustomizeWash
+                  scheduleInfo={scheduleInfo}
+                  changePDInfo={(key: string, value: string | number) => {
+                    handleChangeInfo(key, value);
+                  }}
+                />
               ) : step === 3 ? (
                 <ContactDetails />
               ) : step === 4 && completeScheduling ? (
