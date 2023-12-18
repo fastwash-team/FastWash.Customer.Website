@@ -24,11 +24,21 @@ export function SchedulePickup() {
     selectedWashType: PRESCHEDULED_WASH,
     address: location.state.address,
     pickupday: "Today",
+    washcount: 0,
+    softener: 0,
+    largeLaundryBags: 0,
+    mediumLaundryBags: 0,
+    bleach: 0,
+    colorcatcher: 0,
+    stainremover: 0,
   });
+
+  console.log({ scheduleInfo });
   const [completeScheduling, setCompleteSchedule] = useState(false); // should be controlled from redux
   const dispatch = useDispatch();
 
   const handleChangeInfo = (key: string, value: string | number) => {
+    console.log("sd", key, value);
     return setScheduleInfo({ ...scheduleInfo, [key]: value });
   };
 
@@ -139,7 +149,14 @@ export function SchedulePickup() {
                   pickupRange={scheduleInfo.pickupRange}
                   address={scheduleInfo.address}
                   pickupday={scheduleInfo.pickupday}
+                  washcount={scheduleInfo.washcount}
                   area={""}
+                  softener={scheduleInfo.softener}
+                  bleach={scheduleInfo.bleach}
+                  colorcatcher={scheduleInfo.colorcatcher}
+                  stainremover={scheduleInfo.stainremover}
+                  mediumLaundryBags={scheduleInfo.mediumLaundryBags}
+                  largeLaundryBags={scheduleInfo.largeLaundryBags}
                 />
               )}
             </div>

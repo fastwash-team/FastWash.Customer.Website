@@ -9,7 +9,7 @@ export interface PickupDeliveryProps {
 export interface CounterComponentProps {
   handleAdd: () => void;
   handleMinus: () => void;
-  count: number;
+  count: number | undefined;
 }
 
 // declare const enum WASH_TYPES {
@@ -26,7 +26,13 @@ export interface ScheduleSummaryProps {
   address: string;
   pickupday: string;
   area?: string;
-  washcount?: number;
+  washcount: number;
+  softener: number;
+  bleach: number;
+  colorcatcher: number;
+  stainremover: number;
+  mediumLaundryBags: number;
+  largeLaundryBags: number;
 }
 
 export interface CustomizeWashProps {

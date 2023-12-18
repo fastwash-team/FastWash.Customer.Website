@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { CounterComponentProps, CustomizeWashProps } from "../../utils/types";
+import React, { useEffect } from "react";
+import {
+  CounterComponentProps,
+  CustomizeWashProps,
+  ScheduleSummaryProps,
+} from "../../utils/types";
 
 const Counter = (props: CounterComponentProps) => {
   return (
     <div className='wash-counter'>
-      <button
-        className='sign _minus'
-        //     onClick={() => handleWashCount("minus")}
-        onClick={props.handleMinus}
-      >
+      <button className='sign _minus' onClick={props.handleMinus}>
         -
       </button>
       <p>{props.count}</p>
-      <button
-        className='sign _add'
-        //   onClick={() => handleWashCount("add")}
-        onClick={props.handleAdd}
-      >
+      <button className='sign _add' onClick={props.handleAdd}>
         +
       </button>
     </div>
@@ -24,18 +20,26 @@ const Counter = (props: CounterComponentProps) => {
 };
 
 export function CustomizeWash(props: CustomizeWashProps) {
-  const [washcount, setWashCount] = useState(1);
-
   useEffect(() => {
-    if (!props.scheduleInfo.washcount) {
+    if (props.scheduleInfo.washcount < 1) {
       props.changePDInfo("washcount", 1);
     }
   }, []);
 
+  const handleExtraCount = (extra: string, variant: string) => {
+    console.log({ extra, variant });
+    const val = (props.scheduleInfo[extra as keyof ScheduleSummaryProps] ||
+      0) as number;
+    if (variant === "add") return props.changePDInfo(extra, val + 1);
+    if (variant === "minus" && val > 0)
+      return props.changePDInfo(extra, val - 1);
+  };
+
   const handleWashCount = (variant: string) => {
-    if (variant === "add") return setWashCount(washcount + 1);
-    if (variant === "minus" && washcount > 1)
-      return setWashCount(washcount - 1);
+    if (variant === "add")
+      return props.changePDInfo("washcount", props.scheduleInfo.washcount + 1);
+    if (variant === "minus" && props.scheduleInfo.washcount > 1)
+      return props.changePDInfo("washcount", props.scheduleInfo.washcount - 1);
   };
   return (
     <div className='schedule-pickup__body__steps-view-render customize-wash'>
@@ -56,7 +60,7 @@ export function CustomizeWash(props: CustomizeWashProps) {
               >
                 -
               </button>
-              <p>{washcount}</p>
+              <p>{props.scheduleInfo.washcount}</p>
               <button
                 className='sign _add'
                 onClick={() => handleWashCount("add")}
@@ -88,9 +92,9 @@ export function CustomizeWash(props: CustomizeWashProps) {
           </div>
           <div className='extra-count'>
             <Counter
-              handleAdd={() => null}
-              handleMinus={() => null}
-              count={2}
+              handleAdd={() => handleExtraCount("softener", "add")}
+              handleMinus={() => handleExtraCount("softener", "minus")}
+              count={props.scheduleInfo.softener}
             />
           </div>
         </div>
@@ -101,9 +105,9 @@ export function CustomizeWash(props: CustomizeWashProps) {
           </div>
           <div className='extra-count'>
             <Counter
-              handleAdd={() => null}
-              handleMinus={() => null}
-              count={2}
+              handleAdd={() => handleExtraCount("bleach", "add")}
+              handleMinus={() => handleExtraCount("bleach", "minus")}
+              count={props.scheduleInfo.bleach}
             />
           </div>
         </div>
@@ -114,9 +118,9 @@ export function CustomizeWash(props: CustomizeWashProps) {
           </div>
           <div className='extra-count'>
             <Counter
-              handleAdd={() => null}
-              handleMinus={() => null}
-              count={2}
+              handleAdd={() => handleExtraCount("colorcatcher", "add")}
+              handleMinus={() => handleExtraCount("colorcatcher", "minus")}
+              count={props.scheduleInfo.colorcatcher}
             />
           </div>
         </div>
@@ -127,9 +131,9 @@ export function CustomizeWash(props: CustomizeWashProps) {
           </div>
           <div className='extra-count'>
             <Counter
-              handleAdd={() => null}
-              handleMinus={() => null}
-              count={2}
+              handleAdd={() => handleExtraCount("stainremover", "add")}
+              handleMinus={() => handleExtraCount("stainremover", "minus")}
+              count={props.scheduleInfo.stainremover}
             />
           </div>
         </div>
@@ -140,9 +144,9 @@ export function CustomizeWash(props: CustomizeWashProps) {
           </div>
           <div className='extra-count'>
             <Counter
-              handleAdd={() => null}
-              handleMinus={() => null}
-              count={2}
+              handleAdd={() => handleExtraCount("mediumLaundryBags", "add")}
+              handleMinus={() => handleExtraCount("mediumLaundryBags", "minus")}
+              count={props.scheduleInfo.mediumLaundryBags}
             />
           </div>
         </div>
@@ -153,9 +157,9 @@ export function CustomizeWash(props: CustomizeWashProps) {
           </div>
           <div className='extra-count'>
             <Counter
-              handleAdd={() => null}
-              handleMinus={() => null}
-              count={2}
+              handleAdd={() => handleExtraCount("largeLaundryBags", "add")}
+              handleMinus={() => handleExtraCount("largeLaundryBags", "minus")}
+              count={props.scheduleInfo.largeLaundryBags}
             />
           </div>
         </div>
