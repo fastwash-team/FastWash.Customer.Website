@@ -760,7 +760,6 @@ label {
           gap: 24px;
           cursor: pointer;
           .option {
-            // width: 288px;
             width: 100%;
             border-radius: 8px;
             border: 1px solid #d9d9d9;
@@ -788,16 +787,9 @@ label {
 
             h3 {
               font-size: 20px;
-              font-weight: 300;
-              margin-top: 24px;
+              font-weight: 600;
+              // margin-top: 24px;
               margin-bottom: 16px;
-              color: #666;
-
-              span {
-                font-size: 14px;
-                font-weight: 300;
-                line-height: 150%;
-              }
             }
 
             p {
@@ -884,6 +876,17 @@ label {
         .wash-counter-flex {
           display: flex;
           justify-content: space-between;
+
+          h3 {
+            color: #666;
+            font-weight: 300;
+
+            span {
+              font-size: 14px;
+              font-weight: 300;
+              line-height: 150%;
+            }
+          }
           .wash-counter {
             display: flex;
             font-size: 24px;
