@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import FashWashTransparent from "../assets/imgs/fash-wash-transparent.png";
 import Hanger from "../assets/svgs/hanger.svg";

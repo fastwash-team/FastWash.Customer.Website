@@ -3,7 +3,7 @@ import { CLASSIC_WASH, PRESCHEDULED_WASH } from ".";
 export interface PickupDeliveryProps {
   selectedWashType: string;
   address: string;
-  changeWashType: (e: string) => void;
+  changePDInfo: (e: string, f: string) => void;
 }
 
 export interface CounterComponentProps {
@@ -23,4 +23,7 @@ export interface ScheduleSummaryProps {
   // selectedWashType: WASH_TYPES.classic_wash;
   selectedWashType: string;
   pickupRange: string;
+  address: string;
+  pickupday: string;
+  area: string;
 }

@@ -18,13 +18,19 @@ import { Header } from "../components/header";
 
 export function SchedulePickup() {
   const location = useLocation();
-  const [selectedWashType, setWashType] = useState(PRESCHEDULED_WASH);
-  const [pickupRange] = useState("09:00 - 10:00");
   const [step, increaseStep] = useState(1);
+  const [scheduleInfo, setScheduleInfo] = useState({
+    pickupRange: "09:00 - 10:00",
+    selectedWashType: PRESCHEDULED_WASH,
+    address: location.state.address,
+    pickupday: "Today",
+  });
   const [completeScheduling, setCompleteSchedule] = useState(false); // should be controlled from redux
   const dispatch = useDispatch();
 
-  console.log({ location });
+  const handleChangeInfo = (key: string, value: string) => {
+    return setScheduleInfo({ ...scheduleInfo, [key]: value });
+  };
 
   const handleNextStep = () => {
     if (step < 3) {
@@ -104,9 +110,11 @@ export function SchedulePickup() {
             <div className='col-md-5 col-sm-12'>
               {step === 1 ? (
                 <PickupDelivery
-                  selectedWashType={selectedWashType}
-                  changeWashType={(type: string) => setWashType(type)}
-                  address={location.state.address}
+                  selectedWashType={scheduleInfo.selectedWashType}
+                  changePDInfo={(key: string, value: string) => {
+                    handleChangeInfo(key, value);
+                  }}
+                  address={scheduleInfo.address}
                 />
               ) : step === 2 ? (
                 <CustomizeWash />
@@ -122,8 +130,11 @@ export function SchedulePickup() {
                 <ScheduleTracker />
               ) : (
                 <ScheduleSummary
-                  selectedWashType={selectedWashType}
-                  pickupRange={pickupRange}
+                  selectedWashType={scheduleInfo.selectedWashType}
+                  pickupRange={scheduleInfo.pickupRange}
+                  address={scheduleInfo.address}
+                  pickupday={scheduleInfo.pickupday}
+                  area={""}
                 />
               )}
             </div>

@@ -7,8 +7,8 @@ import { PickupDeliveryProps } from "../../utils/types";
 
 export function PickupDelivery({
   selectedWashType,
-  changeWashType,
   address,
+  changePDInfo,
 }: PickupDeliveryProps) {
   const isWashPrescheduled = selectedWashType === PRESCHEDULED_WASH;
   const isClassicWash = selectedWashType === CLASSIC_WASH;
@@ -19,7 +19,7 @@ export function PickupDelivery({
       <div className='__options'>
         <div
           className={`option ${isWashPrescheduled && "active"}`}
-          onClick={() => changeWashType(PRESCHEDULED_WASH)}
+          onClick={() => changePDInfo("selectedWashType", PRESCHEDULED_WASH)}
         >
           <div className='imgs'>
             <img src={CircleCalendar} alt='' className='option-img' />
@@ -33,7 +33,7 @@ export function PickupDelivery({
         </div>
         <div
           className={`option ${isClassicWash && "active"}`}
-          onClick={() => changeWashType(CLASSIC_WASH)}
+          onClick={() => changePDInfo("selectedWashType", CLASSIC_WASH)}
         >
           <div className='imgs'>
             <img src={CircleTruck} alt='' className='option-img' />
@@ -74,7 +74,13 @@ export function PickupDelivery({
         <div className='row'>
           <div className='col-md-6 col-sm-12'>
             <label>Choose Day</label>
-            <select className='form-select' aria-label='Default select example'>
+            <select
+              className='form-select'
+              aria-label='Default select example'
+              onChange={({ target: { value } }) =>
+                changePDInfo("pickupday", value)
+              }
+            >
               {["Today", "Tomorrow", "Wed, 18th Oct", "Thu, 19th Oct"].map(
                 (el, i) => (
                   <option key={i}>{el}</option>
@@ -84,9 +90,16 @@ export function PickupDelivery({
           </div>
           <div className='col-md-6 col-sm-12'>
             <label>Pick up window</label>
-            <select className='form-select' aria-label='Default select example'>
+            <select
+              className='form-select'
+              aria-label='Default select example'
+              onChange={({ target: { value } }) =>
+                changePDInfo("pickupRange", value)
+              }
+            >
               <option>09:00 - 10:00</option>
               <option>10:00 - 11:00</option>
+              <option>11:00 - 12:00</option>
             </select>
           </div>
         </div>
@@ -95,7 +108,8 @@ export function PickupDelivery({
         <div className='etd'>
           <i className='bi bi-truck'></i>
           <p>
-            Your laundry will be delivered to you <b>Today</b>
+            Your laundry will be delivered to you{" "}
+            <b>{selectedWashType === CLASSIC_WASH ? "4hrs" : "Today"}</b>
           </p>
         </div>
       </div>

@@ -9,7 +9,7 @@ export function ScheduleSummary(props: ScheduleSummaryProps) {
         <h3>Request Summary</h3>
         <div className='address-block'>
           <p>Address</p>
-          <b>No 4, Queen Street, Alagomeji-Yaba, Yaba, Lagos</b>
+          <b>{props.address || "-"}</b>
         </div>
         <div className='billing-items'>
           <div className='item'>
@@ -28,7 +28,7 @@ export function ScheduleSummary(props: ScheduleSummaryProps) {
           </div>
           <div className='item'>
             <span>Est Delivery Time</span>
-            <b>Today</b>
+            <b>{props.pickupday}</b>
           </div>
           <div className='item'>
             <span>

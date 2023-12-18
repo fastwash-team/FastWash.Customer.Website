@@ -788,9 +788,16 @@ label {
 
             h3 {
               font-size: 20px;
-              font-weight: 600;
+              font-weight: 300;
               margin-top: 24px;
               margin-bottom: 16px;
+              color: #666;
+
+              span {
+                font-size: 14px;
+                font-weight: 300;
+                line-height: 150%;
+              }
             }
 
             p {
