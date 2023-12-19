@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import OpayLogo from "../../assets/svgs/OPay - png.png";
 import PaystackLogo from "../../assets/svgs/paystack.svg";
 import { PAYMENT_TYPES } from "../../utils";
+import { CustomizeWashProps as ContactDetailsProps } from "../../utils/types";
 
-export function ContactDetails() {
+export function ContactDetails(props: ContactDetailsProps) {
   const [paymentOption, setPaymentOption] = useState<string | null>(null);
+
+  const handleContactEntry = (key: string, value: string) => {
+    console.log({ key, value });
+    props.changePDInfo(key, value);
+  };
+
+  console.log("sds", props.scheduleInfo);
+
   return (
     <div className='schedule-pickup__body__steps-view-render contact-details'>
       <h2>Contact details</h2>
@@ -13,7 +22,14 @@ export function ContactDetails() {
       </p>
       <div className=''>
         <label>Contact person</label>
-        <input className='form-control' />
+        <input
+          className='form-control'
+          name='contactperson'
+          id='contactperson'
+          onChange={({ target: { value } }) =>
+            handleContactEntry("contactperson", value)
+          }
+        />
       </div>
       <div className='mt-3 mb-5'>
         <div className='row'>
@@ -23,12 +39,28 @@ export function ContactDetails() {
               <span className='input-group-text' id='basic-addon1'>
                 +234
               </span>
-              <input type='text' className='form-control' />
+              <input
+                className='form-control'
+                name='phonenumber'
+                id='phonenumber'
+                type='number'
+                onChange={({ target: { value } }) =>
+                  handleContactEntry("phonenumber", `+234${value}`)
+                }
+              />
             </div>
           </div>
           <div className='col-md-6 col-sm-12'>
             <label>Email</label>
-            <input className='form-control' placeholder='email@address.com' />
+            <input
+              className='form-control'
+              placeholder='email@address.com'
+              name='contactemail'
+              id='contactemail'
+              onChange={({ target: { value } }) =>
+                handleContactEntry("contactemail", value)
+              }
+            />
           </div>
         </div>
       </div>

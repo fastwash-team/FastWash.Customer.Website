@@ -33,6 +33,9 @@ export interface ScheduleSummaryProps {
   stainremover: number;
   mediumLaundryBags: number;
   largeLaundryBags: number;
+  contactperson?: string;
+  phonenumber?: string;
+  contactemail?: string;
 }
 
 export interface CustomizeWashProps {

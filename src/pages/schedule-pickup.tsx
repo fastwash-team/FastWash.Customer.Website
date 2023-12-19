@@ -31,6 +31,9 @@ export function SchedulePickup() {
     bleach: 0,
     colorcatcher: 0,
     stainremover: 0,
+    contactperson: "",
+    contactemail: "",
+    phonenumber: "",
   });
 
   console.log({ scheduleInfo });
@@ -134,7 +137,12 @@ export function SchedulePickup() {
                   }}
                 />
               ) : step === 3 ? (
-                <ContactDetails />
+                <ContactDetails
+                  scheduleInfo={scheduleInfo}
+                  changePDInfo={(key: string, value: string | number) => {
+                    handleChangeInfo(key, value);
+                  }}
+                />
               ) : step === 4 && completeScheduling ? (
                 <CompleteScheduleScreen />
               ) : null}
@@ -157,6 +165,9 @@ export function SchedulePickup() {
                   stainremover={scheduleInfo.stainremover}
                   mediumLaundryBags={scheduleInfo.mediumLaundryBags}
                   largeLaundryBags={scheduleInfo.largeLaundryBags}
+                  contactemail={scheduleInfo.contactemail}
+                  contactperson={scheduleInfo.contactperson}
+                  phonenumber={scheduleInfo.phonenumber}
                 />
               )}
             </div>
