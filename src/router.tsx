@@ -6,6 +6,7 @@ import { Layout } from "./pages/layout";
 import { Login } from "./pages/login";
 import { Signup } from "./pages/signup";
 import { VerifyAuth } from "./pages/verify-auth";
+import { Dashboard } from "./pages/dashboard";
 
 const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Signup />} />
           <Route path='/verify-auth' element={<VerifyAuth />} />
+          <Route path='/dashboard' element={<Dashboard />} />
         </Route>
       </Routes>
     </Router>
