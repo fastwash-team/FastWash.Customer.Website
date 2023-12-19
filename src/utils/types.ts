@@ -42,3 +42,19 @@ export interface CustomizeWashProps {
   scheduleInfo: ScheduleSummaryProps;
   changePDInfo: (e: string, f: string | number) => void;
 }
+
+export interface WashItem {
+  itemno: string;
+  status: string;
+  date: string;
+  extras: string[];
+}
+
+export interface PaymentItem {
+  itemno: string;
+  currency: string;
+  amount: number;
+  status: string;
+  type: string;
+  date: string;
+}

@@ -3,7 +3,7 @@ import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 
 export function Header() {
   const location = useLocation();
-  const authenticatedRoutes = ["/dashboard"];
+  const authenticatedRoutes = ["/dashboard", "/requests"];
   const isAuthenticated = authenticatedRoutes.includes(location.pathname); // the condition changes over time
   return (
     <div className='schedule-pickup__header'>

@@ -3,8 +3,10 @@ import { Header } from "../components/header";
 import WashingMachine from "../assets/svgs/small-washing-machine.svg";
 import FaqMessage from "../assets/svgs/faq-message.svg";
 import FaqCare from "../assets/svgs/faq-care.svg";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className='__dashboard'>
       <Header />
@@ -51,7 +53,7 @@ export const Dashboard = () => {
               </div>
             </div>
             <div className='list-items'>
-              <div className='item'>
+              <div className='item' onClick={() => navigate("/requests")}>
                 <div className='item-details'>
                   <div className='icon-wrapper'>
                     <i className='bi bi-file-earmark-text-fill'></i>
@@ -65,7 +67,7 @@ export const Dashboard = () => {
                 </div>
                 <i className='bi bi-chevron-right'></i>
               </div>
-              <div className='item'>
+              <div className='item' onClick={() => navigate("/payments")}>
                 <div className='item-details'>
                   <div className='icon-wrapper'>
                     <i className='bi bi-credit-card-2-back-fill'></i>
@@ -86,8 +88,8 @@ export const Dashboard = () => {
               </div>
               <div className='help'>
                 <img src={FaqCare} alt='' />
-                <h4>FAQs</h4>
-                <p>Get answers to questions people commonly ask at FastWash</p>
+                <h4>Help & Support</h4>
+                <p>Get the help you need anytime from our support team</p>
               </div>
             </div>
           </div>

@@ -481,4 +481,67 @@ $wash-yellow: #f26419;
       margin-top: 15px;
     }
   }
+
+  .__dashboard {
+    .user-details {
+      margin-top: 16px;
+    }
+    .request-wash {
+      padding: 16px;
+      p {
+        width: 220px;
+      }
+    }
+    .requests-boards {
+      gap: 8px;
+      .board {
+        padding: 16px;
+
+        i {
+          display: none;
+        }
+      }
+    }
+    .list-items {
+      .item {
+        border-bottom: 1px solid #d9d9d9;
+        margin-bottom: 18px;
+
+        &:last-child {
+          border: none;
+          margin-bottom: none;
+        }
+
+        .item-details {
+          width: 85%;
+        }
+      }
+    }
+    .help-container {
+      flex-flow: column;
+    }
+  }
+
+  .empty-container {
+    margin-top: 60px;
+
+    p {
+      width: 100%;
+    }
+  }
+
+  .wash-items-container {
+    .wash-item {
+      margin-bottom: 18px;
+      .wash-item-no {
+        h2 {
+          font-size: 14px;
+        }
+        span {
+          font-size: 10px;
+          height: 20px;
+        }
+      }
+    }
+  }
 }

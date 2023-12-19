@@ -7,6 +7,8 @@ import { Login } from "./pages/login";
 import { Signup } from "./pages/signup";
 import { VerifyAuth } from "./pages/verify-auth";
 import { Dashboard } from "./pages/dashboard";
+import { Requests } from "./pages/requests";
+import { Payments } from "./pages/payments";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +21,9 @@ const AppRoutes = () => {
           <Route path='/register' element={<Signup />} />
           <Route path='/verify-auth' element={<VerifyAuth />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/requests' element={<Requests />} />
+          <Route path='/requests/:id' element={<Requests />} />
+          <Route path='/payments' element={<Payments />} />
         </Route>
       </Routes>
     </Router>
