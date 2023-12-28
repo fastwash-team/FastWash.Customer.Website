@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useMemo } from "react";
 import CircleCalendar from "../../assets/svgs/1.svg";
 import CircleTruck from "../../assets/svgs/2.svg";
 import CheckedRadioButton from "../../assets/svgs/input-radio-checked.svg";
 import { CLASSIC_WASH, PRESCHEDULED_WASH, supportedAreas } from "../../utils";
 import { PickupDeliveryProps } from "../../utils/types";
+import { GoogleAddressInput } from "../google-address-input";
+import { getPickUpDay, getPickupWindow } from "../../utils/functions";
+import { InfoMessage } from "../info-message";
 
 export function PickupDelivery({
   selectedWashType,
-  address,
+  scheduleInfo,
   changePDInfo,
+  errors,
 }: PickupDeliveryProps) {
   const isWashPrescheduled = selectedWashType === PRESCHEDULED_WASH;
   const isClassicWash = selectedWashType === CLASSIC_WASH;
+  const pickUpDaysList = getPickUpDay();
+
+  const pickUpWindowList = useMemo(() => {
+    return getPickupWindow(scheduleInfo.pickupDay);
+  }, [scheduleInfo.pickupDay]);
+
   return (
     <div className='schedule-pickup__body__steps-view-render'>
       <h2>Pick up & Delivery</h2>
@@ -49,26 +59,24 @@ export function PickupDelivery({
 
       <div className='mt-3'>
         <label>Address</label>
-        <div className='input-group mb-3'>
-          <span className='input-group-text' id='basic-addon1'>
-            <i className='bi bi-geo-alt'></i>
-          </span>
-          <input
-            type='text'
-            className='form-control'
-            placeholder='Selected Address'
-            aria-describedby='basic-addon1'
-            value={address}
-          />
-        </div>
+        <GoogleAddressInput
+          handleChange={(address) => changePDInfo("address", address)}
+          address={scheduleInfo.address}
+        />
+        {errors?.address && <InfoMessage message={errors.address} />}
       </div>
       <div className='mt-3'>
         <label>Choose area</label>
-        <select className='form-select' aria-label='Default select example'>
+        <select
+          className='form-select'
+          aria-label='Default select example'
+          onChange={({ target: { value } }) => changePDInfo("area", value)}
+        >
           {supportedAreas.map((el) => (
             <option key={el}>{el}</option>
           ))}
         </select>
+        {errors?.area && <InfoMessage message={errors.area} />}
       </div>
       <div className='mt-3'>
         <div className='row'>
@@ -78,15 +86,17 @@ export function PickupDelivery({
               className='form-select'
               aria-label='Default select example'
               onChange={({ target: { value } }) =>
-                changePDInfo("pickupday", value)
+                changePDInfo("pickupDay", value)
               }
             >
-              {["Today", "Tomorrow", "Wed, 18th Oct", "Thu, 19th Oct"].map(
-                (el, i) => (
-                  <option key={i}>{el}</option>
-                )
-              )}
+              <option selected disabled>
+                Choose pickup day
+              </option>
+              {pickUpDaysList.map((el, i) => (
+                <option key={i}>{el}</option>
+              ))}
             </select>
+            {errors?.pickupDay && <InfoMessage message={errors.pickupDay} />}
           </div>
           <div className='col-md-6 col-sm-12'>
             <label>Pick up window</label>
@@ -94,13 +104,24 @@ export function PickupDelivery({
               className='form-select'
               aria-label='Default select example'
               onChange={({ target: { value } }) =>
-                changePDInfo("pickupRange", value)
+                changePDInfo("pickupWindow", value)
               }
             >
-              <option>09:00 - 10:00</option>
-              <option>10:00 - 11:00</option>
-              <option>11:00 - 12:00</option>
+              <option selected disabled>
+                Choose pickup window
+              </option>
+              {!pickUpWindowList.length && (
+                <option selected disabled>
+                  We have closed {scheduleInfo.pickupDay}{" "}
+                </option>
+              )}
+              {pickUpWindowList.map((el, i) => (
+                <option key={i}>{el}</option>
+              ))}
             </select>
+            {errors?.pickupWindow && (
+              <InfoMessage message={errors.pickupWindow} />
+            )}
           </div>
         </div>
       </div>

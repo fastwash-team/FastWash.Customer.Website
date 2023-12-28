@@ -12,7 +12,6 @@ export const EmptyContainer = () => {
           below to start.
         </p>
       </center>
-
       <button>Schedule Pickup</button>
     </div>
   );

@@ -15,34 +15,24 @@ import { CompleteScheduleScreen } from "../components/schedule-pickup/completed"
 import { ScheduleSummary } from "../components/schedule-pickup/schedule-summary";
 import { ScheduleTracker } from "../components/schedule-pickup/schedule-tracker";
 import { Header } from "../components/header";
+import { useFormik } from "formik";
+import {
+  ContactDetailsSchema,
+  CustomizeWashSchema,
+  PickUpInformationSchema,
+} from "../utils/schemas";
+import { ScheduleFormErrors } from "../utils/types";
 
 export function SchedulePickup() {
   const location = useLocation();
   const [step, increaseStep] = useState(1);
-  const [scheduleInfo, setScheduleInfo] = useState({
-    pickupRange: "09:00 - 10:00",
-    selectedWashType: PRESCHEDULED_WASH,
-    address: location.state.address,
-    pickupday: "Today",
-    washcount: 0,
-    softener: 0,
-    largeLaundryBags: 0,
-    mediumLaundryBags: 0,
-    bleach: 0,
-    colorcatcher: 0,
-    stainremover: 0,
-    contactperson: "",
-    contactemail: "",
-    phonenumber: "",
-  });
-
-  console.log({ scheduleInfo });
   const [completeScheduling, setCompleteSchedule] = useState(false); // should be controlled from redux
   const dispatch = useDispatch();
 
-  const handleChangeInfo = (key: string, value: string | number) => {
-    console.log("sd", key, value);
-    return setScheduleInfo({ ...scheduleInfo, [key]: value });
+  const validateScheduleFlow = () => {
+    if (step === 1) return PickUpInformationSchema;
+    if (step === 2) return CustomizeWashSchema;
+    if (step === 3) return ContactDetailsSchema;
   };
 
   const handleNextStep = () => {
@@ -58,6 +48,36 @@ export function SchedulePickup() {
     if (step > 1) {
       increaseStep(step - 1);
     }
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      selectedWashType: PRESCHEDULED_WASH,
+      address: location?.state?.address || "",
+      pickupDay: "",
+      pickupWindow: "",
+      washcount: 0,
+      softener: 0,
+      largeLaundryBags: 0,
+      mediumLaundryBags: 0,
+      bleach: 0,
+      colorcatcher: 0,
+      stainremover: 0,
+      contactperson: "",
+      contactemail: "",
+      phonenumber: "",
+    },
+    onSubmit: (values) => {
+      console.log("all values", values);
+      handleNextStep();
+    },
+    validationSchema: validateScheduleFlow,
+  });
+
+  const scheduleInfo = formik.values;
+
+  const handleChangeInfo = (key: string, value: string | number) => {
+    return formik.setFieldValue(key, value);
   };
 
   const handleFinishScheduling = () => {
@@ -127,7 +147,8 @@ export function SchedulePickup() {
                   changePDInfo={(key: string, value: string) => {
                     handleChangeInfo(key, value);
                   }}
-                  address={scheduleInfo.address}
+                  scheduleInfo={scheduleInfo}
+                  errors={formik.errors as ScheduleFormErrors}
                 />
               ) : step === 2 ? (
                 <CustomizeWash
@@ -154,9 +175,9 @@ export function SchedulePickup() {
               ) : (
                 <ScheduleSummary
                   selectedWashType={scheduleInfo.selectedWashType}
-                  pickupRange={scheduleInfo.pickupRange}
+                  pickupWindow={scheduleInfo.pickupWindow}
                   address={scheduleInfo.address}
-                  pickupday={scheduleInfo.pickupday}
+                  pickupDay={scheduleInfo.pickupDay}
                   washcount={scheduleInfo.washcount}
                   area={""}
                   softener={scheduleInfo.softener}
@@ -173,7 +194,10 @@ export function SchedulePickup() {
             </div>
           </div>
           {!completeScheduling && (
-            <button className='mt-4 mb-5 next-button' onClick={handleNextStep}>
+            <button
+              className='mt-4 mb-5 next-button'
+              onClick={() => formik.handleSubmit()}
+            >
               Next
             </button>
           )}

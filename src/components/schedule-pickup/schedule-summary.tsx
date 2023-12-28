@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { ScheduleSummaryProps } from "../../utils/types";
-import { CLASSIC_WASH, PRESCHEDULED_WASH } from "../../utils";
+import { CLASSIC_WASH, PRESCHEDULED_WASH, WASH_PRICES } from "../../utils";
 import { formatMoney } from "../../utils/functions";
 
 const BillingItems = (props: ScheduleSummaryProps) => {
@@ -18,11 +18,11 @@ const BillingItems = (props: ScheduleSummaryProps) => {
       </div>
       <div className='item'>
         <span>Pick up Time</span>
-        <b>{props.pickupRange}</b>
+        <b>{props.pickupWindow}</b>
       </div>
       <div className='item'>
         <span>Est Delivery Time</span>
-        <b>{props.pickupday}</b>
+        <b>{props.pickupDay}</b>
       </div>
       <div className='item'>
         <span>
@@ -33,48 +33,53 @@ const BillingItems = (props: ScheduleSummaryProps) => {
             className='bi bi-info-circle-fill'
           />
         </span>
-        <b>N {formatMoney(1000)}</b>
+        <b>N {formatMoney(WASH_PRICES.LOGISTICS)}</b>
       </div>
       {props.washcount > 0 && (
         <div className='item'>
           <span>Wash({props.washcount})</span>
-          <b>N {formatMoney(2700 * props.washcount)}</b>
+          <b>N {formatMoney(WASH_PRICES.WASH * props.washcount)}</b>
         </div>
       )}
       {props.softener > 0 && (
         <div className='item'>
           <span>Softener ({props.softener})</span>
-          <b>N {formatMoney(250 * props.softener)}</b>
+          <b>N {formatMoney(WASH_PRICES.SOFTENER * props.softener)}</b>
         </div>
       )}
       {props.bleach > 0 && (
         <div className='item'>
           <span>Bleach ({props.bleach})</span>
-          <b>N {formatMoney(250 * props.bleach)}</b>
+          <b>N {formatMoney(WASH_PRICES.BLEACH * props.bleach)}</b>
         </div>
       )}
       {props.colorcatcher > 0 && (
         <div className='item'>
           <span>Color Catcher ({props.colorcatcher})</span>
-          <b>N {formatMoney(250 * props.colorcatcher)}</b>
+          <b>N {formatMoney(WASH_PRICES.COLOR_CATCHER * props.colorcatcher)}</b>
         </div>
       )}
       {props.stainremover > 0 && (
         <div className='item'>
           <span>Stain Remover ({props.stainremover})</span>
-          <b>N {formatMoney(250 * props.stainremover)}</b>
+          <b>N {formatMoney(WASH_PRICES.STAIN_REMOVER * props.stainremover)}</b>
         </div>
       )}
       {props.mediumLaundryBags > 0 && (
         <div className='item'>
           <span>Laundry Bags (E) ({props.mediumLaundryBags})</span>
-          <b>N {formatMoney(1500 * props.mediumLaundryBags)}</b>
+          <b>
+            N{" "}
+            {formatMoney(WASH_PRICES.E_LAUNDRY_BAGS * props.mediumLaundryBags)}
+          </b>
         </div>
       )}
       {props.largeLaundryBags > 0 && (
         <div className='item'>
           <span>Laundry Bags (X) ({props.largeLaundryBags})</span>
-          <b>N {formatMoney(2500 * props.largeLaundryBags)}</b>
+          <b>
+            N {formatMoney(WASH_PRICES.X_LAUNDRY_BAGS * props.largeLaundryBags)}
+          </b>
         </div>
       )}
     </div>
@@ -107,7 +112,19 @@ const ContactDetails = (props: ScheduleSummaryProps) => {
 };
 
 export function ScheduleSummary(props: ScheduleSummaryProps) {
-  console.log({ props }, "-----");
+  const total = useMemo(() => {
+    return (
+      props.washcount * WASH_PRICES.WASH +
+      props.softener * WASH_PRICES.SOFTENER +
+      WASH_PRICES.LOGISTICS +
+      props.bleach * WASH_PRICES.BLEACH +
+      props.colorcatcher * WASH_PRICES.COLOR_CATCHER +
+      props.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS +
+      props.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS +
+      props.stainremover * WASH_PRICES.STAIN_REMOVER
+    );
+  }, [props]);
+
   return (
     <>
       <div className='schedule-pickup__body__steps-summary'>
@@ -120,7 +137,7 @@ export function ScheduleSummary(props: ScheduleSummaryProps) {
         <ContactDetails {...props} />
         <div className='total'>
           <span>Total</span>
-          <b>NGN {formatMoney(5650)}</b>
+          <b>NGN {formatMoney(total)}</b>
         </div>
       </div>
       <div className='schedule-pickup__body__steps-summary_mobile'>
@@ -156,7 +173,7 @@ export function ScheduleSummary(props: ScheduleSummaryProps) {
         </div>
         <div className='total'>
           <span>Total</span>
-          <b>NGN 5690</b>
+          <b>NGN {formatMoney(total)}</b>
         </div>
       </div>
     </>

@@ -23,11 +23,11 @@ export function CustomizeWash(props: CustomizeWashProps) {
   useEffect(() => {
     if (props.scheduleInfo.washcount < 1) {
       props.changePDInfo("washcount", 1);
+      props.changePDInfo("softener", 1);
     }
   }, []);
 
   const handleExtraCount = (extra: string, variant: string) => {
-    console.log({ extra, variant });
     const val = (props.scheduleInfo[extra as keyof ScheduleSummaryProps] ||
       0) as number;
     if (variant === "add") return props.changePDInfo(extra, val + 1);
@@ -36,10 +36,14 @@ export function CustomizeWash(props: CustomizeWashProps) {
   };
 
   const handleWashCount = (variant: string) => {
-    if (variant === "add")
-      return props.changePDInfo("washcount", props.scheduleInfo.washcount + 1);
-    if (variant === "minus" && props.scheduleInfo.washcount > 1)
-      return props.changePDInfo("washcount", props.scheduleInfo.washcount - 1);
+    if (variant === "add") {
+      props.changePDInfo("washcount", props.scheduleInfo.washcount + 1);
+      return props.changePDInfo("softener", props.scheduleInfo.softener + 1);
+    }
+    if (variant === "minus" && props.scheduleInfo.washcount > 1) {
+      props.changePDInfo("washcount", props.scheduleInfo.washcount - 1);
+      return props.changePDInfo("softener", props.scheduleInfo.softener - 1);
+    }
   };
   return (
     <div className='schedule-pickup__body__steps-view-render customize-wash'>

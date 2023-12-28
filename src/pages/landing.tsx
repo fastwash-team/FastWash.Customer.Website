@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState } from "react";
 import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import FashWashTransparent from "../assets/imgs/fash-wash-transparent.png";
 import Hanger from "../assets/svgs/hanger.svg";
@@ -14,20 +14,12 @@ import ReviewerTwo from "../assets/svgs/customer-two.svg";
 import QuotesMark from "../assets/svgs/quotation.svg";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
-import { useFormik } from "formik";
-import { LandingPageSchema } from "../utils/schemas";
+import { GoogleAddressInput } from "../components/google-address-input";
 
 const Landing: React.FC = () => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [address, setAddress] = useState<string>("");
   const navigate = useNavigate();
-  const formik = useFormik({
-    initialValues: { address: "" },
-    onSubmit: (values) => {
-      console.log({ values });
-      navigate("/schedule-pickup", { state: { address: values.address } });
-    },
-    validationSchema: LandingPageSchema,
-  });
+
   const locations = [
     "Yaba",
     1500,
@@ -43,38 +35,9 @@ const Landing: React.FC = () => {
     1500,
   ];
 
-  useEffect(() => {
-    const googleScript = document.createElement("script");
-    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_LOCATION_KEY}&libraries=places`;
-    googleScript.async = true;
-    googleScript.defer = true;
-
-    googleScript.onload = () => {
-      // Initialize Autocomplete after Google Maps script is loaded
-      if (inputRef.current) {
-        const autocomplete = new window.google.maps.places.Autocomplete(
-          inputRef.current,
-          {
-            types: ["geocode"],
-            componentRestrictions: { country: "NG" },
-          }
-        );
-
-        autocomplete.addListener("place_changed", () => {
-          const place = autocomplete.getPlace();
-          console.log("Selected Place:", place);
-          formik.setFieldValue("address", place.formatted_address);
-        });
-      }
-    };
-
-    document.head.appendChild(googleScript);
-
-    return () => {
-      // Cleanup: remove the script when the component unmounts
-      document.head.removeChild(googleScript);
-    };
-  }, []); // Empty dependency array ensures that this useEffect runs only once on mount
+  const handleSchedulePickup = () => {
+    return navigate("/schedule-pickup", { state: { address } });
+  };
 
   return (
     <div className='app-landing' data-bs-spy='scroll'>
@@ -124,9 +87,7 @@ const Landing: React.FC = () => {
               </ul>
               <div className='login-section'>
                 <a href='/login'>Login</a>
-                <button onClick={() => formik.handleSubmit()}>
-                  Schedule Now
-                </button>
+                <button onClick={handleSchedulePickup}>Schedule Now</button>
               </div>
             </div>
           </nav>
@@ -150,36 +111,13 @@ const Landing: React.FC = () => {
               <p className='_location-prompt' id='pickup-address'>
                 Enter a pick location to start
               </p>
-              <div
-                className={`input-group flex-nowrap _location-input-wrapper ${
-                  formik.errors.address && "error-message-border"
-                }`}
-              >
-                <span
-                  className='input-group-text _location-input-wrapper-addon'
-                  id='addon-wrapping'
-                >
-                  <i className='bi bi-geo-alt'></i>
-                </span>
-                <input
-                  ref={inputRef}
-                  type='text'
-                  className='form-control _location-input-wrapper-inputbox'
-                  placeholder='Enter Pick up location'
-                  aria-label='location-pickup'
-                  aria-describedby='addon-wrapping'
-                  name='address'
-                  id='address'
-                  onChange={formik.handleChange}
-                  value={formik.values.address}
-                />
-              </div>
-              {formik.errors.address && (
-                <p className='error-message-text'>{formik.errors.address}</p>
-              )}
+              <GoogleAddressInput
+                handleChange={(address: string) => setAddress(address)}
+                address={address}
+              />
               <button
                 className='_location-schedule-button'
-                onClick={() => formik.handleSubmit()}
+                onClick={handleSchedulePickup}
               >
                 Schedule Pickup
               </button>
@@ -285,7 +223,7 @@ const Landing: React.FC = () => {
                   </p>
                 </div>
                 <a
-                  href='#pickup-address'
+                  href='/schedule-pickup'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -306,7 +244,7 @@ const Landing: React.FC = () => {
                   </p>
                 </div>
                 <a
-                  href='#pickup-address'
+                  href='/schedule-pickup'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -329,7 +267,7 @@ const Landing: React.FC = () => {
                   <p>Free wrap bags</p>
                 </div>
                 <a
-                  href='#pickup-address'
+                  href='/schedule-pickup'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -345,7 +283,7 @@ const Landing: React.FC = () => {
                   <p>Free wrap bags</p>
                 </div>
                 <a
-                  href='#pickup-address'
+                  href='/schedule-pickup'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -362,7 +300,7 @@ const Landing: React.FC = () => {
                   <p>Free wrap bags</p>
                 </div>
                 <a
-                  href='#pickup-address'
+                  href='/schedule-pickup'
                   type='button'
                   className='schedule-pickup-btn'
                 >

@@ -8,11 +8,8 @@ export function ContactDetails(props: ContactDetailsProps) {
   const [paymentOption, setPaymentOption] = useState<string | null>(null);
 
   const handleContactEntry = (key: string, value: string) => {
-    console.log({ key, value });
-    props.changePDInfo(key, value);
+    return props.changePDInfo(key, value);
   };
-
-  console.log("sds", props.scheduleInfo);
 
   return (
     <div className='schedule-pickup__body__steps-view-render contact-details'>

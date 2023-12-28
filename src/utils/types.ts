@@ -1,9 +1,25 @@
+import React from "react";
 import { CLASSIC_WASH, PRESCHEDULED_WASH } from ".";
+import { FormikErrors, FormikTouched, FormikValues } from "formik";
+
+export interface ScheduleFormErrors {
+  address: string;
+  area: string;
+  pickupDay: string;
+  pickupWindow: string;
+}
 
 export interface PickupDeliveryProps {
   selectedWashType: string;
-  address: string;
+  scheduleInfo: ScheduleSummaryProps;
   changePDInfo: (e: string, f: string) => void;
+  errors: ScheduleFormErrors;
+}
+
+export interface InfoMessageComponentProps {
+  message: string;
+  type?: string;
+  // message: FormikErrors<FormikValues>["message"];
 }
 
 export interface CounterComponentProps {
@@ -22,9 +38,9 @@ export interface CounterComponentProps {
 export interface ScheduleSummaryProps {
   // selectedWashType: WASH_TYPES.classic_wash;
   selectedWashType: string;
-  pickupRange: string;
+  pickupWindow: string;
   address: string;
-  pickupday: string;
+  pickupDay: string;
   area?: string;
   washcount: number;
   softener: number;
@@ -57,4 +73,9 @@ export interface PaymentItem {
   status: string;
   type: string;
   date: string;
+}
+
+export interface GoogleAddressInputProps {
+  handleChange: (e: string) => void;
+  address: string;
 }
