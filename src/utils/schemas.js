@@ -14,4 +14,8 @@ export const PickUpInformationSchema = Yup.object().shape({
 });
 
 export const CustomizeWashSchema = Yup.object().shape({});
-export const ContactDetailsSchema = Yup.object().shape({});
+export const ContactDetailsSchema = Yup.object().shape({
+  contactperson: Yup.string().required("You must give a contact name"),
+  contactemail: Yup.string().required("You must give a contact email"),
+  phonenumber: Yup.string().required("You must give a phone number"),
+});

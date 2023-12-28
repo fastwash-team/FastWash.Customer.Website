@@ -163,6 +163,7 @@ export function SchedulePickup() {
                   changePDInfo={(key: string, value: string | number) => {
                     handleChangeInfo(key, value);
                   }}
+                  errors={formik.errors as ScheduleFormErrors}
                 />
               ) : step === 4 && completeScheduling ? (
                 <CompleteScheduleScreen />

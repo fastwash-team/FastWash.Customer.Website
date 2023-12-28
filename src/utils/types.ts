@@ -7,6 +7,9 @@ export interface ScheduleFormErrors {
   area: string;
   pickupDay: string;
   pickupWindow: string;
+  contactperson: string;
+  contactemail: string;
+  phonenumber: string;
 }
 
 export interface PickupDeliveryProps {
@@ -19,7 +22,6 @@ export interface PickupDeliveryProps {
 export interface InfoMessageComponentProps {
   message: string;
   type?: string;
-  // message: FormikErrors<FormikValues>["message"];
 }
 
 export interface CounterComponentProps {
@@ -57,6 +59,7 @@ export interface ScheduleSummaryProps {
 export interface CustomizeWashProps {
   scheduleInfo: ScheduleSummaryProps;
   changePDInfo: (e: string, f: string | number) => void;
+  errors?: ScheduleFormErrors;
 }
 
 export interface WashItem {

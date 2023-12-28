@@ -3,6 +3,7 @@ import OpayLogo from "../../assets/svgs/OPay - png.png";
 import PaystackLogo from "../../assets/svgs/paystack.svg";
 import { PAYMENT_TYPES } from "../../utils";
 import { CustomizeWashProps as ContactDetailsProps } from "../../utils/types";
+import { InfoMessage } from "../info-message";
 
 export function ContactDetails(props: ContactDetailsProps) {
   const [paymentOption, setPaymentOption] = useState<string | null>(null);
@@ -27,12 +28,15 @@ export function ContactDetails(props: ContactDetailsProps) {
             handleContactEntry("contactperson", value)
           }
         />
+        {props.errors?.contactperson && (
+          <InfoMessage message={props.errors.contactperson} />
+        )}
       </div>
       <div className='mt-3 mb-5'>
         <div className='row'>
           <div className='col-md-6 col-sm-12'>
             <label>Phone number</label>
-            <div className='input-group mb-3'>
+            <div className='input-group'>
               <span className='input-group-text' id='basic-addon1'>
                 +234
               </span>
@@ -40,12 +44,15 @@ export function ContactDetails(props: ContactDetailsProps) {
                 className='form-control'
                 name='phonenumber'
                 id='phonenumber'
-                type='number'
+                // type='number'
                 onChange={({ target: { value } }) =>
                   handleContactEntry("phonenumber", `+234${value}`)
                 }
               />
             </div>
+            {props.errors?.phonenumber && (
+              <InfoMessage message={props.errors.phonenumber} />
+            )}
           </div>
           <div className='col-md-6 col-sm-12'>
             <label>Email</label>
@@ -58,6 +65,9 @@ export function ContactDetails(props: ContactDetailsProps) {
                 handleContactEntry("contactemail", value)
               }
             />
+            {props.errors?.contactemail && (
+              <InfoMessage message={props.errors.contactemail} />
+            )}
           </div>
         </div>
       </div>
