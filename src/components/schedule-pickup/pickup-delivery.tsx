@@ -89,7 +89,7 @@ export function PickupDelivery({
                 changePDInfo("pickupDay", value)
               }
             >
-              <option selected disabled>
+              <option selected={!scheduleInfo.pickupDay} disabled>
                 Choose pickup day
               </option>
               {pickUpDaysList.map((el, i) => (
@@ -107,7 +107,7 @@ export function PickupDelivery({
                 changePDInfo("pickupWindow", value)
               }
             >
-              <option selected disabled>
+              <option selected={!scheduleInfo.pickupWindow} disabled>
                 Choose pickup window
               </option>
               {!pickUpWindowList.length && (

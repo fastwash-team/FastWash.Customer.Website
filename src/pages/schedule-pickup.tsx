@@ -110,6 +110,7 @@ export function SchedulePickup() {
       <div className='schedule-pickup__body'>
         {!completeScheduling && (
           <div className='schedule-pickup__body__flow-tracker-wrapper'>
+            <i className='bi bi-chevron-left' onClick={handleGoBack}></i>
             <div className='schedule-pickup__body__flow-tracker'>
               <img
                 src={
