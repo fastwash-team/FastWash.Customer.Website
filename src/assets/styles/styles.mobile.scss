@@ -520,6 +520,30 @@ $wash-yellow: #f26419;
     .help-container {
       flex-flow: column;
     }
+
+    ._requests {
+      .tracking {
+        .tracker-wrapper {
+          .step {
+            &::before {
+              height: 70px;
+            }
+            p {
+              width: 75%;
+
+              &.time {
+                width: fit-content;
+              }
+            }
+            h4 {
+              &::before {
+                left: 22.5px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   .empty-container {

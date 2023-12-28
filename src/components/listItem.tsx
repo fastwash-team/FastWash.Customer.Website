@@ -1,11 +1,20 @@
 import React from "react";
 import { PaymentItem, WashItem } from "../utils/types";
+import { useNavigate } from "react-router-dom";
 
 export const WashItemComponent = (props: { items: WashItem[] }) => {
+  const navigate = useNavigate();
+  const navigateToDetails = (itemno: string) => {
+    return navigate(`/requests/${itemno}`);
+  };
   return (
     <div className='wash-items-container'>
       {props.items.map((el, key) => (
-        <div className='wash-item' key={key}>
+        <div
+          className='wash-item'
+          key={key}
+          onClick={() => navigateToDetails(el.itemno)}
+        >
           <div className='wash-item-no'>
             <div className='status'>
               <h2>#FWash 09680</h2>
