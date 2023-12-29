@@ -25,7 +25,7 @@ import { ScheduleFormErrors } from "../utils/types";
 
 export function SchedulePickup() {
   const location = useLocation();
-  const [step, increaseStep] = useState(1);
+  const [step, setStep] = useState(1);
   const [completeScheduling, setCompleteSchedule] = useState(false); // should be controlled from redux
   const dispatch = useDispatch();
 
@@ -37,7 +37,7 @@ export function SchedulePickup() {
 
   const handleNextStep = () => {
     if (step < 3) {
-      increaseStep(step + 1);
+      setStep(step + 1);
     }
     if (step === 3) {
       handleFinishScheduling();
@@ -46,7 +46,7 @@ export function SchedulePickup() {
 
   const handleGoBack = () => {
     if (step > 1) {
-      increaseStep(step - 1);
+      setStep(step - 1);
     }
   };
 
@@ -83,7 +83,12 @@ export function SchedulePickup() {
   const handleFinishScheduling = () => {
     dispatch(activate_background_loader());
     setCompleteSchedule(true);
-    increaseStep(step + 1);
+    setStep(step + 1);
+  };
+
+  const handleTitleClick = (pageNumber: number) => {
+    if (pageNumber < step) setStep(pageNumber);
+    return;
   };
 
   return (
@@ -111,7 +116,10 @@ export function SchedulePickup() {
         {!completeScheduling && (
           <div className='schedule-pickup__body__flow-tracker-wrapper'>
             <i className='bi bi-chevron-left' onClick={handleGoBack}></i>
-            <div className='schedule-pickup__body__flow-tracker'>
+            <div
+              className='schedule-pickup__body__flow-tracker'
+              onClick={() => handleTitleClick(1)}
+            >
               <img
                 src={
                   step === 1 || step > 1 ? RadioChecked : RadioCheckedDisabled
@@ -120,7 +128,10 @@ export function SchedulePickup() {
               />
               <p>Pick up & Delivery</p>
             </div>
-            <div className='schedule-pickup__body__flow-tracker disabled'>
+            <div
+              className='schedule-pickup__body__flow-tracker disabled'
+              onClick={() => handleTitleClick(2)}
+            >
               <img
                 src={
                   step === 2 || step > 2 ? RadioChecked : RadioCheckedDisabled
@@ -129,7 +140,10 @@ export function SchedulePickup() {
               />
               <p>Customize Wash</p>
             </div>
-            <div className='schedule-pickup__body__flow-tracker disabled'>
+            <div
+              className='schedule-pickup__body__flow-tracker disabled'
+              onClick={() => handleTitleClick(3)}
+            >
               <img
                 src={step === 3 ? RadioChecked : RadioCheckedDisabled}
                 alt=''

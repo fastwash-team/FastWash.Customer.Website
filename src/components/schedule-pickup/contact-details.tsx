@@ -44,7 +44,7 @@ export function ContactDetails(props: ContactDetailsProps) {
                 className='form-control'
                 name='phonenumber'
                 id='phonenumber'
-                // type='number'
+                type='number'
                 onChange={({ target: { value } }) =>
                   handleContactEntry("phonenumber", `+234${value}`)
                 }

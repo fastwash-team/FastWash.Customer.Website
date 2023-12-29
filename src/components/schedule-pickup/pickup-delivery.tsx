@@ -70,6 +70,7 @@ export function PickupDelivery({
         <select
           className='form-select'
           aria-label='Default select example'
+          value={scheduleInfo.area}
           onChange={({ target: { value } }) => changePDInfo("area", value)}
         >
           {supportedAreas.map((el) => (
@@ -85,6 +86,7 @@ export function PickupDelivery({
             <select
               className='form-select'
               aria-label='Default select example'
+              value={scheduleInfo.pickupDay}
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupDay", value)
               }
@@ -103,6 +105,7 @@ export function PickupDelivery({
             <select
               className='form-select'
               aria-label='Default select example'
+              value={scheduleInfo.pickupWindow}
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupWindow", value)
               }
