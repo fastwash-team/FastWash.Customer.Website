@@ -10,6 +10,7 @@ import { Dashboard } from "./pages/dashboard";
 import { Requests } from "./pages/requests";
 import { Payments } from "./pages/payments";
 import { RequestDetailPage } from "./components/requests/details";
+import { AdminDashboard } from "./pages/admin-dashboard";
 
 const AppRoutes = () => {
   return (
@@ -25,6 +26,8 @@ const AppRoutes = () => {
           <Route path='/requests' element={<Requests />} />
           <Route path='/requests/:id' element={<RequestDetailPage />} />
           <Route path='/payments' element={<Payments />} />
+          <Route path='/admin/login' element={<Login isAdmin={true} />} />
+          <Route path='/admin/dashboard' element={<AdminDashboard />} />
         </Route>
       </Routes>
     </Router>

@@ -1,9 +1,15 @@
 import React from "react";
 import { Header } from "../components/header";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function VerifyAuth() {
+  const location = useLocation();
   const navigate = useNavigate();
+  const {
+    state: { isAdmin },
+  } = location;
+
+  console.log({ isAdmin });
   return (
     <div className='login'>
       <Header />
@@ -20,7 +26,13 @@ export function VerifyAuth() {
                 placeholder='Enter 4 digit code'
               />
             </div>
-            <button onClick={() => navigate("/dashboard")}>Take me in</button>
+            <button
+              onClick={() =>
+                isAdmin ? navigate("/admin/dashboard") : navigate("/dashboard")
+              }
+            >
+              Take me in
+            </button>
             <p className='no-account'>
               Didn’t get code? <a>Resend</a>
             </p>

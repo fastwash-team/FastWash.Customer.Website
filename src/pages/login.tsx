@@ -2,11 +2,14 @@ import React from "react";
 import { Header } from "../components/header";
 import { useNavigate } from "react-router-dom";
 
-export function Login() {
+export function Login(props: { isAdmin?: boolean }) {
   const navigate = useNavigate();
+  const isAdmin = !!props.isAdmin;
+
+  console.log({ isAdmin });
 
   const handleLogin = () => {
-    navigate("/verify-auth");
+    navigate("/verify-auth", { state: { isAdmin } });
   };
 
   const handleRegisterRoute = () => {

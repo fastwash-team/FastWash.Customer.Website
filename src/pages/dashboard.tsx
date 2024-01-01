@@ -1,9 +1,8 @@
 import React from "react";
 import { Header } from "../components/header";
 import WashingMachine from "../assets/svgs/small-washing-machine.svg";
-import FaqMessage from "../assets/svgs/faq-message.svg";
-import FaqCare from "../assets/svgs/faq-care.svg";
 import { useNavigate } from "react-router-dom";
+import { HelpCenter } from "../components/help-center";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -80,18 +79,7 @@ export const Dashboard = () => {
                 <i className='bi bi-chevron-right'></i>
               </div>
             </div>
-            <div className='help-container'>
-              <div className='help'>
-                <img src={FaqMessage} alt='' />
-                <h4>FAQs</h4>
-                <p>Get answers to questions people commonly ask at FastWash</p>
-              </div>
-              <div className='help'>
-                <img src={FaqCare} alt='' />
-                <h4>Help & Support</h4>
-                <p>Get the help you need anytime from our support team</p>
-              </div>
-            </div>
+            <HelpCenter />
           </div>
           <div className='col-md-3'></div>
         </div>

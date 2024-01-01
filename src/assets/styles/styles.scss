@@ -699,6 +699,26 @@ label {
     .app-landing_section-one_header-container {
       padding-top: 10px;
     }
+
+    .icons {
+      flex: auto;
+      justify-content: flex-end;
+      li {
+        background: #ffe6bc;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 18px;
+
+        &:last-child {
+          color: #17499f;
+          font-size: 24px;
+        }
+      }
+    }
   }
 
   &__body {
@@ -1329,11 +1349,46 @@ label {
 }
 
 .__dashboard {
+  .search-wrapper {
+    padding: 16px 24px;
+    border-radius: 8px;
+    background: #fafafa;
+    margin-top: -14px;
+
+    input {
+      height: 40px;
+    }
+  }
   .user-details {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 56px;
+
+    &.-admin {
+      margin-top: 16px;
+
+      .dropdown-menu {
+        transform: translate3d(-264px, 45px, 0px) !important;
+        width: 304px;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
+        border: none;
+        a {
+          font-size: 14px;
+          color: #020d1c;
+          margin-bottom: 14px;
+          font-weight: 500;
+        }
+
+        li {
+          &:last-child {
+            a {
+              margin-bottom: 7px;
+            }
+          }
+        }
+      }
+    }
 
     .name_ {
       h2 {
@@ -1357,9 +1412,13 @@ label {
       justify-content: center;
       align-items: center;
       border-radius: 50%;
+      cursor: pointer;
       i {
         font-size: 24px;
         color: #17499f;
+
+        &.dropdown {
+        }
       }
     }
   }
@@ -1396,6 +1455,10 @@ label {
     display: flex;
     gap: 24px;
     border-bottom: 1px solid #d9d9d9;
+    &.no-btm-border {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
     .board {
       &:last-child {
         background: #fff;
@@ -1405,6 +1468,13 @@ label {
       border-radius: 8px;
       background: #ffbdb0;
       width: 100%;
+
+      &.green {
+        background: #cae99a;
+      }
+      &.blue {
+        background: #d6e7ff;
+      }
 
       .title {
         display: flex;
@@ -1653,6 +1723,214 @@ label {
               &.time {
                 margin-top: -30px;
               }
+            }
+          }
+        }
+      }
+    }
+  }
+  .admin-tabs {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding-left: 0;
+    border-bottom: 1px solid #d9d9d9;
+    padding-bottom: 6px;
+    margin-top: 36px;
+
+    li {
+      color: #666;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+
+      &.active {
+        color: #17499f;
+
+        &::after {
+          content: " ";
+          border-radius: 8px 8px 0px 0px;
+          background: #17499f;
+          width: 80px;
+          height: 5px;
+          display: block;
+          position: relative;
+          top: 6px;
+        }
+      }
+    }
+  }
+  .admin-tabs-content {
+    .column-title-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .title {
+        h3 {
+          color: #020d1c;
+          font-size: 16px;
+          font-weight: 600;
+        }
+        p {
+          margin-bottom: 0;
+          color: #666;
+          font-size: 13px;
+        }
+      }
+      .filter {
+        background-color: #fafafa;
+        border: 1px solid #edeff2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+
+        i {
+          font-size: 24px;
+        }
+      }
+    }
+
+    .filter-list-view {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+
+      li {
+        list-style: none;
+        border-radius: 32px;
+        border: 1px solid #17499f;
+        background: #17499f;
+        padding: 8px 12px;
+        text-transform: capitalize;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+
+    .admin-content-list {
+      margin-top: 24px;
+      .item {
+        padding: 16px 0;
+        border-top: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+
+        .time-info {
+          display: flex;
+          justify-content: space-between;
+
+          p {
+            margin-bottom: 0;
+            display: flex;
+            gap: 24px;
+            color: #020d1c;
+            font-size: 16px;
+            font-weight: 500;
+
+            span {
+              color: #666;
+              font-size: 14px;
+              font-weight: 600;
+            }
+            i {
+              cursor: pointer;
+            }
+          }
+        }
+        .item-props {
+          display: flex;
+          margin-top: 16px;
+          gap: 24px;
+
+          p {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            margin-bottom: 0;
+            i {
+              color: #666666;
+              font-size: 12px;
+            }
+            span {
+              font-size: 13px;
+              color: #666;
+            }
+          }
+        }
+      }
+    }
+
+    .modal-content {
+      .modal-title {
+        font-weight: 600;
+      }
+      .modal-footer {
+        border: none;
+        justify-content: space-between;
+        margin-bottom: 24px;
+
+        p {
+          color: #17499f;
+          font-size: 14px;
+          margin-bottom: 0;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        button {
+          border-radius: 8px;
+          background: #17499f;
+          width: 161px;
+          height: 56px;
+          color: #fafafa;
+          font-size: 14px;
+          font-weight: 700;
+        }
+      }
+
+      .modal-body {
+        border-color: #d9d9d9;
+        .filter-container {
+          margin-bottom: 24px;
+          h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+          }
+          .filter-list {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+
+            li {
+              font-size: 12px;
+              border-radius: 32px;
+              border: 1px solid #d9d9d9;
+              background: #f4f4f4;
+              padding: 8px 12px;
+              font-weight: 500;
+              color: #666;
+              cursor: pointer;
+
+              &.active {
+                border: 1px solid #17499f;
+                background: #17499f;
+                color: #fff;
+              }
+            }
+          }
+          .range-inputs {
+            display: flex;
+            gap: 24px;
+            input {
+              width: 120px;
+              height: 49px;
             }
           }
         }
