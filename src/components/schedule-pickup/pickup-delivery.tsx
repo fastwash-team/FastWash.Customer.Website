@@ -4,7 +4,7 @@ import CircleTruck from "../../assets/svgs/2.svg";
 import CheckedRadioButton from "../../assets/svgs/input-radio-checked.svg";
 import { CLASSIC_WASH, PRESCHEDULED_WASH, supportedAreas } from "../../utils";
 import { PickupDeliveryProps } from "../../utils/types";
-import { GoogleAddressInput } from "../google-address-input";
+import { GoogleAddressInput } from "../google-input/google-address-input";
 import { getPickUpDay, getPickupWindow } from "../../utils/functions";
 import { InfoMessage } from "../info-message";
 

@@ -24,16 +24,28 @@ export const getPickupWindow = (pickupday) => {
 };
 
 export const getScheduleTime = (hourTime) => {
-  const hour = moment().format("kk");
+  const hour = moment().hours();
+  const minutes = moment().minutes();
+  console.log({ minutes });
   console.log({ hour });
   console.log({ hourTime });
-  let startTime = 7;
-  if (!hourTime && Number(hour) >= startTime) startTime = Number(hour) + 1;
-  // if (hourTime) {
-  // }
-  const times = [];
-  for (let i = startTime; i < 15; i++) {
-    times.push(`${i}:00 - ${i + 1}:00`);
+  let startHour = 7;
+  let startMin = 30;
+
+  if (!hourTime) {
+    if (hour > startHour) startHour = hour + 1;
+    if (minutes < startMin) {
+      startHour = hour;
+    }
   }
-  return times;
+  console.log({ startHour, startMin });
+
+  // if (!hourTime && Number(hour) >= startTime) startTime = Number(hour) + 1;
+  // // if (hourTime) {
+  // // }
+  // const times = [];
+  // for (let i = startHour; i < 17; i++) {
+  //   times.push(`${i}:00 - ${i + 1}:00`);
+  // }
+  // return times;
 };

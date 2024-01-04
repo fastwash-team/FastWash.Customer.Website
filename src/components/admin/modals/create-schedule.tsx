@@ -36,7 +36,7 @@ export function CreateScheduleModal() {
               </select>
             </div>
             <div className='row'>
-              <div className='col-6'>
+              <div className='col-md-6 col-sm-12'>
                 <label>Choose Day</label>
                 <select className='form-select'>
                   {pickUpDaysList.map((el, i) => (
@@ -44,9 +44,9 @@ export function CreateScheduleModal() {
                   ))}
                 </select>
               </div>
-              <div className='col-6'>
+              <div className='col-md-6 col-sm-12'>
                 <div className='row'>
-                  <div className='col-6'>
+                  <div className='col-md-6 col-sm-12'>
                     <label>Start Time</label>
                     <select className='form-select'>
                       {supportedAreas.map((el) => (
@@ -54,7 +54,7 @@ export function CreateScheduleModal() {
                       ))}
                     </select>
                   </div>
-                  <div className='col-6'>
+                  <div className='col-md-6 col-sm-12'>
                     <label>End Time</label>
                     <select className='form-select'>
                       {supportedAreas.map((el) => (
@@ -64,19 +64,10 @@ export function CreateScheduleModal() {
                   </div>
                 </div>
               </div>
+              <button type='button' className='btn btn-primary'>
+                Create Schedule
+              </button>
             </div>
-          </div>
-          <div className='modal-footer'>
-            <button
-              type='button'
-              className='btn btn-secondary'
-              data-bs-dismiss='modal'
-            >
-              Close
-            </button>
-            <button type='button' className='btn btn-primary'>
-              Save changes
-            </button>
           </div>
         </div>
       </div>

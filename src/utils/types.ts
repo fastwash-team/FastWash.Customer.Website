@@ -82,3 +82,19 @@ export interface GoogleAddressInputProps {
   handleChange: (e: string) => void;
   address: string;
 }
+
+export interface FilterScheduleProps {
+  filterDay: string;
+  setFilterDay: (el: string) => void;
+  filterSchedule: string;
+  setFilterSchedule: (el: string) => void;
+  filterLocation: string;
+  setFilterLocation: (el: string) => void;
+  priceRange: { max: number; min: number };
+  setPriceRange: (el: { max: number; min: number }) => void;
+  handleApplyFilter: () => void;
+}
+
+export interface ScheduleInfo {
+  scheduleId: string;
+}

@@ -4,6 +4,7 @@ import { AdminOverview } from "../components/admin/admin-dashboard";
 import { HelpCenter } from "../components/help-center";
 import { AdminSchedule } from "../components/admin/admin-schedule";
 import { CreateScheduleModal } from "../components/admin/modals/create-schedule";
+import { AdminRequests } from "../components/admin/admin-requests";
 
 export const AdminDashboard = () => {
   const [activeTabNo, setActiveTabNo] = useState(1);
@@ -14,6 +15,8 @@ export const AdminDashboard = () => {
         return <AdminOverview />;
       case 2:
         return <AdminSchedule />;
+      case 3:
+        return <AdminRequests />;
       default:
         return <></>;
     }

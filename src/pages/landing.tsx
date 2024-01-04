@@ -14,7 +14,7 @@ import ReviewerTwo from "../assets/svgs/customer-two.svg";
 import QuotesMark from "../assets/svgs/quotation.svg";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
-import { GoogleAddressInput } from "../components/google-address-input";
+import { GoogleAddressInput } from "../components/google-input/google-address-input";
 
 const Landing: React.FC = () => {
   const [address, setAddress] = useState<string>("");

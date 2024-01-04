@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { GoogleAddressInputProps } from "../utils/types";
+import { GoogleAddressInputProps } from "../../utils/types";
 
 export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);

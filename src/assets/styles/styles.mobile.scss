@@ -530,7 +530,6 @@ $wash-yellow: #f26419;
     .help-container {
       flex-flow: column;
     }
-
     ._requests {
       .tracking {
         .tracker-wrapper {
@@ -554,12 +553,10 @@ $wash-yellow: #f26419;
         }
       }
     }
-
     .admin-tabs {
       gap: 25px;
       overflow-x: scroll;
     }
-
     .admin-tabs-content {
       .filter-list-view {
         li {
@@ -597,6 +594,13 @@ $wash-yellow: #f26419;
         .pagination-numbers {
           position: relative;
           padding-left: 0;
+        }
+      }
+    }
+    .form-modal {
+      .modal-body {
+        .col-sm-12 {
+          margin-bottom: 1rem;
         }
       }
     }
