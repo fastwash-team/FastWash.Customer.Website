@@ -6,7 +6,7 @@ export function AdminHeader() {
     <div className='schedule-pickup__header'>
       <div className='row'>
         <div className='col-3'></div>
-        <div className='col-6'>
+        <div className='col-md-6 col-xs-12'>
           <nav className='navbar navbar-expand-lg app-landing_section-one_header-container'>
             <a className='navbar-brand' href='/'>
               <img src={FashWashLogo} alt='fash-wash' className='img-fluid' />

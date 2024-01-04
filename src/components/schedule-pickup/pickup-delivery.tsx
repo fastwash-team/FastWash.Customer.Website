@@ -18,6 +18,9 @@ export function PickupDelivery({
   const isClassicWash = selectedWashType === CLASSIC_WASH;
   const pickUpDaysList = getPickUpDay();
 
+  console.log({ scheduleInfo });
+  console.log("haspickup day", scheduleInfo.pickupDay);
+
   const pickUpWindowList = useMemo(() => {
     return getPickupWindow(scheduleInfo.pickupDay);
   }, [scheduleInfo.pickupDay]);
@@ -72,7 +75,10 @@ export function PickupDelivery({
           aria-label='Default select example'
           value={scheduleInfo.area}
           onChange={({ target: { value } }) => changePDInfo("area", value)}
+          defaultValue={"-- Select an area --"}
+          id='area'
         >
+          <option disabled>-- Select an area --</option>
           {supportedAreas.map((el) => (
             <option key={el}>{el}</option>
           ))}
@@ -86,14 +92,18 @@ export function PickupDelivery({
             <select
               className='form-select'
               aria-label='Default select example'
-              value={scheduleInfo.pickupDay}
+              value={
+                !scheduleInfo.pickupDay.length
+                  ? undefined
+                  : scheduleInfo.pickupDay
+              }
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupDay", value)
               }
+              defaultValue='-- Select pickup day --'
+              id='pickup-day'
             >
-              <option selected={!scheduleInfo.pickupDay} disabled>
-                Choose pickup day
-              </option>
+              <option disabled>-- Select pickup day --</option>
               {pickUpDaysList.map((el, i) => (
                 <option key={i}>{el}</option>
               ))}
@@ -105,14 +115,18 @@ export function PickupDelivery({
             <select
               className='form-select'
               aria-label='Default select example'
-              value={scheduleInfo.pickupWindow}
+              value={
+                !scheduleInfo.pickupWindow.length
+                  ? undefined
+                  : scheduleInfo.pickupWindow
+              }
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupWindow", value)
               }
+              id='pickup-window'
+              defaultValue={"-- Select pickup window --"}
             >
-              <option selected={!scheduleInfo.pickupWindow} disabled>
-                Choose pickup window
-              </option>
+              <option disabled>-- Select pickup window --</option>
               {!pickUpWindowList.length && (
                 <option selected disabled>
                   We have closed {scheduleInfo.pickupDay}{" "}

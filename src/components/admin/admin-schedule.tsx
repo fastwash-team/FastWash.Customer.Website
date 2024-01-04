@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { supportedAreas } from "../../utils";
+import { Pagination } from "../pagination";
 
 export function AdminSchedule() {
   const [filterDay, setFilterDay] = useState("all");
@@ -44,7 +45,7 @@ export function AdminSchedule() {
           </li>
         </div>
         <div className='admin-content-list'>
-          {[1, 2, 3, 4].map((el) => (
+          {[1, 2, 3, 4].map(() => (
             <div className='item'>
               <div className='time-info'>
                 <p>08:00 - 09:00</p>
@@ -55,7 +56,7 @@ export function AdminSchedule() {
               </div>
               <div className='item-props'>
                 <p>
-                  <i className='bi bi-suit-club-fill'></i>
+                  <i className='bi bi-duffle-fill'></i>
                   <span>10 Washes</span>
                 </p>
                 <p>
@@ -74,6 +75,7 @@ export function AdminSchedule() {
             </div>
           ))}
         </div>
+        <Pagination />
       </div>
       <div
         className='modal fade'

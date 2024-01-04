@@ -3,6 +3,7 @@ import { AdminHeader } from "../components/admin/admin-header";
 import { AdminOverview } from "../components/admin/admin-dashboard";
 import { HelpCenter } from "../components/help-center";
 import { AdminSchedule } from "../components/admin/admin-schedule";
+import { CreateScheduleModal } from "../components/admin/modals/create-schedule";
 
 export const AdminDashboard = () => {
   const [activeTabNo, setActiveTabNo] = useState(1);
@@ -46,7 +47,11 @@ export const AdminDashboard = () => {
                 </div>
                 <ul className='dropdown-menu'>
                   <li>
-                    <a className='dropdown-item' href='#'>
+                    <a
+                      className='dropdown-item'
+                      data-bs-toggle='modal'
+                      data-bs-target='#createSchedule'
+                    >
                       Add new schedule
                     </a>
                   </li>
@@ -112,6 +117,9 @@ export const AdminDashboard = () => {
           </div>
           <div className='col-md-3'></div>
         </div>
+      </div>
+      <div className='form-modal'>
+        <CreateScheduleModal />
       </div>
     </div>
   );

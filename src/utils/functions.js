@@ -14,8 +14,23 @@ export const getPickUpDay = () => {
 export const getPickupWindow = (pickupday) => {
   const hour = moment().format("kk");
   let startTime = 9;
-  if (pickupday.toLowerCase() === "today" && hour > 9)
+  if (pickupday.toLowerCase() === "today" && Number(hour) > 9)
     startTime = Number(hour) + 1;
+  const times = [];
+  for (let i = startTime; i < 15; i++) {
+    times.push(`${i}:00 - ${i + 1}:00`);
+  }
+  return times;
+};
+
+export const getScheduleTime = (hourTime) => {
+  const hour = moment().format("kk");
+  console.log({ hour });
+  console.log({ hourTime });
+  let startTime = 7;
+  if (!hourTime && Number(hour) >= startTime) startTime = Number(hour) + 1;
+  // if (hourTime) {
+  // }
   const times = [];
   for (let i = startTime; i < 15; i++) {
     times.push(`${i}:00 - ${i + 1}:00`);
