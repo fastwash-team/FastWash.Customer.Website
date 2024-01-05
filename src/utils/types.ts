@@ -95,6 +95,24 @@ export interface FilterScheduleProps {
   handleApplyFilter: () => void;
 }
 
+export interface FilterRequestProps {
+  filterType: string;
+  setFilterType: (el: string) => void;
+  filterWash: string;
+  setFilterWash: (el: string) => void;
+  filterStatus: string;
+  setFilterStatus: (el: string) => void;
+  filterExtra: string;
+  setFilterExtra: (el: string) => void;
+  filterLocation: string;
+  setFilterLocation: (el: string) => void;
+  filterNote: string;
+  setFilterNote: (el: string) => void;
+  priceRange: { max: number; min: number };
+  setPriceRange: (el: { max: number; min: number }) => void;
+  handleApplyFilter: () => void;
+}
+
 export interface ScheduleInfo {
   scheduleId: string;
 }

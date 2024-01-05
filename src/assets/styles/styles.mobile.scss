@@ -604,6 +604,15 @@ $wash-yellow: #f26419;
         }
       }
     }
+    .schedule-view {
+      .schedule-view-body {
+        .date {
+          p {
+            width: fit-content;
+          }
+        }
+      }
+    }
   }
 
   .empty-container {

@@ -1767,6 +1767,11 @@ label {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      &.brd-btm {
+        border-bottom: 1px solid #d9d9d9;
+        padding-bottom: 21px;
+      }
+
       .title {
         h3 {
           color: #020d1c;
@@ -1865,6 +1870,10 @@ label {
             }
           }
         }
+      }
+
+      .request-item {
+        display: flex;
       }
     }
 
