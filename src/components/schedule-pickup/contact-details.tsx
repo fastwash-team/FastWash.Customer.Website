@@ -4,8 +4,11 @@ import PaystackLogo from "../../assets/svgs/paystack.svg";
 import { PAYMENT_TYPES } from "../../utils";
 import { CustomizeWashProps as ContactDetailsProps } from "../../utils/types";
 import { InfoMessage } from "../info-message";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 export function ContactDetails(props: ContactDetailsProps) {
+  console.log(props);
   const [paymentOption, setPaymentOption] = useState<string | null>(null);
 
   const handleContactEntry = (key: string, value: string) => {
@@ -36,20 +39,20 @@ export function ContactDetails(props: ContactDetailsProps) {
         <div className='row'>
           <div className='col-md-6 col-sm-12'>
             <label>Phone number</label>
-            <div className='input-group'>
-              <span className='input-group-text' id='basic-addon1'>
-                +234
-              </span>
-              <input
-                className='form-control'
-                name='phonenumber'
-                id='phonenumber'
-                type='number'
-                onChange={({ target: { value } }) =>
-                  handleContactEntry("phonenumber", `+234${value}`)
-                }
-              />
-            </div>
+            <PhoneInput
+              country={"ng"}
+              onlyCountries={["ng"]}
+              countryCodeEditable={false}
+              inputProps={{
+                class: "form-control",
+              }}
+              value={props.scheduleInfo.phonenumber}
+              isValid={(value) => {
+                if (value.length > 14 || value.length < 13) return false;
+                return true;
+              }}
+              onChange={(phone) => handleContactEntry("phonenumber", phone)}
+            />
             {props.errors?.phonenumber && (
               <InfoMessage message={props.errors.phonenumber} />
             )}
@@ -77,8 +80,8 @@ export function ContactDetails(props: ContactDetailsProps) {
         <div
           className={`payment-option ${
             paymentOption === PAYMENT_TYPES.WALLET && "active"
-          }`}
-          onClick={() => setPaymentOption(PAYMENT_TYPES.WALLET)}
+          } disabled`}
+          // onClick={() => setPaymentOption(PAYMENT_TYPES.WALLET)}
         >
           <i className='bi bi-credit-card'></i>
           <p>
@@ -104,20 +107,20 @@ export function ContactDetails(props: ContactDetailsProps) {
         <div
           className={`payment-option ${
             paymentOption === PAYMENT_TYPES.OPAY && "active"
-          }`}
-          onClick={() => setPaymentOption(PAYMENT_TYPES.OPAY)}
+          } disabled`}
+          // onClick={() => setPaymentOption(PAYMENT_TYPES.OPAY)}
         >
           <img src={OpayLogo} alt='opay logo' />
           <p>
             <b>Pay with Opay </b>
           </p>
-          <input type='radio' checked={paymentOption === PAYMENT_TYPES.OPAY} />
+          {/* <input type='radio' checked={paymentOption === PAYMENT_TYPES.OPAY} /> */}
         </div>
         <div
           className={`payment-option ${
             paymentOption === PAYMENT_TYPES.PAY_FOR_ME && "active"
-          }`}
-          onClick={() => setPaymentOption(PAYMENT_TYPES.PAY_FOR_ME)}
+          } disabled`}
+          // onClick={() => setPaymentOption(PAYMENT_TYPES.PAY_FOR_ME)}
         >
           <div className='user-icon'>
             <i className='bi bi-person-plus-fill'></i>
@@ -127,10 +130,10 @@ export function ContactDetails(props: ContactDetailsProps) {
               Pay for me <span>(Get a friend to pay for your wash)</span>{" "}
             </b>
           </p>
-          <input
+          {/* <input
             type='radio'
             checked={paymentOption === PAYMENT_TYPES.PAY_FOR_ME}
-          />
+          /> */}
         </div>
         <div className='coupon mt-3'>
           <input className='form-control' placeholder='Enter code here' />

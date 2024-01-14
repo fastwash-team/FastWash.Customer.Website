@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0",
     "react-google-autocomplete": "^2.7.3",
     "react-paginate": "^8.2.0",
+    "react-phone-input-2": "^2.15.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.19.0",
     "react-scripts": "5.0.1",

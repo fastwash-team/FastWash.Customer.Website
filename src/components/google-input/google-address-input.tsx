@@ -8,6 +8,7 @@ export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
     googleScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_LOCATION_KEY}&libraries=places`;
     googleScript.async = true;
     googleScript.defer = true;
+    const myLatLng = { lat: 6.5244, lng: 3.3792, radius: 50000 };
 
     googleScript.onload = () => {
       // Initialize Autocomplete after Google Maps script is loaded
@@ -16,7 +17,11 @@ export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
           inputRef.current,
           {
             types: ["geocode"],
-            componentRestrictions: { country: "NG" },
+            componentRestrictions: {
+              country: "NG",
+            },
+            strictBounds: true,
+            bounds: new google.maps.LatLngBounds(myLatLng, myLatLng),
           }
         );
 
