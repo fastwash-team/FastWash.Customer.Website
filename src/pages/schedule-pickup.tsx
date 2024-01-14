@@ -25,7 +25,7 @@ import { ScheduleFormErrors } from "../utils/types";
 
 export function SchedulePickup() {
   const location = useLocation();
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [completeScheduling, setCompleteSchedule] = useState(false); // should be controlled from redux
   const dispatch = useDispatch();
 
