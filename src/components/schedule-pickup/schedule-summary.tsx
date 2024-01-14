@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { ScheduleSummaryProps } from "../../utils/types";
 import { CLASSIC_WASH, PRESCHEDULED_WASH, WASH_PRICES } from "../../utils";
-import { formatMoney } from "../../utils/functions";
+import { calculateWashPrice, formatMoney } from "../../utils/functions";
 
 const BillingItems = (props: ScheduleSummaryProps) => {
   return (
@@ -38,7 +38,8 @@ const BillingItems = (props: ScheduleSummaryProps) => {
       {props.washcount > 0 && (
         <div className='item'>
           <span>Wash({props.washcount})</span>
-          <b>N {formatMoney(WASH_PRICES.WASH * props.washcount)}</b>
+          {/* <b>N {formatMoney(WASH_PRICES.WASH * props.washcount)}</b> */}
+          <b>N {formatMoney(calculateWashPrice(props.washcount))}</b>
         </div>
       )}
       {props.softener > 0 && (

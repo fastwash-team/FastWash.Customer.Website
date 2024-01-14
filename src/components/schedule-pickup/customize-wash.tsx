@@ -73,7 +73,7 @@ export function CustomizeWash(props: CustomizeWashProps) {
               </button>
             </div>
             <h3>
-              N2700 <span>per wash </span>
+              N2800 <span>per wash </span>
             </h3>
           </div>
         </div>

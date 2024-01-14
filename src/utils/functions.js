@@ -49,3 +49,13 @@ export const getScheduleTime = (hourTime) => {
   // }
   // return times;
 };
+
+export const calculateWashPrice = (washCount: number) => {
+  let price = 0;
+  const wholeWashes = Math.floor(washCount / 2);
+  const remainder = washCount % 2;
+  if (wholeWashes && !remainder) price = 2400 * washCount;
+  if (wholeWashes && remainder) price = 2400 * (washCount - 1);
+  if (washCount % 2) price = price + 2800;
+  return price;
+};

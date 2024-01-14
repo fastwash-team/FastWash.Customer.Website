@@ -911,6 +911,7 @@ label {
         .wash-counter-flex {
           display: flex;
           justify-content: space-between;
+          align-items: baseline;
 
           h3 {
             color: #666;
@@ -1024,6 +1025,7 @@ label {
         .form-control {
           height: 56px;
           font-size: 1rem;
+          width: -webkit-fill-available;
         }
       }
 
