@@ -1,15 +1,65 @@
-import React from "react";
 import { Header } from "../components/header";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useFormik } from "formik";
+import { errorHandler, handleSetUserToLS } from "../utils/functions";
+import { ValidateTokenSchema } from "../utils/schemas";
+import { InfoMessage } from "../components/info-message";
+import { useState } from "react";
 
 export function VerifyAuth() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const {
-    state: { isAdmin },
+    state: { isAdmin, email },
   } = location;
 
-  console.log({ isAdmin });
+  const formik = useFormik({
+    initialValues: { token: "" },
+    onSubmit: () => handleValidateToken(),
+    validationSchema: ValidateTokenSchema,
+  });
+
+  const resendEmail = async () => {
+    if (!email) return;
+    setLoading(true);
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/${email}/login/initiate`
+      );
+      Swal.fire({
+        title: "OTP Required",
+        text: "Resent token to your email",
+        icon: "info",
+      });
+      setLoading(false);
+    } catch (error) {
+      const errorMessage = errorHandler(error);
+      setLoading(false);
+      return Swal.fire({ title: "Error", text: errorMessage, icon: "error" });
+    }
+  };
+
+  const handleValidateToken = async () => {
+    setLoading(true);
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.put(
+        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/${formik.values.token}/login/complete`
+      );
+      handleSetUserToLS(responseObject);
+      isAdmin ? navigate("/admin/dashboard") : navigate("/dashboard");
+    } catch (error) {
+      console.log({ error }, "validating token");
+      const errorMessage = errorHandler(error);
+      setLoading(false);
+      return Swal.fire({ title: "Error", text: errorMessage, icon: "error" });
+    }
+  };
+
   return (
     <div className='login'>
       <Header />
@@ -23,17 +73,30 @@ export function VerifyAuth() {
               <label>Code</label>
               <input
                 className='form-control'
-                placeholder='Enter 4 digit code'
+                placeholder='Enter 6 digit code'
+                value={formik.values.token}
+                onChange={({ target: { value } }) =>
+                  formik.setFieldValue("token", value)
+                }
               />
+              {formik?.errors?.token && (
+                <InfoMessage message={formik.errors.token} />
+              )}
             </div>
-            <button
-              onClick={() =>
-                isAdmin ? navigate("/admin/dashboard") : navigate("/dashboard")
-              }
-            >
-              Take me in
+            <br />
+            <button onClick={() => formik.handleSubmit()} disabled={loading}>
+              {loading ? (
+                <div
+                  className='spinner-border text-success app-spinner'
+                  role='status'
+                >
+                  <span className='sr-only'></span>
+                </div>
+              ) : (
+                "Take me in"
+              )}
             </button>
-            <p className='no-account'>
+            <p className='no-account' onClick={resendEmail}>
               Didn’t get code? <a>Resend</a>
             </p>
           </div>

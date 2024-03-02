@@ -8,7 +8,9 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 export function ContactDetails(props: ContactDetailsProps) {
-  const [paymentOption, setPaymentOption] = useState<string | null>(null);
+  const [paymentOption, setPaymentOption] = useState<string | null>(
+    PAYMENT_TYPES.PAYSTACK
+  );
 
   const handleContactEntry = (key: string, value: string) => {
     return props.changePDInfo(key, value);

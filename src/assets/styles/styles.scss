@@ -45,6 +45,11 @@ label {
   margin-bottom: 8px;
 }
 
+button:disabled {
+  background: #cfcfcf !important;
+  cursor: not-allowed;
+}
+
 .check-icon::before {
   content: "\f26e"; /* Unicode for the check mark icon in Font Awesome */
   font-family: "bootstrap-icons";
@@ -94,6 +99,8 @@ label {
 
 .app-spinner {
   color: #17499f !important;
+  width: 20px;
+  height: 20px;
 }
 
 .app-landing {
@@ -1348,12 +1355,16 @@ label {
 
   input {
     height: 56px;
-    margin-bottom: 32px;
+    // margin-bottom: 32px;
     ::placeholder {
       color: #d9d9d9;
       font-size: 14px;
       font-weight: 400;
     }
+  }
+
+  .react-tel-input .form-control {
+    width: fit-content;
   }
 
   button {

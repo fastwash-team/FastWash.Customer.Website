@@ -1,15 +1,51 @@
-import React from "react";
 import { Header } from "../components/header";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useFormik } from "formik";
+import { errorHandler } from "../utils/functions";
+import { LoginSchema } from "../utils/schemas";
+import { InfoMessage } from "../components/info-message";
+import { useState } from "react";
 
 export function Login(props: { isAdmin?: boolean }) {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const isAdmin = !!props.isAdmin;
 
   console.log({ isAdmin });
 
-  const handleLogin = () => {
-    navigate("/verify-auth", { state: { isAdmin } });
+  const formik = useFormik({
+    initialValues: { email: "" },
+    onSubmit: () => handleLogin(),
+    validationSchema: LoginSchema,
+  });
+
+  const handleLogin = async () => {
+    if (!formik.values.email) return;
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/${formik.values.email}/login/initiate`
+      );
+      console.log({ res });
+      Swal.fire({
+        title: "OTP Required",
+        text: "A SIX-digit OTP has been sent to your email. Please input the code in the input box provided",
+        icon: "info",
+      });
+      navigate("/verify-auth", {
+        state: {
+          isAdmin,
+          email: formik.values.email,
+        },
+      });
+    } catch (error) {
+      console.log("login error", error);
+      const errorMessage = errorHandler(error);
+      setLoading(false);
+      return Swal.fire({ title: "Error", text: errorMessage, icon: "error" });
+    }
   };
 
   const handleRegisterRoute = () => {
@@ -24,15 +60,34 @@ export function Login(props: { isAdmin?: boolean }) {
           <div className='col-md-4'></div>
           <div className='col-md-4 col-sm-12 form'>
             <h2>Login</h2>
-            <p>Log into your account with your email or phone number</p>
+            <p>Log into your account with your email</p>
             <div className='mt3'>
-              <label>Email or Phone</label>
+              <label>Email</label>
               <input
                 className='form-control'
-                placeholder='Enter email or phone number'
+                placeholder='Enter email'
+                value={formik.values.email}
+                onChange={({ target: { value } }) =>
+                  formik.setFieldValue("email", value)
+                }
               />
+              {formik?.errors?.email && (
+                <InfoMessage message={formik.errors.email} />
+              )}
             </div>
-            <button onClick={handleLogin}>Login</button>
+            <br />
+            <button disabled={loading} onClick={() => formik.handleSubmit()}>
+              {loading ? (
+                <div
+                  className='spinner-border text-success app-spinner'
+                  role='status'
+                >
+                  <span className='sr-only'></span>
+                </div>
+              ) : (
+                "Login"
+              )}
+            </button>
             <p className='no-account'>
               Don’t have an account?{" "}
               <a onClick={handleRegisterRoute}>Sign up</a>

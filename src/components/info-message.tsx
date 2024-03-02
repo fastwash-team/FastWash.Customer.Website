@@ -4,5 +4,5 @@ export const InfoMessage = ({
   message,
 }: // type = "error",
 InfoMessageComponentProps) => {
-  return <p className='error-message-text'>{message}</p>;
+  return <h6 className='error-message-text'>{message}</h6>;
 };

@@ -63,9 +63,19 @@ export const calculateWashPrice = (washCount: number) => {
 
 export const errorHandler = (error) => {
   console.log("response", error.response);
+  if (error?.response?.data?.statusMessage)
+    return error.response.data.statusMessage;
   if (error?.response?.status === 404) {
     return "Resource not found. Please contact support!";
   }
   if (error?.message) return error.message;
   return "Something went wrong. Try again!";
+};
+
+export const handleSetUserToLS = (userObj) => {
+  localStorage.setItem("user", userObj);
+};
+
+export const logout = () => {
+  localStorage.removeItem("user");
 };
