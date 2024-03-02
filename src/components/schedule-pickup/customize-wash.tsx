@@ -4,6 +4,7 @@ import {
   CustomizeWashProps,
   ScheduleSummaryProps,
 } from "../../utils/types";
+import { WASH_PRICES } from "../../utils";
 
 const Counter = (props: CounterComponentProps) => {
   return (
@@ -73,7 +74,8 @@ export function CustomizeWash(props: CustomizeWashProps) {
               </button>
             </div>
             <h3>
-              N2800 <span>per wash </span>
+              N{WASH_PRICES.WASH}
+              <span>per wash </span>
             </h3>
           </div>
         </div>
@@ -92,7 +94,7 @@ export function CustomizeWash(props: CustomizeWashProps) {
         <div className='extra'>
           <div className='-info'>
             <p className='_name'>Softner</p>
-            <p className='_price'>N250</p>
+            <p className='_price'>N{WASH_PRICES.SOFTENER}</p>
           </div>
           <div className='extra-count'>
             <Counter
@@ -105,7 +107,7 @@ export function CustomizeWash(props: CustomizeWashProps) {
         <div className='extra'>
           <div className='-info'>
             <p className='_name'>Bleach</p>
-            <p className='_price'>N250</p>
+            <p className='_price'>N{WASH_PRICES.BLEACH}</p>
           </div>
           <div className='extra-count'>
             <Counter
@@ -144,7 +146,7 @@ export function CustomizeWash(props: CustomizeWashProps) {
         <div className='extra'>
           <div className='-info'>
             <p className='_name'>Laundry Bags (E)</p>
-            <p className='_price'>N1500</p>
+            <p className='_price'>N{WASH_PRICES.E_LAUNDRY_BAGS}</p>
           </div>
           <div className='extra-count'>
             <Counter
@@ -157,7 +159,7 @@ export function CustomizeWash(props: CustomizeWashProps) {
         <div className='extra'>
           <div className='-info'>
             <p className='_name'>Laundry Bags (X)</p>
-            <p className='_price'>N2500</p>
+            <p className='_price'>N{WASH_PRICES.X_LAUNDRY_BAGS}</p>
           </div>
           <div className='extra-count'>
             <Counter

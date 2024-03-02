@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import axios from "axios";
+import shortUUID from "short-uuid";
+import Swal from "sweetalert2";
 
 import RadioChecked from "../assets/svgs/input-radio-checked.svg";
 import RadioCheckedDisabled from "../assets/svgs/input-radio-checked-disabled.svg";
@@ -9,8 +11,7 @@ import { PickupDelivery } from "../components/schedule-pickup/pickup-delivery";
 import { CustomizeWash } from "../components/schedule-pickup/customize-wash";
 import { ContactDetails } from "../components/schedule-pickup/contact-details";
 
-import { PRESCHEDULED_WASH } from "../utils";
-import { activate_background_loader } from "../pipelines/layout/reducer";
+import { PRESCHEDULED_WASH, WASH_PRICES } from "../utils";
 import { CompleteScheduleScreen } from "../components/schedule-pickup/completed";
 import { ScheduleSummary } from "../components/schedule-pickup/schedule-summary";
 import { ScheduleTracker } from "../components/schedule-pickup/schedule-tracker";
@@ -21,13 +22,14 @@ import {
   CustomizeWashSchema,
   PickUpInformationSchema,
 } from "../utils/schemas";
-import { ScheduleFormErrors } from "../utils/types";
+import { ScheduleFormErrors, ScheduleSummaryProps } from "../utils/types";
+import { calculateWashPrice, errorHandler } from "../utils/functions";
 
 export function SchedulePickup() {
   const location = useLocation();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [completeScheduling, setCompleteSchedule] = useState(false); // should be controlled from redux
-  const dispatch = useDispatch();
 
   const validateScheduleFlow = () => {
     if (step === 1) return PickUpInformationSchema;
@@ -35,12 +37,12 @@ export function SchedulePickup() {
     if (step === 3) return ContactDetailsSchema;
   };
 
-  const handleNextStep = () => {
+  const handleNextStep = (values: ScheduleSummaryProps) => {
     if (step < 3) {
       setStep(step + 1);
     }
     if (step === 3) {
-      handleFinishScheduling();
+      handleFinishScheduling(values);
     }
   };
 
@@ -66,10 +68,10 @@ export function SchedulePickup() {
       contactperson: "",
       contactemail: "",
       phonenumber: "",
+      laundryInstructions: "",
     },
     onSubmit: (values) => {
-      console.log("all values", values);
-      handleNextStep();
+      handleNextStep(values);
     },
     validationSchema: validateScheduleFlow,
   });
@@ -80,10 +82,134 @@ export function SchedulePickup() {
     return formik.setFieldValue(key, value);
   };
 
-  const handleFinishScheduling = () => {
-    dispatch(activate_background_loader());
-    setCompleteSchedule(true);
-    setStep(step + 1);
+  const handleFinishScheduling = (values: ScheduleSummaryProps) =>
+    handleCreateWash(values);
+
+  const total = useMemo(() => {
+    return (
+      scheduleInfo.washcount * WASH_PRICES.WASH +
+      scheduleInfo.softener * WASH_PRICES.SOFTENER +
+      WASH_PRICES.LOGISTICS +
+      scheduleInfo.bleach * WASH_PRICES.BLEACH +
+      scheduleInfo.colorcatcher * WASH_PRICES.COLOR_CATCHER +
+      scheduleInfo.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS +
+      scheduleInfo.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS +
+      scheduleInfo.stainremover * WASH_PRICES.STAIN_REMOVER
+    );
+  }, [scheduleInfo]);
+
+  const handleCreateTransaction = async (
+    email: string,
+    amount: number,
+    reference: string
+  ) => {
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/payment/initiate`,
+        { email, amount, reference }
+      );
+      return responseObject;
+    } catch (error) {
+      console.log({ error });
+      throw error;
+    }
+  };
+
+  const handleCreateWash = async (values: ScheduleSummaryProps) => {
+    setLoading(true);
+    try {
+      if (!values.contactemail) return;
+      const transaction = await handleCreateTransaction(
+        values.contactemail,
+        total,
+        shortUUID.generate()
+      );
+      const washItems = [];
+      if (values.washcount)
+        washItems.push({
+          itemName: "Washes",
+          numberOfItem: values.washcount,
+          itemAmount: calculateWashPrice(values.washcount),
+        });
+      if (values.bleach)
+        washItems.push({
+          itemName: "bleach",
+          numberOfItem: values.bleach,
+          itemAmount: values.bleach * WASH_PRICES.BLEACH,
+        });
+      if (values.colorcatcher)
+        washItems.push({
+          itemName: "Color Catcher",
+          numberOfItem: values.colorcatcher,
+          itemAmount: values.colorcatcher * WASH_PRICES.COLOR_CATCHER,
+        });
+      if (values.softener)
+        washItems.push({
+          itemName: "Softner",
+          numberOfItem: values.softener,
+          itemAmount: values.softener * WASH_PRICES.SOFTENER,
+        });
+      if (values.stainremover)
+        washItems.push({
+          itemName: "Stain Remover",
+          numberOfItem: values.stainremover,
+          itemAmount: values.stainremover * WASH_PRICES.STAIN_REMOVER,
+        });
+      if (values.largeLaundryBags)
+        washItems.push({
+          itemName: "Laundry Bags (X)",
+          numberOfItem: values.largeLaundryBags,
+          itemAmount: values.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS,
+        });
+      if (values.mediumLaundryBags)
+        washItems.push({
+          itemName: "Laundry Bags (E)",
+          numberOfItem: values.mediumLaundryBags,
+          itemAmount: values.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS,
+        });
+      const body = {
+        streetAddress: values.address,
+        location: values.area,
+        orderDate: new Date(),
+        serviceType: 1,
+        internalNotes: values.laundryInstructions,
+        estimatedDeliveryTime: new Date(),
+        pickupTime: values.pickupWindow,
+        washItems,
+        userData: {
+          fullName: values.contactperson,
+          email: values.contactemail,
+          phoneNumber: values.phonenumber,
+          userType: 1,
+        },
+        transactionData: {
+          transactionReference: transaction.reference,
+          transactionAmount: total,
+          transactionChannel: 1,
+        },
+      };
+      await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
+        body
+      );
+      Swal.fire({
+        title: "Wash Created!",
+        text: "You have successfully created your wash order. We will notify your email on further steps!",
+        icon: "success",
+      });
+      setCompleteSchedule(true);
+      setStep(step + 1);
+    } catch (error) {
+      const errorMessage = errorHandler(error);
+      Swal.fire({
+        title: "Error!",
+        text: errorMessage,
+        icon: "error",
+      });
+      setLoading(false);
+    }
   };
 
   const handleTitleClick = (pageNumber: number) => {
@@ -190,6 +316,7 @@ export function SchedulePickup() {
                 <ScheduleTracker />
               ) : (
                 <ScheduleSummary
+                  total={total}
                   selectedWashType={scheduleInfo.selectedWashType}
                   pickupWindow={scheduleInfo.pickupWindow}
                   address={scheduleInfo.address}
@@ -212,9 +339,19 @@ export function SchedulePickup() {
           {!completeScheduling && (
             <button
               className='mt-4 mb-5 next-button'
+              disabled={loading}
               onClick={() => formik.handleSubmit()}
             >
-              Next
+              {loading ? (
+                <div
+                  className='spinner-border text-success app-spinner'
+                  role='status'
+                >
+                  <span className='sr-only'></span>
+                </div>
+              ) : (
+                "Next"
+              )}
             </button>
           )}
         </div>

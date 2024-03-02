@@ -1,4 +1,5 @@
 import moment from "moment";
+import { WASH_PRICES } from ".";
 
 export const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {}).format(value);
@@ -54,8 +55,17 @@ export const calculateWashPrice = (washCount: number) => {
   let price = 0;
   const wholeWashes = Math.floor(washCount / 2);
   const remainder = washCount % 2;
-  if (wholeWashes && !remainder) price = 2400 * washCount;
-  if (wholeWashes && remainder) price = 2400 * (washCount - 1);
-  if (washCount % 2) price = price + 2800;
+  if (wholeWashes && !remainder) price = 2600 * washCount;
+  if (wholeWashes && remainder) price = WASH_PRICES.WASH * (washCount - 1);
+  if (washCount % 2) price = price + WASH_PRICES.WASH;
   return price;
+};
+
+export const errorHandler = (error) => {
+  console.log("response", error.response);
+  if (error?.response?.status === 404) {
+    return "Resource not found. Please contact support!";
+  }
+  if (error?.message) return error.message;
+  return "Something went wrong. Try again!";
 };

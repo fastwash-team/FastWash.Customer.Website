@@ -157,6 +157,9 @@ export function PickupDelivery({
           className='form-control'
           placeholder='Add any special instructions for the driver'
           id='floatingTextarea'
+          onChange={({ target: { value } }) =>
+            changePDInfo("laundryInstructions", value)
+          }
         />
       </div>
     </div>

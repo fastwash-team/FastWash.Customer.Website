@@ -54,6 +54,8 @@ export interface ScheduleSummaryProps {
   contactperson?: string;
   phonenumber?: string;
   contactemail?: string;
+  laundryInstructions?: string;
+  total?: number;
 }
 
 export interface CustomizeWashProps {

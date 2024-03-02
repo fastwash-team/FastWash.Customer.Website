@@ -92,6 +92,10 @@ label {
   // opacity: 0.2;
 }
 
+.app-spinner {
+  color: #17499f !important;
+}
+
 .app-landing {
   p {
     color: $wash-black;
@@ -599,6 +603,7 @@ label {
       .accordion-item {
         margin-bottom: 8px;
         border-radius: 15px;
+        padding-bottom: 15px;
 
         button {
           border-top-left-radius: 0;
@@ -608,6 +613,17 @@ label {
           color: $wash-black;
           font-size: 16px;
           font-weight: 600;
+          box-shadow: none;
+          margin-bottom: -15px;
+        }
+
+        .accordion-body {
+          padding-top: 0;
+        }
+
+        &:last-of-type .accordion-button.collapsed {
+          border-bottom-right-radius: none;
+          border-bottom-left-radius: none;
         }
       }
     }
@@ -901,6 +917,11 @@ label {
         font-weight: 700;
         width: 41%;
         padding: 19px;
+      }
+
+      .next-button:disabled {
+        background: #cfcfcf;
+        cursor: not-allowed;
       }
     }
 

@@ -1,4 +1,3 @@
-import React, { useMemo } from "react";
 import { ScheduleSummaryProps } from "../../utils/types";
 import { CLASSIC_WASH, PRESCHEDULED_WASH, WASH_PRICES } from "../../utils";
 import { calculateWashPrice, formatMoney } from "../../utils/functions";
@@ -27,11 +26,21 @@ const BillingItems = (props: ScheduleSummaryProps) => {
       <div className='item'>
         <span>
           Logistics{" "}
-          <i
+          <button
+            type='button'
+            className='btn btn-secondary'
+            data-bs-toggle='tooltip'
+            data-bs-placement='top'
+            data-bs-custom-class='custom-tooltip'
+            data-bs-title='This top tooltip is themed via CSS variables.'
+          >
+            Custom tooltip
+          </button>
+          {/* <i
             data-bs-toggle='tooltip'
             data-bs-title='Default tooltip'
             className='bi bi-info-circle-fill'
-          />
+          /> */}
         </span>
         <b>N {formatMoney(WASH_PRICES.LOGISTICS)}</b>
       </div>
@@ -113,19 +122,7 @@ const ContactDetails = (props: ScheduleSummaryProps) => {
 };
 
 export function ScheduleSummary(props: ScheduleSummaryProps) {
-  const total = useMemo(() => {
-    return (
-      props.washcount * WASH_PRICES.WASH +
-      props.softener * WASH_PRICES.SOFTENER +
-      WASH_PRICES.LOGISTICS +
-      props.bleach * WASH_PRICES.BLEACH +
-      props.colorcatcher * WASH_PRICES.COLOR_CATCHER +
-      props.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS +
-      props.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS +
-      props.stainremover * WASH_PRICES.STAIN_REMOVER
-    );
-  }, [props]);
-
+  const total = props.total;
   return (
     <>
       <div className='schedule-pickup__body__steps-summary'>

@@ -15,6 +15,7 @@ import QuotesMark from "../assets/svgs/quotation.svg";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 import { GoogleAddressInput } from "../components/google-input/google-address-input";
+import { WASH_PRICES } from "../utils";
 
 const Landing: React.FC = () => {
   const [address, setAddress] = useState<string>("");
@@ -227,7 +228,7 @@ const Landing: React.FC = () => {
                   type='button'
                   className='schedule-pickup-btn'
                 >
-                  Schedule Bulk Pickup
+                  Schedule Pickup
                 </a>
               </div>
               <div className='service'>
@@ -260,7 +261,7 @@ const Landing: React.FC = () => {
             <div className='pricing-flex'>
               <div className='pricing'>
                 <h2>One Wash</h2>
-                <p className='_price'>N2700</p>
+                <p className='_price'>N{WASH_PRICES.WASH}</p>
                 <p className='_loads'>One load of laundry</p>
                 <div className='_benefits'>
                   <p>One detergent</p>
@@ -276,7 +277,7 @@ const Landing: React.FC = () => {
               </div>
               <div className='pricing'>
                 <h2>Two Washes</h2>
-                <p className='_price'>N4500</p>
+                <p className='_price'>N{WASH_PRICES.TWO_WASHES}</p>
                 <p className='_loads'>Two loads of laundry</p>
                 <div className='_benefits'>
                   <p>Two detergent</p>
@@ -316,11 +317,11 @@ const Landing: React.FC = () => {
             <div className='_extras-box'>
               <div className='extra'>
                 <p>Softner</p>
-                <p>N250</p>
+                <p>N{WASH_PRICES.SOFTENER}</p>
               </div>
               <div className='extra'>
                 <p>Bleach</p>
-                <p>N250</p>
+                <p>N{WASH_PRICES.BLEACH}0</p>
               </div>
               <div className='extra'>
                 <p>Color Catcher</p>
@@ -332,11 +333,11 @@ const Landing: React.FC = () => {
               </div>
               <div className='extra'>
                 <p>Laundry Bags(E)</p>
-                <p>N1500</p>
+                <p>N{WASH_PRICES.E_LAUNDRY_BAGS}</p>
               </div>
               <div className='extra'>
                 <p>Laundry Bags(X)</p>
-                <p>N2500</p>
+                <p>N{WASH_PRICES.X_LAUNDRY_BAGS}</p>
               </div>
             </div>
           </div>
@@ -435,18 +436,10 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        <strong>
-                          This is the first item's accordion body.
-                        </strong>
-                        It is shown by default, until the collapse plugin adds
-                        the appropriate classes that we use to style each
-                        element. These classes control the overall appearance,
-                        as well as the showing and hiding via CSS transitions.
-                        You can modify any of this with custom CSS or overriding
-                        our default variables. It's also worth noting that just
-                        about any HTML can go within the{" "}
-                        <code>.accordion-body</code>, though the transition does
-                        limit overflow.
+                        You can click <a>HERE</a> to schedule your first wash.
+                        Choose a convenient wash schedule, select the number of
+                        washes and any laundry extras, and make your payment.
+                        Each wash includes detergent and a free wrap bag.
                       </div>
                     </div>
                   </div>
@@ -468,10 +461,9 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        <strong>
-                          This is the second item's accordion body.
-                        </strong>{" "}
-                        It is hidden by default.
+                        The latest available time for scheduling a pickup is
+                        typically around 3:30 PM to 4 PM to guarantee same-day
+                        delivery of your laundry.
                       </div>
                     </div>
                   </div>
@@ -492,10 +484,12 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        <strong>
-                          This is the second item's accordion body.
-                        </strong>{" "}
-                        It is hidden by default.
+                        One Wash load usually consists of 10-25 items, but
+                        thicker fabrics like duvets count as one full load. We
+                        recommend washing more than 5 white items separately as
+                        a single wash load to prevent staining. Additionally,
+                        you can opt to include laundry extras like bleach for a
+                        thorough cleaning.
                       </div>
                     </div>
                   </div>
@@ -516,10 +510,9 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        <strong>
-                          This is the second item's accordion body.
-                        </strong>{" "}
-                        It is hidden by default.
+                        Fabric softener a liquid used when washing clothes and
+                        other laundry to soften the fabric, fight wrinkles,
+                        reduce static and add a fresh scent to laundry.
                       </div>
                     </div>
                   </div>
@@ -546,18 +539,9 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        <strong>
-                          This is the first item's accordion body.
-                        </strong>{" "}
-                        It is shown by default, until the collapse plugin adds
-                        the appropriate classes that we use to style each
-                        element. These classes control the overall appearance,
-                        as well as the showing and hiding via CSS transitions.
-                        You can modify any of this with custom CSS or overriding
-                        our default variables. It's also worth noting that just
-                        about any HTML can go within the{" "}
-                        <code>.accordion-body</code>, though the transition does
-                        limit overflow.
+                        Yes, you will receive a notification within the hour
+                        your laundry is to be picked up and delivered. Login to
+                        also track your washes.
                       </div>
                     </div>
                   </div>
@@ -578,10 +562,10 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        <strong>
-                          This is the second item's accordion body.
-                        </strong>{" "}
-                        It is hidden by default.
+                        You can make payment through our platform after you have
+                        chosen the number of washes needed. Payment can be made
+                        via card or bank transfer using Paystack or Opay payment
+                        links.
                       </div>
                     </div>
                   </div>
@@ -594,7 +578,7 @@ const Landing: React.FC = () => {
                       aria-expanded='false'
                       aria-controls='collapse7'
                     >
-                      How many clothes are in one wash load?
+                      How does laundry service work?
                     </button>
                     <div
                       id='collapse7'
@@ -602,13 +586,13 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        <strong>
-                          This is the second item's accordion body.
-                        </strong>{" "}
-                        It is hidden by default.
+                        We provide a Wash, Dry, and Fold service, handling
+                        laundry on a per-load basis. Your clothes are washed,
+                        dried in a tumble dryer, and carefully folded to
+                        maintain their smoothness.
                       </div>
                     </div>
-                  </div>{" "}
+                  </div>
                   <div className='accordion-item'>
                     <button
                       className='accordion-button collapsed'
@@ -618,7 +602,7 @@ const Landing: React.FC = () => {
                       aria-expanded='false'
                       aria-controls='collapse8'
                     >
-                      What is Softener?
+                      Can a customer add a delivery note?
                     </button>
                     <div
                       id='collapse8'
@@ -626,10 +610,9 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        <strong>
-                          This is the second item's accordion body.
-                        </strong>{" "}
-                        It is hidden by default.
+                        Instructions for Pickup and Delivery can be added in the
+                        Laundry notes section. You will receive notifications
+                        regarding the scheduled times for pickup and delivery
                       </div>
                     </div>
                   </div>
@@ -656,7 +639,7 @@ const Landing: React.FC = () => {
             <div className='_footer-elements'>
               <div className='logo-section'>
                 <img src={FashWashTransparent} alt='' />
-                <p>FastWash Technologies Nigeria Limited</p>
+                <p>FastWash Technologies Limited</p>
               </div>
               <a>Terms & Conditions</a>
               <ul>
