@@ -25,10 +25,10 @@ export function Login(props: { isAdmin?: boolean }) {
     if (!formik.values.email) return;
     setLoading(true);
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/${formik.values.email}/login/initiate`
+      await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
+        { userId: formik.values.email }
       );
-      console.log({ res });
       Swal.fire({
         title: "OTP Required",
         text: "A SIX-digit OTP has been sent to your email. Please input the code in the input box provided",

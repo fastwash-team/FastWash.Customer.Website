@@ -27,7 +27,8 @@ export function VerifyAuth() {
     setLoading(true);
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/${email}/login/initiate`
+        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
+        { userId: email }
       );
       Swal.fire({
         title: "OTP Required",
@@ -48,7 +49,8 @@ export function VerifyAuth() {
       const {
         data: { responseObject },
       } = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/${formik.values.token}/login/complete`
+        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
+        { passCode: formik.values.token }
       );
       handleSetUserToLS(responseObject);
       isAdmin ? navigate("/admin/dashboard") : navigate("/dashboard");

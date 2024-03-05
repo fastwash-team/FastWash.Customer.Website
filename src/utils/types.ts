@@ -1,7 +1,3 @@
-import React from "react";
-import { CLASSIC_WASH, PRESCHEDULED_WASH } from ".";
-import { FormikErrors, FormikTouched, FormikValues } from "formik";
-
 export interface ScheduleFormErrors {
   address: string;
   area: string;
@@ -117,4 +113,22 @@ export interface FilterRequestProps {
 
 export interface ScheduleInfo {
   scheduleId: string;
+}
+
+export enum UserType {
+  CUSTOMER = 1,
+  OPERATIONS,
+  SUPERADMIN,
+  INFLUENCER,
+}
+
+export enum TransactionChannel {
+  PAYSTACK = 1,
+  OPAY,
+  WALLET,
+}
+
+export enum WashServiceType {
+  PRESCHEDULED_WASH = 1,
+  CLASSIC_WASH,
 }

@@ -22,7 +22,13 @@ import {
   CustomizeWashSchema,
   PickUpInformationSchema,
 } from "../utils/schemas";
-import { ScheduleFormErrors, ScheduleSummaryProps } from "../utils/types";
+import {
+  ScheduleFormErrors,
+  ScheduleSummaryProps,
+  TransactionChannel,
+  UserType,
+  WashServiceType,
+} from "../utils/types";
 import { calculateWashPrice, errorHandler } from "../utils/functions";
 
 export function SchedulePickup() {
@@ -173,21 +179,21 @@ export function SchedulePickup() {
         streetAddress: values.address,
         location: values.area,
         orderDate: new Date(),
-        serviceType: 1,
+        serviceType: WashServiceType.PRESCHEDULED_WASH,
         internalNotes: values.laundryInstructions,
         estimatedDeliveryTime: new Date(),
         pickupTime: values.pickupWindow,
-        washItems,
+        washItemData: washItems,
         userData: {
           fullName: values.contactperson,
           email: values.contactemail,
           phoneNumber: values.phonenumber,
-          userType: 1,
+          userType: UserType.CUSTOMER,
         },
         transactionData: {
           transactionReference: transaction.reference,
           transactionAmount: total,
-          transactionChannel: 1,
+          transactionChannel: TransactionChannel.PAYSTACK,
         },
       };
       await axios.post(
