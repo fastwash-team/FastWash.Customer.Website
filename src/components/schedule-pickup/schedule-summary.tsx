@@ -47,7 +47,6 @@ const BillingItems = (props: ScheduleSummaryProps) => {
       {props.washcount > 0 && (
         <div className='item'>
           <span>Wash({props.washcount})</span>
-          {/* <b>N {formatMoney(WASH_PRICES.WASH * props.washcount)}</b> */}
           <b>N {formatMoney(calculateWashPrice(props.washcount))}</b>
         </div>
       )}

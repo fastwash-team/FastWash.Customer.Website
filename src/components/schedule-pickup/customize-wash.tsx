@@ -120,7 +120,7 @@ export function CustomizeWash(props: CustomizeWashProps) {
         <div className='extra'>
           <div className='-info'>
             <p className='_name'>Color Catcher</p>
-            <p className='_price'>N250</p>
+            <p className='_price'>N{WASH_PRICES.COLOR_CATCHER}</p>
           </div>
           <div className='extra-count'>
             <Counter
@@ -133,7 +133,7 @@ export function CustomizeWash(props: CustomizeWashProps) {
         <div className='extra'>
           <div className='-info'>
             <p className='_name'>Stain remover</p>
-            <p className='_price'>N250</p>
+            <p className='_price'>N{WASH_PRICES.STAIN_REMOVER}</p>
           </div>
           <div className='extra-count'>
             <Counter

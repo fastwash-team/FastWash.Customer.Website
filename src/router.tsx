@@ -11,6 +11,7 @@ import { Requests } from "./pages/requests";
 import { Payments } from "./pages/payments";
 import { RequestDetailPage } from "./components/requests/details";
 import { AdminDashboard } from "./pages/admin-dashboard";
+import { OrderCreateSuccess } from "./pages/pay-success";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
         <Route path='/' element={<Layout />}>
           <Route index element={<Landing />} />
           <Route path='/schedule-pickup' element={<SchedulePickup />} />
+          <Route path='/order/success' element={<OrderCreateSuccess />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Signup />} />
           <Route path='/verify-auth' element={<VerifyAuth />} />

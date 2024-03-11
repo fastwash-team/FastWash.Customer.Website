@@ -321,15 +321,15 @@ const Landing: React.FC = () => {
               </div>
               <div className='extra'>
                 <p>Bleach</p>
-                <p>N{WASH_PRICES.BLEACH}0</p>
+                <p>N{WASH_PRICES.BLEACH}</p>
               </div>
               <div className='extra'>
                 <p>Color Catcher</p>
-                <p>N300</p>
+                <p>N{WASH_PRICES.COLOR_CATCHER}</p>
               </div>
               <div className='extra'>
                 <p>Stain remover</p>
-                <p>N500</p>
+                <p>N{WASH_PRICES.STAIN_REMOVER}</p>
               </div>
               <div className='extra'>
                 <p>Laundry Bags(E)</p>
