@@ -24,7 +24,7 @@ export function OrderCreateSuccess() {
                     your phone number and email
                   </p>
                 </center>
-                <button>Done</button>
+                <button onClick={handleLogin}>Login</button>
               </div>
             </div>
             <div className='col-2'></div>
@@ -57,9 +57,6 @@ export function OrderCreateSuccess() {
                     <p>Your request is being processed for pickup</p>
                   </div>
                 </div>
-                <button className='login-btn' onClick={handleLogin}>
-                  Login
-                </button>
               </div>
             </div>
           </div>
