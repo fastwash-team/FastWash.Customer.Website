@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Tooltip from "rc-tooltip";
 import {
   CounterComponentProps,
   CustomizeWashProps,
@@ -82,11 +83,19 @@ export function CustomizeWash(props: CustomizeWashProps) {
       </div>
       <p className='wash-description'>
         What is a Wash?
-        <i
-          data-bs-toggle='tooltip'
-          data-bs-title='Default tooltip'
-          className='bi bi-info-circle-fill'
-        />
+        <Tooltip
+          placement='right'
+          trigger={["hover"]}
+          overlay={
+            <span>
+              It is one wash, dry, and fold cycle. One Wash load usually
+              consists of 10-25 items, but thicker fabrics like duvets count as
+              one full load.
+            </span>
+          }
+        >
+          <i className='bi bi-info-circle-fill' />
+        </Tooltip>
       </p>
       <h2>Extras</h2>
       <p>Add extra bags for 10% discount per bag</p>

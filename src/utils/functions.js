@@ -56,15 +56,15 @@ export const calculateWashPrice = (washCount: number) => {
   const wholeWashes = Math.floor(washCount / 2);
   const remainder = washCount % 2;
   // if (washCount === 1) price = WASH_PRICES.WASH;
-  console.log({ wholeWashes, remainder });
+  // console.log({ wholeWashes, remainder });
   // if (wholeWashes && !remainder) price = WASH_PRICES.EXTRA_WASH * washCount;
   if (wholeWashes && !remainder) price = price + WASH_PRICES.EXTRA_WASH;
-  console.log("1", price);
+  // console.log("1", price);
   if (wholeWashes && remainder) price = price + WASH_PRICES.WASH;
-  console.log("2", price);
+  // console.log("2", price);
   if (washCount % 2) price = price + WASH_PRICES.WASH;
   if (!(washCount % 2)) price = price + WASH_PRICES.WASH;
-  console.log("3", price);
+  // console.log("3", price);
   return price;
 };
 

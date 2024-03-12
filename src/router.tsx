@@ -12,6 +12,7 @@ import { Payments } from "./pages/payments";
 import { RequestDetailPage } from "./components/requests/details";
 import { AdminDashboard } from "./pages/admin-dashboard";
 import { OrderCreateSuccess } from "./pages/pay-success";
+import "rc-tooltip/assets/bootstrap_white.css";
 
 const AppRoutes = () => {
   return (
