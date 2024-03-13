@@ -76,7 +76,12 @@ export function Login(props: { isAdmin?: boolean }) {
               )}
             </div>
             <br />
-            <button disabled={loading} onClick={() => formik.handleSubmit()}>
+            <button
+              disabled={loading}
+              onClick={() =>
+                isAdmin ? navigate("/admin/dashboard") : formik.handleSubmit()
+              }
+            >
               {loading ? (
                 <div
                   className='spinner-border text-success app-spinner'

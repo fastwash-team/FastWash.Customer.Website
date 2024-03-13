@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "../components/header";
 import { useNavigate } from "react-router-dom";
-import PhoneInput from "react-phone-input-2";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
@@ -66,23 +65,15 @@ export function Signup() {
               <div className='row'>
                 <div className='col-md-6 col-sm-12'>
                   <label>Phone number</label>
-                  <PhoneInput
-                    country={"ng"}
-                    onlyCountries={["ng"]}
-                    countryCodeEditable={false}
-                    inputProps={{
-                      class: "form-control",
-                    }}
-                    value={formik.values.phoneNumber}
-                    isValid={(value) => {
-                      if (value && (value.length > 14 || value.length < 13))
-                        return false;
-                      return true;
-                    }}
-                    onChange={(phone) =>
-                      formik.setFieldValue("phoneNumber", phone)
-                    }
-                  />
+                  <div className='phone-input-0'>
+                    <span>+234</span>
+                    <input
+                      value={formik.values.phoneNumber}
+                      onChange={(e) =>
+                        formik.setFieldValue("phoneNumber", e.target.value)
+                      }
+                    />
+                  </div>
                   {formik?.errors?.phoneNumber && (
                     <InfoMessage message={formik.errors.phoneNumber} />
                   )}
