@@ -1,23 +1,24 @@
 import { supportedAreas } from "../../../utils";
 import { getPickUpDay, getScheduleTime } from "../../../utils/functions";
 
-export function CreateScheduleModal() {
+export function CreatePreScheduleModal() {
   const pickUpDaysList = getPickUpDay();
   const startTimes = getScheduleTime();
 
   console.log({ startTimes });
+
   return (
     <div
       className='modal fade'
-      id='createSchedule'
-      aria-labelledby='createScheduleLabel'
+      id='createPreSchedule'
+      aria-labelledby='createPreScheduleLabel'
       aria-hidden='true'
     >
       <div className='modal-dialog modal-lg'>
         <div className='modal-content'>
           <div className='modal-header'>
-            <h1 className='modal-title fs-5' id='createScheduleLabel'>
-              Create Schedule
+            <h1 className='modal-title fs-5' id='createPreScheduleLabel'>
+              Create PreSchedule
             </h1>
             {/* <button
               type='button'
@@ -35,11 +36,29 @@ export function CreateScheduleModal() {
                 ))}
               </select>
             </div>
+            <div className='mb-3'>
+              <div className='row'>
+                <div className='col-md-6 col-sm-12'>
+                  <label>Number of washes</label>
+                  <input className='form-control' placeholder='0' />
+                </div>
+                <div className='col-md-6 col-sm-12'>
+                  <label>Logistics (N)</label>
+                  <input className='form-control' placeholder='0' />
+                </div>
+              </div>
+            </div>
             <div className='row'>
               <div className='col-md-6 col-sm-12'>
                 <label>Choose Day</label>
                 <select className='form-select'>
-                  {pickUpDaysList.map((el, i) => (
+                  {[
+                    "Today",
+                    "Tomorrow",
+                    "All Week",
+                    "All Month",
+                    "All Year",
+                  ].map((el, i) => (
                     <option key={i}>{el}</option>
                   ))}
                 </select>
@@ -49,7 +68,17 @@ export function CreateScheduleModal() {
                   <div className='col-md-6 col-sm-12'>
                     <label>Start Time</label>
                     <select className='form-select'>
-                      {supportedAreas.map((el) => (
+                      {[
+                        "7:30am",
+                        "8:30am",
+                        "9:30am",
+                        "10:30am",
+                        "11:30am",
+                        "12:30am",
+                        "1:30pm",
+                        "2:30pm",
+                        "3:30pm",
+                      ].map((el) => (
                         <option key={el}>{el}</option>
                       ))}
                     </select>
@@ -57,7 +86,17 @@ export function CreateScheduleModal() {
                   <div className='col-md-6 col-sm-12'>
                     <label>End Time</label>
                     <select className='form-select'>
-                      {supportedAreas.map((el) => (
+                      {[
+                        "8:30am",
+                        "9:30am",
+                        "10:30am",
+                        "11:30am",
+                        "12:30am",
+                        "1:30pm",
+                        "2:30pm",
+                        "3:30pm",
+                        "4:30pm",
+                      ].map((el) => (
                         <option key={el}>{el}</option>
                       ))}
                     </select>
