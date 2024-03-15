@@ -6,6 +6,9 @@ export function CreateClassicScheduleModal() {
   const startTimes = getScheduleTime();
 
   console.log({ startTimes });
+  const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  const hoursMins = hours.map((el) => `${el}:30`);
+  console.log({ startingTimes: hoursMins });
   return (
     <div
       className='modal fade'
@@ -17,7 +20,7 @@ export function CreateClassicScheduleModal() {
         <div className='modal-content'>
           <div className='modal-header'>
             <h1 className='modal-title fs-5' id='createScheduleLabel'>
-              Create Schedule
+              Create Classic Schedule
             </h1>
             {/* <button
               type='button'
@@ -49,7 +52,7 @@ export function CreateClassicScheduleModal() {
                   <div className='col-md-6 col-sm-12'>
                     <label>Start Time</label>
                     <select className='form-select'>
-                      {supportedAreas.map((el) => (
+                      {hoursMins.map((el) => (
                         <option key={el}>{el}</option>
                       ))}
                     </select>
@@ -57,7 +60,7 @@ export function CreateClassicScheduleModal() {
                   <div className='col-md-6 col-sm-12'>
                     <label>End Time</label>
                     <select className='form-select'>
-                      {supportedAreas.map((el) => (
+                      {hoursMins.slice(1).map((el) => (
                         <option key={el}>{el}</option>
                       ))}
                     </select>

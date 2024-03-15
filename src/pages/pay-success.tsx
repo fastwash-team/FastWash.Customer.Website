@@ -30,7 +30,7 @@ export function OrderCreateSuccess() {
             <div className='col-2'></div>
             <div className='col-md-5 col-sm-12 col-summary'>
               <div className='schedule-pickup__body__steps-tracker'>
-                <h3>Track details of your request easily</h3>
+                <h3>Track your wash easily</h3>
                 <p className='sub-text'>
                   Log into your account with your email to track progress of
                   your request. No password needed.

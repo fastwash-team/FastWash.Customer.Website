@@ -1,7 +1,7 @@
 import { ScheduleSummaryProps } from "../../utils/types";
-import Tooltip from "rc-tooltip";
 import { CLASSIC_WASH, PRESCHEDULED_WASH, WASH_PRICES } from "../../utils";
 import { calculateWashPrice, formatMoney } from "../../utils/functions";
+import { CustomTooltip } from "../tooltip";
 
 const BillingItems = (props: ScheduleSummaryProps) => {
   return (
@@ -27,13 +27,9 @@ const BillingItems = (props: ScheduleSummaryProps) => {
       <div className='item'>
         <span>
           Logistics{" "}
-          <Tooltip
-            placement='right'
-            trigger={["hover"]}
-            overlay={<span>Laundry Pickup and delivery fee</span>}
-          >
+          <CustomTooltip text={"Laundry Pickup and delivery fee"}>
             <i className='bi bi-info-circle-fill' />
-          </Tooltip>
+          </CustomTooltip>
         </span>
         <b>N {formatMoney(WASH_PRICES.LOGISTICS)}</b>
       </div>
