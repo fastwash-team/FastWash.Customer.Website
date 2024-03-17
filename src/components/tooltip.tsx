@@ -1,5 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Tooltip from "rc-tooltip";
-export function CustomTooltip({ text, children }: any) {
+export function CustomTooltip({
+  text,
+  children,
+}: {
+  text: string;
+  children: any;
+}) {
   return (
     <Tooltip
       placement='right'
