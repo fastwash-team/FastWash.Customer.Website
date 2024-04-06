@@ -77,7 +77,6 @@ export function CreateClassicScheduleModal() {
                     selectsRange
                     className='form-select'
                     style={{ display: "block" }}
-                    // inline
                   />
                 </div>
                 <div className='col-md-6 col-sm-12'>

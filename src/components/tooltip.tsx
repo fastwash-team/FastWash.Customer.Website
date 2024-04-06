@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Tooltip from "rc-tooltip";
 export function CustomTooltip({ text, children }: any) {
   return (
