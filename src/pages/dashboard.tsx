@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Header } from "../components/header";
 import WashingMachine from "../assets/svgs/small-washing-machine.svg";
 import { useNavigate } from "react-router-dom";
 import { HelpCenter } from "../components/help-center";
+import { getFWUserToken } from "../utils/functions";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState<{ userName?: string }>({});
+
+  const handleGetUserProfile = async () => {
+    try {
+      const userToken = getFWUserToken();
+      const {
+        data: { responseObject },
+      } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/Profile`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+      console.log({ responseObject });
+      setUser(responseObject);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
+  useEffect(() => {
+    handleGetUserProfile();
+  }, []);
+
   return (
     <div className='__dashboard'>
       <Header />
@@ -16,7 +41,7 @@ export const Dashboard = () => {
             <div className='user-details'>
               <div className='name_'>
                 <h2>
-                  Hi, <b>Gbolahan</b>
+                  Hi, <b>{user?.userName}</b>
                 </h2>
                 <p>How are you doing today?</p>
               </div>

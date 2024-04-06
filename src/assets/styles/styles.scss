@@ -2030,7 +2030,7 @@ button:disabled {
           cursor: pointer;
         }
 
-        button {
+        button.modal-button {
           border-radius: 8px;
           background: #17499f;
           width: 161px;
@@ -2101,7 +2101,7 @@ button:disabled {
               height: auto;
             }
           }
-          button {
+          button.modal-button {
             margin-top: 24px;
             border-radius: 8px;
             background: #17499f;
@@ -2124,7 +2124,7 @@ button:disabled {
       padding: 56px;
       padding-top: 40px;
 
-      button {
+      button.modal-button {
         margin-top: 32px;
         border-radius: 8px;
         background: #17499f;
@@ -2133,6 +2133,12 @@ button:disabled {
         color: #fafafa;
         font-size: 14px;
         font-weight: 700;
+      }
+
+      .react-date-picker-wrapper {
+        .react-datepicker-wrapper {
+          display: block;
+        }
       }
     }
     .modal-footer {
