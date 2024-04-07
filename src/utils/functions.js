@@ -72,8 +72,12 @@ export const errorHandler = (error) => {
   return "Something went wrong. Try again!";
 };
 
-export const handleSetUserToLS = (userObj) => {
-  localStorage.setItem("user", userObj);
+export const setFWUserToken = (userObj) => {
+  localStorage.setItem("fw_user_token", userObj.access_token);
+};
+
+export const getFWUserToken = () => {
+  return localStorage.getItem("fw_user_token");
 };
 
 export const logout = () => {
