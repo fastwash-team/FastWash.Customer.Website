@@ -2,7 +2,6 @@ import { supportedAreas } from "../../../utils";
 import { getScheduleTime } from "../../../utils/functions";
 
 export function CreatePreScheduleModal() {
-  // const pickUpDaysList = getPickUpDay();
   const startTimes = getScheduleTime();
 
   console.log({ startTimes });

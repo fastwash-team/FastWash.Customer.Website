@@ -53,18 +53,11 @@ export const getScheduleTime = (hourTime) => {
 
 export const calculateWashPrice = (washCount: number) => {
   let price = 0;
-  const wholeWashes = Math.floor(washCount / 2);
-  const remainder = washCount % 2;
-  // if (washCount === 1) price = WASH_PRICES.WASH;
-  // console.log({ wholeWashes, remainder });
-  // if (wholeWashes && !remainder) price = WASH_PRICES.EXTRA_WASH * washCount;
-  if (wholeWashes && !remainder) price = price + WASH_PRICES.EXTRA_WASH;
-  // console.log("1", price);
-  if (wholeWashes && remainder) price = price + WASH_PRICES.WASH;
-  // console.log("2", price);
-  if (washCount % 2) price = price + WASH_PRICES.WASH;
-  if (!(washCount % 2)) price = price + WASH_PRICES.WASH;
-  // console.log("3", price);
+  // 1 wash = 3000, 2 washes = 5600
+  for (let count = 1; count <= washCount; count++) {
+    if (count % 2) price += WASH_PRICES.WASH;
+    else price += WASH_PRICES.EXTRA_WASH;
+  }
   return price;
 };
 
