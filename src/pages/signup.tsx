@@ -69,6 +69,7 @@ export function Signup() {
                     <span>+234</span>
                     <input
                       value={formik.values.phoneNumber}
+                      maxLength={11}
                       onChange={(e) =>
                         formik.setFieldValue("phoneNumber", e.target.value)
                       }

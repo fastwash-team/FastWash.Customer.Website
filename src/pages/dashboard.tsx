@@ -9,10 +9,12 @@ import { getFWUserToken } from "../utils/functions";
 export const Dashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<{ userName?: string }>({});
+  const [washes, setWashes] = useState({ active: 0, completed: 0 });
+
+  const userToken = getFWUserToken();
 
   const handleGetUserProfile = async () => {
     try {
-      const userToken = getFWUserToken();
       const {
         data: { responseObject },
       } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/Profile`, {
@@ -20,8 +22,29 @@ export const Dashboard = () => {
           Authorization: `Bearer ${userToken}`,
         },
       });
-      console.log({ responseObject });
       setUser(responseObject);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
+  const handleGetUserWashOrders = async () => {
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/count`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+      console.log({ responseObject });
+      setWashes({
+        active: responseObject?.activeOrders,
+        completed: responseObject?.completedOrders,
+      });
     } catch (error) {
       console.log({ error });
     }
@@ -29,6 +52,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     handleGetUserProfile();
+    handleGetUserWashOrders();
   }, []);
 
   return (
@@ -66,14 +90,14 @@ export const Dashboard = () => {
                   <h6>Active Requests</h6>
                   <i className='bi bi-chevron-right'></i>
                 </div>
-                <h3>0</h3>
+                <h3>{washes.active}</h3>
               </div>
               <div className='board'>
                 <div className='title'>
                   <h6>Completed Wash</h6>
                   <i className='bi bi-chevron-right'></i>
                 </div>
-                <h3>10</h3>
+                <h3>{washes.completed}</h3>
               </div>
             </div>
             <div className='list-items'>

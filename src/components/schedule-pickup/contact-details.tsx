@@ -4,8 +4,6 @@ import PaystackLogo from "../../assets/svgs/paystack.svg";
 import { PAYMENT_TYPES } from "../../utils";
 import { CustomizeWashProps as ContactDetailsProps } from "../../utils/types";
 import { InfoMessage } from "../info-message";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
 
 export function ContactDetails(props: ContactDetailsProps) {
   console.log({ props });
@@ -41,20 +39,16 @@ export function ContactDetails(props: ContactDetailsProps) {
         <div className='row'>
           <div className='col-md-6 col-sm-12'>
             <label>Phone number</label>
-            <PhoneInput
-              country={"ng"}
-              onlyCountries={["ng"]}
-              countryCodeEditable={false}
-              inputProps={{
-                class: "form-control",
-              }}
-              value={props.scheduleInfo.phonenumber}
-              isValid={(value) => {
-                if (value.length > 14 || value.length < 13) return false;
-                return true;
-              }}
-              onChange={(phone) => handleContactEntry("phonenumber", phone)}
-            />
+            <div className='phone-input-0'>
+              <span>+234</span>
+              <input
+                maxLength={11}
+                value={props.scheduleInfo.phonenumber}
+                onChange={({ target: { value } }) =>
+                  handleContactEntry("phonenumber", value)
+                }
+              />
+            </div>
             {props.errors?.phonenumber && (
               <InfoMessage message={props.errors.phonenumber} />
             )}
