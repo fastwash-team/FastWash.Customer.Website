@@ -31,8 +31,8 @@ export function VerifyAuth() {
         { userId: email }
       );
       Swal.fire({
-        title: "OTP Required",
-        text: "Resent token to your email",
+        title: "User Verification",
+        text: "A verification token has been sent to your inbox, provide to login.",
         icon: "info",
       });
       setLoading(false);

@@ -30,8 +30,8 @@ export function Login(props: { isAdmin?: boolean }) {
         { userId: formik.values.email }
       );
       Swal.fire({
-        title: "OTP Required",
-        text: "A SIX-digit OTP has been sent to your email. Please input the code in the input box provided",
+        title: "Verify yourself!",
+        text: "A verification code has been sent to your inbox",
         icon: "info",
       });
       navigate("/verify-auth", {
