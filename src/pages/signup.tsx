@@ -68,6 +68,7 @@ export function Signup() {
                   <div className='phone-input-0'>
                     <span>+234</span>
                     <input
+                      type='number'
                       value={formik.values.phoneNumber}
                       maxLength={11}
                       onChange={(e) =>

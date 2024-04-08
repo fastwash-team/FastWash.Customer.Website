@@ -42,6 +42,7 @@ export function ContactDetails(props: ContactDetailsProps) {
             <div className='phone-input-0'>
               <span>+234</span>
               <input
+                type='number'
                 maxLength={11}
                 value={props.scheduleInfo.phonenumber}
                 onChange={({ target: { value } }) =>
