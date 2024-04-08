@@ -2471,7 +2471,7 @@ button:disabled {
     padding: 8px;
     height: 24px;
 
-    &.completed {
+    &.successful {
       color: #758e4f;
       background: #e4ffbb;
     }
@@ -2479,6 +2479,7 @@ button:disabled {
       background: #edf3fc;
       color: #17499f;
     }
+    &.pending,
     &.pickup {
       background: #fff8ec;
       color: #f26419;

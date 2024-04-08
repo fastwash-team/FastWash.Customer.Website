@@ -4,42 +4,30 @@ import { PaymentItem } from "../utils/types";
 import { PaymentItemComponent } from "../components/listItem";
 import { EmptyContainer } from "../components/empty-wash-item-list";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { errorHandler, getFWUserToken } from "../utils/functions";
 
 export const Payments = () => {
   const [items, setItems] = useState<[] | PaymentItem[]>([]);
   const navigate = useNavigate();
+  const userToken = getFWUserToken();
 
-  const fetchListByState = () => {
-    setItems([
-      {
-        itemno: "#FWash 09380",
-        status: "completed",
-        date: "4th Oct",
-        amount: 3500,
-        currency: "NGN",
-        type: "transfer",
-      },
-      {
-        itemno: "#FWash 12399",
-        status: "completed",
-        date: "4th Oct",
-        amount: 4500,
-        currency: "NGN",
-        type: "transfer",
-      },
-      {
-        itemno: "#FWash 32033",
-        status: "completed",
-        date: "4th Oct",
-        amount: 13500,
-        currency: "NGN",
-        type: "transfer",
-      },
-    ]);
+  const fetchPayments = async () => {
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/payment/history`,
+        { headers: { Authorization: `Bearer ${userToken}` } }
+      );
+      setItems(responseObject);
+    } catch (error) {
+      errorHandler(error);
+    }
   };
 
   useEffect(() => {
-    fetchListByState();
+    fetchPayments();
   }, []);
 
   return (

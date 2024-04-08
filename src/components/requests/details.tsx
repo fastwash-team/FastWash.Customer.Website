@@ -1,8 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "../header";
+import { formatMoney } from "../../utils/functions";
+import { WashItemData } from "../../utils/types";
+import moment from "moment";
 
 export const RequestDetailPage = () => {
+  const { state } = useLocation();
   const navigate = useNavigate();
+  console.log({ state });
   return (
     <div className='__dashboard'>
       <Header />
@@ -16,20 +21,26 @@ export const RequestDetailPage = () => {
                 onClick={() => navigate(-1)}
               />
               <div className='details-item-header status'>
-                <h3>#FWash 09680</h3>
-                <span className={"received"}>Received</span>
+                <h3>#FWash {state.washOrderId}</h3>
+                <span className={state.washStatus.toLowerCase()}>
+                  {state.washStatus}
+                </span>
               </div>
               <div className='details-item'>
                 <p>Service Type</p>
-                <span>Pre-Scheduled Wash</span>
+                <span>{state.washOrderData.serviceType}</span>
               </div>
               <div className='details-item'>
                 <p>Pick up Time</p>
-                <span>09:00 am</span>
+                <span>{state.washOrderData.pickupTime}</span>
               </div>
               <div className='details-item'>
                 <p>Delivery Time</p>
-                <span>Today</span>
+                <span>
+                  {moment(state.washOrderData.estimatedDeliveryTime).format(
+                    "Do MMM, YYYY"
+                  )}
+                </span>
               </div>
               <div className='details-item'>
                 <p>
@@ -37,15 +48,14 @@ export const RequestDetailPage = () => {
                 </p>
                 <span>NGN 0.00</span>
               </div>
-              <div className='details-item'>
-                <p>One Wash</p>
-                <span>NGN 2700</span>
-              </div>
-              <div className='details-item'>
-                <p>Softener</p>
-                <span>NGN 250</span>
-              </div>
-
+              {(state.washOrderData.washItemData || []).map(
+                (el: WashItemData, key: number) => (
+                  <div className='details-item' key={key}>
+                    <p>{el.itemName}</p>
+                    <span>NGN {formatMoney(el.itemAmount)}</span>
+                  </div>
+                )
+              )}
               <div className='tracking'>
                 <h4>Track</h4>
                 <div className='tracker-wrapper'>

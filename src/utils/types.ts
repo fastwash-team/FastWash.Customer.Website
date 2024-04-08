@@ -61,19 +61,23 @@ export interface CustomizeWashProps {
 }
 
 export interface WashItem {
-  itemno: string;
-  status: string;
-  date: string;
-  extras: string[];
+  dateCreated: string;
+  washOrderId: number;
+  washStatus: string;
+  washOrderData: { washItemData: WashItemData[] };
+}
+
+export interface WashItemData {
+  itemName: string;
+  itemAmount?: number;
 }
 
 export interface PaymentItem {
-  itemno: string;
-  currency: string;
-  amount: number;
-  status: string;
-  type: string;
-  date: string;
+  dateCreated: string;
+  transactionAmount: number;
+  transactionChannel: string;
+  transactionReference: string;
+  transactionStatus: string;
 }
 
 export interface GoogleAddressInputProps {

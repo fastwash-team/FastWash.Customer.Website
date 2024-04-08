@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <AppRoutes />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <AppRoutes />
+  // </React.StrictMode>
 );

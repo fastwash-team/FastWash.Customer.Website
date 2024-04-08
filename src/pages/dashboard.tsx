@@ -4,7 +4,7 @@ import { Header } from "../components/header";
 import WashingMachine from "../assets/svgs/small-washing-machine.svg";
 import { useNavigate } from "react-router-dom";
 import { HelpCenter } from "../components/help-center";
-import { getFWUserToken } from "../utils/functions";
+import { errorHandler, getFWUserToken } from "../utils/functions";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ export const Dashboard = () => {
       });
       setUser(responseObject);
     } catch (error) {
+      errorHandler(error);
       console.log({ error });
     }
   };
@@ -40,12 +41,12 @@ export const Dashboard = () => {
           },
         }
       );
-      console.log({ responseObject });
       setWashes({
         active: responseObject?.activeOrders,
         completed: responseObject?.completedOrders,
       });
     } catch (error) {
+      errorHandler(error);
       console.log({ error });
     }
   };

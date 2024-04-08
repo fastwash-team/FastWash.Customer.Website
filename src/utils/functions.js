@@ -1,5 +1,6 @@
 import moment from "moment";
 import { WASH_PRICES } from ".";
+import Swal from "sweetalert2";
 
 export const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {}).format(value);
@@ -68,6 +69,9 @@ export const errorHandler = (error) => {
   if (error?.response?.status === 404) {
     return "Resource not found. Please contact support!";
   }
+  if (error?.response?.status === 401) {
+    logout();
+  }
   if (error?.message) return error.message;
   return "Something went wrong. Try again!";
 };
@@ -81,5 +85,11 @@ export const getFWUserToken = () => {
 };
 
 export const logout = () => {
-  localStorage.removeItem("user");
+  localStorage.removeItem("fw_user_token");
+  Swal.fire({
+    title: "Expired/Invalid Token",
+    text: "You have to login",
+    icon: "error",
+  });
+  return window.location.replace("/login");
 };

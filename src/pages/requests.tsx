@@ -4,30 +4,36 @@ import { WashItem } from "../utils/types";
 import { WashItemComponent } from "../components/listItem";
 import { EmptyContainer } from "../components/empty-wash-item-list";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { errorHandler, getFWUserToken } from "../utils/functions";
 
 export const Requests = () => {
-  const [activeState, setActiveState] = useState("active");
+  const searchWashStatusEnum: { active: number; completed: number } = {
+    active: 1,
+    completed: 2,
+  };
+  const [activeState, setActiveState] =
+    useState<keyof typeof searchWashStatusEnum>("active");
   const [items, setItems] = useState<[] | WashItem[]>([]);
   const navigate = useNavigate();
+  const userToken = getFWUserToken();
 
-  const fetchListByState = () => {
-    if (activeState === "active") {
-      setItems([]);
-    }
-    if (activeState === "completed") {
-      setItems([
-        {
-          itemno: "09380",
-          status: "received",
-          date: "4th Oct",
-          extras: ["One Wash", "Cleanser", "Softener", "No extra"],
-        },
-      ]);
+  const fetchRequests = async () => {
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/searchwashstatus/${searchWashStatusEnum[activeState]}`,
+        { headers: { Authorization: `Bearer ${userToken}` } }
+      );
+      setItems(responseObject);
+    } catch (error) {
+      errorHandler(error);
     }
   };
 
   useEffect(() => {
-    fetchListByState();
+    fetchRequests();
   }, [activeState]);
 
   return (
