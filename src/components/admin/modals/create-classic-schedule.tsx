@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { supportedAreas } from "../../../utils";
 import { getScheduleTime } from "../../../utils/functions";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import MultiDatePicker from "react-multi-date-picker";
+// import moment from "moment";
 
 export function CreateClassicScheduleModal() {
   // const pickUpDaysList = getPickUpDay();
@@ -11,10 +13,13 @@ export function CreateClassicScheduleModal() {
   console.log({ startTimes });
   const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
   const hoursMins = hours.map((el) => `${el}:30`);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  // const [startDate, setStartDate] = useState(new Date());
+  // const [endDate, setEndDate] = useState(new Date());
+  const [selectedDates, setSelectedDates] = useState([]);
   const [page, setPage] = useState(1);
   console.log({ startingTimes: hoursMins });
+  console.log({ selectedDates });
+
   return (
     <div
       className='modal fade'
@@ -48,7 +53,7 @@ export function CreateClassicScheduleModal() {
                 </div>
                 <div className='col-md-6 col-sm-12'>
                   <label>Logistics (N)</label>
-                  <input className='form-control' />
+                  <input className='form-control' type='number' />
                 </div>
                 <button
                   type='button'
@@ -62,22 +67,35 @@ export function CreateClassicScheduleModal() {
               <div className='row'>
                 <div className='col-md-6 col-sm-12 react-date-picker-wrapper'>
                   <label>Choose Day</label>
-                  <DatePicker
-                    selected={startDate}
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    onChange={(dates: any) => {
-                      console.log({ dates });
-                      const [start, end] = dates;
-                      setStartDate(start);
-                      setEndDate(end);
+                  <MultiDatePicker
+                    multiple
+                    // className='form-select'
+                    // style={{ display: "block" }}
+                    // format='MMMM DD YYYY'
+                    numberOfMonths={2}
+                    sort
+                    onChange={(values, dd) => {
+                      console.log({ values, dd });
+                      setSelectedDates(values as []);
                     }}
-                    startDate={startDate}
-                    endDate={endDate}
+                  />
+                  {/* <DatePicker
+                    multiple
+                    // selected={startDate}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    // onChange={(dates: any) => {
+                    //   console.log({ dates });
+                    //   const [start, end] = dates;
+                    //   setStartDate(start);
+                    //   setEndDate(end);
+                    // }}
+                    // startDate={startDate}
+                    // endDate={endDate}
                     monthsShown={2}
-                    selectsRange
+                    // selectsRange
                     className='form-select'
                     style={{ display: "block" }}
-                  />
+                  /> */}
                 </div>
                 <div className='col-md-6 col-sm-12'>
                   <div className='row'>
@@ -99,17 +117,69 @@ export function CreateClassicScheduleModal() {
                     </div>
                   </div>
                 </div>
-                <button
-                  type='button'
-                  className='modal-button btn btn-primary'
-                  onClick={() => setPage(1)}
-                >
-                  Previous
-                </button>
-                {/* <button type='button' className='modal-button btn btn-primary'>
-                  Create Schedule
-                </button> */}
+                <div className='btn_flex'>
+                  <button
+                    type='button'
+                    className='modal-button btn btn-primary outline'
+                    onClick={() => setPage(1)}
+                  >
+                    Previous
+                  </button>
+                  <button
+                    type='button'
+                    className='modal-button btn btn-primary'
+                    onClick={() => setPage(3)}
+                  >
+                    Create Schedule
+                  </button>
+                </div>
               </div>
+            ) : page === 3 ? (
+              <>
+                {selectedDates.map((el, key) => (
+                  <div key={key} className='row _list_times'>
+                    <div className='col-5'>
+                      <label>Choose Day</label>
+                      <MultiDatePicker value={new Date(el)} />
+                    </div>
+                    <div className='col-3'>
+                      <label>Start Time</label>
+                      <select className='form-select'>
+                        {hoursMins.map((el) => (
+                          <option key={el}>{el}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className='col-3'>
+                      <label>End Time</label>
+                      <select className='form-select'>
+                        {hoursMins.map((el) => (
+                          <option key={el}>{el}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className='col-1'>
+                      <i className='bi bi-x-lg'></i>
+                    </div>
+                  </div>
+                ))}
+                <div className='btn_flex'>
+                  <button
+                    type='button'
+                    className='modal-button btn btn-primary outline'
+                    onClick={() => setPage(2)}
+                  >
+                    Previous
+                  </button>
+                  <button
+                    type='button'
+                    className='modal-button btn btn-primary'
+                    // onClick={() => setPage(3)}
+                  >
+                    Create Schedule
+                  </button>
+                </div>
+              </>
             ) : null}
           </div>
           {/* <div className='modal-body'>

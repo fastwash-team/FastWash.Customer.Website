@@ -2141,8 +2141,50 @@ button:disabled {
       }
 
       .react-date-picker-wrapper {
+        .rmdp-container {
+          display: block !important;
+          input {
+            width: 100%;
+            height: 56px;
+          }
+        }
         .react-datepicker-wrapper {
           display: block;
+        }
+      }
+
+      .btn_flex {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+
+        button {
+          width: 100%;
+
+          &.outline {
+            background: #f4f4f4;
+            color: #17499f;
+            border: 1px solid #f4f4f4;
+          }
+        }
+      }
+
+      ._list_times {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        .rmdp-container {
+          width: 100%;
+          input {
+            width: 100%;
+            height: 56px;
+          }
+        }
+
+        i {
+          margin-top: 25px;
+          display: block;
+          cursor: pointer;
         }
       }
     }
