@@ -23,7 +23,7 @@ export const Requests = () => {
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/searchwashstatus/${searchWashStatusEnum[activeState]}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/searchwashstatus?status=${searchWashStatusEnum[activeState]}`,
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
       setItems(responseObject);
