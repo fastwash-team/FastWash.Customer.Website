@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pagination } from "../pagination";
 import { FilterScheduleModal } from "./modals/filter-schedules";
-import { ScheduleInfo } from "../../utils/types";
+import { ScheduleInfo, WashScheduleProps } from "../../utils/types";
 import { ScheduleView } from "./schedule-view";
+import axios from "axios";
+import moment from "moment";
+import { formatMoney } from "../../utils/functions";
 
 export function AdminSchedule() {
   const [filterDay, setFilterDay] = useState("all");
@@ -15,6 +18,27 @@ export function AdminSchedule() {
   const [selectedSchedule, setSelectedSchedule] = useState<null | ScheduleInfo>(
     null
   );
+  const [schedules, setSchedules] = useState<WashScheduleProps[] | []>([]);
+
+  useEffect(() => {
+    handleFetchSchedule();
+  }, []);
+
+  const handleFetchSchedule = async () => {
+    try {
+      const {
+        data: {
+          responseObject: { data },
+        },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans`
+      );
+      console.log({ data });
+      setSchedules(data);
+    } catch (error) {
+      console.log({ error });
+    }
+  };
 
   const handleApplyFilter = () => {
     console.log("filters to be applied");
@@ -58,7 +82,38 @@ export function AdminSchedule() {
               </li>
             </div>
             <div className='admin-content-list'>
-              {[1, 2, 3, 4].map(() => (
+              {schedules.map((el) => (
+                <div className='item' onClick={handleSelectSchedule}>
+                  <div className='time-info'>
+                    <p>
+                      {el.scheduleStartTime} - {el.scheduleEndTime}
+                    </p>
+                    <p>
+                      <span>{moment(el.dateCreated).format("Do MMM")}</span>
+                      <i className='bi bi-three-dots'></i>
+                    </p>
+                  </div>
+                  <div className='item-props'>
+                    <p>
+                      <i className='bi bi-duffle-fill'></i>
+                      <span>{el.totalWashOrders} Washes</span>
+                    </p>
+                    <p>
+                      <i className='bi bi-bag-check-fill'></i>
+                      <span>NGN {formatMoney(el.totalWashOrdersAmount)}</span>
+                    </p>
+                    <p>
+                      <i className='bi bi-truck'></i>
+                      <span>NGN {formatMoney(el.totalLogisticsAmount)}</span>
+                    </p>
+                    <p>
+                      <i className='bi bi-geo-alt-fill'></i>
+                      <span>{el.location}</span>
+                    </p>
+                  </div>
+                </div>
+              ))}
+              {/* {[1, 2, 3, 4].map(() => (
                 <div className='item' onClick={handleSelectSchedule}>
                   <div className='time-info'>
                     <p>08:00 - 09:00</p>
@@ -86,7 +141,7 @@ export function AdminSchedule() {
                     </p>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
             <Pagination />
           </>

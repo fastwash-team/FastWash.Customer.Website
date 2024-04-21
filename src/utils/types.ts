@@ -116,6 +116,16 @@ export interface FilterRequestProps {
   handleApplyFilter: () => void;
 }
 
+export interface WashScheduleProps {
+  scheduleStartTime: string;
+  scheduleEndTime: string;
+  dateCreated: string;
+  totalWashOrders: number;
+  totalLogisticsAmount: number;
+  totalWashOrdersAmount: number;
+  location: string;
+}
+
 export interface ScheduleInfo {
   scheduleId: string;
 }

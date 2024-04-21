@@ -2,8 +2,6 @@ import { supportedAreas } from "../../../utils";
 import { FilterScheduleProps } from "../../../utils/types";
 
 export function FilterScheduleModal({
-  filterDay,
-  setFilterDay,
   filterSchedule,
   setFilterSchedule,
   filterLocation,
@@ -12,6 +10,8 @@ export function FilterScheduleModal({
   setPriceRange,
   handleApplyFilter,
 }: FilterScheduleProps) {
+  const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  const hoursMins = hours.map((el) => (el < 10 ? `0${el}:00` : `${el}:00`));
   return (
     <div
       className='modal fade'
@@ -28,46 +28,53 @@ export function FilterScheduleModal({
           </div>
           <div className='modal-body'>
             <div className='filter-container'>
-              <h3>Day</h3>
-              <div className='filter-list'>
-                {[
-                  "All",
-                  "Today",
-                  "Tomorrow",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday",
-                  "Sunday",
-                ].map((el, key) => (
-                  <li
-                    className={
-                      filterDay.toLowerCase() === el.toLowerCase()
-                        ? "active"
-                        : ""
+              <div className='row'>
+                <div className='col-3'>
+                  <label>Start Time</label>
+                  <select
+                    className='form-select'
+                    onChange={({ target: { value } }) =>
+                      // setTimes({ ...times, endTime: value })
+                      console.log({ value })
                     }
-                    onClick={() => setFilterDay(el)}
-                    key={key}
                   >
-                    {el}
-                  </li>
-                ))}
+                    {hoursMins.slice(1).map((el) => (
+                      <option value={el} key={el}>
+                        {el}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className='col-3'>
+                  <label>End Time</label>
+                  <select
+                    className='form-select'
+                    onChange={({ target: { value } }) =>
+                      // setTimes({ ...times, endTime: value })
+                      console.log({ value })
+                    }
+                  >
+                    {hoursMins.slice(1).map((el) => (
+                      <option value={el} key={el}>
+                        {el}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
             <div className='filter-container'>
               <h3>Schedule</h3>
               <div className='filter-list'>
-                {["All", "07:30 - 09:00am", "12:30 - 02:00pm"].map(
-                  (el, key) => (
-                    <li
-                      className={filterSchedule === el ? "active" : ""}
-                      onClick={() => setFilterSchedule(el)}
-                      key={key}
-                    >
-                      {el}
-                    </li>
-                  )
-                )}
+                {["All", "Pre-Schedule", "Classic"].map((el, key) => (
+                  <li
+                    className={filterSchedule === el ? "active" : ""}
+                    onClick={() => setFilterSchedule(el)}
+                    key={key}
+                  >
+                    {el}
+                  </li>
+                ))}
               </div>
             </div>
             <div className='filter-container'>
