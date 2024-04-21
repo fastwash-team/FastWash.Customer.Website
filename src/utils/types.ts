@@ -64,12 +64,13 @@ export interface WashItem {
   dateCreated: string;
   washOrderId: number;
   washStatus: string;
-  washOrderData: { washItemData: WashItemData[] };
+  washOrderData: { washItemData: WashItemData[]; serviceType: string };
 }
 
 export interface WashItemData {
   itemName: string;
   itemAmount?: number;
+  numberOfItem?: number;
 }
 
 export interface PaymentItem {
@@ -134,5 +135,5 @@ export enum TransactionChannel {
 
 export enum WashServiceType {
   PRESCHEDULED_WASH = 1,
-  CLASSIC_WASH,
+  CLASSIC_WASH = 2,
 }

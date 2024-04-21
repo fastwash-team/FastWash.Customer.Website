@@ -136,6 +136,7 @@ export function SchedulePickup() {
         orderDate: new Date(),
         serviceType: WashServiceType.PRESCHEDULED_WASH,
         internalNotes: values.laundryInstructions,
+        logisticsAmount: WASH_PRICES.LOGISTICS,
         estimatedDeliveryTime: new Date(),
         pickupTime: values.pickupWindow,
         washItemData: washItems,

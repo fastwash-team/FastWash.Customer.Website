@@ -46,7 +46,9 @@ export const RequestDetailPage = () => {
                 <p>
                   Logistics <i className='bi bi-info-circle-fill'></i>
                 </p>
-                <span>NGN 0.00</span>
+                <span>
+                  NGN {formatMoney(state?.washOrderData?.logisticsAmount || 0)}
+                </span>
               </div>
               {(state.washOrderData.washItemData || []).map(
                 (el: WashItemData, key: number) => (

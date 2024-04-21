@@ -29,6 +29,7 @@
     "sweetalert2": "^11.10.5",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
+    "written-number": "^0.11.1",
     "yup": "^1.3.3"
   },
   "scripts": {

@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 import { GoogleAddressInput } from "../components/google-input/google-address-input";
 import { WASH_PRICES } from "../utils";
+import { isUserLoggedIn } from "../utils/functions";
 
 const Landing: React.FC = () => {
   const [address, setAddress] = useState<string>("");
@@ -87,7 +88,11 @@ const Landing: React.FC = () => {
                 </li>
               </ul>
               <div className='login-section'>
-                <a href='/login'>Login</a>
+                {isUserLoggedIn() ? (
+                  <a href='/dashboard'>Dashboard</a>
+                ) : (
+                  <a href='/login'>Login</a>
+                )}
                 <button onClick={handleSchedulePickup}>Schedule Now</button>
               </div>
             </div>

@@ -1,7 +1,8 @@
 import React from "react";
-import { PaymentItem, WashItem, WashItemData } from "../utils/types";
+import { PaymentItem, WashItem } from "../utils/types";
 import { useNavigate } from "react-router-dom";
 import { formatMoney } from "../utils/functions";
+import writtenNumber from "written-number";
 import moment from "moment";
 
 export const WashItemComponent = (props: { items: WashItem[] }) => {
@@ -33,11 +34,26 @@ export const WashItemComponent = (props: { items: WashItem[] }) => {
           </div>
           <div className='wash-item-props'>
             <div className='wash-extras'>
-              {(el.washOrderData.washItemData || []).map(
-                (extra: WashItemData, key: number) => (
-                  <p key={key}>{extra.itemName}</p>
-                )
-              )}
+              <p>
+                {el.washOrderData.serviceType === "PreScheduledWash"
+                  ? "Pre-Scheduled"
+                  : el.washOrderData.serviceType}
+              </p>
+              <p>
+                {writtenNumber(
+                  el.washOrderData.washItemData.find(
+                    (el) => el.itemName === "Washes"
+                  )?.numberOfItem
+                )}{" "}
+                Washes
+              </p>
+              <p>
+                {el?.washOrderData?.washItemData?.length
+                  ? writtenNumber(el.washOrderData.washItemData.length - 1)
+                  : "No"}{" "}
+                Extra
+                {el?.washOrderData?.washItemData?.length - 1 > 1 ? "s" : ""}
+              </p>
             </div>
             <p className='date'>{moment(el.dateCreated).format("Do MMM.")}</p>
           </div>

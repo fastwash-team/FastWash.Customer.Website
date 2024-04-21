@@ -1,6 +1,5 @@
 import moment from "moment";
 import { WASH_PRICES } from ".";
-import Swal from "sweetalert2";
 
 export const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {}).format(value);
@@ -86,10 +85,9 @@ export const getFWUserToken = () => {
 
 export const logout = () => {
   localStorage.removeItem("fw_user_token");
-  Swal.fire({
-    title: "Expired/Invalid Token",
-    text: "You have to login",
-    icon: "error",
-  });
   return window.location.replace("/login");
+};
+
+export const isUserLoggedIn = () => {
+  return localStorage.getItem("fw_user_token");
 };

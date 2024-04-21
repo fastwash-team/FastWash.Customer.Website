@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import WashingMachine from "../assets/svgs/washing-machine.svg";
 import { Header } from "../components/header";
+import { isUserLoggedIn } from "../utils/functions";
 
 export function OrderCreateSuccess() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ export function OrderCreateSuccess() {
   const handleLogin = () => {
     navigate("/login");
   };
+
   return (
     <div className='schedule-pickup'>
       <Header />
@@ -24,7 +26,16 @@ export function OrderCreateSuccess() {
                     your phone number and email
                   </p>
                 </center>
-                <button onClick={handleLogin}>Login</button>
+                {isUserLoggedIn() ? (
+                  <p
+                    className='btn_link'
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Go to Dashboard <i className='bi bi-arrow-right-short'></i>
+                  </p>
+                ) : (
+                  <button onClick={handleLogin}>Login</button>
+                )}
               </div>
             </div>
             <div className='col-2'></div>
