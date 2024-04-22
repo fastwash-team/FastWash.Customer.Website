@@ -124,6 +124,8 @@ export interface WashScheduleProps {
   totalLogisticsAmount: number;
   totalWashOrdersAmount: number;
   location: string;
+  scheduleDate: string;
+  washOrderPlanReference: string;
 }
 
 export interface ScheduleInfo {

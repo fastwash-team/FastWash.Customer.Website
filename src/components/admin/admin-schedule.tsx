@@ -48,6 +48,8 @@ export function AdminSchedule() {
     return setSelectedSchedule({ scheduleId: "ID" });
   };
 
+  console.log({ schedules });
+
   return (
     <>
       <div className='admin-column'>
@@ -86,10 +88,11 @@ export function AdminSchedule() {
                 <div className='item' onClick={handleSelectSchedule}>
                   <div className='time-info'>
                     <p>
-                      {el.scheduleStartTime} - {el.scheduleEndTime}
+                      #{el.washOrderPlanReference} {el.scheduleStartTime} -{" "}
+                      {el.scheduleEndTime}
                     </p>
                     <p>
-                      <span>{moment(el.dateCreated).format("Do MMM")}</span>
+                      <span>{moment(el.scheduleDate).format("Do MMM")}</span>
                       <i className='bi bi-three-dots'></i>
                     </p>
                   </div>
