@@ -26,23 +26,35 @@ export function AdminSchedule() {
     null
   );
   const [schedules, setSchedules] = useState<WashScheduleProps[] | []>([]);
+  const [paginationOptions, setPaginationOptions] = useState({
+    page: 0,
+    totalPages: 0,
+    pageSize: 0,
+    defaultPageSize: 5,
+  });
 
   useEffect(() => {
     handleFetchSchedule();
-  }, []);
+  }, [paginationOptions.page, paginationOptions.defaultPageSize]);
 
   const handleFetchSchedule = async () => {
+    setPageLoading(true);
     try {
       const {
         data: {
-          responseObject: { data },
+          responseObject: { data, pageCount, pageIndex, pageSize },
         },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );
-      console.log({ data });
       setSchedules(data);
+      setPaginationOptions({
+        ...paginationOptions,
+        page: pageIndex,
+        totalPages: pageCount + 1,
+        pageSize: pageSize,
+      });
     } catch (error) {
       console.log({ error });
       const errorMessage = errorHandler(error);
@@ -59,8 +71,6 @@ export function AdminSchedule() {
   const handleSelectSchedule = () => {
     return setSelectedSchedule({ scheduleId: "ID" });
   };
-
-  console.log({ schedules });
 
   return (
     <>
@@ -133,7 +143,20 @@ export function AdminSchedule() {
                 ))
               ) : null}
             </div>
-            <Pagination />
+            <Pagination
+              pageCount={paginationOptions.totalPages}
+              changePage={(el) =>
+                setPaginationOptions({ ...paginationOptions, page: el })
+              }
+              changePageSize={(el) =>
+                setPaginationOptions({
+                  ...paginationOptions,
+                  defaultPageSize: el,
+                  page: 1,
+                })
+              }
+              pageSize={paginationOptions.defaultPageSize}
+            />
           </>
         )}
       </div>

@@ -9,6 +9,7 @@ import { EmptyContainer } from "../empty-wash-item-list";
 import { AdminRequest } from "../../utils/types";
 import moment from "moment";
 import { Pagination } from "../pagination";
+import { toast } from "react-toastify";
 
 const RequestList = ({
   setComponentView,
@@ -42,7 +43,6 @@ const RequestList = ({
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );
-      console.log({ data, pageCount, pageIndex, pageSize });
       setRequests(data);
       setPageLoading(false);
       setPaginationOptions({
@@ -55,7 +55,7 @@ const RequestList = ({
       console.log({ error });
       const errorRes = errorHandler(error);
       console.log({ errorRes });
-
+      toast("Error!", { type: "error" });
       setPageLoading(false);
     }
   };
