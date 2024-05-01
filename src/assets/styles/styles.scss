@@ -3,6 +3,11 @@ $wash-orange: #f2ca89;
 $wash-blue: #17499f;
 $wash-yellow: #f26419;
 
+.react-loading-skeleton {
+  height: 30px;
+  margin-bottom: 10px;
+}
+
 .navbar-toggler:focus {
   box-shadow: none;
 }
@@ -2288,6 +2293,7 @@ button:disabled {
             justify-content: space-between;
             color: #666;
             margin-bottom: 0;
+            text-transform: capitalize;
           }
         }
         ._contact {
@@ -2301,6 +2307,7 @@ button:disabled {
             display: flex;
             margin-bottom: 0;
             gap: 4px;
+            align-items: center;
 
             i {
               font-size: 14px;
@@ -2379,6 +2386,7 @@ button:disabled {
           color: #666;
           font-size: 13px;
           font-weight: 400;
+          text-transform: capitalize;
         }
 
         &:last-child {

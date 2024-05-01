@@ -4,6 +4,11 @@ import { WASH_PRICES } from ".";
 export const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {}).format(value);
 
+export const getWashServiceType = (washType) => {
+  if (washType === "PreScheduledWash") return "Pre Scheduled";
+  if (washType === "Classic") return "Classic";
+};
+
 export const getPickUpDay = () => {
   return [1, 2, 3, 4, 5, 6, 7].map((el) => {
     if (el === 1) return "Today";
@@ -79,12 +84,23 @@ export const setFWUserToken = (userObj) => {
   localStorage.setItem("fw_user_token", userObj.access_token);
 };
 
+export const setFWAdminToken = (userObj) => {
+  localStorage.setItem("fw_admin_token", userObj.access_token);
+};
+
 export const getFWUserToken = () => {
   return localStorage.getItem("fw_user_token");
 };
 
+export const getFWAdminToken = () => {
+  return localStorage.getItem("fw_admin_token");
+};
+
 export const logout = () => {
   localStorage.removeItem("fw_user_token");
+  localStorage.removeItem("fw_admin_token");
+  if (window.location.pathname.startsWith("/admin"))
+    return window.location.replace("/admin/login");
   return window.location.replace("/login");
 };
 

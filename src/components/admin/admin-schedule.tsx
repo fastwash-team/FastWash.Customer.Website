@@ -5,12 +5,19 @@ import { ScheduleInfo, WashScheduleProps } from "../../utils/types";
 import { ScheduleView } from "./schedule-view";
 import axios from "axios";
 import moment from "moment";
-import { formatMoney } from "../../utils/functions";
+import {
+  errorHandler,
+  formatMoney,
+  getFWAdminToken,
+} from "../../utils/functions";
+import Skeleton from "react-loading-skeleton";
 
 export function AdminSchedule() {
+  const adminToken = getFWAdminToken();
   const [filterDay, setFilterDay] = useState("all");
   const [filterSchedule, setFilterSchedule] = useState("All");
   const [filterLocation, setFilterLocation] = useState("All");
+  const [pageLoading, setPageLoading] = useState(true);
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
     min: 0,
     max: 0,
@@ -31,12 +38,17 @@ export function AdminSchedule() {
           responseObject: { data },
         },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans`
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans`,
+        { headers: { Authorization: `Bearer ${adminToken}` } }
       );
       console.log({ data });
       setSchedules(data);
     } catch (error) {
       console.log({ error });
+      const errorMessage = errorHandler(error);
+      console.log({ errorMessage });
+    } finally {
+      setPageLoading(false);
     }
   };
 
@@ -84,67 +96,42 @@ export function AdminSchedule() {
               </li>
             </div>
             <div className='admin-content-list'>
-              {schedules.map((el) => (
-                <div className='item' onClick={handleSelectSchedule}>
-                  <div className='time-info'>
-                    <p>
-                      #{el.washOrderPlanReference} {el.scheduleStartTime} -{" "}
-                      {el.scheduleEndTime}
-                    </p>
-                    <p>
-                      <span>{moment(el.scheduleDate).format("Do MMM")}</span>
-                      <i className='bi bi-three-dots'></i>
-                    </p>
+              {pageLoading ? (
+                <Skeleton count={5} />
+              ) : !pageLoading && schedules.length ? (
+                schedules.map((el) => (
+                  <div className='item' onClick={handleSelectSchedule}>
+                    <div className='time-info'>
+                      <p>
+                        #{el.washOrderPlanReference} {el.scheduleStartTime} -{" "}
+                        {el.scheduleEndTime}
+                      </p>
+                      <p>
+                        <span>{moment(el.scheduleDate).format("Do MMM")}</span>
+                        <i className='bi bi-three-dots'></i>
+                      </p>
+                    </div>
+                    <div className='item-props'>
+                      <p>
+                        <i className='bi bi-duffle-fill'></i>
+                        <span>{el.totalWashOrders} Washes</span>
+                      </p>
+                      <p>
+                        <i className='bi bi-bag-check-fill'></i>
+                        <span>NGN {formatMoney(el.totalWashOrdersAmount)}</span>
+                      </p>
+                      <p>
+                        <i className='bi bi-truck'></i>
+                        <span>NGN {formatMoney(el.totalLogisticsAmount)}</span>
+                      </p>
+                      <p>
+                        <i className='bi bi-geo-alt-fill'></i>
+                        <span>{el.location}</span>
+                      </p>
+                    </div>
                   </div>
-                  <div className='item-props'>
-                    <p>
-                      <i className='bi bi-duffle-fill'></i>
-                      <span>{el.totalWashOrders} Washes</span>
-                    </p>
-                    <p>
-                      <i className='bi bi-bag-check-fill'></i>
-                      <span>NGN {formatMoney(el.totalWashOrdersAmount)}</span>
-                    </p>
-                    <p>
-                      <i className='bi bi-truck'></i>
-                      <span>NGN {formatMoney(el.totalLogisticsAmount)}</span>
-                    </p>
-                    <p>
-                      <i className='bi bi-geo-alt-fill'></i>
-                      <span>{el.location}</span>
-                    </p>
-                  </div>
-                </div>
-              ))}
-              {/* {[1, 2, 3, 4].map(() => (
-                <div className='item' onClick={handleSelectSchedule}>
-                  <div className='time-info'>
-                    <p>08:00 - 09:00</p>
-                    <p>
-                      <span>4th Oct</span>
-                      <i className='bi bi-three-dots'></i>
-                    </p>
-                  </div>
-                  <div className='item-props'>
-                    <p>
-                      <i className='bi bi-duffle-fill'></i>
-                      <span>10 Washes</span>
-                    </p>
-                    <p>
-                      <i className='bi bi-bag-check-fill'></i>
-                      <span>NGN 50,000</span>
-                    </p>
-                    <p>
-                      <i className='bi bi-truck'></i>
-                      <span>NGN 10,000</span>
-                    </p>
-                    <p>
-                      <i className='bi bi-geo-alt-fill'></i>
-                      <span>Yaba</span>
-                    </p>
-                  </div>
-                </div>
-              ))} */}
+                ))
+              ) : null}
             </div>
             <Pagination />
           </>

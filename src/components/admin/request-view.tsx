@@ -1,34 +1,66 @@
+import moment from "moment";
+import { formatMoney, getWashServiceType } from "../../utils/functions";
+import { AdminRequest } from "../../utils/types";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
+import writtenNumber from "written-number";
 
-export function AdminRequestView({ goBack }: { goBack: () => void }) {
+export function AdminRequestView({
+  goBack,
+  selectedRequest,
+}: {
+  goBack: () => void;
+  selectedRequest: AdminRequest | null;
+}) {
+  console.log({ selectedRequest });
   return (
     <div className='request-view'>
       <p className='goback_'>
         <i className='bi bi-arrow-left-short _back' onClick={goBack} />
       </p>
       <div className='price_ status'>
-        <h2>N3500</h2>
-        <span className='received'>Received</span>
+        <h2>N{formatMoney(selectedRequest?.orderAmount)}</h2>
+        <span className={selectedRequest?.washStatus.toLowerCase()}>
+          {selectedRequest?.washStatus}
+        </span>
       </div>
       <div className='items'>
         <div className='item'>
           <h5>Service Type</h5>
-          <h6>Classic</h6>
+          <h6>{getWashServiceType(selectedRequest?.serviceType)}</h6>
         </div>
         <div className='item'>
           <h5>Wash Type</h5>
-          <h6>3 Washes</h6>
+          <h6>
+            {writtenNumber(
+              selectedRequest?.washOrderData.washItemData.find(
+                (el) => el.itemName === "Washes"
+              )?.numberOfItem
+            )}{" "}
+            Washes
+          </h6>
         </div>
       </div>
       <div className='items'>
         <div className='item'>
           <h5>Pick up</h5>
-          <h6>09:00am, 7th Oct 2023</h6>
+          <h6>
+            {selectedRequest?.washOrderData.pickupTime},{" "}
+            {moment(selectedRequest?.washOrderData.orderDate).format(
+              "Do MMM YYYY"
+            )}
+          </h6>
         </div>
         <div className='item'>
           <h5>Extras</h5>
-          <h6>One Wash</h6>
+          <h6>
+            {writtenNumber(
+              selectedRequest?.washOrderData?.washItemData.filter(
+                (el) => el.itemName !== "Washes"
+              ).length
+            )}{" "}
+            Wash
+          </h6>
         </div>
       </div>
       <div className='items'>
@@ -55,24 +87,24 @@ export function AdminRequestView({ goBack }: { goBack: () => void }) {
       <div className='items'>
         <div className='item'>
           <h5>Customer</h5>
-          <h6>Gbolahan Fawale</h6>
+          <h6>{selectedRequest?.washOrderData.userData.fullName}</h6>
         </div>
         <div className='item'>
           <h5>Contact</h5>
-          <h6>08167890987</h6>
+          <h6>{selectedRequest?.washOrderData.userData.phoneNumber}</h6>
         </div>
       </div>
       <div className='items'>
         <div className='item'>
           <h5>Email</h5>
-          <h6>gbmilla@gmail.com</h6>
+          <h6>{selectedRequest?.washOrderData.userData.email}</h6>
         </div>
         <div className='item'></div>
       </div>
       <div className='items'>
         <div className='item'>
           <h5>Address</h5>
-          <h6>No 5 192 Adeola Odeku Street, Bariga lagos</h6>
+          <h6>{selectedRequest?.washOrderData.streetAddress}</h6>
         </div>
         <div className='item'></div>
       </div>

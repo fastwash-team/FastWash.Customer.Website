@@ -128,6 +128,25 @@ export interface WashScheduleProps {
   washOrderPlanReference: string;
 }
 
+export interface AdminRequest {
+  orderAmount: number;
+  washOrderReference: string;
+  washStatus: string;
+  serviceType: string;
+  washOrderData: {
+    streetAddress: string;
+    pickupTime: string;
+    orderDate: string;
+    userData: { fullName: string; phoneNumber: string; email: string };
+    washItemData: [
+      {
+        itemName: string;
+        numberOfItem: number;
+      }
+    ];
+  };
+}
+
 export interface ScheduleInfo {
   scheduleId: string;
 }

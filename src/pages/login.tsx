@@ -13,8 +13,6 @@ export function Login(props: { isAdmin?: boolean }) {
   const navigate = useNavigate();
   const isAdmin = !!props.isAdmin;
 
-  console.log({ isAdmin });
-
   const formik = useFormik({
     initialValues: { email: "" },
     onSubmit: () => handleLogin(),
@@ -76,12 +74,7 @@ export function Login(props: { isAdmin?: boolean }) {
               )}
             </div>
             <br />
-            <button
-              disabled={loading}
-              onClick={() =>
-                isAdmin ? navigate("/admin/dashboard") : formik.handleSubmit()
-              }
-            >
+            <button disabled={loading} onClick={() => formik.handleSubmit()}>
               {loading ? (
                 <div
                   className='spinner-border text-success app-spinner'

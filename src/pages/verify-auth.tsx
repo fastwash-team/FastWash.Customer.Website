@@ -3,7 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
-import { errorHandler, setFWUserToken } from "../utils/functions";
+import {
+  errorHandler,
+  setFWAdminToken,
+  setFWUserToken,
+} from "../utils/functions";
 import { ValidateTokenSchema } from "../utils/schemas";
 import { InfoMessage } from "../components/info-message";
 import { useState } from "react";
@@ -52,8 +56,13 @@ export function VerifyAuth() {
         `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
         { passCode: formik.values.token }
       );
-      setFWUserToken(responseObject);
-      isAdmin ? navigate("/admin/dashboard") : navigate("/dashboard");
+      if (isAdmin) {
+        setFWAdminToken(responseObject);
+        navigate("/admin/dashboard");
+      } else {
+        setFWUserToken(responseObject);
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.log({ error }, "validating token");
       const errorMessage = errorHandler(error);
