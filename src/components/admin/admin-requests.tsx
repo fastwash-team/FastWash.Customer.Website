@@ -24,12 +24,12 @@ const RequestList = ({
     page: 0,
     totalPages: 0,
     pageSize: 0,
-    defaultPageSize: 2,
+    defaultPageSize: 5,
   });
 
   useEffect(() => {
     fetchRequests();
-  }, [paginationOptions.page]);
+  }, [paginationOptions.page, paginationOptions.defaultPageSize]);
 
   const fetchRequests = async () => {
     setPageLoading(true);
@@ -187,6 +187,14 @@ const RequestList = ({
         changePage={(el) =>
           setPaginationOptions({ ...paginationOptions, page: el })
         }
+        changePageSize={(el) =>
+          setPaginationOptions({
+            ...paginationOptions,
+            defaultPageSize: el,
+            page: 1,
+          })
+        }
+        pageSize={paginationOptions.defaultPageSize}
       />
     </>
   );

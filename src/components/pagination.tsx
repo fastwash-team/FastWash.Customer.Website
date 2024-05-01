@@ -2,21 +2,32 @@ import ReactPaginate from "react-paginate";
 
 export function Pagination({
   pageCount = 23,
+  pageSize = 10,
+  changePageSize,
   changePage,
 }: {
   pageCount?: number;
+  pageSize?: number;
   changePage?: (el: number) => void;
+  changePageSize?: (el: number) => void;
 }) {
   const handlePageClick = ({ selected }: { selected: number }) => {
-    if (changePage) return changePage(selected);
+    if (changePage) return changePage(selected + 1);
   };
 
   return (
     <div className='pagination-container'>
       <p>Items per page</p>
-      <select className='form-select'>
-        <option>99</option>
-        <option>100</option>
+      <select
+        className='form-select'
+        value={pageSize}
+        onChange={({ target: { value } }) => {
+          if (changePageSize) changePageSize(Number(value));
+        }}
+      >
+        {[1, 2, 5, 10, 20, 30, 50, 100].map((el) => (
+          <option value={el}>{el}</option>
+        ))}
       </select>
       <ReactPaginate
         className='pagination-numbers'
