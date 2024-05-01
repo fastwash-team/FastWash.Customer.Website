@@ -21,10 +21,10 @@ const RequestList = ({
   const [pageLoading, setPageLoading] = useState(true);
   const [requests, setRequests] = useState<AdminRequest[] | []>([]);
   const [paginationOptions, setPaginationOptions] = useState({
-    page: 2,
+    page: 0,
     totalPages: 0,
     pageSize: 0,
-    defaultPageSize: 1,
+    defaultPageSize: 2,
   });
 
   useEffect(() => {
@@ -32,6 +32,7 @@ const RequestList = ({
   }, [paginationOptions.page]);
 
   const fetchRequests = async () => {
+    setPageLoading(true);
     try {
       const {
         data: {
@@ -41,19 +42,21 @@ const RequestList = ({
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );
-      console.log({ data, pageCount });
+      console.log({ data, pageCount, pageIndex, pageSize });
       setRequests(data);
       setPageLoading(false);
       setPaginationOptions({
         ...paginationOptions,
         page: pageIndex,
-        totalPages: pageCount,
+        totalPages: pageCount + 1,
         pageSize: pageSize,
       });
     } catch (error) {
       console.log({ error });
       const errorRes = errorHandler(error);
       console.log({ errorRes });
+
+      setPageLoading(false);
     }
   };
 
@@ -179,7 +182,12 @@ const RequestList = ({
         <br />
         <br />
       </div>
-      <Pagination pageCount={paginationOptions.pageSize} />
+      <Pagination
+        pageCount={paginationOptions.totalPages}
+        changePage={(el) =>
+          setPaginationOptions({ ...paginationOptions, page: el })
+        }
+      />
     </>
   );
 };

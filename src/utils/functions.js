@@ -80,12 +80,21 @@ export const errorHandler = (error) => {
   return "Something went wrong. Try again!";
 };
 
+const redirectToRouteBeforeLogout = () => {
+  const lastRoute = localStorage.getItem("rerouteTo");
+  if (!lastRoute) return;
+  window.location.replace(lastRoute);
+  localStorage.removeItem("rerouteTo");
+};
+
 export const setFWUserToken = (userObj) => {
   localStorage.setItem("fw_user_token", userObj.access_token);
+  redirectToRouteBeforeLogout();
 };
 
 export const setFWAdminToken = (userObj) => {
   localStorage.setItem("fw_admin_token", userObj.access_token);
+  redirectToRouteBeforeLogout();
 };
 
 export const getFWUserToken = () => {
@@ -97,6 +106,8 @@ export const getFWAdminToken = () => {
 };
 
 export const logout = () => {
+  const lastRoute = window.location.pathname;
+  localStorage.setItem("rerouteTo", lastRoute);
   localStorage.removeItem("fw_user_token");
   localStorage.removeItem("fw_admin_token");
   if (window.location.pathname.startsWith("/admin"))

@@ -1,10 +1,16 @@
 import ReactPaginate from "react-paginate";
 
-export function Pagination({ pageCount = 23 }: { pageCount?: number }) {
-  const handlePageClick = () => {
-    return;
+export function Pagination({
+  pageCount = 23,
+  changePage,
+}: {
+  pageCount?: number;
+  changePage?: (el: number) => void;
+}) {
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    if (changePage) return changePage(selected);
   };
-  // const pageCount = 23;
+
   return (
     <div className='pagination-container'>
       <p>Items per page</p>
