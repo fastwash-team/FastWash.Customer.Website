@@ -151,6 +151,18 @@ export interface ScheduleInfo {
   scheduleId: string;
 }
 
+export interface WashOrderPlanData {
+  logisticsAmount: number;
+  scheduleDate: string;
+  scheduleEndTime: string;
+  scheduleStartTime: string;
+}
+
+export interface LocationSchedule {
+  location: string;
+  washOrderPlanData: WashOrderPlanData[];
+}
+
 export enum UserType {
   CUSTOMER = 1,
   OPERATIONS,

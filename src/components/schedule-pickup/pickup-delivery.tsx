@@ -1,12 +1,18 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import CircleCalendar from "../../assets/svgs/1.svg";
 import CircleTruck from "../../assets/svgs/2.svg";
 import CheckedRadioButton from "../../assets/svgs/input-radio-checked.svg";
 import { CLASSIC_WASH, PRESCHEDULED_WASH, supportedAreas } from "../../utils";
-import { PickupDeliveryProps } from "../../utils/types";
+import {
+  LocationSchedule,
+  PickupDeliveryProps,
+  WashOrderPlanData,
+} from "../../utils/types";
 import { GoogleAddressInput } from "../google-input/google-address-input";
-import { getPickUpDay, getPickupWindow } from "../../utils/functions";
+import { errorHandler, getFWUserToken } from "../../utils/functions";
 import { InfoMessage } from "../info-message";
+import axios from "axios";
+import moment from "moment";
 
 export function PickupDelivery({
   selectedWashType,
@@ -16,14 +22,84 @@ export function PickupDelivery({
 }: PickupDeliveryProps) {
   const isWashPrescheduled = selectedWashType === PRESCHEDULED_WASH;
   const isClassicWash = selectedWashType === CLASSIC_WASH;
-  const pickUpDaysList = getPickUpDay();
+  const userToken = getFWUserToken();
+  const [schedulePerLocation, setSchedulePerLocation] = useState<
+    LocationSchedule[] | []
+  >([]);
 
-  console.log({ scheduleInfo });
-  console.log("haspickup day", scheduleInfo.pickupDay);
+  const scheduleForSelectedArea = useMemo(() => {
+    if (!scheduleInfo.area) return {};
+    const locationSchedule = schedulePerLocation.find(
+      (el: { location: string }) => el.location === scheduleInfo.area
+    );
+    if (!locationSchedule) return {};
+    if (locationSchedule) {
+      const { washOrderPlanData } = locationSchedule;
+      const groupedData = washOrderPlanData.reduce(
+        (
+          acc: { [key: string]: WashOrderPlanData[] },
+          curr: WashOrderPlanData
+        ) => {
+          const key = moment(curr["scheduleDate"]).format("YYYY-MM-DD");
+          // Check if the key already exists in the accumulator
+          if (!acc[key]) {
+            acc[key] = [];
+          }
+          // Push the current item into the corresponding key array
+          acc[key].push(curr);
+          return acc;
+        },
+        {}
+      );
+      return groupedData;
+    }
+    return {};
+  }, [scheduleInfo.area]);
 
-  const pickUpWindowList = useMemo(() => {
-    return getPickupWindow(scheduleInfo.pickupDay);
-  }, [scheduleInfo.pickupDay]);
+  const days = Object.keys(scheduleForSelectedArea)
+    .sort()
+    .filter((el) => {
+      if (moment(el).isSameOrAfter()) return el;
+    })
+    .map((el) => ({
+      formattedDate: moment(el).format("ddd, Do MMM"),
+      date: el,
+    }));
+
+  const selectedTimesForSelectedDay = useMemo(() => {
+    if (!scheduleInfo.pickupDay) return;
+    const findDate = days.find(
+      (el) => el.formattedDate === scheduleInfo.pickupDay
+    );
+    if (!findDate?.date) return;
+    const arr = scheduleForSelectedArea[findDate?.date];
+    return arr.map((el) => `${el.scheduleStartTime} - ${el.scheduleEndTime}`);
+  }, [scheduleInfo.pickupDay, days]);
+
+  useEffect(() => {
+    handleFetchSchedules();
+  }, [isWashPrescheduled, isClassicWash]);
+
+  const handleFetchSchedules = async () => {
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${
+          process.env.REACT_APP_API_BASE_URL
+        }/api/WashOrderPlans/servicetype?serviceType=${
+          isWashPrescheduled ? 1 : isClassicWash ? 2 : ""
+        }`,
+        { headers: { Authorization: `Bearer ${userToken}` } }
+      );
+      console.log({ responseObject });
+      setSchedulePerLocation(responseObject);
+    } catch (error) {
+      console.log({ error });
+      const errorRes = errorHandler(error);
+      console.log({ errorRes });
+    }
+  };
 
   return (
     <div className='schedule-pickup__body__steps-view-render'>
@@ -74,11 +150,16 @@ export function PickupDelivery({
           className='form-select'
           aria-label='Default select example'
           value={scheduleInfo.area}
-          onChange={({ target: { value } }) => changePDInfo("area", value)}
-          defaultValue={"-- Select an area --"}
+          onChange={({ target: { value } }) => {
+            changePDInfo("area", value);
+            changePDInfo("pickupDay", "");
+            changePDInfo("pickupWindow", "");
+          }}
           id='area'
         >
-          <option disabled>-- Select an area --</option>
+          <option selected disabled>
+            -- Select an area --
+          </option>
           {supportedAreas.map((el) => (
             <option key={el}>{el}</option>
           ))}
@@ -92,20 +173,19 @@ export function PickupDelivery({
             <select
               className='form-select'
               aria-label='Default select example'
-              value={
-                !scheduleInfo.pickupDay.length
-                  ? undefined
-                  : scheduleInfo.pickupDay
-              }
+              disabled={!scheduleInfo.area}
+              value={!days.length ? undefined : scheduleInfo.pickupDay}
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupDay", value)
               }
               defaultValue='-- Select pickup day --'
               id='pickup-day'
             >
-              <option disabled>-- Select pickup day --</option>
-              {pickUpDaysList.map((el, i) => (
-                <option key={i}>{el}</option>
+              <option disabled selected>
+                -- Select pickup day --
+              </option>
+              {days.map((el, i) => (
+                <option key={i}>{el.formattedDate}</option>
               ))}
             </select>
             {errors?.pickupDay && <InfoMessage message={errors.pickupDay} />}
@@ -115,8 +195,9 @@ export function PickupDelivery({
             <select
               className='form-select'
               aria-label='Default select example'
+              disabled={!scheduleInfo.area}
               value={
-                !scheduleInfo.pickupWindow.length
+                !scheduleInfo.pickupWindow
                   ? undefined
                   : scheduleInfo.pickupWindow
               }
@@ -127,14 +208,17 @@ export function PickupDelivery({
               defaultValue={"-- Select pickup window --"}
             >
               <option disabled>-- Select pickup window --</option>
-              {!pickUpWindowList.length && (
+              {(!selectedTimesForSelectedDay ||
+                !selectedTimesForSelectedDay.length) && (
                 <option selected disabled>
-                  We have closed {scheduleInfo.pickupDay}{" "}
+                  {/* We have closed {scheduleInfo.pickupDay}{" "} */}
+                  We have no schedule times available
                 </option>
               )}
-              {pickUpWindowList.map((el, i) => (
-                <option key={i}>{el}</option>
-              ))}
+              {selectedTimesForSelectedDay &&
+                selectedTimesForSelectedDay.map((el, i) => (
+                  <option key={i}>{el}</option>
+                ))}
             </select>
             {errors?.pickupWindow && (
               <InfoMessage message={errors.pickupWindow} />
