@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { supportedAreas } from "../../../utils";
-import { getFWUserToken } from "../../../utils/functions";
+import { errorHandler, getFWAdminToken } from "../../../utils/functions";
 import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css";
 import MultiDatePicker from "react-multi-date-picker";
@@ -9,7 +9,7 @@ import axios from "axios";
 import { WashServiceType } from "../../../utils/types";
 
 export function CreateClassicScheduleModal() {
-  const userToken = getFWUserToken();
+  const adminToken = getFWAdminToken();
   const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
   const hoursMins = hours.map((el) => (el < 10 ? `0${el}:00` : `${el}:00`));
   const [loading, setLoading] = useState(false);
@@ -63,7 +63,7 @@ export function CreateClassicScheduleModal() {
             numberOfOrders: 0,
           })),
         },
-        { headers: { Authorization: `Bearer ${userToken}` } }
+        { headers: { Authorization: `Bearer ${adminToken}` } }
       );
       document.getElementById("close-modal")?.click();
       resetPage();
@@ -72,6 +72,7 @@ export function CreateClassicScheduleModal() {
         text: "Schedules created successfully",
       });
     } catch (error) {
+      errorHandler(error);
       console.log("creating schedule", error);
       setLoading(false);
       return Swal.fire({

@@ -82,7 +82,8 @@ label {
 
 button:disabled {
   background: #cfcfcf !important;
-  cursor: not-allowed;
+  cursor: none;
+  border: none;
 }
 
 .check-icon::before {
@@ -2197,6 +2198,73 @@ button:disabled {
           margin-top: 25px;
           display: block;
           cursor: pointer;
+        }
+      }
+
+      &._prescheduled-modal-body {
+        .add_schedule_btn {
+          background: none;
+          border: 0;
+          width: fit-content;
+          margin: 24px 0;
+          font-weight: 700;
+          color: #17499f;
+        }
+
+        ._create-schedule {
+          background: #17499f;
+          height: 56px;
+          width: 288px;
+          display: block;
+        }
+
+        ._pre-schedule-list {
+          h3 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.36px;
+            margin-bottom: 26px;
+            margin-top: 4px;
+          }
+          .schedule_flex {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #d9d9d9;
+            margin-bottom: 18px;
+
+            &:last-child {
+              margin-bottom: 32px;
+            }
+
+            div {
+              h4 {
+                font-weight: 600;
+                font-size: 16px;
+                margin-bottom: 16px;
+              }
+              .props {
+                display: flex;
+                gap: 40px;
+
+                p {
+                  font-size: 14px;
+                  color: #666666;
+                }
+              }
+              i {
+                font-size: 24px;
+                margin-bottom: 13px;
+                cursor: pointer;
+              }
+              p {
+                font-size: 14px;
+                color: #666666;
+              }
+              &._cancel {
+                text-align: right;
+              }
+            }
+          }
         }
       }
     }

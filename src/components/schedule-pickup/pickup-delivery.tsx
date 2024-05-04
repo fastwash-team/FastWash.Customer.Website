@@ -174,11 +174,10 @@ export function PickupDelivery({
               className='form-select'
               aria-label='Default select example'
               disabled={!scheduleInfo.area}
-              value={!days.length ? undefined : scheduleInfo.pickupDay}
+              // value={!days.length ? undefined : scheduleInfo.pickupDay}
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupDay", value)
               }
-              defaultValue='-- Select pickup day --'
               id='pickup-day'
             >
               <option disabled selected>
@@ -196,16 +195,15 @@ export function PickupDelivery({
               className='form-select'
               aria-label='Default select example'
               disabled={!scheduleInfo.area}
-              value={
-                !scheduleInfo.pickupWindow
-                  ? undefined
-                  : scheduleInfo.pickupWindow
-              }
+              // value={
+              //   !scheduleInfo.pickupWindow
+              //     ? undefined
+              //     : scheduleInfo.pickupWindow
+              // }
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupWindow", value)
               }
               id='pickup-window'
-              defaultValue={"-- Select pickup window --"}
             >
               <option disabled>-- Select pickup window --</option>
               {(!selectedTimesForSelectedDay ||

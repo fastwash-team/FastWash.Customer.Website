@@ -121,6 +121,7 @@ export interface WashScheduleProps {
   scheduleEndTime: string;
   dateCreated: string;
   totalWashOrders: number;
+  logisticsAmount: number;
   totalLogisticsAmount: number;
   totalWashOrdersAmount: number;
   location: string;

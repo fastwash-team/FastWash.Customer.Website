@@ -109,8 +109,12 @@ export function AdminSchedule() {
               {pageLoading ? (
                 <Skeleton count={5} />
               ) : !pageLoading && schedules.length ? (
-                schedules.map((el) => (
-                  <div className='item' onClick={handleSelectSchedule}>
+                schedules.map((el, key) => (
+                  <div
+                    className='item'
+                    onClick={handleSelectSchedule}
+                    key={key}
+                  >
                     <div className='time-info'>
                       <p>
                         #{el.washOrderPlanReference} {el.scheduleStartTime} -{" "}
@@ -132,7 +136,7 @@ export function AdminSchedule() {
                       </p>
                       <p>
                         <i className='bi bi-truck'></i>
-                        <span>NGN {formatMoney(el.totalLogisticsAmount)}</span>
+                        <span>NGN {formatMoney(el.logisticsAmount)}</span>
                       </p>
                       <p>
                         <i className='bi bi-geo-alt-fill'></i>
