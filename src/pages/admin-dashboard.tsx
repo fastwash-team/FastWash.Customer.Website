@@ -7,7 +7,7 @@ import { AdminSchedule } from "../components/admin/admin-schedule";
 import { CreateClassicScheduleModal } from "../components/admin/modals/create-classic-schedule";
 import { AdminRequests } from "../components/admin/admin-requests";
 import { CreatePreScheduleModal } from "../components/admin/modals/create-pre-schedule";
-import { getFWAdminToken } from "../utils/functions";
+import { errorHandler, getFWAdminToken } from "../utils/functions";
 
 export const AdminDashboard = () => {
   const [activeTabNo, setActiveTabNo] = useState(1);
@@ -32,7 +32,8 @@ export const AdminDashboard = () => {
       );
       setUser(responseObject);
     } catch (error) {
-      console.log({ error }, "error");
+      const err = errorHandler(error);
+      console.log({ error, err }, "error");
     }
   };
 

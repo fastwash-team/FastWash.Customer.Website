@@ -27,8 +27,8 @@ export const Dashboard = () => {
       );
       setUser(responseObject);
     } catch (error) {
-      errorHandler(error);
-      console.log({ error });
+      const err = errorHandler(error);
+      console.log({ err });
     }
   };
 
