@@ -17,11 +17,14 @@ export const Dashboard = () => {
     try {
       const {
         data: { responseObject },
-      } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/Profile`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      });
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/Profiles/profile/external`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
       setUser(responseObject);
     } catch (error) {
       errorHandler(error);

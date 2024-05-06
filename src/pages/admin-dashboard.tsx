@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { AdminHeader } from "../components/admin/admin-header";
 import { AdminOverview } from "../components/admin/admin-dashboard";
 import { HelpCenter } from "../components/help-center";
@@ -6,9 +7,35 @@ import { AdminSchedule } from "../components/admin/admin-schedule";
 import { CreateClassicScheduleModal } from "../components/admin/modals/create-classic-schedule";
 import { AdminRequests } from "../components/admin/admin-requests";
 import { CreatePreScheduleModal } from "../components/admin/modals/create-pre-schedule";
+import { getFWAdminToken } from "../utils/functions";
 
 export const AdminDashboard = () => {
   const [activeTabNo, setActiveTabNo] = useState(1);
+  const adminToken = getFWAdminToken();
+  const [user, setUser] = useState<{ userName?: string }>({});
+
+  useEffect(() => {
+    handleGetAdminDetails();
+  }, []);
+
+  const handleGetAdminDetails = async () => {
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/Profiles/profile/external`,
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
+        }
+      );
+      console.log({ responseObject });
+      setUser(responseObject);
+    } catch (error) {
+      console.log({ error }, "error");
+    }
+  };
 
   const renderComponentPerTab = () => {
     switch (activeTabNo) {
@@ -36,7 +63,7 @@ export const AdminDashboard = () => {
             <div className='user-details -admin'>
               <div className='name_'>
                 <h2>
-                  Hi, <b>Gbolahan</b>
+                  Hi, <b>{user?.userName}</b>
                 </h2>
                 <p>How are you doing today?</p>
               </div>

@@ -9,8 +9,8 @@ import Motorcycle from "../assets/svgs/motorcycle.svg";
 import Calendar from "../assets/svgs/calender-half.svg";
 import CircleCalendar from "../assets/svgs/circle-calendar.svg";
 import CircleTruck from "../assets/svgs/circle-truck.svg";
-import ReviewerOne from "../assets/svgs/customer-one.svg";
-import ReviewerTwo from "../assets/svgs/customer-two.svg";
+import ReviewerOne from "../assets/imgs/reviewer-one.jpg";
+import ReviewerTwo from "../assets/imgs/reviewer-two.jpg";
 import QuotesMark from "../assets/svgs/quotation.svg";
 import { useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
@@ -369,7 +369,9 @@ const Landing: React.FC = () => {
                     <span>Ayomide</span>
                     <span>Architect</span>
                   </div>
-                  <img src={ReviewerOne} alt='' />
+                  <div className='_wrapper'>
+                    <img src={ReviewerOne} alt='' className='img-fluid' />
+                  </div>
                 </div>
               </div>
               <div className='review-container'>
@@ -389,7 +391,9 @@ const Landing: React.FC = () => {
                     <span>Yusuf Hakeem</span>
                     <span>Chef</span>
                   </div>
-                  <img src={ReviewerTwo} alt='' />
+                  <div className='_wrapper'>
+                    <img src={ReviewerTwo} alt='' className='img-fluid' />
+                  </div>
                 </div>
               </div>
               <div className='review-container'>
@@ -409,7 +413,9 @@ const Landing: React.FC = () => {
                     <span>David Olamide</span>
                     <span>Entrepreneur</span>
                   </div>
-                  <img src={ReviewerOne} alt='' />
+                  <div className='_wrapper'>
+                    <img src={ReviewerOne} alt='' className='img-fluid' />
+                  </div>
                 </div>
               </div>
             </div>

@@ -174,7 +174,6 @@ export function PickupDelivery({
               className='form-select'
               aria-label='Default select example'
               disabled={!scheduleInfo.area}
-              // value={!days.length ? undefined : scheduleInfo.pickupDay}
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupDay", value)
               }
@@ -193,26 +192,22 @@ export function PickupDelivery({
             <label>Pick up window</label>
             <select
               className='form-select'
-              aria-label='Default select example'
               disabled={!scheduleInfo.area}
-              // value={
-              //   !scheduleInfo.pickupWindow
-              //     ? undefined
-              //     : scheduleInfo.pickupWindow
-              // }
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupWindow", value)
               }
               id='pickup-window'
             >
-              <option disabled>-- Select pickup window --</option>
-              {(!selectedTimesForSelectedDay ||
-                !selectedTimesForSelectedDay.length) && (
-                <option selected disabled>
-                  {/* We have closed {scheduleInfo.pickupDay}{" "} */}
-                  We have no schedule times available
-                </option>
-              )}
+              <option disabled selected>
+                -- Select pickup window --
+              </option>
+              {scheduleInfo.pickupDay &&
+                (!selectedTimesForSelectedDay ||
+                  !selectedTimesForSelectedDay.length) && (
+                  <option selected disabled>
+                    We have no schedule times available
+                  </option>
+                )}
               {selectedTimesForSelectedDay &&
                 selectedTimesForSelectedDay.map((el, i) => (
                   <option key={i}>{el}</option>
