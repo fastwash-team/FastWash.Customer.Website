@@ -30,7 +30,6 @@ export const AdminDashboard = () => {
           },
         }
       );
-      console.log({ responseObject });
       setUser(responseObject);
     } catch (error) {
       console.log({ error }, "error");

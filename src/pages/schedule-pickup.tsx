@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import shortUUID from "short-uuid";
 import Swal from "sweetalert2";
-
+import { phone } from "phone";
 import RadioChecked from "../assets/svgs/input-radio-checked.svg";
 import RadioCheckedDisabled from "../assets/svgs/input-radio-checked-disabled.svg";
 
@@ -45,7 +45,14 @@ export function SchedulePickup() {
       setStep(step + 1);
     }
     if (step === 3) {
-      handleFinishScheduling(values);
+      const phoneNumber = values.phonenumber || "";
+      const { isValid: numberIsValid, phoneNumber: formattedPhoneNumber } =
+        phone(phoneNumber, {
+          country: "NG",
+        });
+      if (!numberIsValid)
+        return formik.setFieldError("phonenumber", "Invalid Phone Number");
+      handleFinishScheduling({ ...values, phonenumber: formattedPhoneNumber });
     }
   };
 
@@ -72,6 +79,7 @@ export function SchedulePickup() {
       contactemail: "",
       phonenumber: "",
       laundryInstructions: "",
+      logisticsAmount: 0,
     },
     onSubmit: (values) => {
       handleNextStep(values);
@@ -92,7 +100,7 @@ export function SchedulePickup() {
     return (
       scheduleInfo.washcount * WASH_PRICES.WASH +
       scheduleInfo.softener * WASH_PRICES.SOFTENER +
-      WASH_PRICES.LOGISTICS +
+      scheduleInfo.logisticsAmount +
       scheduleInfo.bleach * WASH_PRICES.BLEACH +
       scheduleInfo.colorcatcher * WASH_PRICES.COLOR_CATCHER +
       scheduleInfo.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS +
@@ -136,7 +144,7 @@ export function SchedulePickup() {
         orderDate: new Date(),
         serviceType: WashServiceType.PRESCHEDULED_WASH,
         internalNotes: values.laundryInstructions,
-        logisticsAmount: WASH_PRICES.LOGISTICS,
+        logisticsAmount: values.logisticsAmount,
         estimatedDeliveryTime: new Date(),
         pickupTime: values.pickupWindow,
         washItemData: washItems,
@@ -280,7 +288,7 @@ export function SchedulePickup() {
               {step === 1 ? (
                 <PickupDelivery
                   selectedWashType={scheduleInfo.selectedWashType}
-                  changePDInfo={(key: string, value: string) => {
+                  changePDInfo={(key: string, value: string | number) => {
                     handleChangeInfo(key, value);
                   }}
                   scheduleInfo={scheduleInfo}
@@ -322,6 +330,7 @@ export function SchedulePickup() {
                 contactemail={scheduleInfo.contactemail}
                 contactperson={scheduleInfo.contactperson}
                 phonenumber={scheduleInfo.phonenumber}
+                logisticsAmount={scheduleInfo.logisticsAmount}
               />
             </div>
           </div>

@@ -2,7 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import CircleCalendar from "../../assets/svgs/1.svg";
 import CircleTruck from "../../assets/svgs/2.svg";
 import CheckedRadioButton from "../../assets/svgs/input-radio-checked.svg";
-import { CLASSIC_WASH, PRESCHEDULED_WASH, supportedAreas } from "../../utils";
+import {
+  CLASSIC_WASH,
+  PRESCHEDULED_WASH,
+  supportedAreas,
+  WASH_PRICES,
+} from "../../utils";
 import {
   LocationSchedule,
   PickupDeliveryProps,
@@ -26,6 +31,8 @@ export function PickupDelivery({
   const [schedulePerLocation, setSchedulePerLocation] = useState<
     LocationSchedule[] | []
   >([]);
+
+  console.log({ scheduleInfo });
 
   const scheduleForSelectedArea = useMemo(() => {
     if (!scheduleInfo.area) return {};
@@ -73,8 +80,15 @@ export function PickupDelivery({
     );
     if (!findDate?.date) return;
     const arr = scheduleForSelectedArea[findDate?.date];
-    return arr.map((el) => `${el.scheduleStartTime} - ${el.scheduleEndTime}`);
+    console.log("selectedtimes", arr);
+    return arr.map((el, key) => ({
+      time: `${el.scheduleStartTime} - ${el.scheduleEndTime}`,
+      key,
+      logisticsAmount: el.logisticsAmount,
+    }));
   }, [scheduleInfo.pickupDay, days]);
+
+  console.log({ selectedTimesForSelectedDay });
 
   useEffect(() => {
     handleFetchSchedules();
@@ -193,9 +207,18 @@ export function PickupDelivery({
             <select
               className='form-select'
               disabled={!scheduleInfo.area}
-              onChange={({ target: { value } }) =>
-                changePDInfo("pickupWindow", value)
-              }
+              onChange={({ target: { value } }) => {
+                console.log({ value });
+                const { logisticsAmount } =
+                  selectedTimesForSelectedDay?.find(
+                    (el) => el.time === value
+                  ) || {};
+                changePDInfo("pickupWindow", value);
+                changePDInfo(
+                  "logisticsAmount",
+                  Number(logisticsAmount || WASH_PRICES.LOGISTICS)
+                );
+              }}
               id='pickup-window'
             >
               <option disabled selected>
@@ -210,7 +233,9 @@ export function PickupDelivery({
                 )}
               {selectedTimesForSelectedDay &&
                 selectedTimesForSelectedDay.map((el, i) => (
-                  <option key={i}>{el}</option>
+                  <option key={i} value={el.time}>
+                    {el.time}
+                  </option>
                 ))}
             </select>
             {errors?.pickupWindow && (

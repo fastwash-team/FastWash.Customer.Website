@@ -11,7 +11,7 @@ export interface ScheduleFormErrors {
 export interface PickupDeliveryProps {
   selectedWashType: string;
   scheduleInfo: ScheduleSummaryProps;
-  changePDInfo: (e: string, f: string) => void;
+  changePDInfo: (e: string, f: string | number) => void;
   errors: ScheduleFormErrors;
 }
 
@@ -52,6 +52,7 @@ export interface ScheduleSummaryProps {
   contactemail?: string;
   laundryInstructions?: string;
   total?: number;
+  logisticsAmount?: number;
 }
 
 export interface CustomizeWashProps {

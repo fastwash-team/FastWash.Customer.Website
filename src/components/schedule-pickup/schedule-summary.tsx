@@ -22,7 +22,7 @@ const BillingItems = (props: ScheduleSummaryProps) => {
       </div>
       <div className='item'>
         <span>Est Delivery Time</span>
-        <b>{props.pickupDay}</b>
+        <b>{props.pickupDay || "-"}</b>
       </div>
       <div className='item'>
         <span>
@@ -31,7 +31,11 @@ const BillingItems = (props: ScheduleSummaryProps) => {
             <i className='bi bi-info-circle-fill' />
           </CustomTooltip>
         </span>
-        <b>N {formatMoney(WASH_PRICES.LOGISTICS)}</b>
+        <b>
+          {props.logisticsAmount
+            ? `N ${formatMoney(props.logisticsAmount)}`
+            : "-"}
+        </b>
       </div>
       {props.washcount > 0 && (
         <div className='item'>
