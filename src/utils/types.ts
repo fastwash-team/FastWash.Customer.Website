@@ -59,6 +59,7 @@ export interface CustomizeWashProps {
   scheduleInfo: ScheduleSummaryProps;
   changePDInfo: (e: string, f: string | number) => void;
   errors?: ScheduleFormErrors;
+  setError?: (key: string, value: string) => void;
 }
 
 export interface WashItem {

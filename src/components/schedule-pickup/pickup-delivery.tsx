@@ -208,7 +208,6 @@ export function PickupDelivery({
               className='form-select'
               disabled={!scheduleInfo.area}
               onChange={({ target: { value } }) => {
-                console.log({ value });
                 const { logisticsAmount } =
                   selectedTimesForSelectedDay?.find(
                     (el) => el.time === value

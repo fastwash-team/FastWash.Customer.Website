@@ -6,7 +6,6 @@ import { CustomizeWashProps as ContactDetailsProps } from "../../utils/types";
 import { InfoMessage } from "../info-message";
 
 export function ContactDetails(props: ContactDetailsProps) {
-  console.log({ props });
   const [paymentOption, setPaymentOption] = useState<string | null>(
     PAYMENT_TYPES.PAYSTACK
   );
@@ -43,11 +42,13 @@ export function ContactDetails(props: ContactDetailsProps) {
               <span>+234</span>
               <input
                 type='number'
-                maxLength={11}
+                max={10}
+                maxLength={10}
                 value={props.scheduleInfo.phonenumber}
-                onChange={({ target: { value } }) =>
-                  handleContactEntry("phonenumber", value)
-                }
+                onChange={({ target: { value } }) => {
+                  if (value.length <= 10)
+                    handleContactEntry("phonenumber", value);
+                }}
               />
             </div>
             {props.errors?.phonenumber && (

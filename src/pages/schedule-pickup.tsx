@@ -308,6 +308,9 @@ export function SchedulePickup() {
                     handleChangeInfo(key, value);
                   }}
                   errors={formik.errors as ScheduleFormErrors}
+                  setError={(key: string, value: string) =>
+                    formik.setFieldError(key, value)
+                  }
                 />
               ) : null}
             </div>
