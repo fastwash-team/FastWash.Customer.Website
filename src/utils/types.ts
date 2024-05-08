@@ -62,6 +62,12 @@ export interface CustomizeWashProps {
   setError?: (key: string, value: string) => void;
 }
 
+export interface AdminOverviewProps {
+  pendingClassic: number;
+  pendingReschedule: number;
+  allRequests: number;
+}
+
 export interface WashItem {
   dateCreated: string;
   washOrderId: number;

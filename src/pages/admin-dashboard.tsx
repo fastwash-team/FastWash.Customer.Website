@@ -13,9 +13,15 @@ export const AdminDashboard = () => {
   const [activeTabNo, setActiveTabNo] = useState(1);
   const adminToken = getFWAdminToken();
   const [user, setUser] = useState<{ userName?: string }>({});
+  const [overviewData, setOverviewData] = useState({
+    pendingClassic: 0,
+    pendingReschedule: 0,
+    allRequests: 0,
+  });
 
   useEffect(() => {
     handleGetAdminDetails();
+    handleGetOverviewData();
   }, []);
 
   const handleGetAdminDetails = async () => {
@@ -37,10 +43,35 @@ export const AdminDashboard = () => {
     }
   };
 
+  const handleGetOverviewData = async () => {
+    try {
+      const {
+        data: {
+          responseObject: { allOrders, classicOrders, preScheduledOrders },
+        },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/pending/count`,
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
+        }
+      );
+      setOverviewData({
+        allRequests: allOrders,
+        pendingClassic: classicOrders,
+        pendingReschedule: preScheduledOrders,
+      });
+    } catch (error) {
+      const errorMsg = errorHandler(error);
+      console.log({ errorMsg });
+    }
+  };
+
   const renderComponentPerTab = () => {
     switch (activeTabNo) {
       case 1:
-        return <AdminOverview />;
+        return <AdminOverview overviewData={overviewData} />;
       case 2:
         return <AdminSchedule />;
       case 3:
