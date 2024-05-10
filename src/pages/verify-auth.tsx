@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import {
   errorHandler,
+  getTokenClaims,
   setFWAdminToken,
   setFWUserToken,
 } from "../utils/functions";
@@ -56,6 +57,9 @@ export function VerifyAuth() {
         `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
         { passCode: formik.values.token }
       );
+      console.log({ responseObject });
+      getTokenClaims(responseObject.access_token);
+      // return;
       if (isAdmin) {
         setFWAdminToken(responseObject);
         navigate("/admin/dashboard");

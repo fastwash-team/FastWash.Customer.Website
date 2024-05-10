@@ -1,5 +1,6 @@
 import moment from "moment";
 import { WASH_PRICES } from ".";
+// import { atob } from "buffer";
 
 export const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {}).format(value);
@@ -117,4 +118,10 @@ export const logout = () => {
 
 export const isUserLoggedIn = () => {
   return localStorage.getItem("fw_user_token");
+};
+
+export const getTokenClaims = (token) => {
+  const arrayToken = token.split(".");
+  const tokenPayload = JSON.parse(atob(arrayToken[1]));
+  console.log({ tokenPayload });
 };

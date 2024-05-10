@@ -125,6 +125,7 @@ export interface FilterRequestProps {
 }
 
 export interface WashScheduleProps {
+  serviceType: string;
   scheduleStartTime: string;
   scheduleEndTime: string;
   dateCreated: string;

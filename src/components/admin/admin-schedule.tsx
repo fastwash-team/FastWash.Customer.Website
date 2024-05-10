@@ -9,6 +9,7 @@ import {
   errorHandler,
   formatMoney,
   getFWAdminToken,
+  getWashServiceType,
 } from "../../utils/functions";
 import Skeleton from "react-loading-skeleton";
 
@@ -32,6 +33,8 @@ export function AdminSchedule() {
     pageSize: 0,
     defaultPageSize: 5,
   });
+
+  console.log({ schedules });
 
   useEffect(() => {
     handleFetchSchedule();
@@ -126,6 +129,10 @@ export function AdminSchedule() {
                       </p>
                     </div>
                     <div className='item-props'>
+                      <p>
+                        <i className='bi bi-filter-square-fill'></i>
+                        <span>{getWashServiceType(el.serviceType)}</span>
+                      </p>
                       <p>
                         <i className='bi bi-duffle-fill'></i>
                         <span>{el.totalWashOrders} Washes</span>
