@@ -44,6 +44,7 @@ export function ContactDetails(props: ContactDetailsProps) {
                 type='number'
                 max={10}
                 maxLength={10}
+                placeholder='8000000000'
                 value={props.scheduleInfo.phonenumber}
                 onChange={({ target: { value } }) => {
                   if (value.length <= 10)

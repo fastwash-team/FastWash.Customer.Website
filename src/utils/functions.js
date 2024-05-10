@@ -1,13 +1,12 @@
 import moment from "moment";
 import { WASH_PRICES } from ".";
-// import { atob } from "buffer";
 
 export const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {}).format(value);
 
 export const getWashServiceType = (washType) => {
   if (washType === "PreScheduledWash") return "Pre Scheduled";
-  if (washType === "Classic") return "Classic";
+  if (washType === "Classic" || washType === "ClassicWash") return "Classic";
 };
 
 export const getPickUpDay = () => {
@@ -125,3 +124,25 @@ export const getTokenClaims = (token) => {
   const tokenPayload = JSON.parse(atob(arrayToken[1]));
   console.log({ tokenPayload });
 };
+
+export const timeRangeClassic = [
+  "07:30",
+  "08:00",
+  "08:30",
+  "09:00",
+  "09:30",
+  "10:00",
+  "10:30",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "13:00",
+  "13:30",
+  "14:00",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+];

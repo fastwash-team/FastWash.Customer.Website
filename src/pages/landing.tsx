@@ -447,10 +447,11 @@ const Landing: React.FC = () => {
                       data-bs-parent='#accordionExample'
                     >
                       <div className='accordion-body'>
-                        You can click <a>HERE</a> to schedule your first wash.
-                        Choose a convenient wash schedule, select the number of
-                        washes and any laundry extras, and make your payment.
-                        Each wash includes detergent and a free wrap bag.
+                        You can click <a href='/schedule-pickup'>HERE</a> to
+                        schedule your first wash. Choose a convenient wash
+                        schedule, select the number of washes and any laundry
+                        extras, and make your payment. Each wash includes
+                        detergent and a free wrap bag.
                       </div>
                     </div>
                   </div>

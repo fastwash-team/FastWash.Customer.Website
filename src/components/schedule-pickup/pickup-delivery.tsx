@@ -122,7 +122,12 @@ export function PickupDelivery({
       <div className='__options'>
         <div
           className={`option ${isWashPrescheduled && "active"}`}
-          onClick={() => changePDInfo("selectedWashType", PRESCHEDULED_WASH)}
+          onClick={() => {
+            changePDInfo("selectedWashType", PRESCHEDULED_WASH);
+            changePDInfo("area", "");
+            changePDInfo("pickupDay", "");
+            changePDInfo("pickupWindow", "");
+          }}
         >
           <div className='imgs'>
             <img src={CircleCalendar} alt='' className='option-img' />
@@ -136,7 +141,12 @@ export function PickupDelivery({
         </div>
         <div
           className={`option ${isClassicWash && "active"}`}
-          onClick={() => changePDInfo("selectedWashType", CLASSIC_WASH)}
+          onClick={() => {
+            changePDInfo("selectedWashType", CLASSIC_WASH);
+            changePDInfo("area", "");
+            changePDInfo("pickupDay", "");
+            changePDInfo("pickupWindow", "");
+          }}
         >
           <div className='imgs'>
             <img src={CircleTruck} alt='' className='option-img' />

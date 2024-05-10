@@ -34,7 +34,7 @@ export function AdminSchedule() {
     defaultPageSize: 5,
   });
 
-  console.log({ schedules });
+  console.log({ schedules, filterSchedule, priceRange });
 
   useEffect(() => {
     handleFetchSchedule();
@@ -42,15 +42,34 @@ export function AdminSchedule() {
 
   const handleFetchSchedule = async () => {
     setPageLoading(true);
+    const hasFilter = !!filterSchedule || !!filterLocation;
+    let url = `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
+    if (hasFilter) {
+      console.log({ filterSchedule, filterLocation });
+      url = `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
+      if (filterLocation !== "All") url = url + `&location=${filterLocation}`;
+      if (filterSchedule !== "All") {
+        const scheduleEnum =
+          filterSchedule === "Pre-Schedule"
+            ? 1
+            : filterSchedule === "Classic"
+            ? 2
+            : null;
+        url = url + `&serviceType=${scheduleEnum}`;
+      }
+      if (priceRange.max)
+        url =
+          url +
+          `&fromOrderAmount=${priceRange.min}&toOrderAmount=${priceRange.max}`;
+    }
     try {
       const {
         data: {
           responseObject: { data, pageCount, pageIndex, pageSize },
         },
-      } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
-        { headers: { Authorization: `Bearer ${adminToken}` } }
-      );
+      } = await axios.get(url, {
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
       setSchedules(data);
       setPaginationOptions({
         ...paginationOptions,
@@ -69,6 +88,7 @@ export function AdminSchedule() {
 
   const handleApplyFilter = () => {
     console.log("filters to be applied");
+    handleFetchSchedule();
   };
 
   const handleSelectSchedule = () => {
@@ -112,7 +132,7 @@ export function AdminSchedule() {
               {pageLoading ? (
                 <Skeleton count={5} />
               ) : !pageLoading && schedules.length ? (
-                schedules.map((el, key) => (
+                schedules.reverse().map((el, key) => (
                   <div
                     className='item'
                     onClick={handleSelectSchedule}

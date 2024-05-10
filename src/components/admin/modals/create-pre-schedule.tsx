@@ -4,6 +4,7 @@ import {
   errorHandler,
   formatMoney,
   getFWAdminToken,
+  timeRangeClassic,
 } from "../../../utils/functions";
 import MultiDatePicker from "react-multi-date-picker";
 import moment from "moment";
@@ -16,6 +17,9 @@ export function CreatePreScheduleModal() {
   const [loading, setLoading] = useState(false);
   const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
   const hoursMins = hours.map((el) => (el < 10 ? `0${el}:00` : `${el}:00`));
+  const startTimes = timeRangeClassic;
+  startTimes.splice(-1);
+  console.log({ startTimes });
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [times, setTimes] = useState({ startTime: "", endTime: "" });
   const [preData, setPreData] = useState({
@@ -197,7 +201,10 @@ export function CreatePreScheduleModal() {
                         setTimes({ ...times, startTime: value })
                       }
                     >
-                      {hoursMins.map((el) => (
+                      <option selected disabled>
+                        Select Start Time
+                      </option>
+                      {[...timeRangeClassic].map((el: string | undefined) => (
                         <option value={el} key={el}>
                           {el}
                         </option>
@@ -212,6 +219,9 @@ export function CreatePreScheduleModal() {
                         setTimes({ ...times, endTime: value })
                       }
                     >
+                      <option selected disabled>
+                        Select Start Time
+                      </option>
                       {hoursMins.slice(1).map((el) => (
                         <option value={el} key={el}>
                           {el}
