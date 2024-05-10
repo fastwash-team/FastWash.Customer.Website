@@ -122,7 +122,7 @@ export const isUserLoggedIn = () => {
 export const getTokenClaims = (token) => {
   const arrayToken = token.split(".");
   const tokenPayload = JSON.parse(atob(arrayToken[1]));
-  console.log({ tokenPayload });
+  return tokenPayload;
 };
 
 export const timeRangeClassic = [

@@ -58,12 +58,20 @@ export function VerifyAuth() {
         { passCode: formik.values.token }
       );
       console.log({ responseObject });
-      getTokenClaims(responseObject.access_token);
-      // return;
-      if (isAdmin) {
+      const claims = getTokenClaims(responseObject.access_token);
+      console.log({ claims });
+      if (isAdmin && claims?.InternalUser) {
         setFWAdminToken(responseObject);
         navigate("/admin/dashboard");
-      } else {
+      }
+      if (isAdmin && claims?.ExternalUser) {
+        return Swal.fire({
+          title: "Error",
+          text: "This user is not an admin. You cannot enter here!",
+          icon: "error",
+        });
+      }
+      if (!isAdmin && claims?.ExternalUser) {
         setFWUserToken(responseObject);
         navigate("/dashboard");
       }
