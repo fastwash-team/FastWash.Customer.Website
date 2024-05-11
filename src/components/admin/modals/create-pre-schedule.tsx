@@ -15,11 +15,8 @@ import { WashServiceType } from "../../../utils/types";
 export function CreatePreScheduleModal() {
   const adminToken = getFWAdminToken();
   const [loading, setLoading] = useState(false);
-  const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-  const hoursMins = hours.map((el) => (el < 10 ? `0${el}:00` : `${el}:00`));
-  const startTimes = timeRangeClassic;
-  startTimes.splice(-1);
-  console.log({ startTimes });
+  const startTimes = timeRangeClassic.filter((el, key) => key < 4);
+  const endTimes = timeRangeClassic.filter((el, key) => key < 5 && key !== 0);
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [times, setTimes] = useState({ startTime: "", endTime: "" });
   const [preData, setPreData] = useState({
@@ -144,7 +141,7 @@ export function CreatePreScheduleModal() {
                   <input
                     className='form-control'
                     type='number'
-                    value={preData.washesCount}
+                    // value={preData.washesCount}
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, washesCount: Number(value) })
                     }
@@ -155,7 +152,7 @@ export function CreatePreScheduleModal() {
                   <input
                     className='form-control'
                     type='number'
-                    value={preData.logistics}
+                    // value={preData.logistics}
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, logistics: Number(value) })
                     }
@@ -170,6 +167,7 @@ export function CreatePreScheduleModal() {
                   multiple
                   minDate={new Date()}
                   numberOfMonths={2}
+                  placeholder='Select Dates'
                   sort
                   disabled={selectedDates.length === 30}
                   onChange={(values) => {
@@ -204,7 +202,7 @@ export function CreatePreScheduleModal() {
                       <option selected disabled>
                         Select Start Time
                       </option>
-                      {[...timeRangeClassic].map((el: string | undefined) => (
+                      {startTimes.map((el: string | undefined) => (
                         <option value={el} key={el}>
                           {el}
                         </option>
@@ -222,7 +220,7 @@ export function CreatePreScheduleModal() {
                       <option selected disabled>
                         Select Start Time
                       </option>
-                      {hoursMins.slice(1).map((el) => (
+                      {endTimes.map((el) => (
                         <option value={el} key={el}>
                           {el}
                         </option>

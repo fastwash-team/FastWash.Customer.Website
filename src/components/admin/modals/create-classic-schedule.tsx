@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { supportedAreas } from "../../../utils";
-import { errorHandler, getFWAdminToken } from "../../../utils/functions";
+import {
+  errorHandler,
+  getFWAdminToken,
+  timeRangeClassic,
+} from "../../../utils/functions";
 import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css";
 import MultiDatePicker from "react-multi-date-picker";
@@ -10,8 +14,11 @@ import { WashServiceType } from "../../../utils/types";
 
 export function CreateClassicScheduleModal() {
   const adminToken = getFWAdminToken();
-  const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-  const hoursMins = hours.map((el) => (el < 10 ? `0${el}:00` : `${el}:00`));
+  const startTimes = timeRangeClassic.filter(
+    (el, key) => key < timeRangeClassic.length - 1
+  );
+  const endTimes = timeRangeClassic.filter((el, key) => key !== 0);
+  console.log({ startTimes, endTimes });
   const [loading, setLoading] = useState(false);
   const [times, setTimes] = useState({ startTime: "", endTime: "" });
   const [preData, setPreData] = useState({ location: "", logistics: 0 });
@@ -163,6 +170,7 @@ export function CreateClassicScheduleModal() {
                     multiple
                     minDate={new Date()}
                     numberOfMonths={2}
+                    placeholder='Select Dates'
                     sort
                     disabled={selectedDates.length === 30}
                     onChange={(values) => {
@@ -183,7 +191,10 @@ export function CreateClassicScheduleModal() {
                           setTimes({ ...times, startTime: value })
                         }
                       >
-                        {hoursMins.map((el) => (
+                        <option selected disabled>
+                          Select Start Time
+                        </option>
+                        {startTimes.map((el) => (
                           <option value={el} key={el}>
                             {el}
                           </option>
@@ -198,7 +209,10 @@ export function CreateClassicScheduleModal() {
                           setTimes({ ...times, endTime: value })
                         }
                       >
-                        {hoursMins.slice(1).map((el) => (
+                        <option selected disabled>
+                          Select End Time
+                        </option>
+                        {endTimes.map((el) => (
                           <option value={el} key={el}>
                             {el}
                           </option>
@@ -251,7 +265,10 @@ export function CreateClassicScheduleModal() {
                           handleEditSchedule(key, "startTime", value)
                         }
                       >
-                        {hoursMins.map((el) => (
+                        <option selected disabled>
+                          Select Start Time
+                        </option>
+                        {startTimes.map((el) => (
                           <option value={el} key={el}>
                             {el}
                           </option>
@@ -267,7 +284,10 @@ export function CreateClassicScheduleModal() {
                           handleEditSchedule(key, "endTime", value)
                         }
                       >
-                        {hoursMins.map((el) => (
+                        <option selected disabled>
+                          Select End Time
+                        </option>
+                        {endTimes.map((el) => (
                           <option value={el} key={el}>
                             {el}
                           </option>
