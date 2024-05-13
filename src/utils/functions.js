@@ -107,6 +107,7 @@ export const getFWAdminToken = () => {
 
 export const logout = () => {
   const lastRoute = window.location.pathname;
+  console.log({ lastRoute });
   // localStorage.setItem("rerouteTo", lastRoute);
   localStorage.removeItem("rerouteTo");
   localStorage.removeItem("fw_user_token");
