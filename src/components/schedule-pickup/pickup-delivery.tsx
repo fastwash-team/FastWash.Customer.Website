@@ -85,6 +85,7 @@ export function PickupDelivery({
       time: `${el.scheduleStartTime} - ${el.scheduleEndTime}`,
       key,
       logisticsAmount: el.logisticsAmount,
+      scheduleDate: el.scheduleDate,
     }));
   }, [scheduleInfo.pickupDay, days]);
 
@@ -204,6 +205,7 @@ export function PickupDelivery({
                 changePDInfo("pickupDay", value)
               }
               id='pickup-day'
+              value={scheduleInfo.pickupDay}
             >
               <option disabled selected>
                 -- Select pickup day --
@@ -220,7 +222,7 @@ export function PickupDelivery({
               className='form-select'
               disabled={!scheduleInfo.area}
               onChange={({ target: { value } }) => {
-                const { logisticsAmount } =
+                const { logisticsAmount, scheduleDate } =
                   selectedTimesForSelectedDay?.find(
                     (el) => el.time === value
                   ) || {};
@@ -229,7 +231,12 @@ export function PickupDelivery({
                   "logisticsAmount",
                   Number(logisticsAmount || WASH_PRICES.LOGISTICS)
                 );
+                changePDInfo(
+                  "orderDate",
+                  scheduleDate || new Date(scheduleInfo.pickupDay).getDate()
+                );
               }}
+              value={scheduleInfo.pickupWindow}
               id='pickup-window'
             >
               <option disabled selected>
@@ -270,6 +277,7 @@ export function PickupDelivery({
           className='form-control'
           placeholder='Add any special instructions for the driver'
           id='floatingTextarea'
+          value={scheduleInfo.laundryInstructions}
           onChange={({ target: { value } }) =>
             changePDInfo("laundryInstructions", value)
           }

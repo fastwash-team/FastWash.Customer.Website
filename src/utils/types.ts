@@ -51,6 +51,7 @@ export interface ScheduleSummaryProps {
   phonenumber?: string;
   contactemail?: string;
   laundryInstructions?: string;
+  orderDate?: string;
   total?: number;
   logisticsAmount?: number;
 }

@@ -141,7 +141,7 @@ export function SchedulePickup() {
       const body = {
         streetAddress: values.address,
         location: values.area,
-        orderDate: new Date(),
+        orderDate: values.orderDate,
         serviceType: WashServiceType.PRESCHEDULED_WASH,
         internalNotes: values.laundryInstructions,
         logisticsAmount: values.logisticsAmount,
@@ -160,6 +160,7 @@ export function SchedulePickup() {
           transactionChannel: TransactionChannel.PAYSTACK,
         },
       };
+      return console.log({ body });
       await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
         body
