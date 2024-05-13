@@ -59,15 +59,24 @@ export function VerifyAuth() {
       );
       console.log({ responseObject });
       const claims = getTokenClaims(responseObject.access_token);
-      console.log({ claims });
+      console.log({ claims, isAdmin });
       if (isAdmin && claims?.InternalUser) {
         setFWAdminToken(responseObject);
         navigate("/admin/dashboard");
       }
       if (isAdmin && claims?.ExternalUser) {
+        setLoading(false);
         return Swal.fire({
           title: "Error",
           text: "This user is not an admin. You cannot enter here!",
+          icon: "error",
+        });
+      }
+      if (!isAdmin && claims?.InternalUser) {
+        setLoading(false);
+        return Swal.fire({
+          title: "Error",
+          text: "This user does not have a valid account. Please create a wash to register!",
           icon: "error",
         });
       }

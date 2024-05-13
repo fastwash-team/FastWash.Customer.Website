@@ -3,6 +3,7 @@ import { Pagination } from "../pagination";
 import { FilterScheduleModal } from "./modals/filter-schedules";
 import { ScheduleInfo, WashScheduleProps } from "../../utils/types";
 import { ScheduleView } from "./schedule-view";
+import CalendarSvg from "../../assets/svgs/calender.svg";
 import axios from "axios";
 import moment from "moment";
 import {
@@ -12,6 +13,7 @@ import {
   getWashServiceType,
 } from "../../utils/functions";
 import Skeleton from "react-loading-skeleton";
+import { EmptyContainer } from "../empty-wash-item-list";
 
 export function AdminSchedule() {
   const adminToken = getFWAdminToken();
@@ -115,79 +117,97 @@ export function AdminSchedule() {
                 <i className='bi bi-filter'></i>
               </div>
             </div>
-            <div className='filter-list-view'>
-              <li>{filterDay}</li>
-              <li>
-                {filterSchedule.toLowerCase() === "all"
-                  ? "All Schedules"
-                  : filterSchedule}
-              </li>
-              <li>
-                {filterLocation.toLowerCase() === "all"
-                  ? "All Locations"
-                  : filterLocation}
-              </li>
-            </div>
-            <div className='admin-content-list'>
-              {pageLoading ? (
-                <Skeleton count={5} />
-              ) : !pageLoading && schedules.length ? (
-                schedules.reverse().map((el, key) => (
-                  <div
-                    className='item'
-                    onClick={handleSelectSchedule}
-                    key={key}
-                  >
-                    <div className='time-info'>
-                      <p>
-                        #{el.washOrderPlanReference} {el.scheduleStartTime} -{" "}
-                        {el.scheduleEndTime}
-                      </p>
-                      <p>
-                        <span>{moment(el.scheduleDate).format("Do MMM")}</span>
-                        <i className='bi bi-three-dots'></i>
-                      </p>
-                    </div>
-                    <div className='item-props'>
-                      <p>
-                        <i className='bi bi-filter-square-fill'></i>
-                        <span>{getWashServiceType(el.serviceType)}</span>
-                      </p>
-                      <p>
-                        <i className='bi bi-duffle-fill'></i>
-                        <span>{el.totalWashOrders} Washes</span>
-                      </p>
-                      <p>
-                        <i className='bi bi-bag-check-fill'></i>
-                        <span>NGN {formatMoney(el.totalWashOrdersAmount)}</span>
-                      </p>
-                      <p>
-                        <i className='bi bi-truck'></i>
-                        <span>NGN {formatMoney(el.logisticsAmount)}</span>
-                      </p>
-                      <p>
-                        <i className='bi bi-geo-alt-fill'></i>
-                        <span>{el.location}</span>
-                      </p>
-                    </div>
-                  </div>
-                ))
-              ) : null}
-            </div>
-            <Pagination
-              pageCount={paginationOptions.totalPages}
-              changePage={(el) =>
-                setPaginationOptions({ ...paginationOptions, page: el })
-              }
-              changePageSize={(el) =>
-                setPaginationOptions({
-                  ...paginationOptions,
-                  defaultPageSize: el,
-                  page: 1,
-                })
-              }
-              pageSize={paginationOptions.defaultPageSize}
-            />
+            {!pageLoading && !schedules.length ? (
+              <div style={{ marginTop: "-60px", marginBottom: "40px" }}>
+                <EmptyContainer
+                  emptyTitle={"No schedules"}
+                  emptyText='Your have not created any schedules yet. Click the button below to start.'
+                  buttonText='Create Schedule'
+                  buttonAction={() => null}
+                  pageIcon={CalendarSvg}
+                />
+              </div>
+            ) : (
+              <>
+                <div className='filter-list-view'>
+                  <li>{filterDay}</li>
+                  <li>
+                    {filterSchedule.toLowerCase() === "all"
+                      ? "All Schedules"
+                      : filterSchedule}
+                  </li>
+                  <li>
+                    {filterLocation.toLowerCase() === "all"
+                      ? "All Locations"
+                      : filterLocation}
+                  </li>
+                </div>
+                <div className='admin-content-list'>
+                  {pageLoading ? (
+                    <Skeleton count={5} />
+                  ) : !pageLoading && schedules.length ? (
+                    schedules.reverse().map((el, key) => (
+                      <div
+                        className='item'
+                        onClick={handleSelectSchedule}
+                        key={key}
+                      >
+                        <div className='time-info'>
+                          <p>
+                            #{el.washOrderPlanReference} {el.scheduleStartTime}{" "}
+                            - {el.scheduleEndTime}
+                          </p>
+                          <p>
+                            <span>
+                              {moment(el.scheduleDate).format("Do MMM")}
+                            </span>
+                            <i className='bi bi-three-dots'></i>
+                          </p>
+                        </div>
+                        <div className='item-props'>
+                          <p>
+                            <i className='bi bi-filter-square-fill'></i>
+                            <span>{getWashServiceType(el.serviceType)}</span>
+                          </p>
+                          <p>
+                            <i className='bi bi-duffle-fill'></i>
+                            <span>{el.totalWashOrders} Washes</span>
+                          </p>
+                          <p>
+                            <i className='bi bi-bag-check-fill'></i>
+                            <span>
+                              NGN {formatMoney(el.totalWashOrdersAmount)}
+                            </span>
+                          </p>
+                          <p>
+                            <i className='bi bi-truck'></i>
+                            <span>NGN {formatMoney(el.logisticsAmount)}</span>
+                          </p>
+                          <p>
+                            <i className='bi bi-geo-alt-fill'></i>
+                            <span>{el.location}</span>
+                          </p>
+                        </div>
+                      </div>
+                    ))
+                  ) : null}
+                </div>
+                <Pagination
+                  pageCount={paginationOptions.totalPages}
+                  changePage={(el) =>
+                    setPaginationOptions({ ...paginationOptions, page: el })
+                  }
+                  changePageSize={(el) =>
+                    setPaginationOptions({
+                      ...paginationOptions,
+                      defaultPageSize: el,
+                      page: 1,
+                    })
+                  }
+                  pageSize={paginationOptions.defaultPageSize}
+                />
+              </>
+            )}
           </>
         )}
       </div>

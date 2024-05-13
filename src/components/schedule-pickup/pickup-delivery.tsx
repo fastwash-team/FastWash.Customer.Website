@@ -115,6 +115,8 @@ export function PickupDelivery({
     }
   };
 
+  console.log("errors", errors, scheduleInfo);
+
   return (
     <div className='schedule-pickup__body__steps-view-render'>
       <h2>Pick up & Delivery</h2>
@@ -247,7 +249,7 @@ export function PickupDelivery({
                   </option>
                 ))}
             </select>
-            {errors?.pickupWindow && (
+            {errors?.pickupWindow && !scheduleInfo.pickupWindow && (
               <InfoMessage message={errors.pickupWindow} />
             )}
           </div>

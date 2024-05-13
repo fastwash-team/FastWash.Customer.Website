@@ -44,7 +44,8 @@ export function CustomizeWash(props: CustomizeWashProps) {
     }
     if (variant === "minus" && props.scheduleInfo.washcount > 1) {
       props.changePDInfo("washcount", props.scheduleInfo.washcount - 1);
-      return props.changePDInfo("softener", props.scheduleInfo.softener - 1);
+      if (props.scheduleInfo.softener > 0)
+        return props.changePDInfo("softener", props.scheduleInfo.softener - 1);
     }
   };
   return (
