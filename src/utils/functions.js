@@ -81,10 +81,10 @@ export const errorHandler = (error) => {
 };
 
 const redirectToRouteBeforeLogout = () => {
-  const lastRoute = localStorage.getItem("rerouteTo");
-  if (!lastRoute) return;
-  window.location.replace(lastRoute);
-  localStorage.removeItem("rerouteTo");
+  // const lastRoute = localStorage.getItem("rerouteTo");
+  // if (!lastRoute) return;
+  // window.location.replace(lastRoute);
+  // localStorage.removeItem("rerouteTo");
 };
 
 export const setFWUserToken = (userObj) => {
@@ -107,7 +107,8 @@ export const getFWAdminToken = () => {
 
 export const logout = () => {
   const lastRoute = window.location.pathname;
-  localStorage.setItem("rerouteTo", lastRoute);
+  // localStorage.setItem("rerouteTo", lastRoute);
+  localStorage.removeItem("rerouteTo");
   localStorage.removeItem("fw_user_token");
   localStorage.removeItem("fw_admin_token");
   if (window.location.pathname.startsWith("/admin"))
