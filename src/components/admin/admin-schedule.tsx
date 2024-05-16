@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pagination } from "../pagination";
 import { FilterScheduleModal } from "./modals/filter-schedules";
-import { ScheduleInfo, WashScheduleProps } from "../../utils/types";
+import { WashScheduleProps } from "../../utils/types";
 import { ScheduleView } from "./schedule-view";
 import CalendarSvg from "../../assets/svgs/calender.svg";
 import axios from "axios";
@@ -25,9 +25,8 @@ export function AdminSchedule() {
     min: 0,
     max: 0,
   });
-  const [selectedSchedule, setSelectedSchedule] = useState<null | ScheduleInfo>(
-    null
-  );
+  const [selectedSchedule, setSelectedSchedule] =
+    useState<null | WashScheduleProps>(null);
   const [schedules, setSchedules] = useState<WashScheduleProps[] | []>([]);
   const [paginationOptions, setPaginationOptions] = useState({
     page: 0,
@@ -93,15 +92,20 @@ export function AdminSchedule() {
     handleFetchSchedule();
   };
 
-  const handleSelectSchedule = () => {
-    return setSelectedSchedule({ scheduleId: "ID" });
+  const handleSelectSchedule = (washSchedule: WashScheduleProps) => {
+    console.log({ washSchedule });
+    // return setSelectedSchedule({ scheduleId: "ID" });
+    return setSelectedSchedule(washSchedule);
   };
 
   return (
     <>
       <div className='admin-column'>
-        {selectedSchedule?.scheduleId ? (
-          <ScheduleView goBack={() => setSelectedSchedule(null)} />
+        {selectedSchedule?.washOrderPlanReference ? (
+          <ScheduleView
+            schedule={selectedSchedule}
+            goBack={() => setSelectedSchedule(null)}
+          />
         ) : (
           <>
             <div className='column-title-wrapper'>
@@ -155,7 +159,7 @@ export function AdminSchedule() {
                       .map((el, key) => (
                         <div
                           className='item'
-                          onClick={handleSelectSchedule}
+                          onClick={() => handleSelectSchedule(el)}
                           key={key}
                         >
                           <div className='time-info'>

@@ -73,7 +73,11 @@ export interface WashItem {
   dateCreated: string;
   washOrderId: number;
   washStatus: string;
-  washOrderData: { washItemData: WashItemData[]; serviceType: string };
+  washOrderData: {
+    washItemData: WashItemData[];
+    serviceType: string;
+  };
+  washOrderReference: string;
 }
 
 export interface WashItemData {
@@ -137,6 +141,7 @@ export interface WashScheduleProps {
   location: string;
   scheduleDate: string;
   washOrderPlanReference: string;
+  washOrders: AdminRequest[];
 }
 
 export interface AdminRequest {

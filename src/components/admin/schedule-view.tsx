@@ -1,4 +1,16 @@
-export function ScheduleView({ goBack }: { goBack: () => void }) {
+import moment from "moment";
+import { formatMoney } from "../../utils/functions";
+import { WashScheduleProps } from "../../utils/types";
+import writtenNumber from "written-number";
+import { EmptyContainer } from "../empty-wash-item-list";
+
+export function ScheduleView({
+  goBack,
+  schedule,
+}: {
+  goBack: () => void;
+  schedule: WashScheduleProps;
+}) {
   return (
     <div className='schedule-view'>
       <p className='goback_'>
@@ -6,93 +18,128 @@ export function ScheduleView({ goBack }: { goBack: () => void }) {
       </p>
       <div className='schedule-view-header'>
         <div className='details'>
-          <h3>#SCH8890 08:00 - 09:00</h3>
+          <h3>
+            #{schedule.washOrderPlanReference} {schedule.scheduleStartTime} -{" "}
+            {schedule.scheduleEndTime}
+          </h3>
           <div className='extras'>
             <p>
               <i className='bi bi-duffle-fill'></i>
-              <span>10 Washes</span>
+              <span>{schedule.totalWashOrders} Washes</span>
             </p>
             <p>
               <i className='bi bi-bag-check-fill'></i>
-              <span>NGN 50,000</span>
+              <span>NGN {formatMoney(schedule.totalWashOrdersAmount)}</span>
             </p>
             <p>
               <i className='bi bi-truck'></i>
-              <span>NGN 10,000</span>
+              <span>NGN {formatMoney(schedule.totalLogisticsAmount)}</span>
             </p>
             <p>
               <i className='bi bi-geo-alt-fill'></i>
-              <span>Yaba</span>
+              <span>{schedule.location}</span>
             </p>
           </div>
         </div>
-        <button>Download</button>
+        {(schedule?.washOrders || []).length ? <button>Download</button> : null}
       </div>
-      {[1, 2, 3].map(() => (
-        <div className='schedule-view-body'>
-          <div className='_left'>
-            <div className='_title status'>
-              <h2>#FWash 09680</h2>
-              <span className='received'>Received</span>
+      {(schedule?.washOrders || []).length ? (
+        (schedule.washOrders || []).map((el, key) => (
+          <div className='schedule-view-body' key={key}>
+            <div className='_left'>
+              <div className='_title status'>
+                <h2>#{el.washOrderReference}</h2>
+                <span className={el.washStatus.toLowerCase()}>
+                  {el.washStatus}
+                </span>
+              </div>
+              <div className='_extras'>
+                {el.washOrderData.washItemData.find(
+                  (el) => el.itemName === "Washes"
+                )?.numberOfItem ? (
+                  <p>
+                    {writtenNumber(
+                      el.washOrderData.washItemData.find(
+                        (el) => el.itemName === "Washes"
+                      )?.numberOfItem
+                    )}{" "}
+                    Wash
+                  </p>
+                ) : null}
+                <p>
+                  {el?.washOrderData?.washItemData.filter(
+                    (el) => el.itemName !== "Washes"
+                  ).length
+                    ? writtenNumber(
+                        el?.washOrderData?.washItemData.filter(
+                          (el) => el.itemName !== "Washes"
+                        ).length
+                      )
+                    : "No"}{" "}
+                  Extra
+                  {el?.washOrderData?.washItemData?.length - 1 > 1 ? "s" : ""}
+                </p>
+                {/* <p>Notes: Yes</p> */}
+              </div>
+              <div className='_contact'>
+                <p>
+                  <i className='bi bi-person-fill'></i>
+                  <span>{el?.washOrderData?.userData?.fullName}</span>
+                </p>
+                <p>
+                  <i className='bi bi-phone-fill'></i>
+                  <span>{el?.washOrderData?.userData?.phoneNumber}</span>
+                </p>
+                <p>
+                  <i className='bi bi-envelope-fill'></i>
+                  <span>{el?.washOrderData?.userData?.email}</span>
+                </p>
+                <p>
+                  <i className='bi bi-geo-alt-fill'></i>
+                  <span>{el?.washOrderData?.streetAddress}</span>
+                </p>
+              </div>
             </div>
-            <div className='_extras'>
-              <p>One Wash</p>
-              <p>No Extras</p>
-              <p>Notes: Yes</p>
-            </div>
-            <div className='_contact'>
-              <p>
-                <i className='bi bi-person-fill'></i>
-                <span>Gbolahan Fawale</span>
-              </p>
-              <p>
-                <i className='bi bi-phone-fill'></i>
-                <span>08167890987</span>
-              </p>
-              <p>
-                <i className='bi bi-envelope-fill'></i>
-                <span>gbmilla@gmail.com</span>
-              </p>
-              <p>
-                <i className='bi bi-geo-alt-fill'></i>
-                <span>No 5 192 Adeola Odeku Street, Bariga lagos</span>
-              </p>
+            <div className='date'>
+              <p>{moment(el?.washOrderData?.orderDate).format("Do MMM")}</p>
+              <div className='dropdown'>
+                <i
+                  className='bi bi-three-dots'
+                  data-bs-toggle='dropdown'
+                  aria-expanded='false'
+                ></i>
+                <ul className='dropdown-menu'>
+                  <li>
+                    <a className='dropdown-item' href='#'>
+                      Update Status
+                    </a>
+                  </li>
+                  <li>
+                    <a className='dropdown-item' href='#'>
+                      Add Wash
+                    </a>
+                  </li>
+                  <li>
+                    <a className='dropdown-item' href='#'>
+                      Reschedule Wash
+                    </a>
+                  </li>
+                  <li>
+                    <a className='dropdown-item' href='#'>
+                      Add Complaints
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div className='date'>
-            <p>4th Oct.</p>
-            <div className='dropdown'>
-              <i
-                className='bi bi-three-dots'
-                data-bs-toggle='dropdown'
-                aria-expanded='false'
-              ></i>
-              <ul className='dropdown-menu'>
-                <li>
-                  <a className='dropdown-item' href='#'>
-                    Update Status
-                  </a>
-                </li>
-                <li>
-                  <a className='dropdown-item' href='#'>
-                    Add Wash
-                  </a>
-                </li>
-                <li>
-                  <a className='dropdown-item' href='#'>
-                    Reschedule Wash
-                  </a>
-                </li>
-                <li>
-                  <a className='dropdown-item' href='#'>
-                    Add Complaints
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <EmptyContainer
+          emptyText='There are no requests for this schedule.'
+          showAction={false}
+        />
+      )}
     </div>
   );
 }

@@ -103,11 +103,7 @@ const ContactDetails = (props: ScheduleSummaryProps) => {
             +234 {props.phonenumber} <i className='bi bi-dot'></i>
           </>
         )}
-        {props?.contactemail && (
-          <>
-            {props.contactemail} <i className='bi bi-dot'></i>
-          </>
-        )}
+        {props?.contactemail && <>{props.contactemail}</>}
       </b>
     </div>
   ) : null;

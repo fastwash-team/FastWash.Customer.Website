@@ -228,6 +228,12 @@ export function PickupDelivery({
                   selectedTimesForSelectedDay?.find(
                     (el) => el.time === value
                   ) || {};
+                console.log(
+                  "try again 2",
+                  moment(scheduleDate)
+                    .hour(Number(value.split(":")[0]))
+                    .format()
+                );
                 changePDInfo("pickupWindow", value);
                 changePDInfo(
                   "logisticsAmount",
@@ -235,7 +241,9 @@ export function PickupDelivery({
                 );
                 changePDInfo(
                   "orderDate",
-                  scheduleDate || new Date(scheduleInfo.pickupDay).getDate()
+                  moment(scheduleDate)
+                    .hour(Number(value.split(":")[0]))
+                    .format()
                 );
               }}
               value={

@@ -7,12 +7,14 @@ export const EmptyContainer = ({
   buttonText = "Schedule Pickup",
   buttonAction = () => null,
   pageIcon = WashingMachine,
+  showAction = true,
 }: {
   emptyTitle?: string;
   emptyText?: string;
   buttonText?: string;
   buttonAction?: () => void;
   pageIcon?: string;
+  showAction?: boolean;
 }) => {
   return (
     <div className='empty-container'>
@@ -21,7 +23,7 @@ export const EmptyContainer = ({
       <center>
         <p>{emptyText}</p>
       </center>
-      <button onClick={buttonAction}>{buttonText}</button>
+      {showAction && <button onClick={buttonAction}>{buttonText}</button>}
     </div>
   );
 };

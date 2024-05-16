@@ -133,7 +133,7 @@ export function SchedulePickup() {
     try {
       if (!values.contactemail) return;
       const transaction = await handleCreateTransaction(
-        values.contactemail,
+        values.contactemail || "23",
         total,
         shortUUID.generate()
       );
