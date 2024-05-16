@@ -146,50 +146,58 @@ export function AdminSchedule() {
                   {pageLoading ? (
                     <Skeleton count={5} />
                   ) : !pageLoading && schedules.length ? (
-                    schedules.reverse().map((el, key) => (
-                      <div
-                        className='item'
-                        onClick={handleSelectSchedule}
-                        key={key}
-                      >
-                        <div className='time-info'>
-                          <p>
-                            #{el.washOrderPlanReference} {el.scheduleStartTime}{" "}
-                            - {el.scheduleEndTime}
-                          </p>
-                          <p>
-                            <span>
-                              {moment(el.scheduleDate).format("Do MMM")}
-                            </span>
-                            <i className='bi bi-three-dots'></i>
-                          </p>
+                    schedules
+                      .sort(
+                        (a, b) =>
+                          Number(new Date(a.scheduleDate)) -
+                          Number(new Date(b.scheduleDate))
+                      )
+                      .map((el, key) => (
+                        <div
+                          className='item'
+                          onClick={handleSelectSchedule}
+                          key={key}
+                        >
+                          <div className='time-info'>
+                            <p>
+                              #{el.washOrderPlanReference}{" "}
+                              {el.scheduleStartTime} - {el.scheduleEndTime}
+                            </p>
+                            <p>
+                              <span>
+                                {moment(el.scheduleDate).format("Do MMM")}
+                              </span>
+                              <i className='bi bi-three-dots'></i>
+                            </p>
+                          </div>
+                          <div className='item-props'>
+                            <p>
+                              <i className='bi bi-filter-square-fill'></i>
+                              <span>{getWashServiceType(el.serviceType)}</span>
+                            </p>
+                            <p>
+                              <i className='bi bi-duffle-fill'></i>
+                              <span>{el.totalWashOrders} Washes</span>
+                            </p>
+                            <p>
+                              <i className='bi bi-bag-check-fill'></i>
+                              <span>
+                                NGN {formatMoney(el.totalWashOrdersAmount)}
+                              </span>
+                            </p>
+                            <p>
+                              <i className='bi bi-truck'></i>
+                              <span>
+                                NGN {formatMoney(el.totalLogisticsAmount)}
+                              </span>
+                            </p>
+                            <p>
+                              <i className='bi bi-geo-alt-fill'></i>
+                              <span>{el.location}</span>
+                            </p>
+                          </div>
                         </div>
-                        <div className='item-props'>
-                          <p>
-                            <i className='bi bi-filter-square-fill'></i>
-                            <span>{getWashServiceType(el.serviceType)}</span>
-                          </p>
-                          <p>
-                            <i className='bi bi-duffle-fill'></i>
-                            <span>{el.totalWashOrders} Washes</span>
-                          </p>
-                          <p>
-                            <i className='bi bi-bag-check-fill'></i>
-                            <span>
-                              NGN {formatMoney(el.totalWashOrdersAmount)}
-                            </span>
-                          </p>
-                          <p>
-                            <i className='bi bi-truck'></i>
-                            <span>NGN {formatMoney(el.logisticsAmount)}</span>
-                          </p>
-                          <p>
-                            <i className='bi bi-geo-alt-fill'></i>
-                            <span>{el.location}</span>
-                          </p>
-                        </div>
-                      </div>
-                    ))
+                      ))
                   ) : null}
                 </div>
                 <Pagination

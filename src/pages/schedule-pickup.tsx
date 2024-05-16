@@ -98,7 +98,7 @@ export function SchedulePickup() {
 
   const total = useMemo(() => {
     return (
-      scheduleInfo.washcount * WASH_PRICES.WASH +
+      calculateWashPrice(scheduleInfo.washcount) +
       scheduleInfo.softener * WASH_PRICES.SOFTENER +
       scheduleInfo.logisticsAmount +
       scheduleInfo.bleach * WASH_PRICES.BLEACH +
@@ -148,6 +148,7 @@ export function SchedulePickup() {
         estimatedDeliveryTime: new Date(),
         pickupTime: values.pickupWindow,
         washItemData: washItems,
+        orderNotes: values.laundryInstructions,
         userData: {
           fullName: values.contactperson,
           email: values.contactemail,
@@ -160,7 +161,7 @@ export function SchedulePickup() {
           transactionChannel: TransactionChannel.PAYSTACK,
         },
       };
-      return console.log({ body });
+      // return console.log({ body });
       await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
         body

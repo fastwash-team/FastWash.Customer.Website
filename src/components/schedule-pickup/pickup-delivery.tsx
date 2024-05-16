@@ -205,7 +205,9 @@ export function PickupDelivery({
                 changePDInfo("pickupDay", value)
               }
               id='pickup-day'
-              value={scheduleInfo.pickupDay}
+              value={
+                scheduleInfo.pickupDay ? scheduleInfo.pickupDay : undefined
+              }
             >
               <option disabled selected>
                 -- Select pickup day --
@@ -236,7 +238,11 @@ export function PickupDelivery({
                   scheduleDate || new Date(scheduleInfo.pickupDay).getDate()
                 );
               }}
-              value={scheduleInfo.pickupWindow}
+              value={
+                scheduleInfo.pickupWindow
+                  ? scheduleInfo.pickupWindow
+                  : undefined
+              }
               id='pickup-window'
             >
               <option disabled selected>
