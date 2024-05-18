@@ -14,7 +14,11 @@ import {
   WashOrderPlanData,
 } from "../../utils/types";
 import { GoogleAddressInput } from "../google-input/google-address-input";
-import { errorHandler, getFWUserToken } from "../../utils/functions";
+import {
+  errorHandler,
+  filterUniqueByKey,
+  getFWUserToken,
+} from "../../utils/functions";
 import { InfoMessage } from "../info-message";
 import axios from "axios";
 import moment from "moment";
@@ -65,8 +69,6 @@ export function PickupDelivery({
     return {};
   }, [scheduleInfo.area, schedulePerLocation]);
 
-  console.log({ scheduleForSelectedArea });
-
   const days = Object.keys(scheduleForSelectedArea)
     .sort()
     .filter((el) => {
@@ -77,8 +79,6 @@ export function PickupDelivery({
       date: el,
     }));
 
-  console.log({ days });
-
   const selectedTimesForSelectedDay = useMemo(() => {
     if (!scheduleInfo.pickupDay) return;
     const findDate = days.find(
@@ -86,13 +86,13 @@ export function PickupDelivery({
     );
     if (!findDate?.date) return;
     const arr = scheduleForSelectedArea[findDate?.date];
-    console.log("selectedtimes", arr);
-    return arr.map((el, key) => ({
+    const formattedArr = arr.map((el, key) => ({
       time: `${el.scheduleStartTime} - ${el.scheduleEndTime}`,
       key,
       logisticsAmount: el.logisticsAmount,
       scheduleDate: el.scheduleDate,
     }));
+    return filterUniqueByKey(formattedArr, "time");
   }, [scheduleInfo.pickupDay, days]);
 
   console.log({ selectedTimesForSelectedDay });

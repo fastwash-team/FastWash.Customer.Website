@@ -148,3 +148,14 @@ export const timeRangeClassic = [
   "16:00",
   "16:30",
 ];
+
+export function filterUniqueByKey(array, key) {
+  const newarr = [];
+  array.forEach((el) => {
+    if (!newarr.find((al) => al[key] === el[key])) {
+      newarr.push({ ...el });
+    }
+  });
+  newarr.sort((a, b) => a.time.localeCompare(b.time));
+  return newarr;
+}
