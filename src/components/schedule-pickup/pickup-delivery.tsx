@@ -32,7 +32,9 @@ export function PickupDelivery({
     LocationSchedule[] | []
   >([]);
 
-  console.log({ scheduleInfo });
+  console.log({ scheduleInfo }, "page pickup and delivery", {
+    schedulePerLocation,
+  });
 
   const scheduleForSelectedArea = useMemo(() => {
     if (!scheduleInfo.area) return {};
@@ -61,7 +63,9 @@ export function PickupDelivery({
       return groupedData;
     }
     return {};
-  }, [scheduleInfo.area]);
+  }, [scheduleInfo.area, schedulePerLocation]);
+
+  console.log({ scheduleForSelectedArea });
 
   const days = Object.keys(scheduleForSelectedArea)
     .sort()
@@ -72,6 +76,8 @@ export function PickupDelivery({
       formattedDate: moment(el).format("ddd, Do MMM"),
       date: el,
     }));
+
+  console.log({ days });
 
   const selectedTimesForSelectedDay = useMemo(() => {
     if (!scheduleInfo.pickupDay) return;
@@ -90,8 +96,10 @@ export function PickupDelivery({
   }, [scheduleInfo.pickupDay, days]);
 
   console.log({ selectedTimesForSelectedDay });
+  console.log({ isWashPrescheduled, isClassicWash });
 
   useEffect(() => {
+    console.log("call this effect...");
     handleFetchSchedules();
   }, [isWashPrescheduled, isClassicWash]);
 
@@ -199,21 +207,23 @@ export function PickupDelivery({
             <label>Choose Day</label>
             <select
               className='form-select'
-              aria-label='Default select example'
               disabled={!scheduleInfo.area}
               onChange={({ target: { value } }) =>
                 changePDInfo("pickupDay", value)
               }
               id='pickup-day'
               value={
-                scheduleInfo.pickupDay ? scheduleInfo.pickupDay : undefined
+                // scheduleInfo.pickupDay ? scheduleInfo.pickupDay : undefined
+                scheduleInfo.pickupDay || undefined
               }
             >
               <option disabled selected>
                 -- Select pickup day --
               </option>
               {days.map((el, i) => (
-                <option key={i}>{el.formattedDate}</option>
+                <option key={i} value={el.formattedDate}>
+                  {el.formattedDate}
+                </option>
               ))}
             </select>
             {errors?.pickupDay && <InfoMessage message={errors.pickupDay} />}
