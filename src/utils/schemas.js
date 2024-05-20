@@ -24,7 +24,7 @@ export const ContactDetailsSchema = Yup.object().shape({
 });
 
 export const LoginSchema = Yup.object().shape({
-  email: Yup.string().required("You must give a email"),
+  email: Yup.string().required("You must give an email"),
 });
 
 export const ValidateTokenSchema = Yup.object().shape({

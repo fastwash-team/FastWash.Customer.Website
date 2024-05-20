@@ -110,6 +110,7 @@ export function VerifyAuth() {
                 onChange={({ target: { value } }) =>
                   formik.setFieldValue("token", value)
                 }
+                max={6}
               />
               {formik?.errors?.token && (
                 <InfoMessage message={formik.errors.token} />
