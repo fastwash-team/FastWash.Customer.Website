@@ -95,11 +95,7 @@ export function PickupDelivery({
     return filterUniqueByKey(formattedArr, "time");
   }, [scheduleInfo.pickupDay, days]);
 
-  console.log({ selectedTimesForSelectedDay });
-  console.log({ isWashPrescheduled, isClassicWash });
-
   useEffect(() => {
-    console.log("call this effect...");
     handleFetchSchedules();
   }, [isWashPrescheduled, isClassicWash]);
 
@@ -125,6 +121,20 @@ export function PickupDelivery({
   };
 
   console.log("errors", errors, scheduleInfo);
+
+  function resetPickupWindow() {
+    const selectBox = document.getElementById(
+      "pickup-window"
+    ) as HTMLSelectElement;
+    if (selectBox) selectBox.selectedIndex = 0;
+  }
+
+  function resetPickupDay() {
+    const selectBox = document.getElementById(
+      "pickup-day"
+    ) as HTMLSelectElement;
+    if (selectBox) selectBox.selectedIndex = 0;
+  }
 
   return (
     <div className='schedule-pickup__body__steps-view-render'>
@@ -189,6 +199,8 @@ export function PickupDelivery({
             changePDInfo("area", value);
             changePDInfo("pickupDay", "");
             changePDInfo("pickupWindow", "");
+            resetPickupDay();
+            resetPickupWindow();
           }}
           id='area'
         >
@@ -208,14 +220,13 @@ export function PickupDelivery({
             <select
               className='form-select'
               disabled={!scheduleInfo.area}
-              onChange={({ target: { value } }) =>
-                changePDInfo("pickupDay", value)
-              }
+              onChange={({ target: { value } }) => {
+                changePDInfo("pickupDay", value);
+                changePDInfo("pickupWindow", "");
+                resetPickupWindow();
+              }}
               id='pickup-day'
-              value={
-                // scheduleInfo.pickupDay ? scheduleInfo.pickupDay : undefined
-                scheduleInfo.pickupDay || undefined
-              }
+              value={scheduleInfo.pickupDay || undefined}
             >
               <option disabled selected>
                 -- Select pickup day --
@@ -232,18 +243,12 @@ export function PickupDelivery({
             <label>Pick up window</label>
             <select
               className='form-select'
-              disabled={!scheduleInfo.area}
+              disabled={!scheduleInfo.area || !scheduleInfo.pickupDay}
               onChange={({ target: { value } }) => {
                 const { logisticsAmount, scheduleDate } =
                   selectedTimesForSelectedDay?.find(
                     (el) => el.time === value
                   ) || {};
-                console.log(
-                  "try again 2",
-                  moment(scheduleDate)
-                    .hour(Number(value.split(":")[0]))
-                    .format()
-                );
                 changePDInfo("pickupWindow", value);
                 changePDInfo(
                   "logisticsAmount",
@@ -257,7 +262,7 @@ export function PickupDelivery({
                 );
               }}
               value={
-                scheduleInfo.pickupWindow
+                scheduleInfo.pickupWindow.length
                   ? scheduleInfo.pickupWindow
                   : undefined
               }

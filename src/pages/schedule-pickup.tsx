@@ -119,7 +119,7 @@ export function SchedulePickup() {
         data: { responseObject },
       } = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/payment/initiate`,
-        { email, amount, reference }
+        { email, amount: amount * 100, reference }
       );
       return responseObject;
     } catch (error) {
@@ -132,6 +132,7 @@ export function SchedulePickup() {
     setLoading(true);
     try {
       if (!values.contactemail) return;
+      // return console.log({ values });
       const transaction = await handleCreateTransaction(
         values.contactemail || "23",
         total,
