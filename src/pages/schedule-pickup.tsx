@@ -28,6 +28,7 @@ import {
   WashServiceType,
 } from "../utils/types";
 import { calculateWashPrice, errorHandler } from "../utils/functions";
+import moment from "moment";
 
 export function SchedulePickup() {
   const location = useLocation();
@@ -132,7 +133,6 @@ export function SchedulePickup() {
     setLoading(true);
     try {
       if (!values.contactemail) return;
-      // return console.log({ values });
       const transaction = await handleCreateTransaction(
         values.contactemail || "23",
         total,
@@ -146,7 +146,7 @@ export function SchedulePickup() {
         serviceType: WashServiceType.PRESCHEDULED_WASH,
         internalNotes: values.laundryInstructions,
         logisticsAmount: values.logisticsAmount,
-        estimatedDeliveryTime: new Date(),
+        estimatedDeliveryTime: moment(new Date()).format(),
         pickupTime: values.pickupWindow,
         washItemData: washItems,
         orderNotes: values.laundryInstructions,
@@ -162,7 +162,6 @@ export function SchedulePickup() {
           transactionChannel: TransactionChannel.PAYSTACK,
         },
       };
-      // return console.log({ body });
       await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
         body
