@@ -109,6 +109,11 @@ export interface FilterScheduleProps {
   priceRange: { max: number; min: number };
   setPriceRange: (el: { max: number; min: number }) => void;
   handleApplyFilter: () => void;
+  timeRange: { startTime: string | null; endTime: string | null };
+  setTimeRange: (el: {
+    startTime: string | null;
+    endTime: string | null;
+  }) => void;
 }
 
 export interface FilterRequestProps {
@@ -149,6 +154,7 @@ export interface AdminRequest {
   washOrderReference: string;
   washStatus: string;
   serviceType: string;
+  washOrderId: number;
   washOrderData: {
     streetAddress: string;
     pickupTime: string;
@@ -195,4 +201,13 @@ export enum TransactionChannel {
 export enum WashServiceType {
   PRESCHEDULED_WASH = 1,
   CLASSIC_WASH = 2,
+}
+
+export enum WashStatus {
+  "Received" = 1,
+  "Pick up" = 2,
+  "Wash" = 3,
+  "Dry" = 4,
+  "Delivered" = 5,
+  "Completed" = 6,
 }

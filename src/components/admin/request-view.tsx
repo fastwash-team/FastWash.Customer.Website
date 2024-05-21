@@ -129,7 +129,7 @@ export function AdminRequestView({
           <button>Reschedule Wash</button>
         </div>
       </div>
-      <UpdateRequestStatus />
+      <UpdateRequestStatus wash={selectedRequest} />
       <UpdateWash />
     </div>
   );

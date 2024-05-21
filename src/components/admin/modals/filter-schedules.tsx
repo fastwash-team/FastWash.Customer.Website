@@ -1,5 +1,6 @@
 import { supportedAreas } from "../../../utils";
 import { FilterScheduleProps } from "../../../utils/types";
+import DatePicker from "react-datepicker";
 
 export function FilterScheduleModal({
   filterSchedule,
@@ -9,9 +10,10 @@ export function FilterScheduleModal({
   priceRange,
   setPriceRange,
   handleApplyFilter,
+  timeRange,
+  setTimeRange,
 }: FilterScheduleProps) {
-  const hours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-  const hoursMins = hours.map((el) => (el < 10 ? `0${el}:00` : `${el}:00`));
+  console.log({ timeRange });
   return (
     <div
       className='modal fade'
@@ -29,37 +31,28 @@ export function FilterScheduleModal({
           <div className='modal-body'>
             <div className='filter-container'>
               <div className='row'>
-                <div className='col-3'>
-                  <label>Start Time</label>
-                  <select
-                    className='form-select'
-                    onChange={({ target: { value } }) =>
-                      // setTimes({ ...times, endTime: value })
-                      console.log({ value })
-                    }
-                  >
-                    {hoursMins.slice(1).map((el) => (
-                      <option value={el} key={el}>
-                        {el}
-                      </option>
-                    ))}
-                  </select>
+                <div className='col-3 react-date-picker-wrapper'>
+                  <label>Start Date</label>
+                  <DatePicker
+                    className='form-control'
+                    placeholder='dd/mm/yy'
+                    selected={timeRange.startTime}
+                    onChange={(date: string) => {
+                      setTimeRange({ ...timeRange, startTime: date });
+                    }}
+                  />
                 </div>
                 <div className='col-3'>
                   <label>End Time</label>
-                  <select
-                    className='form-select'
-                    onChange={({ target: { value } }) =>
-                      // setTimes({ ...times, endTime: value })
-                      console.log({ value })
-                    }
-                  >
-                    {hoursMins.slice(1).map((el) => (
-                      <option value={el} key={el}>
-                        {el}
-                      </option>
-                    ))}
-                  </select>
+                  <DatePicker
+                    className='form-control'
+                    placeholder='dd/mm/yy'
+                    selected={timeRange.endTime}
+                    minDate={new Date(timeRange.startTime as string)}
+                    onChange={(date: string) => {
+                      setTimeRange({ ...timeRange, endTime: date });
+                    }}
+                  />
                 </div>
               </div>
             </div>

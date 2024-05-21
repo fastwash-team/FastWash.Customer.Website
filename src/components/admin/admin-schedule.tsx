@@ -25,6 +25,13 @@ export function AdminSchedule() {
     min: 0,
     max: 0,
   });
+  const [timeRange, setTimeRange] = useState<{
+    startTime: string | null;
+    endTime: string | null;
+  }>({
+    startTime: "",
+    endTime: "",
+  });
   const [selectedSchedule, setSelectedSchedule] =
     useState<null | WashScheduleProps>(null);
   const [schedules, setSchedules] = useState<WashScheduleProps[] | []>([]);
@@ -62,7 +69,12 @@ export function AdminSchedule() {
         url =
           url +
           `&fromOrderAmount=${priceRange.min}&toOrderAmount=${priceRange.max}`;
+      if (timeRange.startTime)
+        url = url + `&startDate=${moment(timeRange.startTime).toISOString()}`;
+      if (timeRange.endTime)
+        url = url + `&endDate=${moment(timeRange.endTime).toISOString()}`;
     }
+
     try {
       const {
         data: {
@@ -233,6 +245,8 @@ export function AdminSchedule() {
         setFilterSchedule={setFilterSchedule}
         handleApplyFilter={handleApplyFilter}
         priceRange={priceRange}
+        timeRange={timeRange}
+        setTimeRange={setTimeRange}
       />
     </>
   );
