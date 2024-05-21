@@ -10,11 +10,13 @@ export function UpdateRequestStatus({ wash }: { wash: AdminRequest | null }) {
   const adminToken = getFWAdminToken();
   const washStatus = wash?.washStatus;
   const statuses = [
+    "Pending",
     "Received",
-    "Pick up",
-    "Wash",
-    "Dry",
-    "Delivered",
+    "Pickup",
+    "Washing",
+    "Drying",
+    "Folding",
+    "Delivering",
     "Completed",
   ];
   const currentStatusIndex = statuses.findIndex((el) => el === washStatus);

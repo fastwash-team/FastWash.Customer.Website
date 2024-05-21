@@ -2606,16 +2606,21 @@ button:disabled {
     padding: 8px;
     height: 24px;
 
-    &.successful {
+    &.successful,
+    &.completed {
       color: #758e4f;
       background: #e4ffbb;
     }
-    &.received {
+    &.received,
+    &.delivering {
       background: #edf3fc;
       color: #17499f;
     }
     &.pending,
-    &.pickup {
+    &.pickup,
+    &.folding,
+    &.washing,
+    &.drying {
       background: #fff8ec;
       color: #f26419;
     }
