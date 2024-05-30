@@ -2504,6 +2504,11 @@ button:disabled {
         }
       }
     }
+    &.payments-view {
+      .schedule-view-body {
+        padding-bottom: 0;
+      }
+    }
   }
   .request-view {
     .goback_ {

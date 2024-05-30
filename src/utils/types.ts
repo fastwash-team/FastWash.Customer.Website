@@ -97,6 +97,17 @@ export interface WashItemDataNames {
   bleach: number;
 }
 
+export interface AdminPayment {
+  washOrderReference: string;
+  washOrder: {
+    washStatus: string;
+    serviceType: string;
+    location: string;
+    orderAmount: number;
+    dateCreated: string;
+  };
+}
+
 export interface PaymentItem {
   dateCreated: string;
   transactionAmount: number;

@@ -9,6 +9,7 @@ import { AdminRequests } from "../components/admin/admin-requests";
 import { CreatePreScheduleModal } from "../components/admin/modals/create-pre-schedule";
 import { errorHandler, getFWAdminToken } from "../utils/functions";
 import { useSearchParams } from "react-router-dom";
+import { AdminPayments } from "../components/admin/admin-payments";
 
 export const AdminDashboard = () => {
   const [searchParams] = useSearchParams();
@@ -79,6 +80,8 @@ export const AdminDashboard = () => {
         return <AdminSchedule />;
       case 3:
         return <AdminRequests />;
+      case 4:
+        return <AdminPayments />;
       default:
         return <></>;
     }
