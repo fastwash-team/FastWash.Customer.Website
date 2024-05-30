@@ -5,6 +5,7 @@ import { AdminRequest } from "../../../utils/types";
 import Swal from "sweetalert2";
 
 export function UpdateRequestStatus({ wash }: { wash: AdminRequest | null }) {
+  console.log({ wash });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<number | null>(null);
   const adminToken = getFWAdminToken();
@@ -67,6 +68,14 @@ export function UpdateRequestStatus({ wash }: { wash: AdminRequest | null }) {
       aria-labelledby='exampleModalLabel'
       aria-hidden='true'
     >
+      <button
+        data-bs-toggle='modal'
+        data-bs-target='#update-request-status-modal'
+        id='update-request-status-modal-btn'
+        style={{ display: "none" }}
+      >
+        Update Status
+      </button>
       <div className='modal-dialog modal-lg'>
         <div className='modal-content'>
           <div className='modal-header'>

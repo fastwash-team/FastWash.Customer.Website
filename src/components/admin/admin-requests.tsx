@@ -4,12 +4,17 @@ import { AdminRequestView } from "./request-view";
 import axios from "axios";
 import writtenNumber from "written-number";
 import Skeleton from "react-loading-skeleton";
-import { errorHandler, getFWAdminToken } from "../../utils/functions";
+import {
+  errorHandler,
+  getFWAdminToken,
+  getWashServiceType,
+} from "../../utils/functions";
 import { EmptyContainer } from "../empty-wash-item-list";
 import { AdminRequest, PaginationProps } from "../../utils/types";
 import moment from "moment";
 import { Pagination } from "../pagination";
 import { toast } from "react-toastify";
+import { UpdateRequestStatus } from "./modals/update-request-status";
 
 const RequestList = ({
   setComponentView,
@@ -29,6 +34,7 @@ const RequestList = ({
   pageLoading: boolean;
   setPageLoading: (el: boolean) => void;
 }) => {
+  const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
   useEffect(() => {
     fetchRequests();
   }, [paginationOptions.page, paginationOptions.defaultPageSize]);
@@ -71,6 +77,7 @@ const RequestList = ({
                   </span>
                 </div>
                 <div className='_extras'>
+                  <p>{getWashServiceType(el.serviceType)}</p>
                   {el.washOrderData.washItemData.find(
                     (el) => el.itemName === "Washes"
                   )?.numberOfItem ? (
@@ -117,7 +124,12 @@ const RequestList = ({
                   </p>
                 </div>
               </div>
-              <div className='date'>
+              <div
+                className='date'
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
                 <p>{moment(el?.washOrderData?.orderDate).format("Do MMM")}</p>
                 <div className='dropdown'>
                   <i
@@ -127,7 +139,21 @@ const RequestList = ({
                   ></i>
                   <ul className='dropdown-menu'>
                     <li>
-                      <a className='dropdown-item' href='#'>
+                      <a
+                        className='dropdown-item'
+                        onClick={() => {
+                          console.log(
+                            "djdj",
+                            document.getElementById(
+                              "update-request-status-modal"
+                            )
+                          );
+                          document
+                            .getElementById("update-request-status-modal-btn")
+                            ?.click();
+                          setSelectedWash(el);
+                        }}
+                      >
                         Update Status
                       </a>
                     </li>
@@ -171,6 +197,7 @@ const RequestList = ({
         }
         pageSize={paginationOptions.defaultPageSize}
       />
+      <UpdateRequestStatus wash={selectedWash} />
     </>
   );
 };
