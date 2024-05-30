@@ -25,7 +25,7 @@ export const WashItemComponent = (props: { items: WashItem[] }) => {
         >
           <div className='wash-item-no'>
             <div className='status'>
-              <h2>#FWash {el.washOrderId}</h2>
+              <h2>#FWash {el.washOrderReference}</h2>
               <span className={`${el.washStatus.toLowerCase()}`}>
                 {el.washStatus}
               </span>
