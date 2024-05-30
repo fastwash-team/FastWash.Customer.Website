@@ -26,6 +26,13 @@ export interface CounterComponentProps {
   count: number | undefined;
 }
 
+export interface PaginationProps {
+  page: number;
+  totalPages: number;
+  pageSize: number;
+  defaultPageSize: number;
+}
+
 // declare const enum WASH_TYPES {
 //   prescheduled_wash = PRESCHEDULED_WASH,
 //   classic_wash = CLASSIC_WASH,

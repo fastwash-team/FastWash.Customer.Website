@@ -48,9 +48,7 @@ export function UpdateRequestStatus({ wash }: { wash: AdminRequest | null }) {
         title: "Success!",
         text: "Successfully updated order status",
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      setTimeout(() => window.location.reload(), 2000);
     } catch (error) {
       errorHandler(error);
       console.log("updating wash schedule", error);

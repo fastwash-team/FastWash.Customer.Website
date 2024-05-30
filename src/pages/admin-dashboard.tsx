@@ -8,9 +8,12 @@ import { CreateClassicScheduleModal } from "../components/admin/modals/create-cl
 import { AdminRequests } from "../components/admin/admin-requests";
 import { CreatePreScheduleModal } from "../components/admin/modals/create-pre-schedule";
 import { errorHandler, getFWAdminToken } from "../utils/functions";
+import { useSearchParams } from "react-router-dom";
 
 export const AdminDashboard = () => {
-  const [activeTabNo, setActiveTabNo] = useState(1);
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page") || 1;
+  const [activeTabNo] = useState(Number(page));
   const adminToken = getFWAdminToken();
   const [user, setUser] = useState<{ userName?: string }>({});
   const [overviewData, setOverviewData] = useState({
@@ -142,43 +145,57 @@ export const AdminDashboard = () => {
             <ul className='admin-tabs'>
               <li
                 className={activeTabNo === 1 ? "active" : ""}
-                onClick={() => setActiveTabNo(1)}
+                onClick={() =>
+                  window.location.replace(`/admin/dashboard?page=1`)
+                }
               >
                 Overview
               </li>
               <li
                 className={activeTabNo === 2 ? "active" : ""}
-                onClick={() => setActiveTabNo(2)}
+                onClick={() =>
+                  window.location.replace(`/admin/dashboard?page=2`)
+                }
               >
                 Schedule
               </li>
               <li
                 className={activeTabNo === 3 ? "active" : ""}
-                onClick={() => setActiveTabNo(3)}
+                onClick={() =>
+                  window.location.replace(`/admin/dashboard?page=3`)
+                }
               >
                 Requests
               </li>
               <li
                 className={activeTabNo === 4 ? "active" : ""}
-                onClick={() => setActiveTabNo(4)}
+                onClick={() =>
+                  window.location.replace(`/admin/dashboard?page=4`)
+                }
               >
                 Payments
               </li>
               <li
                 className={activeTabNo === 5 ? "active" : ""}
-                onClick={() => setActiveTabNo(5)}
+                onClick={() =>
+                  window.location.replace(`/admin/dashboard?page=5`)
+                }
               >
                 Coupons
               </li>
               <li
                 className={activeTabNo === 6 ? "active" : ""}
-                onClick={() => setActiveTabNo(6)}
+                onClick={() =>
+                  window.location.replace(`/admin/dashboard?page=6`)
+                }
               >
                 Reports
               </li>
               <li
                 className={activeTabNo === 7 ? "active" : ""}
-                onClick={() => setActiveTabNo(7)}
+                onClick={() =>
+                  window.location.replace(`/admin/dashboard?page=7`)
+                }
               >
                 Settings
               </li>

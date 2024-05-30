@@ -30,7 +30,10 @@ const AppRoutes = () => {
           <Route path='/requests/:id' element={<RequestDetailPage />} />
           <Route path='/payments' element={<Payments />} />
           <Route path='/admin/login' element={<Login isAdmin={true} />} />
-          <Route path='/admin/dashboard' element={<AdminDashboard />} />
+          <Route
+            path='/admin/dashboard'
+            element={<AdminDashboard />}
+          />
         </Route>
       </Routes>
     </Router>

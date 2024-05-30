@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { FilterRequestsModal } from "./modals/filter-requests";
 import { AdminRequestView } from "./request-view";
 import axios from "axios";
@@ -6,7 +6,7 @@ import writtenNumber from "written-number";
 import Skeleton from "react-loading-skeleton";
 import { errorHandler, getFWAdminToken } from "../../utils/functions";
 import { EmptyContainer } from "../empty-wash-item-list";
-import { AdminRequest } from "../../utils/types";
+import { AdminRequest, PaginationProps } from "../../utils/types";
 import moment from "moment";
 import { Pagination } from "../pagination";
 import { toast } from "react-toastify";
@@ -14,51 +14,26 @@ import { toast } from "react-toastify";
 const RequestList = ({
   setComponentView,
   setSelectedRequest,
+  paginationOptions,
+  setPaginationOptions,
+  fetchRequests,
+  requests,
+  pageLoading,
 }: {
   setComponentView: (el: string) => void;
   setSelectedRequest: (el: AdminRequest) => void;
+  paginationOptions: PaginationProps;
+  setPaginationOptions: (el: PaginationProps) => void;
+  fetchRequests: () => void;
+  requests: AdminRequest[];
+  pageLoading: boolean;
+  setPageLoading: (el: boolean) => void;
 }) => {
-  const adminToken = getFWAdminToken();
-  const [pageLoading, setPageLoading] = useState(true);
-  const [requests, setRequests] = useState<AdminRequest[] | []>([]);
-  const [paginationOptions, setPaginationOptions] = useState({
-    page: 0,
-    totalPages: 0,
-    pageSize: 0,
-    defaultPageSize: 5,
-  });
-
   useEffect(() => {
     fetchRequests();
   }, [paginationOptions.page, paginationOptions.defaultPageSize]);
 
-  const fetchRequests = async () => {
-    setPageLoading(true);
-    try {
-      const {
-        data: {
-          responseObject: { data, pageCount, pageIndex, pageSize },
-        },
-      } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
-        { headers: { Authorization: `Bearer ${adminToken}` } }
-      );
-      setRequests(data);
-      setPageLoading(false);
-      setPaginationOptions({
-        ...paginationOptions,
-        page: pageIndex,
-        totalPages: pageCount + 1,
-        pageSize: pageSize,
-      });
-    } catch (error) {
-      console.log({ error });
-      const errorRes = errorHandler(error);
-      console.log({ errorRes });
-      toast("Error!", { type: "error" });
-      setPageLoading(false);
-    }
-  };
+  console.log({ pageLoading, requests });
 
   return (
     <>
@@ -201,6 +176,8 @@ const RequestList = ({
 };
 
 export function AdminRequests() {
+  const adminToken = getFWAdminToken();
+  const [pageLoading, setPageLoading] = useState(true);
   const [filterType, setFilterType] = useState("all");
   const [filterWash, setFilterWash] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -215,27 +192,63 @@ export function AdminRequests() {
   const [selectedRequest, setSelectedRequest] = useState<AdminRequest | null>(
     null
   );
+  const [requests, setRequests] = useState<AdminRequest[] | []>([]);
+  const [paginationOptions, setPaginationOptions] = useState({
+    page: 0,
+    totalPages: 0,
+    pageSize: 0,
+    defaultPageSize: 5,
+  });
 
-  const renderView = useMemo(() => {
-    if (componentView === "request-list")
-      return (
-        <RequestList
-          setComponentView={(el: string) => setComponentView(el)}
-          setSelectedRequest={(el: AdminRequest) => setSelectedRequest(el)}
-        />
+  const fetchRequests = async () => {
+    setPageLoading(true);
+    try {
+      const {
+        data: {
+          responseObject: { data, pageCount, pageIndex, pageSize },
+        },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
+        { headers: { Authorization: `Bearer ${adminToken}` } }
       );
-    if (componentView === "detail-view")
-      return (
-        <AdminRequestView
-          goBack={() => setComponentView("request-list")}
-          selectedRequest={selectedRequest}
-        />
-      );
-  }, [componentView]);
+      setRequests(data);
+      setPageLoading(false);
+      setPaginationOptions({
+        ...paginationOptions,
+        page: pageIndex,
+        totalPages: pageCount + 1,
+        pageSize: pageSize,
+      });
+    } catch (error) {
+      console.log({ error });
+      const errorRes = errorHandler(error);
+      console.log({ errorRes });
+      toast("Error!", { type: "error" });
+      setPageLoading(false);
+    }
+  };
 
   return (
     <>
-      <div className='admin-column'>{renderView}</div>
+      <div className='admin-column'>
+        {componentView === "request-list" ? (
+          <RequestList
+            setComponentView={(el: string) => setComponentView(el)}
+            setSelectedRequest={(el: AdminRequest) => setSelectedRequest(el)}
+            paginationOptions={paginationOptions}
+            setPaginationOptions={setPaginationOptions}
+            fetchRequests={fetchRequests}
+            requests={requests}
+            pageLoading={pageLoading}
+            setPageLoading={setPageLoading}
+          />
+        ) : componentView === "detail-view" ? (
+          <AdminRequestView
+            goBack={() => setComponentView("request-list")}
+            selectedRequest={selectedRequest}
+          />
+        ) : null}
+      </div>
       <FilterRequestsModal
         filterExtra={filterExtra}
         filterLocation={filterLocation}
