@@ -130,7 +130,7 @@ export function AdminRequestView({
         </div>
       </div>
       <UpdateRequestStatus wash={selectedRequest} />
-      <UpdateWash />
+      <UpdateWash wash={selectedRequest} />
     </div>
   );
 }

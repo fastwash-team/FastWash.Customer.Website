@@ -2068,6 +2068,7 @@ button:disabled {
 
       .modal-body {
         border-color: #d9d9d9;
+        padding: 0;
 
         .filter-container {
           margin-bottom: 24px;
@@ -2137,6 +2138,83 @@ button:disabled {
             color: #fafafa;
             font-size: 14px;
             font-weight: 700;
+          }
+        }
+        .update-wash-container {
+          padding: 24px 48px;
+          ._header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            border-bottom: 1px solid #d9d9d9;
+            padding-bottom: 24px;
+            h4 {
+              font-size: 20px;
+              font-weight: 600;
+              line-height: 24px;
+              color: #020d1c;
+              margin-bottom: 24px;
+              text-transform: capitalize;
+            }
+            h3 {
+              color: #666666;
+              font-size: 24px;
+              font-weight: 300;
+              line-height: 29px;
+
+              span {
+                font-size: 14px;
+                line-height: 21px;
+              }
+            }
+          }
+          ._body {
+            padding-top: 24px;
+
+            h3 {
+              font-size: 24px;
+              font-weight: 500;
+              line-height: 29px;
+              margin-bottom: 24px;
+            }
+
+            .extra {
+              display: flex;
+              justify-content: space-between;
+              border: 1px solid #d9d9d9;
+              border-radius: 8px;
+              padding: 16px;
+              align-items: center;
+              margin-bottom: 8px;
+              .-info {
+                ._name {
+                  font-size: 14px;
+                  color: #020d1c;
+                  font-weight: 500;
+                  line-height: 16px;
+                  margin-bottom: 8px;
+                }
+                ._price {
+                  color: #666666;
+                  font-size: 16px;
+                  font-weight: 400;
+                  line-height: 19px;
+                  margin-bottom: 0px;
+                }
+              }
+            }
+
+            .btn {
+              background: #17499f;
+              width: 288px;
+              height: 56px;
+              border-radius: 8px;
+              font-size: 14px;
+              font-weight: 700;
+              line-height: 16px;
+              color: white;
+              margin: 32px 0;
+            }
           }
         }
       }

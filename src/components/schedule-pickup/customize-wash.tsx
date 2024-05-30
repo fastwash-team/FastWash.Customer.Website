@@ -7,7 +7,7 @@ import {
 } from "../../utils/types";
 import { WASH_PRICES } from "../../utils";
 
-const Counter = (props: CounterComponentProps) => {
+export const Counter = (props: CounterComponentProps) => {
   return (
     <div className='wash-counter'>
       <button className='sign _minus' onClick={props.handleMinus}>

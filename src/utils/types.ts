@@ -93,6 +93,10 @@ export interface WashItemData {
   numberOfItem?: number;
 }
 
+export interface WashItemDataNames {
+  bleach: number;
+}
+
 export interface PaymentItem {
   dateCreated: string;
   transactionAmount: number;

@@ -15,6 +15,7 @@ import moment from "moment";
 import { Pagination } from "../pagination";
 import { toast } from "react-toastify";
 import { UpdateRequestStatus } from "./modals/update-request-status";
+import { UpdateWash } from "./modals/update-wash";
 
 const RequestList = ({
   setComponentView,
@@ -142,12 +143,6 @@ const RequestList = ({
                       <a
                         className='dropdown-item'
                         onClick={() => {
-                          console.log(
-                            "djdj",
-                            document.getElementById(
-                              "update-request-status-modal"
-                            )
-                          );
                           document
                             .getElementById("update-request-status-modal-btn")
                             ?.click();
@@ -158,7 +153,15 @@ const RequestList = ({
                       </a>
                     </li>
                     <li>
-                      <a className='dropdown-item' href='#'>
+                      <a
+                        className='dropdown-item'
+                        onClick={() => {
+                          document
+                            .getElementById("update-wash-modal-btn")
+                            ?.click();
+                          setSelectedWash(el);
+                        }}
+                      >
                         Add Wash
                       </a>
                     </li>
@@ -198,6 +201,7 @@ const RequestList = ({
         pageSize={paginationOptions.defaultPageSize}
       />
       <UpdateRequestStatus wash={selectedWash} />
+      <UpdateWash wash={selectedWash} />
     </>
   );
 };
