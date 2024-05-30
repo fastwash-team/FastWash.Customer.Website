@@ -25,9 +25,10 @@ export function AdminPayments() {
 
   useEffect(() => {
     fetchPayments();
-  }, []);
+  }, [paginationOptions.page, paginationOptions.defaultPageSize]);
 
   const fetchPayments = async () => {
+    setPageLoading(true);
     try {
       const {
         data: {
