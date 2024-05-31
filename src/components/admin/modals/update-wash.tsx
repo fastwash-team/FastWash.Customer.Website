@@ -5,6 +5,7 @@ import { Counter } from "../../schedule-pickup/customize-wash";
 import { WASH_PRICES } from "../../../utils";
 import { AdminRequest } from "../../../utils/types";
 import writtenNumber from "written-number";
+import axios from "axios";
 
 export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
   const [extras, setExtras] = useState({
@@ -33,8 +34,31 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
     // eslint-disable-next-line @typescript-eslint/ban-types
     const value = extras[extra as keyof {}] as number;
     if (operator === "add") return setExtras({ ...extras, [extra]: value + 1 });
-    if (operator === "minus" && value > 0)
-      return setExtras({ ...extras, [extra]: value - 1 });
+    // if (operator === "minus" && value > 0)
+    //   return setExtras({ ...extras, [extra]: value - 1 });
+  };
+
+  const handleUpdateWash = async () => {
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/add/additionalorder`,
+        {
+          sharedTransactionData: {
+            transactionReference: "string",
+            transactionAmount: 0,
+          },
+          washItemData: [
+            {
+              itemName: "string",
+              numberOfItem: 0,
+              itemAmount: 0,
+            },
+          ],
+        }
+      );
+    } catch (error) {
+      console.log("updating wash", error);
+    }
   };
 
   return (
