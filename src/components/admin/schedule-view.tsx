@@ -1,8 +1,11 @@
 import moment from "moment";
 import { formatMoney } from "../../utils/functions";
-import { WashScheduleProps } from "../../utils/types";
+import { AdminRequest, WashScheduleProps } from "../../utils/types";
 import writtenNumber from "written-number";
 import { EmptyContainer } from "../empty-wash-item-list";
+import { UpdateRequestStatus } from "./modals/update-request-status";
+import { useState } from "react";
+import { UpdateWash } from "./modals/update-wash";
 
 export function ScheduleView({
   goBack,
@@ -11,6 +14,7 @@ export function ScheduleView({
   goBack: () => void;
   schedule: WashScheduleProps;
 }) {
+  const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
   return (
     <div className='schedule-view'>
       <p className='goback_'>
@@ -110,12 +114,28 @@ export function ScheduleView({
                 ></i>
                 <ul className='dropdown-menu'>
                   <li>
-                    <a className='dropdown-item' href='#'>
+                    <a
+                      className='dropdown-item'
+                      onClick={() => {
+                        document
+                          .getElementById("update-request-status-modal-btn")
+                          ?.click();
+                        setSelectedWash(el);
+                      }}
+                    >
                       Update Status
                     </a>
                   </li>
                   <li>
-                    <a className='dropdown-item' href='#'>
+                    <a
+                      className='dropdown-item'
+                      onClick={() => {
+                        document
+                          .getElementById("update-wash-modal-btn")
+                          ?.click();
+                        setSelectedWash(el);
+                      }}
+                    >
                       Add Wash
                     </a>
                   </li>
@@ -140,6 +160,8 @@ export function ScheduleView({
           showAction={false}
         />
       )}
+      <UpdateRequestStatus wash={selectedWash} />
+      <UpdateWash wash={selectedWash} />
     </div>
   );
 }

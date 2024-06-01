@@ -156,8 +156,8 @@ export function PickupDelivery({
           </div>
           <h3>Pre-Scheduled Wash</h3>
           <p>
-            Your clothes get picked up and delivered only at specified times
-            based on your location during the week.
+            Enjoy deeply discounted logistics for your location. Have your
+            laundry pickup up, washed, and delivered on the same day.
           </p>
         </div>
         <div
@@ -175,8 +175,9 @@ export function PickupDelivery({
           </div>
           <h3>Classic Wash</h3>
           <p>
-            Your clothes get picked up immediately anytime during the week by
-            our rider and gets returned same day.
+            Experience extrene convenience and speed. Your laundry will be
+            picked up immediately and delivered back to you in less than 4
+            hours.
           </p>
         </div>
       </div>

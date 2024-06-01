@@ -2145,7 +2145,7 @@ button:disabled {
           ._header {
             display: flex;
             justify-content: space-between;
-            align-items: end;
+            align-items: flex-end;
             border-bottom: 1px solid #d9d9d9;
             padding-bottom: 24px;
             h4 {
