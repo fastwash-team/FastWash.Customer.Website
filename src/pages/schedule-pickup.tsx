@@ -143,7 +143,10 @@ export function SchedulePickup() {
         streetAddress: values.address,
         location: values.area,
         orderDate: values.orderDate,
-        serviceType: WashServiceType.PRESCHEDULED_WASH,
+        serviceType:
+          values.selectedWashType === "classic-wash"
+            ? WashServiceType.CLASSIC_WASH
+            : WashServiceType.PRESCHEDULED_WASH,
         internalNotes: values.laundryInstructions,
         logisticsAmount: values.logisticsAmount,
         estimatedDeliveryTime: moment(new Date()).format(),

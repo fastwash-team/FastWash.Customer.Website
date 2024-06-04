@@ -68,6 +68,11 @@ export function ScheduleView({
                       )?.numberOfItem
                     )}{" "}
                     Wash
+                    {el?.washOrderData?.washItemData.filter(
+                      (el) => el.itemName !== "Washes"
+                    ).length > 1
+                      ? "es"
+                      : ""}
                   </p>
                 ) : null}
                 <p>

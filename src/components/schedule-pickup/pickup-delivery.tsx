@@ -120,7 +120,7 @@ export function PickupDelivery({
     }
   };
 
-  console.log("errors", errors, scheduleInfo);
+  console.log("errors", errors);
 
   function resetPickupWindow() {
     const selectBox = document.getElementById(
@@ -195,7 +195,7 @@ export function PickupDelivery({
         <select
           className='form-select'
           aria-label='Default select example'
-          value={scheduleInfo.area}
+          value={!scheduleInfo.area ? undefined : scheduleInfo.area}
           onChange={({ target: { value } }) => {
             changePDInfo("area", value);
             changePDInfo("pickupDay", "");
@@ -238,7 +238,12 @@ export function PickupDelivery({
                 </option>
               ))}
             </select>
-            {errors?.pickupDay && <InfoMessage message={errors.pickupDay} />}
+            {scheduleInfo.area && !days.length && (
+              <InfoMessage message='There are no available days for this location' />
+            )}
+            {days.length && errors?.pickupDay && !scheduleInfo.pickupDay ? (
+              <InfoMessage message={errors.pickupDay} />
+            ) : null}
           </div>
           <div className='col-md-6 col-sm-12'>
             <label>Pick up window</label>
@@ -286,9 +291,11 @@ export function PickupDelivery({
                   </option>
                 ))}
             </select>
-            {errors?.pickupWindow && !scheduleInfo.pickupWindow && (
-              <InfoMessage message={errors.pickupWindow} />
-            )}
+            {scheduleInfo.pickupDay &&
+              errors?.pickupWindow &&
+              !scheduleInfo.pickupWindow && (
+                <InfoMessage message={errors.pickupWindow} />
+              )}
           </div>
         </div>
       </div>
