@@ -131,6 +131,7 @@ export interface FilterScheduleProps {
   priceRange: { max: number; min: number };
   setPriceRange: (el: { max: number; min: number }) => void;
   handleApplyFilter: () => void;
+  resetFilters: () => void;
   timeRange: { startTime: string | null; endTime: string | null };
   setTimeRange: (el: {
     startTime: string | null;
@@ -173,6 +174,7 @@ export interface WashScheduleProps {
 
 export interface AdminRequest {
   orderAmount: number;
+  orderNotes: string;
   washOrderReference: string;
   washStatus: string;
   serviceType: string;

@@ -2038,6 +2038,23 @@ button:disabled {
       }
     }
 
+    .filter-modal {
+      .modal-body {
+        padding: 24px 32px !important;
+      }
+      .modal-footer {
+        padding: 8px 32px;
+      }
+      button {
+        background-color: #17499f;
+        min-width: 156px;
+        height: 56px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 16px;
+      }
+    }
+
     .modal-content {
       .modal-title {
         font-weight: 600;

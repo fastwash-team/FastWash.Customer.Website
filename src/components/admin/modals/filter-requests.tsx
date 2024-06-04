@@ -21,7 +21,7 @@ export function FilterRequestsModal({
 }: FilterRequestProps) {
   return (
     <div
-      className='modal fade'
+      className='modal fade filter-modal'
       id='request-filter-modal'
       aria-labelledby='exampleModalLabel'
       aria-hidden='true'

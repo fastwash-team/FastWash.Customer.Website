@@ -537,7 +537,7 @@ const Landing: React.FC = () => {
                 <div className='accordion' id='accordionExample'>
                   <div className='accordion-item'>
                     <button
-                      className='accordion-button'
+                      className='accordion-button collapsed'
                       type='button'
                       data-bs-toggle='collapse'
                       data-bs-target='#collapseFive'
@@ -547,7 +547,6 @@ const Landing: React.FC = () => {
                       Will I be notified prior to pick up or delivery of my
                       laundry?
                     </button>
-
                     <div
                       id='collapseFive'
                       className='accordion-collapse collapse'
@@ -669,12 +668,18 @@ const Landing: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a
+                    href='https://x.com/fastwashafrica?s=11&t=UY9bR4lRRRLR9aj6XjKa4g'
+                    target='_blank'
+                  >
                     <i className='bi bi-twitter'></i>
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <a
+                    href='https://www.instagram.com/fastwashafrica?igsh=bGQ5cHA1cHRqaXF4&utm_source=qr'
+                    target='_blank'
+                  >
                     <i className='bi bi-instagram'></i>
                   </a>
                 </li>

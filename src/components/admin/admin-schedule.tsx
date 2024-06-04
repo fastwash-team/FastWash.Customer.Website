@@ -70,9 +70,15 @@ export function AdminSchedule() {
           url +
           `&fromOrderAmount=${priceRange.min}&toOrderAmount=${priceRange.max}`;
       if (timeRange.startTime)
-        url = url + `&startDate=${moment(timeRange.startTime).toISOString()}`;
+        url =
+          url +
+          `&startDate=${moment(timeRange.startTime).format().split("+")[0]}`;
       if (timeRange.endTime)
-        url = url + `&endDate=${moment(timeRange.endTime).toISOString()}`;
+        url =
+          url +
+          `&endDate=${
+            moment(timeRange.endTime).endOf("day").format().split("+")[0]
+          }`;
     }
 
     try {
@@ -108,6 +114,14 @@ export function AdminSchedule() {
     console.log({ washSchedule });
     // return setSelectedSchedule({ scheduleId: "ID" });
     return setSelectedSchedule(washSchedule);
+  };
+
+  const handleResetFilters = () => {
+    setTimeRange({ startTime: "", endTime: "" });
+    setPriceRange({ min: 0, max: 0 });
+    setFilterLocation("All");
+    setFilterSchedule("All");
+    setFilterDay("All");
   };
 
   return (
@@ -247,6 +261,7 @@ export function AdminSchedule() {
         priceRange={priceRange}
         timeRange={timeRange}
         setTimeRange={setTimeRange}
+        resetFilters={handleResetFilters}
       />
     </>
   );

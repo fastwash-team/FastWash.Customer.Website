@@ -12,11 +12,12 @@ export function FilterScheduleModal({
   handleApplyFilter,
   timeRange,
   setTimeRange,
+  resetFilters,
 }: FilterScheduleProps) {
   console.log({ timeRange });
   return (
     <div
-      className='modal fade'
+      className='modal fade filter-modal'
       id='exampleModal'
       aria-labelledby='exampleModalLabel'
       aria-hidden='true'
@@ -38,6 +39,7 @@ export function FilterScheduleModal({
                     placeholder='dd/mm/yy'
                     selected={timeRange.startTime}
                     onChange={(date: string) => {
+                      console.log({ date });
                       setTimeRange({ ...timeRange, startTime: date });
                     }}
                   />
@@ -136,7 +138,9 @@ export function FilterScheduleModal({
             </div>
           </div>
           <div className='modal-footer'>
-            <p>Reset Filters</p>
+            <p role='button' onClick={resetFilters}>
+              Reset Filters
+            </p>
             <button
               type='button'
               className='btn btn-primary'
