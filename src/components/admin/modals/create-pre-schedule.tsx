@@ -15,8 +15,12 @@ import { WashServiceType } from "../../../utils/types";
 export function CreatePreScheduleModal() {
   const adminToken = getFWAdminToken();
   const [loading, setLoading] = useState(false);
-  const startTimes = timeRangeClassic.filter((el, key) => key < 4);
-  const endTimes = timeRangeClassic.filter((el, key) => key < 5 && key !== 0);
+  // const startTimes = timeRangeClassic.filter((el, key) => key < 4);
+  // const endTimes = timeRangeClassic.filter((el, key) => key < 5 && key !== 0);
+  const startTimes = timeRangeClassic.filter(
+    (el, key) => key < timeRangeClassic.length - 1
+  );
+  const endTimes = timeRangeClassic.filter((el, key) => key !== 0);
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [times, setTimes] = useState({ startTime: "", endTime: "" });
   const [preData, setPreData] = useState({

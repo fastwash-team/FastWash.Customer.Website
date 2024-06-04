@@ -422,8 +422,8 @@ const Landing: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className='app-landing_section-three'>
-        <div className='container'>
+      <div className='app-landing_section-three' data-bs-spy='scroll'>
+        <div className='container' id='faq-questions'>
           <div className='_faqs'>
             <h1>Your questions, answered</h1>
             <div className='row'>

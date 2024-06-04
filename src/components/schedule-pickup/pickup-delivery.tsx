@@ -175,7 +175,7 @@ export function PickupDelivery({
           </div>
           <h3>Classic Wash</h3>
           <p>
-            Experience extrene convenience and speed. Your laundry will be
+            Experience extreme convenience and speed. Your laundry will be
             picked up immediately and delivered back to you in less than 4
             hours.
           </p>

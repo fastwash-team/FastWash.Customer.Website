@@ -107,9 +107,11 @@ export function VerifyAuth() {
                 className='form-control'
                 placeholder='Enter 6 digit code'
                 value={formik.values.token}
-                onChange={({ target: { value } }) =>
-                  formik.setFieldValue("token", value)
-                }
+                onChange={({ target: { value } }) => {
+                  if (value.length > 6) return;
+                  formik.setFieldValue("token", value);
+                }}
+                type='number'
                 max={6}
               />
               {formik?.errors?.token && (
