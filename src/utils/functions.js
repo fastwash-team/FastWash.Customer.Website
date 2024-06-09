@@ -152,7 +152,12 @@ export const timeRangeClassic = [
 export function filterUniqueByKey(array, key) {
   const newarr = [];
   array.forEach((el) => {
-    if (!newarr.find((al) => al[key] === el[key])) {
+    if (
+      !newarr.find(
+        (al) =>
+          al["logisticsAmount"] === el["logisticsAmount"] && al[key] === el[key]
+      )
+    ) {
       newarr.push({ ...el });
     }
   });

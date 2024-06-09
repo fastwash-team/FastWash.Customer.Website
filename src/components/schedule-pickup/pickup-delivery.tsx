@@ -35,6 +35,11 @@ export function PickupDelivery({
   const [schedulePerLocation, setSchedulePerLocation] = useState<
     LocationSchedule[] | []
   >([]);
+  const [selectedPickupWindowKey, setSelectedPickupWindowKey] = useState<
+    number | null
+  >(null);
+
+  console.log({ selectedPickupWindowKey });
 
   console.log({ scheduleInfo }, "page pickup and delivery", {
     schedulePerLocation,
@@ -72,7 +77,12 @@ export function PickupDelivery({
   const days = Object.keys(scheduleForSelectedArea)
     .sort()
     .filter((el) => {
-      if (moment(el).isSameOrAfter()) return el;
+      if (
+        moment(moment().format("YYYY-MM-DD")).isSameOrBefore(
+          moment(el).format("YYYY-MM-DD")
+        )
+      )
+        return el;
     })
     .map((el) => ({
       formattedDate: moment(el).format("ddd, Do MMM"),
@@ -94,6 +104,8 @@ export function PickupDelivery({
     }));
     return filterUniqueByKey(formattedArr, "time");
   }, [scheduleInfo.pickupDay, days]);
+
+  console.log({ selectedTimesForSelectedDay });
 
   useEffect(() => {
     handleFetchSchedules();
@@ -251,11 +263,14 @@ export function PickupDelivery({
               className='form-select'
               disabled={!scheduleInfo.area || !scheduleInfo.pickupDay}
               onChange={({ target: { value } }) => {
-                const { logisticsAmount, scheduleDate } =
+                setSelectedPickupWindowKey(Number(value));
+                console.log({ value });
+                const { logisticsAmount, scheduleDate, time, key } =
                   selectedTimesForSelectedDay?.find(
-                    (el) => el.time === value
+                    (el) => String(el.time) === String(value)
                   ) || {};
-                changePDInfo("pickupWindow", value);
+                console.log({ logisticsAmount, scheduleDate, time, key });
+                changePDInfo("pickupWindow", time);
                 changePDInfo(
                   "logisticsAmount",
                   Number(logisticsAmount || WASH_PRICES.LOGISTICS)
@@ -263,7 +278,7 @@ export function PickupDelivery({
                 changePDInfo(
                   "orderDate",
                   moment(scheduleDate)
-                    .hour(Number(value.split(":")[0]))
+                    .hour(Number(time.split(":")[0]))
                     .format()
                 );
               }}
@@ -285,8 +300,14 @@ export function PickupDelivery({
                   </option>
                 )}
               {selectedTimesForSelectedDay &&
-                selectedTimesForSelectedDay.map((el, i) => (
-                  <option key={i} value={el.time}>
+                selectedTimesForSelectedDay.map((el) => (
+                  // <option
+                  //   key={el.key}
+                  //   value={el.key}
+                  //   // id={el.key}
+                  //   selected={Number(el.key) === selectedPickupWindowKey}
+                  // >
+                  <option key={el.key} value={el.time}>
                     {el.time}
                   </option>
                 ))}

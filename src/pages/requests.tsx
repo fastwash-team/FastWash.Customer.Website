@@ -6,12 +6,14 @@ import { EmptyContainer } from "../components/empty-wash-item-list";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { errorHandler, getFWUserToken } from "../utils/functions";
+import Skeleton from "react-loading-skeleton";
 
 export const Requests = () => {
   const searchWashStatusEnum: { active: number; completed: number } = {
     active: 1,
     completed: 2,
   };
+  const [pageLoading, setPageLoading] = useState(true);
   const [activeState, setActiveState] =
     useState<keyof typeof searchWashStatusEnum>("active");
   const [items, setItems] = useState<[] | WashItem[]>([]);
@@ -19,6 +21,7 @@ export const Requests = () => {
   const userToken = getFWUserToken();
 
   const fetchRequests = async () => {
+    setPageLoading(true);
     try {
       const {
         data: { responseObject },
@@ -27,7 +30,9 @@ export const Requests = () => {
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
       setItems(responseObject);
+      setPageLoading(false);
     } catch (error) {
+      setPageLoading(false);
       errorHandler(error);
     }
   };
@@ -65,7 +70,9 @@ export const Requests = () => {
                 </li>
               </div>
               <div className='list-container'>
-                {!items.length ? (
+                {pageLoading ? (
+                  <Skeleton count={7} />
+                ) : !pageLoading && !items.length ? (
                   <EmptyContainer />
                 ) : (
                   <WashItemComponent items={items} />

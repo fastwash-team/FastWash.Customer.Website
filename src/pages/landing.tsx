@@ -658,16 +658,6 @@ const Landing: React.FC = () => {
               <a>Terms & Conditions</a>
               <ul>
                 <li>
-                  <a>
-                    <i className='bi bi-linkedin'></i>
-                  </a>
-                </li>
-                <li>
-                  <a>
-                    <i className='bi bi-facebook'></i>
-                  </a>
-                </li>
-                <li>
                   <a
                     href='https://x.com/fastwashafrica?s=11&t=UY9bR4lRRRLR9aj6XjKa4g'
                     target='_blank'

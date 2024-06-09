@@ -1557,6 +1557,7 @@ button:disabled {
       color: #ffbe1b;
       font-size: 14px;
       font-weight: 600;
+      text-decoration: none;
     }
     img {
       position: absolute;
@@ -1802,6 +1803,7 @@ button:disabled {
         color: #666;
         font-weight: 400;
         margin-bottom: 0;
+        text-transform: capitalize;
       }
     }
 
@@ -1845,7 +1847,7 @@ button:disabled {
               background: #ece9e9;
               position: absolute;
               border-radius: 21px;
-              left: 23.5px;
+              left: 22.5px;
               margin-top: 2px;
             }
           }

@@ -190,6 +190,7 @@ export interface AdminRequest {
         numberOfItem: number;
       }
     ];
+    transactionData: { transactionAmount: number };
   };
 }
 

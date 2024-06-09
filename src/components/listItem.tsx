@@ -25,7 +25,7 @@ export const WashItemComponent = (props: { items: WashItem[] }) => {
         >
           <div className='wash-item-no'>
             <div className='status'>
-              <h2>#FWash {el.washOrderReference}</h2>
+              <h2>#{el.washOrderReference}</h2>
               <span className={`${el.washStatus.toLowerCase()}`}>
                 {el.washStatus}
               </span>
@@ -63,7 +63,10 @@ export const WashItemComponent = (props: { items: WashItem[] }) => {
   );
 };
 
-export const PaymentItemComponent = (props: { items: PaymentItem[] }) => {
+export const PaymentItemComponent = (props: {
+  items: PaymentItem[];
+  pageLoading?: boolean;
+}) => {
   return (
     <div className='wash-items-container'>
       {props.items.map((el, key) => (

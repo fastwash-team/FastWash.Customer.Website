@@ -66,7 +66,12 @@ export function AdminRequestView({
       <div className='items'>
         <div className='item'>
           <h5>Payment</h5>
-          <h6>N2500</h6>
+          <h6>
+            N
+            {formatMoney(
+              selectedRequest?.washOrderData.transactionData.transactionAmount
+            )}
+          </h6>
         </div>
         <div className='item'></div>
       </div>
@@ -80,7 +85,8 @@ export function AdminRequestView({
       <div className='items hasBorderBottom'>
         <div className='item'>
           <h5>Complaints</h5>
-          <h6>Customer was too stubborn</h6>
+          <h6>-</h6>
+          {/* <h6>Customer was too stubborn</h6> */}
         </div>
         <div className='item'></div>
       </div>
