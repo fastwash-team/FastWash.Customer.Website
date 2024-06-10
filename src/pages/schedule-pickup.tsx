@@ -152,7 +152,7 @@ export function SchedulePickup() {
         estimatedDeliveryTime: moment(new Date()).format(),
         pickupTime: values.pickupWindow,
         washItemData: washItems,
-        orderNotes: values.laundryInstructions,
+        orderNote: values.laundryInstructions,
         userData: {
           fullName: values.contactperson,
           email: values.contactemail,

@@ -78,7 +78,7 @@ export function AdminRequestView({
       <div className='items'>
         <div className='item'>
           <h5>Laundry Instructions</h5>
-          <h6>{selectedRequest?.orderNotes || "-"}</h6>
+          <h6>{selectedRequest?.washOrderData?.orderNote || "-"}</h6>
         </div>
         <div className='item'></div>
       </div>

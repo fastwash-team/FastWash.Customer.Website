@@ -191,6 +191,7 @@ export interface AdminRequest {
       }
     ];
     transactionData: { transactionAmount: number };
+    orderNote: string;
   };
 }
 
