@@ -96,6 +96,7 @@ export function PickupDelivery({
     );
     if (!findDate?.date) return;
     const arr = scheduleForSelectedArea[findDate?.date];
+    console.log({ arr });
     const formattedArr = arr.map((el, key) => ({
       time: `${el.scheduleStartTime} - ${el.scheduleEndTime}`,
       key,
@@ -134,17 +135,8 @@ export function PickupDelivery({
 
   console.log("errors", errors);
 
-  function resetPickupWindow() {
-    const selectBox = document.getElementById(
-      "pickup-window"
-    ) as HTMLSelectElement;
-    if (selectBox) selectBox.selectedIndex = 0;
-  }
-
-  function resetPickupDay() {
-    const selectBox = document.getElementById(
-      "pickup-day"
-    ) as HTMLSelectElement;
+  function resetSelectBox(selectBoxId: string) {
+    const selectBox = document.getElementById(selectBoxId) as HTMLSelectElement;
     if (selectBox) selectBox.selectedIndex = 0;
   }
 
@@ -179,6 +171,9 @@ export function PickupDelivery({
             changePDInfo("area", "");
             changePDInfo("pickupDay", "");
             changePDInfo("pickupWindow", "");
+            resetSelectBox("pickup-window");
+            resetSelectBox("pickup-day");
+            resetSelectBox("area");
           }}
         >
           <div className='imgs'>
@@ -212,8 +207,8 @@ export function PickupDelivery({
             changePDInfo("area", value);
             changePDInfo("pickupDay", "");
             changePDInfo("pickupWindow", "");
-            resetPickupDay();
-            resetPickupWindow();
+            resetSelectBox("pickup-day");
+            resetSelectBox("pickup-window");
           }}
           id='area'
         >
@@ -236,7 +231,7 @@ export function PickupDelivery({
               onChange={({ target: { value } }) => {
                 changePDInfo("pickupDay", value);
                 changePDInfo("pickupWindow", "");
-                resetPickupWindow();
+                resetSelectBox("pickup-window");
               }}
               id='pickup-day'
               value={scheduleInfo.pickupDay || undefined}
