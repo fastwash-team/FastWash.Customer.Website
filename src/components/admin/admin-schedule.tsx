@@ -177,11 +177,11 @@ export function AdminSchedule() {
                     <Skeleton count={5} />
                   ) : !pageLoading && schedules.length ? (
                     schedules
-                      .sort(
-                        (a, b) =>
-                          Number(new Date(a.scheduleDate)) -
-                          Number(new Date(b.scheduleDate))
-                      )
+                      // .sort(
+                      //   (a, b) =>
+                      //     Number(new Date(a.scheduleDate)) -
+                      //     Number(new Date(b.scheduleDate))
+                      // )
                       .map((el, key) => (
                         <div
                           className='item'

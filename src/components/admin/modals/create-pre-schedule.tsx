@@ -91,11 +91,11 @@ export function CreatePreScheduleModal() {
         text: "Schedules created successfully",
       });
     } catch (error) {
-      errorHandler(error);
+      const errorMessage = errorHandler(error);
       setLoading(false);
       return Swal.fire({
         title: "Error!",
-        text: "Error creating schedules",
+        text: errorMessage || "Error creating schedules",
       });
     }
   };

@@ -79,12 +79,12 @@ export function CreateClassicScheduleModal() {
         text: "Schedules created successfully",
       });
     } catch (error) {
-      errorHandler(error);
+      const errorMessage = errorHandler(error);
       console.log("creating schedule", error);
       setLoading(false);
       return Swal.fire({
         title: "Error!",
-        text: "Error creating schedules",
+        text: errorMessage || "Error creating schedules",
       });
     }
   };
