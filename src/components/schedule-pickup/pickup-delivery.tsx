@@ -96,8 +96,15 @@ export function PickupDelivery({
     );
     if (!findDate?.date) return;
     const arr = scheduleForSelectedArea[findDate?.date];
-    console.log({ arr });
-    const formattedArr = arr.map((el, key) => ({
+    const validDateTimes: WashOrderPlanData[] = [];
+    arr.forEach((el) => {
+      const [hour, minute] = el.scheduleEndTime.split(":");
+      const endDateTime = moment(el.scheduleDate)
+        .hour(Number(hour))
+        .minute(Number(minute));
+      if (!moment().isAfter(endDateTime)) validDateTimes.push(el);
+    });
+    const formattedArr = validDateTimes.map((el, key) => ({
       time: `${el.scheduleStartTime} - ${el.scheduleEndTime}`,
       key,
       logisticsAmount: el.logisticsAmount,
