@@ -655,7 +655,7 @@ const Landing: React.FC = () => {
                 <img src={FashWashTransparent} alt='' />
                 <p>FastWash Technologies Limited</p>
               </div>
-              <a>Terms & Conditions</a>
+              <a href='/terms'>Terms & Conditions</a>
               <ul>
                 <li>
                   <a

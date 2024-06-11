@@ -5,7 +5,7 @@ import { HelpCenterModal } from "./admin/modals/help-centre-modal";
 export function HelpCenter() {
   return (
     <div className='help-container'>
-      <a className='help' href='/#faq-questions' target='_blank'>
+      <a className='help' href='/faqs' target='_blank'>
         <img src={FaqMessage} alt='' />
         <h4>FAQs</h4>
         <p>Get answers to questions people commonly ask at FastWash</p>

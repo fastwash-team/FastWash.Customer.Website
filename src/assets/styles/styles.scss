@@ -737,6 +737,20 @@ button:disabled {
         .logo-section {
           display: flex;
           align-items: baseline;
+          column-gap: 26px;
+        }
+
+        p,
+        a,
+        ul {
+          position: relative;
+          top: -7px;
+        }
+
+        a {
+          cursor: pointer;
+          text-decoration: none;
+          color: #fff;
         }
       }
     }
@@ -785,6 +799,17 @@ button:disabled {
           color: #17499f;
           font-size: 24px;
         }
+      }
+    }
+
+    .extended-header {
+      h3 {
+        text-align: center;
+        font-weight: 600;
+        font-size: 64px;
+        line-height: 77.5px;
+        color: #020d1c;
+        padding: 108px 0;
       }
     }
   }
@@ -2769,6 +2794,81 @@ button:disabled {
     &.drying {
       background: #fff8ec;
       color: #f26419;
+    }
+  }
+}
+
+.terms-condition {
+  .body {
+    p {
+      font-size: 18px;
+
+      span {
+        text-transform: uppercase;
+        line-height: 32px;
+      }
+    }
+    h3 {
+      font-size: 26px;
+      line-height: 48px;
+      font-weight: 700;
+      padding: 25px 0 0px 0;
+      text-transform: uppercase;
+    }
+    h5 {
+      font-size: 20px;
+      line-height: 48px;
+      font-weight: 700;
+      padding: 25px 0 0px 0;
+      text-transform: inherit;
+    }
+    li {
+      list-style: auto;
+      margin-bottom: 12px;
+
+      a {
+        font-weight: 600;
+        text-decoration: none;
+        color: #020d1c;
+      }
+    }
+  }
+}
+
+.faqs {
+  h4 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29px;
+    color: #020d1c;
+    margin-bottom: 8px;
+  }
+
+  h6 {
+    color: #666666;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+
+  .accordion-item {
+    border: none;
+    margin-bottom: 16px;
+    .accordion-button {
+      background: #fafafa;
+      border-radius: 16px;
+      color: #020d1c;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 28px;
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+      &:not(.collapsed) {
+        box-shadow: none;
+      }
     }
   }
 }

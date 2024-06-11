@@ -2,7 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import { logout } from "../utils/functions";
 
-export function Header() {
+export function Header({ isExtendedHeader = false }) {
+  console.log({ isExtendedHeader });
   const location = useLocation();
   const navigate = useNavigate();
   const authenticatedRoutes = ["/dashboard", "/requests"];
@@ -41,6 +42,11 @@ export function Header() {
           )}
         </div>
       </nav>
+      {isExtendedHeader ? (
+        <div className='extended-header'>
+          <h3>Terms & Conditions</h3>
+        </div>
+      ) : null}
     </div>
   );
 }

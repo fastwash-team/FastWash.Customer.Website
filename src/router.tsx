@@ -13,6 +13,8 @@ import { RequestDetailPage } from "./components/requests/details";
 import { AdminDashboard } from "./pages/admin-dashboard";
 import { OrderCreateSuccess } from "./pages/pay-success";
 import "rc-tooltip/assets/bootstrap_white.css";
+import { TermsAndConditions } from "./pages/terms-conditions";
+import { FAQs } from "./pages/faqs";
 
 const AppRoutes = () => {
   return (
@@ -24,6 +26,8 @@ const AppRoutes = () => {
           <Route path='/order/success' element={<OrderCreateSuccess />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Signup />} />
+          <Route path='/terms' element={<TermsAndConditions />} />
+          <Route path='/faqs' element={<FAQs />} />
           <Route path='/verify-auth' element={<VerifyAuth />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/requests' element={<Requests />} />
