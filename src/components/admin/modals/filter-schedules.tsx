@@ -37,7 +37,7 @@ export function FilterScheduleModal({
                   <DatePicker
                     className='form-control'
                     placeholder='dd/mm/yy'
-                    selected={timeRange.startTime}
+                    selected={timeRange.startTime ? timeRange.startTime : null}
                     onChange={(date: string) => {
                       console.log({ date });
                       setTimeRange({ ...timeRange, startTime: date });

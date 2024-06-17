@@ -1,8 +1,15 @@
 import moment from "moment";
-import { formatMoney, getWashServiceType } from "../../utils/functions";
+import {
+  formatMoney,
+  getFWAdminToken,
+  // getFWUserToken,
+  getWashServiceType,
+} from "../../utils/functions";
 import { AdminRequest } from "../../utils/types";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
+import axios from "axios";
+// import { useState } from "react";
 
 export function AdminRequestView({
   goBack,
@@ -11,7 +18,21 @@ export function AdminRequestView({
   goBack: () => void;
   selectedRequest: AdminRequest | null;
 }) {
+  // const [wash, setWash] = useState(selectedRequest);
   console.log({ selectedRequest });
+  const adminToken = getFWAdminToken();
+
+  const refreshWashRequest = async (washOrderId: string) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${washOrderId}`,
+        { headers: { Authorization: `Bearer ${adminToken}` } }
+      );
+      console.log({ res });
+    } catch (error) {
+      console.log("get request error", error);
+    }
+  };
   return (
     <div className='request-view'>
       <p className='goback_'>
@@ -24,7 +45,6 @@ export function AdminRequestView({
             selectedRequest?.washOrderData.transactionData.transactionAmount
           )}
         </h2>
-        {/* <h2>N{formatMoney(selectedRequest?.orderAmount)}</h2> */}
         <span className={selectedRequest?.washStatus.toLowerCase()}>
           {selectedRequest?.washStatus}
         </span>
@@ -139,7 +159,10 @@ export function AdminRequestView({
           <button>Reschedule Wash</button>
         </div>
       </div>
-      <UpdateRequestStatus wash={selectedRequest} />
+      <UpdateRequestStatus
+        wash={selectedRequest}
+        refreshWashRequest={(el: string) => refreshWashRequest(el)}
+      />
       <UpdateWash wash={selectedRequest} />
     </div>
   );

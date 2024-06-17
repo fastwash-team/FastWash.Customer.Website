@@ -54,6 +54,14 @@ export function CreatePreScheduleModal() {
     setSchedules(schedules);
   };
 
+  // const handleFetchSchedules = async () => {
+  //   try {
+  //     const url = `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans?pageIndex=0&pageSize=5`;
+  //   } catch (error) {
+  //     console.log("error - handle fetch schedules", error);
+  //   }
+  // };
+
   const handleRemoveSchedule = (key: number) => {
     schedules.splice(key, 1);
     selectedDates.splice(key, 1);

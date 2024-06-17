@@ -35,15 +35,6 @@ export function PickupDelivery({
   const [schedulePerLocation, setSchedulePerLocation] = useState<
     LocationSchedule[] | []
   >([]);
-  const [selectedPickupWindowKey, setSelectedPickupWindowKey] = useState<
-    number | null
-  >(null);
-
-  console.log({ selectedPickupWindowKey });
-
-  console.log({ scheduleInfo }, "page pickup and delivery", {
-    schedulePerLocation,
-  });
 
   const scheduleForSelectedArea = useMemo(() => {
     if (!scheduleInfo.area) return {};
@@ -112,8 +103,6 @@ export function PickupDelivery({
     }));
     return filterUniqueByKey(formattedArr, "time");
   }, [scheduleInfo.pickupDay, days]);
-
-  console.log({ selectedTimesForSelectedDay });
 
   useEffect(() => {
     handleFetchSchedules();
@@ -265,13 +254,10 @@ export function PickupDelivery({
               className='form-select'
               disabled={!scheduleInfo.area || !scheduleInfo.pickupDay}
               onChange={({ target: { value } }) => {
-                setSelectedPickupWindowKey(Number(value));
-                console.log({ value });
-                const { logisticsAmount, scheduleDate, time, key } =
+                const { logisticsAmount, scheduleDate, time } =
                   selectedTimesForSelectedDay?.find(
                     (el) => String(el.time) === String(value)
                   ) || {};
-                console.log({ logisticsAmount, scheduleDate, time, key });
                 changePDInfo("pickupWindow", time);
                 changePDInfo(
                   "logisticsAmount",

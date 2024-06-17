@@ -3,7 +3,6 @@ import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import { logout } from "../utils/functions";
 
 export function Header({ isExtendedHeader = false }) {
-  console.log({ isExtendedHeader });
   const location = useLocation();
   const navigate = useNavigate();
   const authenticatedRoutes = ["/dashboard", "/requests"];

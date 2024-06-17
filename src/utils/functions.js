@@ -75,6 +75,7 @@ export const errorHandler = (error) => {
   }
   if (error?.response?.status === 401) {
     logout();
+    return "Token has expired. Please, login again.";
   }
   if (error?.message) return error.message;
   return "Something went wrong. Try again!";

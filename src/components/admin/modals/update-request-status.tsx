@@ -4,7 +4,13 @@ import { errorHandler, getFWAdminToken } from "../../../utils/functions";
 import { AdminRequest } from "../../../utils/types";
 import Swal from "sweetalert2";
 
-export function UpdateRequestStatus({ wash }: { wash: AdminRequest | null }) {
+export function UpdateRequestStatus({
+  wash,
+  refreshWashRequest,
+}: {
+  wash: AdminRequest | null;
+  refreshWashRequest?: (status: string) => void;
+}) {
   console.log({ wash });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<number | null>(null);
@@ -49,7 +55,8 @@ export function UpdateRequestStatus({ wash }: { wash: AdminRequest | null }) {
         title: "Success!",
         text: "Successfully updated order status",
       });
-      setTimeout(() => window.location.reload(), 2000);
+      if (refreshWashRequest) refreshWashRequest(String(wash.washOrderId));
+      // setTimeout(() => window.location.reload(), 2000);
     } catch (error) {
       errorHandler(error);
       console.log("updating wash schedule", error);

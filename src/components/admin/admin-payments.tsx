@@ -153,7 +153,10 @@ export function AdminPayments() {
             </div>
           ))
         ) : !pageLoading && !payments.length ? (
-          <EmptyContainer />
+          <EmptyContainer
+            emptyText='You do not have payments yet! Wait for customers to create washes'
+            showAction={false}
+          />
         ) : null}
         <br />
         <br />

@@ -42,8 +42,6 @@ export function AdminSchedule() {
     defaultPageSize: 5,
   });
 
-  console.log({ schedules, filterSchedule, priceRange });
-
   useEffect(() => {
     handleFetchSchedule();
   }, [paginationOptions.page, paginationOptions.defaultPageSize]);
@@ -151,9 +149,10 @@ export function AdminSchedule() {
               <div style={{ marginTop: "-60px", marginBottom: "40px" }}>
                 <EmptyContainer
                   emptyTitle={"No schedules"}
-                  emptyText='Your have not created any schedules yet. Click the button below to start.'
-                  buttonText='Create Schedule'
-                  buttonAction={() => null}
+                  emptyText='Your have not created any schedules yet. Create schedules to continue.'
+                  // buttonText='Create Schedule'
+                  // buttonAction={() => null}
+                  showAction={false}
                   pageIcon={CalendarSvg}
                 />
               </div>
