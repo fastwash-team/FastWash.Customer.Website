@@ -57,7 +57,6 @@ export function VerifyAuth() {
         `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
         { passCode: formik.values.token }
       );
-      console.log({ responseObject });
       const claims = getTokenClaims(responseObject.access_token);
       console.log({ claims, isAdmin });
       if (isAdmin && claims?.InternalUser) {

@@ -16,6 +16,7 @@ import { Pagination } from "../pagination";
 import { toast } from "react-toastify";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
+import { useNavigate } from "react-router-dom";
 
 const RequestList = ({
   setComponentView,
@@ -39,8 +40,7 @@ const RequestList = ({
   useEffect(() => {
     fetchRequests();
   }, [paginationOptions.page, paginationOptions.defaultPageSize]);
-
-  console.log({ pageLoading, requests });
+  const navigate = useNavigate();
 
   return (
     <>
@@ -181,7 +181,9 @@ const RequestList = ({
             </div>
           ))
         ) : !pageLoading && !requests.length ? (
-          <EmptyContainer />
+          <EmptyContainer
+            buttonAction={() => navigate("/admin/dashboard?page=2")}
+          />
         ) : null}
         <br />
         <br />
@@ -214,6 +216,7 @@ export function AdminRequests() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterExtra, setFilterExtra] = useState("all");
   const [filterLocation, setFilterLocation] = useState("all");
+  // const [filterApplied, setFilterApplied] = useState(false);
   const [filterNote, setFilterNote] = useState("Attached");
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
     min: 0,
@@ -231,15 +234,34 @@ export function AdminRequests() {
     defaultPageSize: 5,
   });
 
-  const fetchRequests = async () => {
+  console.log({
+    filterWash,
+    filterExtra,
+    filterLocation,
+    filterNote,
+    filterStatus,
+    filterType,
+  });
+
+  // useEffect(() => {
+  //   const hasFilter = filterWash !== "all";
+  //   console.log({ hasFilter });
+  //   fetchRequests();
+  // }, [filterWash, filterExtra]);
+
+  // const handleApplyRequestFilter = () => {};
+
+  const fetchRequests = async (hasFilter = false) => {
     setPageLoading(true);
+    let url = "/WashOrders";
+    if (hasFilter) url = "/WashOrders/filter";
     try {
       const {
         data: {
           responseObject: { data, pageCount, pageIndex, pageSize },
         },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/${url}?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );
       setRequests(data);

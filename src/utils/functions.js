@@ -1,5 +1,7 @@
 import moment from "moment";
 import { WASH_PRICES } from ".";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {}).format(value);
@@ -74,11 +76,45 @@ export const errorHandler = (error) => {
     return "Resource not found. Please contact support!";
   }
   if (error?.response?.status === 401) {
-    logout();
-    return "Token has expired. Please, login again.";
+    // logout();
+    // return "Token has expired. Please, login again.";
+    reLoginUser();
   }
   if (error?.message) return error.message;
   return "Something went wrong. Try again!";
+};
+
+export const reLoginUser = async () => {
+  console.log("reauthenticating user.......");
+  try {
+    const token = window.location.pathname.startsWith("/admin")
+      ? getFWAdminToken()
+      : getFWUserToken();
+    if (!token) return logout();
+    const arrayToken = token.split(".");
+    const { Name: email } = JSON.parse(atob(arrayToken[1]));
+    const {
+      data: { responseObject: authOTP },
+    } = await axios.post(
+      `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
+      { userId: email }
+    );
+    const {
+      data: { responseObject },
+    } = await axios.put(
+      `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
+      { passCode: authOTP }
+    );
+    const claims = getTokenClaims(responseObject.access_token);
+    if (claims?.InternalUser) setFWAdminToken(responseObject);
+    if (claims?.ExternalUser) setFWUserToken(responseObject);
+    toast("Refreshing token");
+    window.location.reload();
+  } catch (error) {
+    console.log("error relogging user");
+    const message = errorHandler(error);
+    toast(message || "Error reauthing user", { type: "error" });
+  }
 };
 
 const redirectToRouteBeforeLogout = () => {

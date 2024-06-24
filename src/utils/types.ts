@@ -237,3 +237,9 @@ export enum WashStatus {
   "Delivered" = 5,
   "Completed" = 6,
 }
+
+export interface RequestTracking {
+  washStatus: string;
+  statusNotes: string;
+  dateCreated: string;
+}

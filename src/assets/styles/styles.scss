@@ -1881,6 +1881,11 @@ button:disabled {
             font-weight: 400;
             color: #666;
 
+            span {
+              width: 80%;
+              display: block;
+            }
+
             &.time {
               position: absolute;
               right: 24px;
@@ -1892,12 +1897,19 @@ button:disabled {
 
           &::before {
             content: "";
-            height: 47px;
+            // height: 47px;
+            height: -webkit-fill-available;
             width: 6px;
             background: #ebebeb;
             position: absolute;
-            left: 30px;
+            left: 29px;
             margin-top: 20px;
+          }
+
+          &.done {
+            &::before {
+              background: #f6ae2d;
+            }
           }
 
           &:last-child {
@@ -2584,10 +2596,13 @@ button:disabled {
           box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
           border: none;
           width: 250px;
-          a {
-            color: #020d1c;
-            font-size: 14px;
-            margin-bottom: 8px;
+          li {
+            cursor: pointer;
+            a {
+              color: #020d1c;
+              font-size: 14px;
+              margin-bottom: 8px;
+            }
           }
         }
       }

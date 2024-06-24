@@ -1,22 +1,31 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Header } from "../header";
 import {
+  errorHandler,
   formatMoney,
   getFWUserToken,
   getWashServiceType,
 } from "../../utils/functions";
-import { WashItemData } from "../../utils/types";
+import { RequestTracking, WashItemData } from "../../utils/types";
 import moment from "moment";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import Swal from "sweetalert2";
 
 export const RequestDetailPage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const userToken = getFWUserToken();
-  console.log({ state });
+  const [requestTracking, setRequestTracking] = useState([]);
+
+  useEffect(() => {
+    // call every 10 seconds
+    const callOrderByStatusInterval = setInterval(getAnOrderStatusById, 10000);
+    return () => clearInterval(callOrderByStatusInterval);
+  }, []);
 
   const statuses = [
+    "Pending",
     "Received",
     "Pickup",
     "Washing",
@@ -25,46 +34,59 @@ export const RequestDetailPage = () => {
     "Delivering",
     "Completed",
   ];
-  const currentStatusIndex = statuses.findIndex(
-    (el) => el === state.washStatus
-  );
-  const mappedStatuses = statuses.map((el, key) => {
-    if (key < currentStatusIndex || key === currentStatusIndex) {
-      return { status: el, completed: true, disabled: true, enumNum: key + 1 };
-    }
-    if (key === currentStatusIndex + 1)
-      return {
-        status: el,
-        completed: false,
-        disabled: false,
-        enumNum: key + 1,
-      };
-    return { status: el, completed: false, disabled: true, enumNum: key + 1 };
-  });
-  const isStepDone = (statusIndex: number) => {
-    const res = new Map(
-      mappedStatuses.map((status) => [status.enumNum, status])
-    );
-    console.log("sds", res.get(statusIndex)?.completed);
-    return res.get(statusIndex)?.completed ? "done" : "";
-  };
 
-  const getAnOrderById = async () => {
+  const getAnOrderStatusById = async () => {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${state.washOrderId}`,
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/${state.washOrderId}/status`,
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
-      console.log({ res });
+      if (responseObject.length !== requestTracking.length)
+        setRequestTracking(responseObject);
     } catch (error) {
-      console.log("sdf", error);
+      const errorMessage = errorHandler(error);
+      return Swal.fire({
+        title: "Error!",
+        text: errorMessage || "Error fetching order by ID",
+      });
     }
   };
 
   useEffect(() => {
     if (!state?.washOrderId) return;
-    getAnOrderById();
+    getAnOrderStatusById();
   }, [state]);
+
+  const trackingMap = new Map(
+    requestTracking.map((tracking: RequestTracking) => [
+      tracking.washStatus,
+      tracking,
+    ])
+  );
+
+  const trackingSteps = useMemo(() => {
+    return statuses.map((status) => {
+      const details = trackingMap.get(status);
+      return {
+        status,
+        isCompleted: !!details,
+        message: details?.statusNotes || `Your order is being processed.`,
+        time: details?.dateCreated
+          ? moment(details.dateCreated).format("h:mm a")
+          : "",
+      };
+    });
+  }, [requestTracking]);
+
+  const currentWashStatus = useMemo(() => {
+    if (!requestTracking.length) return "Pending";
+    const status = requestTracking[requestTracking.length - 1] as {
+      washStatus: string;
+    };
+    return status.washStatus;
+  }, [requestTracking]);
 
   return (
     <div className='__dashboard'>
@@ -80,8 +102,8 @@ export const RequestDetailPage = () => {
               />
               <div className='details-item-header status'>
                 <h3>#{state.washOrderReference}</h3>
-                <span className={state.washStatus.toLowerCase()}>
-                  {state.washStatus}
+                <span className={currentWashStatus.toLowerCase()}>
+                  {currentWashStatus}
                 </span>
               </div>
               <div className='details-item'>
@@ -121,41 +143,17 @@ export const RequestDetailPage = () => {
               <div className='tracking'>
                 <h4>Track</h4>
                 <div className='tracker-wrapper'>
-                  <div className='step'>
-                    <h4 className={`${isStepDone(1)}`}>Received</h4>
-                    <p>Your request is being processed for pickup</p>
-                    <p className='time'>09:00 am</p>
-                  </div>
-                  <div className='step'>
-                    <h4 className={`${isStepDone(2)}`}>Pickup</h4>
-                    <p>Your request is being processed for pickup</p>
-                    <p className='time'>09:00 am</p>
-                  </div>
-                  <div className='step'>
-                    <h4 className={`${isStepDone(3)}`}>Wash</h4>
-                    <p>Your request is being processed for pickup</p>
-                    <p className='time'>09:00 am</p>
-                  </div>
-                  <div className='step'>
-                    <h4 className={`${isStepDone(4)}`}>Dry</h4>
-                    <p>Your request is being processed for pickup</p>
-                    <p className='time'>09:00 am</p>
-                  </div>
-                  <div className='step'>
-                    <h4 className={`${isStepDone(5)}`}>Fold</h4>
-                    <p>Your request is being processed for pickup</p>
-                    <p className='time'>09:00 am</p>
-                  </div>
-                  <div className='step'>
-                    <h4 className={`${isStepDone(6)}`}>Deliver</h4>
-                    <p>Your request is being processed for pickup</p>
-                    <p className='time'>09:00 am</p>
-                  </div>
-                  <div className='step'>
-                    <h4 className={`${isStepDone(7)}`}>Completed</h4>
-                    <p>Your request is being processed for pickup</p>
-                    <p className='time'>09:00 am</p>
-                  </div>
+                  {trackingSteps.map((el) => (
+                    <div className={`step ${el.isCompleted ? "done" : ""}`}>
+                      <h4 className={`${el.isCompleted ? "done" : ""}`}>
+                        {el.status}
+                      </h4>
+                      <p className='tracking-message'>
+                        <span>{el.message}</span>
+                      </p>
+                      <p className='time'>{el.time}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

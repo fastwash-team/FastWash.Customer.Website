@@ -56,7 +56,7 @@ export function OrderCreateSuccess() {
                     <p>Your request is being processed for pickup</p>
                   </div>
                   <div className='step'>
-                    <h4 className={``}>Wash</h4>
+                    <h4 className={``}>Washing</h4>
                     <p>Your request is being processed for pickup</p>
                   </div>
                   <div className='step'>
