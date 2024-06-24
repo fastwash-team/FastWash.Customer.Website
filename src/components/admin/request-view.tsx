@@ -1,14 +1,14 @@
 import moment from "moment";
 import {
   formatMoney,
-  getFWAdminToken,
+  // getFWAdminToken,
   // getFWUserToken,
   getWashServiceType,
 } from "../../utils/functions";
 import { AdminRequest } from "../../utils/types";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
-import axios from "axios";
+// import axios from "axios";
 // import { useState } from "react";
 
 export function AdminRequestView({
@@ -20,18 +20,20 @@ export function AdminRequestView({
 }) {
   // const [wash, setWash] = useState(selectedRequest);
   console.log({ selectedRequest });
-  const adminToken = getFWAdminToken();
+  // const adminToken = getFWAdminToken();
 
   const refreshWashRequest = async (washOrderId: string) => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${washOrderId}`,
-        { headers: { Authorization: `Bearer ${adminToken}` } }
-      );
-      console.log({ res });
-    } catch (error) {
-      console.log("get request error", error);
-    }
+    console.log({ washOrderId });
+    window.location.reload();
+    // try {
+    //   const res = await axios.get(
+    //     `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${washOrderId}`,
+    //     { headers: { Authorization: `Bearer ${adminToken}` } }
+    //   );
+    //   console.log({ res });
+    // } catch (error) {
+    //   console.log("get request error", error);
+    // }
   };
   return (
     <div className='request-view'>
