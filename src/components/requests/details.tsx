@@ -144,7 +144,11 @@ export const RequestDetailPage = () => {
                 <h4>Track</h4>
                 <div className='tracker-wrapper'>
                   {trackingSteps.map((el) => (
-                    <div className={`step ${el.isCompleted ? "done" : ""}`}>
+                    <div
+                      className={`step ${el.isCompleted ? "done" : ""} ${
+                        currentWashStatus === el.status ? "last" : ""
+                      }`}
+                    >
                       <h4 className={`${el.isCompleted ? "done" : ""}`}>
                         {el.status}
                       </h4>
