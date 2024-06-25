@@ -8,6 +8,7 @@ import {
 import { AdminRequest } from "../../utils/types";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
+import { useState } from "react";
 // import axios from "axios";
 // import { useState } from "react";
 
@@ -18,22 +19,10 @@ export function AdminRequestView({
   goBack: () => void;
   selectedRequest: AdminRequest | null;
 }) {
-  // const [wash, setWash] = useState(selectedRequest);
-  console.log({ selectedRequest });
-  // const adminToken = getFWAdminToken();
+  const [wash, setWash] = useState(selectedRequest);
 
-  const refreshWashRequest = async (washOrderId: string) => {
-    console.log({ washOrderId });
-    window.location.reload();
-    // try {
-    //   const res = await axios.get(
-    //     `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${washOrderId}`,
-    //     { headers: { Authorization: `Bearer ${adminToken}` } }
-    //   );
-    //   console.log({ res });
-    // } catch (error) {
-    //   console.log("get request error", error);
-    // }
+  const completeStatusUpdate = async (washStatus: string) => {
+    if (wash) setWash({ ...wash, washStatus });
   };
   return (
     <div className='request-view'>
@@ -47,8 +36,8 @@ export function AdminRequestView({
             selectedRequest?.washOrderData.transactionData.transactionAmount
           )}
         </h2>
-        <span className={selectedRequest?.washStatus.toLowerCase()}>
-          {selectedRequest?.washStatus}
+        <span className={wash?.washStatus.toLowerCase()}>
+          {wash?.washStatus}
         </span>
       </div>
       <div className='items'>
@@ -162,8 +151,8 @@ export function AdminRequestView({
         </div>
       </div>
       <UpdateRequestStatus
-        wash={selectedRequest}
-        refreshWashRequest={(el: string) => refreshWashRequest(el)}
+        wash={wash}
+        completeStatusUpdate={(status: string) => completeStatusUpdate(status)}
       />
       <UpdateWash wash={selectedRequest} />
     </div>

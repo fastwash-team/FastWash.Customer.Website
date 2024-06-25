@@ -10,7 +10,6 @@ import { EmptyContainer } from "../empty-wash-item-list";
 import moment from "moment";
 import Skeleton from "react-loading-skeleton";
 import { AdminPayment } from "../../utils/types";
-import { toast } from "react-toastify";
 
 export function AdminPayments() {
   const adminToken = getFWAdminToken();
@@ -50,7 +49,6 @@ export function AdminPayments() {
       console.log({ error });
       const errorRes = errorHandler(error);
       console.log({ errorRes });
-      toast("Error!", { type: "error" });
       setPageLoading(false);
     }
   };

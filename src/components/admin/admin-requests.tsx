@@ -13,7 +13,6 @@ import { EmptyContainer } from "../empty-wash-item-list";
 import { AdminRequest, PaginationProps } from "../../utils/types";
 import moment from "moment";
 import { Pagination } from "../pagination";
-import { toast } from "react-toastify";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
 import { useNavigate } from "react-router-dom";
@@ -276,7 +275,6 @@ export function AdminRequests() {
       console.log({ error });
       const errorRes = errorHandler(error);
       console.log({ errorRes });
-      toast("Error!", { type: "error" });
       setPageLoading(false);
     }
   };

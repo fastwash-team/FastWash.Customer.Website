@@ -6,12 +6,11 @@ import Swal from "sweetalert2";
 
 export function UpdateRequestStatus({
   wash,
-  refreshWashRequest,
+  completeStatusUpdate,
 }: {
   wash: AdminRequest | null;
-  refreshWashRequest?: (status: string) => void;
+  completeStatusUpdate?: (status: string) => void;
 }) {
-  console.log({ wash });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<number | null>(null);
   const adminToken = getFWAdminToken();
@@ -45,18 +44,20 @@ export function UpdateRequestStatus({
     if (!status || !wash) return;
     try {
       setLoading(true);
-      const res = await axios.put(
+      await axios.put(
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/status`,
         { washOrderId: wash?.washOrderId, washStatus: status },
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );
-      console.log({ res });
       Swal.fire({
         title: "Success!",
         text: "Successfully updated order status",
       });
-      if (refreshWashRequest) refreshWashRequest(String(wash.washOrderId));
-      // setTimeout(() => window.location.reload(), 2000);
+      if (completeStatusUpdate) {
+        completeStatusUpdate(statuses[status - 1]);
+        document.getElementById("btn-update-request-status-close")?.click();
+      }
+      setLoading(false);
     } catch (error) {
       errorHandler(error);
       console.log("updating wash schedule", error);
@@ -89,6 +90,14 @@ export function UpdateRequestStatus({
             <h1 className='modal-title fs-5' id='exampleModalLabel'>
               Update Status
             </h1>
+            <button
+              type='button'
+              style={{ display: "none" }}
+              className='btn-close'
+              id='btn-update-request-status-close'
+              data-bs-dismiss='modal'
+              aria-label='Close'
+            ></button>
           </div>
           <div className='modal-body'>
             <div className='status-type-container'>
