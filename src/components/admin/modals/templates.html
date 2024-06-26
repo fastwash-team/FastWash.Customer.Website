@@ -1,0 +1,157 @@
+<html>
+  <head>
+    <title>Wash Order Confirmation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter";
+      }
+      @media only screen and (max-width: 768px) {
+        #fastwash-body {
+          padding: 0 10px !important;
+        }
+        #question-prompt {
+          padding: unset !important;
+        }
+      }
+
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div style="text-align: center; margin-top: 24px; margin-bottom: 84px">
+      <img
+        src="http://cdn.mcauto-images-production.sendgrid.net/8a55a3513e59626e/7b652301-3639-4520-a0f3-7dac64caf4b8/152x56.png"
+        alt="logo"
+      />
+    </div>
+    <div style="padding: 0px 48px" id="fastwash-body">
+      <h2 style="font-size: 24px; font-weight: 700; line-height: 29px">
+        Your wash has been picked up
+      </h2>
+      <p style="margin-top: 12px; font-size: 16px; font-weight: 500">
+        Dear <b>{{CustomerName}}</b>, <br /><br />
+        Your wash order FW0987654 has been picked up.
+        <br /><br />
+      </p>
+      <p style="font-size: 16px; font-weight: 500; line-height: 19.36px">
+        If you have any questions, please contact us on
+        <a href="mailto:care@fastwash.africa">care@fastwash.africa</a> or
+        <a href="tel:+2347073378261"> +234(0)7073378261</a>
+        <br /><br /><br />
+        Track your wash Here
+      </p>
+      <button
+        style="
+          font-weight: 800;
+          background-color: #17499f;
+          height: 55px;
+          width: 173px;
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          font-size: 18px;
+          line-height: 28px;
+          margin-top: 16px;
+          margin-bottom: 24px;
+        "
+      >
+        Track Status
+      </button>
+      <p style="font-size: 16px; font-weight: 500; line-height: 25px">
+        Please note: If you have multiple orders with different addresses , you
+        may receive them on different times.
+      </p>
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
+    <div
+      class=""
+      style="background-color: #e9f1fd; padding: 40px 48px 45px 48px"
+    >
+      <div
+        class=""
+        style="
+          justify-content: center;
+          font-size: 24px;
+          display: flex;
+          gap: 32px;
+          margin-bottom: 25px;
+        "
+      >
+        <i class="bi bi-twitter"></i>
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-linkedin"></i>
+      </div>
+      <p
+        style="
+          color: #828282;
+          font-size: 14px;
+          font-weight: 300;
+          line-height: 22px;
+          padding: 0 140px;
+          text-align: center;
+        "
+        id="question-prompt"
+      >
+        <a
+          style="color: #0065f5; font-weight: 600"
+          href="https://fastwash.africa"
+          target="_blank"
+        >
+          https://fastwash.africa
+        </a>
+      </p>
+    </div>
+
+    <div
+      data-role="module-unsubscribe"
+      class="module"
+      role="module"
+      data-type="unsubscribe"
+      style="
+        color: #444444;
+        font-size: 12px;
+        line-height: 20px;
+        padding: 16px 16px 16px 16px;
+        text-align: Center;
+      "
+      data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5"
+    >
+      <p style="font-size: 12px; line-height: 20px">
+        <a
+          class="Unsubscribe--unsubscribeLink"
+          href="{{{unsubscribe}}}"
+          target="_blank"
+          style="font-family: sans-serif; text-decoration: none"
+        >
+          Unsubscribe
+        </a>
+        -
+        <a
+          href="{{{unsubscribe_preferences}}}"
+          target="_blank"
+          class="Unsubscribe--unsubscribePreferences"
+          style="font-family: sans-serif; text-decoration: none"
+        >
+          Unsubscribe Preferences
+        </a>
+      </p>
+    </div>
+  </body>
+</html>
