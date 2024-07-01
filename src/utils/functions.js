@@ -135,7 +135,6 @@ export const setFWAdminToken = (userObj) => {
 const checkTokenExpiry = (token) => {
   const { exp } = getTokenClaims(token);
   const diff = moment.unix(exp).diff(moment(), "minutes");
-  console.log({ diff });
   if (diff < 15) return reLoginUser();
 };
 
@@ -168,6 +167,7 @@ export const isUserLoggedIn = () => {
 };
 
 export const getTokenClaims = (token) => {
+  if (!token) return logout();
   const arrayToken = token.split(".");
   const tokenPayload = JSON.parse(atob(arrayToken[1]));
   return tokenPayload;
