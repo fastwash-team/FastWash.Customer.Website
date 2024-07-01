@@ -25,6 +25,7 @@ const RequestList = ({
   fetchRequests,
   requests,
   pageLoading,
+  hasFilter = false,
 }: {
   setComponentView: (el: string) => void;
   setSelectedRequest: (el: AdminRequest) => void;
@@ -34,6 +35,7 @@ const RequestList = ({
   requests: AdminRequest[];
   pageLoading: boolean;
   setPageLoading: (el: boolean) => void;
+  hasFilter: boolean;
 }) => {
   const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
   useEffect(() => {
@@ -181,6 +183,7 @@ const RequestList = ({
           ))
         ) : !pageLoading && !requests.length ? (
           <EmptyContainer
+            hasFilter={hasFilter}
             buttonAction={() => navigate("/admin/dashboard?page=2")}
           />
         ) : null}
@@ -223,7 +226,7 @@ export function AdminRequests() {
     startTime: "",
     endTime: "",
   });
-  const [filterNote, setFilterNote] = useState("Attached");
+  const [filterNote, setFilterNote] = useState("All");
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
     min: 0,
     max: 0,
@@ -272,6 +275,15 @@ export function AdminRequests() {
     fetchRequests(url);
   };
 
+  const resetFilters = () => {
+    setTimeRange({ startTime: "", endTime: "" });
+    setPriceRange({ min: 0, max: 0 });
+    setFilterLocation("all");
+    setFilterStatus({ el: "all", statusEnum: 0 });
+    setFilterType("all");
+    fetchRequests();
+  };
+
   const fetchRequests = async (filterUrl = "") => {
     setPageLoading(true);
     const url = filterUrl
@@ -315,6 +327,14 @@ export function AdminRequests() {
             requests={requests}
             pageLoading={pageLoading}
             setPageLoading={setPageLoading}
+            hasFilter={
+              !!(
+                filterNote !== "All" ||
+                filterStatus.el !== "all" ||
+                (timeRange.startTime && timeRange.endTime) ||
+                filterType !== "all"
+              )
+            }
           />
         ) : componentView === "detail-view" ? (
           <AdminRequestView
@@ -337,6 +357,7 @@ export function AdminRequests() {
         setTimeRange={setTimeRange}
         timeRange={timeRange}
         handleApplyFilter={handleApplyRequestFilter}
+        resetFilters={resetFilters}
       />
     </>
   );

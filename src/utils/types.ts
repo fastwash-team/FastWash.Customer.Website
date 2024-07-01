@@ -156,6 +156,7 @@ export interface FilterRequestProps {
     endTime: string | null;
   }) => void;
   handleApplyFilter: () => void;
+  resetFilters: () => void;
 }
 
 export interface WashScheduleProps {

@@ -8,6 +8,7 @@ export const EmptyContainer = ({
   buttonAction = () => null,
   pageIcon = WashingMachine,
   showAction = true,
+  hasFilter = false,
 }: {
   emptyTitle?: string;
   emptyText?: string;
@@ -15,13 +16,14 @@ export const EmptyContainer = ({
   buttonAction?: () => void;
   pageIcon?: string;
   showAction?: boolean;
+  hasFilter?: boolean;
 }) => {
   return (
     <div className='empty-container'>
       <img src={pageIcon} alt='' />
       <h4>{emptyTitle}</h4>
       <center>
-        <p>{emptyText}</p>
+        <p>{hasFilter ? "No result for applied filter(s)" : emptyText}</p>
       </center>
       {showAction && <button onClick={buttonAction}>{buttonText}</button>}
     </div>

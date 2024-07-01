@@ -17,6 +17,7 @@ export function FilterRequestsModal({
   timeRange,
   setTimeRange,
   handleApplyFilter,
+  resetFilters,
 }: FilterRequestProps) {
   return (
     <div
@@ -188,7 +189,9 @@ export function FilterRequestsModal({
             </div>
           </div>
           <div className='modal-footer'>
-            <p>Reset Filters</p>
+            <p data-bs-dismiss='modal' role='button' onClick={resetFilters}>
+              Reset Filters
+            </p>
             <button
               type='button'
               className='btn btn-primary'
