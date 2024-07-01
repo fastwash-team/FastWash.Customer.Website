@@ -1,22 +1,21 @@
 import React from "react";
 import { supportedAreas } from "../../../utils";
 import { FilterRequestProps } from "../../../utils/types";
+import DatePicker from "react-datepicker";
 
 export function FilterRequestsModal({
-  filterExtra,
   filterType,
   setFilterType,
-  filterWash,
-  setFilterWash,
   filterStatus,
   setFilterStatus,
-  setFilterExtra,
   setFilterLocation,
   filterLocation,
   filterNote,
   setFilterNote,
   priceRange,
   setPriceRange,
+  timeRange,
+  setTimeRange,
   handleApplyFilter,
 }: FilterRequestProps) {
   return (
@@ -35,6 +34,34 @@ export function FilterRequestsModal({
           </div>
           <div className='modal-body'>
             <div className='filter-container'>
+              <div className='row'>
+                <div className='col-3 react-date-picker-wrapper'>
+                  <label>Start Date</label>
+                  <DatePicker
+                    className='form-control'
+                    placeholder='dd/mm/yy'
+                    selected={timeRange.startTime ? timeRange.startTime : null}
+                    onChange={(date: string) => {
+                      console.log({ date });
+                      setTimeRange({ ...timeRange, startTime: date });
+                    }}
+                  />
+                </div>
+                <div className='col-3'>
+                  <label>End Time</label>
+                  <DatePicker
+                    className='form-control'
+                    placeholder='dd/mm/yy'
+                    selected={timeRange.endTime}
+                    minDate={new Date(timeRange.startTime as string)}
+                    onChange={(date: string) => {
+                      setTimeRange({ ...timeRange, endTime: date });
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className='filter-container'>
               <h3>Type</h3>
               <div className='filter-list'>
                 {["All", "Prescheduled", "Classic"].map((el, key) => (
@@ -45,24 +72,6 @@ export function FilterRequestsModal({
                         : ""
                     }
                     onClick={() => setFilterType(el)}
-                    key={key}
-                  >
-                    {el}
-                  </li>
-                ))}
-              </div>
-            </div>
-            <div className='filter-container'>
-              <h3>Washes</h3>
-              <div className='filter-list'>
-                {["All", "One", "Two", "Three+"].map((el, key) => (
-                  <li
-                    className={
-                      filterWash.toLowerCase() === el.toLowerCase()
-                        ? "active"
-                        : ""
-                    }
-                    onClick={() => setFilterWash(el)}
                     key={key}
                   >
                     {el}
@@ -85,37 +94,13 @@ export function FilterRequestsModal({
                 ].map((el, key) => (
                   <li
                     className={
-                      filterStatus.toLowerCase() === el.toLowerCase()
+                      filterStatus.el.toLowerCase() === el.toLowerCase()
                         ? "active"
                         : ""
                     }
-                    onClick={() => setFilterStatus(el)}
-                    key={key}
-                  >
-                    {el}
-                  </li>
-                ))}
-              </div>
-            </div>
-            <div className='filter-container'>
-              <h3>Extras</h3>
-              <div className='filter-list'>
-                {[
-                  "All",
-                  "Softner",
-                  "Bleach",
-                  "Color Catcher",
-                  "Stain remover",
-                  "Laundry Bag (E)",
-                  "Laundry Bag (M)",
-                ].map((el, key) => (
-                  <li
-                    className={
-                      filterExtra.toLowerCase() === el.toLowerCase()
-                        ? "active"
-                        : ""
+                    onClick={() =>
+                      setFilterStatus({ el, statusEnum: Number(key) })
                     }
-                    onClick={() => setFilterExtra(el)}
                     key={key}
                   >
                     {el}
@@ -144,7 +129,7 @@ export function FilterRequestsModal({
             <div className='filter-container'>
               <h3>Notes</h3>
               <div className='filter-list'>
-                {["Attached", "Non Attached"].map((el, key) => (
+                {["All", "Attached", "Non Attached"].map((el, key) => (
                   <li
                     className={filterNote === el ? "active" : ""}
                     onClick={() => setFilterNote(el)}

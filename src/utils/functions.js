@@ -1,7 +1,7 @@
 import moment from "moment";
 import { WASH_PRICES } from ".";
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 export const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {}).format(value);
@@ -88,8 +88,8 @@ export const reLoginUser = async () => {
   console.log("reauthenticating user.......");
   try {
     const token = window.location.pathname.startsWith("/admin")
-      ? getFWAdminToken()
-      : getFWUserToken();
+      ? localStorage.getItem("fw_admin_token")
+      : localStorage.getItem("fw_user_token");
     if (!token) return logout();
     const arrayToken = token.split(".");
     const { Name: email } = JSON.parse(atob(arrayToken[1]));
@@ -108,12 +108,10 @@ export const reLoginUser = async () => {
     const claims = getTokenClaims(responseObject.access_token);
     if (claims?.InternalUser) setFWAdminToken(responseObject);
     if (claims?.ExternalUser) setFWUserToken(responseObject);
-    toast("Refreshing token");
-    window.location.reload();
   } catch (error) {
     console.log("error relogging user");
-    const message = errorHandler(error);
-    toast(message || "Error reauthing user", { type: "error" });
+    // const message = errorHandler(error);
+    // toast(message || "Error reauthing user", { type: "error" });
   }
 };
 
@@ -134,12 +132,23 @@ export const setFWAdminToken = (userObj) => {
   redirectToRouteBeforeLogout();
 };
 
+const checkTokenExpiry = (token) => {
+  const { exp } = getTokenClaims(token);
+  const diff = moment.unix(exp).diff(moment(), "minutes");
+  console.log({ diff });
+  if (diff < 15) return reLoginUser();
+};
+
 export const getFWUserToken = () => {
-  return localStorage.getItem("fw_user_token");
+  const token = localStorage.getItem("fw_user_token");
+  checkTokenExpiry(token);
+  return token;
 };
 
 export const getFWAdminToken = () => {
-  return localStorage.getItem("fw_admin_token");
+  const token = localStorage.getItem("fw_admin_token");
+  checkTokenExpiry(token);
+  return token;
 };
 
 export const logout = () => {

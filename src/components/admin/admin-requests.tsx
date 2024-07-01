@@ -211,11 +211,18 @@ export function AdminRequests() {
   const adminToken = getFWAdminToken();
   const [pageLoading, setPageLoading] = useState(true);
   const [filterType, setFilterType] = useState("all");
-  const [filterWash, setFilterWash] = useState("all");
-  const [filterStatus, setFilterStatus] = useState("all");
-  const [filterExtra, setFilterExtra] = useState("all");
+  const [filterStatus, setFilterStatus] = useState({
+    el: "all",
+    statusEnum: 0,
+  });
   const [filterLocation, setFilterLocation] = useState("all");
-  // const [filterApplied, setFilterApplied] = useState(false);
+  const [timeRange, setTimeRange] = useState<{
+    startTime: string | null;
+    endTime: string | null;
+  }>({
+    startTime: "",
+    endTime: "",
+  });
   const [filterNote, setFilterNote] = useState("Attached");
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
     min: 0,
@@ -234,35 +241,51 @@ export function AdminRequests() {
   });
 
   console.log({
-    filterWash,
-    filterExtra,
     filterLocation,
     filterNote,
     filterStatus,
     filterType,
+    timeRange,
   });
 
-  // useEffect(() => {
-  //   const hasFilter = filterWash !== "all";
-  //   console.log({ hasFilter });
-  //   fetchRequests();
-  // }, [filterWash, filterExtra]);
+  const handleApplyRequestFilter = () => {
+    let url = `WashOrders/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
+    if (filterType !== "all") {
+      const scheduleEnum =
+        filterType === "Prescheduled" ? 1 : filterType === "Classic" ? 2 : null;
+      url = url + `&serviceType=${scheduleEnum}`;
+    }
+    if (filterStatus.el !== "all")
+      url = url + `&washStatus=${filterStatus.statusEnum}`;
+    if (filterLocation !== "all") url = url + `&location=${filterLocation}`;
+    if (filterNote !== "All") url = url + `&orderNotes=${filterNote}`;
+    if (timeRange.startTime)
+      url =
+        url +
+        `&orderStartDate=${moment(timeRange.startTime)
+          .startOf("day")
+          .format()}`;
+    if (timeRange.endTime)
+      url =
+        url +
+        `&orderEndDate=${moment(timeRange.endTime).endOf("day").format()}`;
+    fetchRequests(url);
+  };
 
-  // const handleApplyRequestFilter = () => {};
-
-  const fetchRequests = async (hasFilter = false) => {
+  const fetchRequests = async (filterUrl = "") => {
     setPageLoading(true);
-    let url = "/WashOrders";
-    if (hasFilter) url = "/WashOrders/filter";
+    const url = filterUrl
+      ? filterUrl
+      : `WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
+    console.log({ url });
     try {
       const {
         data: {
           responseObject: { data, pageCount, pageIndex, pageSize },
         },
-      } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/${url}?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
-        { headers: { Authorization: `Bearer ${adminToken}` } }
-      );
+      } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/${url}`, {
+        headers: { Authorization: `Bearer ${adminToken}` },
+      });
       setRequests(data);
       setPageLoading(false);
       setPaginationOptions({
@@ -301,21 +324,19 @@ export function AdminRequests() {
         ) : null}
       </div>
       <FilterRequestsModal
-        filterExtra={filterExtra}
         filterLocation={filterLocation}
         filterNote={filterNote}
         filterStatus={filterStatus}
         filterType={filterType}
-        filterWash={filterWash}
-        setFilterExtra={setFilterExtra}
         setFilterLocation={setFilterLocation}
         setFilterNote={setFilterNote}
         setFilterStatus={setFilterStatus}
         setFilterType={setFilterType}
-        setFilterWash={setFilterWash}
         setPriceRange={setPriceRange}
         priceRange={priceRange}
-        handleApplyFilter={() => null}
+        setTimeRange={setTimeRange}
+        timeRange={timeRange}
+        handleApplyFilter={handleApplyRequestFilter}
       />
     </>
   );

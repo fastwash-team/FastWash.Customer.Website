@@ -243,7 +243,7 @@ export function CreatePreScheduleModal() {
               </div>
             </div>
             <button className='add_schedule_btn' onClick={handleAddSchedule}>
-              Add Schedule
+              {schedules.length ? "Update" : "Add"} Schedule
             </button>
             {schedules.length ? (
               <div className='_pre-schedule-list'>

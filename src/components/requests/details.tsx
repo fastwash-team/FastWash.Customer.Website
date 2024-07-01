@@ -101,7 +101,7 @@ export const RequestDetailPage = () => {
                 onClick={() => navigate(-1)}
               />
               <div className='details-item-header status'>
-                <h3>#{state.washOrderReference}</h3>
+                <h3>#{state?.washOrderReference}</h3>
                 <span className={currentWashStatus.toLowerCase()}>
                   {currentWashStatus}
                 </span>
@@ -109,17 +109,17 @@ export const RequestDetailPage = () => {
               <div className='details-item'>
                 <p>Service Type</p>
                 <span>
-                  {getWashServiceType(state.washOrderData.serviceType)}
+                  {getWashServiceType(state?.washOrderData?.serviceType)}
                 </span>
               </div>
               <div className='details-item'>
                 <p>Pick up Time</p>
-                <span>{state.washOrderData.pickupTime}</span>
+                <span>{state?.washOrderData?.pickupTime}</span>
               </div>
               <div className='details-item'>
                 <p>Delivery Time</p>
                 <span>
-                  {moment(state.washOrderData.estimatedDeliveryTime).format(
+                  {moment(state?.washOrderData?.estimatedDeliveryTime).format(
                     "Do MMM, YYYY"
                   )}
                 </span>
@@ -132,7 +132,7 @@ export const RequestDetailPage = () => {
                   NGN {formatMoney(state?.washOrderData?.logisticsAmount || 0)}
                 </span>
               </div>
-              {(state.washOrderData.washItemData || []).map(
+              {(state?.washOrderData?.washItemData || []).map(
                 (el: WashItemData, key: number) => (
                   <div className='details-item' key={key}>
                     <p>{el.itemName}</p>

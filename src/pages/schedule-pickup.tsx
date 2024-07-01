@@ -155,7 +155,7 @@ export function SchedulePickup() {
         orderNote: values.laundryInstructions,
         userData: {
           fullName: values.contactperson,
-          email: values.contactemail,
+          email: values.contactemail.toLowerCase(),
           phoneNumber: values.phonenumber,
           userType: UserType.CUSTOMER,
         },

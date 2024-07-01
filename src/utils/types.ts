@@ -142,18 +142,19 @@ export interface FilterScheduleProps {
 export interface FilterRequestProps {
   filterType: string;
   setFilterType: (el: string) => void;
-  filterWash: string;
-  setFilterWash: (el: string) => void;
-  filterStatus: string;
-  setFilterStatus: (el: string) => void;
-  filterExtra: string;
-  setFilterExtra: (el: string) => void;
+  filterStatus: { el: string; statusEnum: number };
+  setFilterStatus: (val: { el: string; statusEnum: number }) => void;
   filterLocation: string;
   setFilterLocation: (el: string) => void;
   filterNote: string;
   setFilterNote: (el: string) => void;
   priceRange: { max: number; min: number };
   setPriceRange: (el: { max: number; min: number }) => void;
+  timeRange: { startTime: string | null; endTime: string | null };
+  setTimeRange: (el: {
+    startTime: string | null;
+    endTime: string | null;
+  }) => void;
   handleApplyFilter: () => void;
 }
 
