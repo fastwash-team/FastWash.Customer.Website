@@ -14,11 +14,7 @@ import {
   WashOrderPlanData,
 } from "../../utils/types";
 import { GoogleAddressInput } from "../google-input/google-address-input";
-import {
-  errorHandler,
-  filterUniqueByKey,
-  getFWUserToken,
-} from "../../utils/functions";
+import { errorHandler, filterUniqueByKey } from "../../utils/functions";
 import { InfoMessage } from "../info-message";
 import axios from "axios";
 import moment from "moment";
@@ -31,7 +27,6 @@ export function PickupDelivery({
 }: PickupDeliveryProps) {
   const isWashPrescheduled = selectedWashType === PRESCHEDULED_WASH;
   const isClassicWash = selectedWashType === CLASSIC_WASH;
-  const userToken = getFWUserToken();
   const [schedulePerLocation, setSchedulePerLocation] = useState<
     LocationSchedule[] | []
   >([]);
@@ -117,8 +112,7 @@ export function PickupDelivery({
           process.env.REACT_APP_API_BASE_URL
         }/api/WashOrderPlans/servicetype?serviceType=${
           isWashPrescheduled ? 1 : isClassicWash ? 2 : ""
-        }`,
-        { headers: { Authorization: `Bearer ${userToken}` } }
+        }`
       );
       console.log({ responseObject });
       setSchedulePerLocation(responseObject);
