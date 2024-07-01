@@ -262,13 +262,13 @@ export function AdminRequests() {
     if (timeRange.startTime)
       url =
         url +
-        `&orderStartDate=${moment(timeRange.startTime)
-          .startOf("day")
-          .format()}`;
+        `&orderStartDate=${moment(timeRange.startTime).format().split("+")[0]}`;
     if (timeRange.endTime)
       url =
         url +
-        `&orderEndDate=${moment(timeRange.endTime).endOf("day").format()}`;
+        `&orderEndDate=${
+          moment(timeRange.endTime).endOf("day").format().split("+")[0]
+        }`;
     fetchRequests(url);
   };
 
