@@ -24,10 +24,20 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
     const {
       washOrderData: { washItemData },
     } = wash;
-    const extraMapped: any = {};
-    washItemData.forEach((el) => {
-      extraMapped[el.itemName.toLowerCase()] = el.numberOfItem;
-    });
+    const washItemDataMapped = new Map(
+      washItemData.map((el) => [el.itemName.toLowerCase(), el])
+    );
+    const extraMapped: any = {
+      washes: washItemDataMapped.get("washes")?.numberOfItem,
+      bleach: washItemDataMapped.get("bleach")?.numberOfItem,
+      softner: washItemDataMapped.get("softner")?.numberOfItem,
+      stainremover: washItemDataMapped.get("stain remover")?.numberOfItem,
+      colorcatcher: washItemDataMapped.get("color catcher")?.numberOfItem,
+      largeLaundryBags:
+        washItemDataMapped.get("laundry bags (x)")?.numberOfItem,
+      mediumLaundryBags:
+        washItemDataMapped.get("laundry bags (e)")?.numberOfItem,
+    };
     setExtras({ ...extras, ...extraMapped });
   }, [wash]);
 
@@ -194,7 +204,9 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
                     />
                   </div>
                 </div>
-                <button className='btn modal-button'>Update Wash</button>
+                <button className='btn modal-button' onClick={handleUpdateWash}>
+                  Update Wash
+                </button>
               </div>
             </div>
           </div>

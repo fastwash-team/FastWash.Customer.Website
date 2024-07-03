@@ -15,8 +15,6 @@ import { WashServiceType } from "../../../utils/types";
 export function CreatePreScheduleModal() {
   const adminToken = getFWAdminToken();
   const [loading, setLoading] = useState(false);
-  // const startTimes = timeRangeClassic.filter((el, key) => key < 4);
-  // const endTimes = timeRangeClassic.filter((el, key) => key < 5 && key !== 0);
   const startTimes = timeRangeClassic.filter(
     (el, key) => key < timeRangeClassic.length - 1
   );
@@ -50,17 +48,8 @@ export function CreatePreScheduleModal() {
         location: preData.location,
       };
     });
-    console.log({ schedules });
     setSchedules(schedules);
   };
-
-  // const handleFetchSchedules = async () => {
-  //   try {
-  //     const url = `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans?pageIndex=0&pageSize=5`;
-  //   } catch (error) {
-  //     console.log("error - handle fetch schedules", error);
-  //   }
-  // };
 
   const handleRemoveSchedule = (key: number) => {
     schedules.splice(key, 1);
@@ -127,6 +116,7 @@ export function CreatePreScheduleModal() {
               id='close-modal-2'
               data-bs-dismiss='modal'
               aria-label='Close'
+              onClick={resetPage}
             ></button>
           </div>
           <div className='modal-body _prescheduled-modal-body'>
@@ -137,6 +127,7 @@ export function CreatePreScheduleModal() {
                 onChange={({ target: { value } }) =>
                   setPreData({ ...preData, location: value })
                 }
+                value={preData.location ? preData.location : undefined}
               >
                 <option selected disabled>
                   Select an location
@@ -153,7 +144,7 @@ export function CreatePreScheduleModal() {
                   <input
                     className='form-control'
                     type='number'
-                    // value={preData.washesCount}
+                    value={preData.washesCount ? preData.washesCount : ""}
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, washesCount: Number(value) })
                     }
@@ -164,7 +155,7 @@ export function CreatePreScheduleModal() {
                   <input
                     className='form-control'
                     type='number'
-                    // value={preData.logistics}
+                    value={preData.logistics ? preData.logistics : ""}
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, logistics: Number(value) })
                     }

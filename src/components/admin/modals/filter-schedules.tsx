@@ -111,6 +111,7 @@ export function FilterScheduleModal({
                 <input
                   className='form-control'
                   type='number'
+                  placeholder='Min. Amount'
                   min={1000}
                   max={50000}
                   value={priceRange.min}
@@ -125,6 +126,7 @@ export function FilterScheduleModal({
                   className='form-control'
                   value={priceRange.max}
                   type='number'
+                  placeholder='Max Amount'
                   min={1000}
                   max={50000}
                   onChange={(e) =>
@@ -143,7 +145,7 @@ export function FilterScheduleModal({
             </p>
             <button
               type='button'
-              className='btn btn-primary'
+              className='btn btn-primary apply-btn'
               onClick={handleApplyFilter}
               data-bs-dismiss='modal'
             >

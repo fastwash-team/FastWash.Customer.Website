@@ -114,23 +114,14 @@ export const AdminDashboard = () => {
                   <i className='bi bi-plus'></i>
                 </div>
                 <ul className='dropdown-menu'>
-                  <li>
-                    <a
-                      className='dropdown-item'
-                      data-bs-toggle='modal'
-                      data-bs-target='#createSchedule'
-                    >
-                      Add Classic schedule
-                    </a>
+                  <li data-bs-toggle='modal' data-bs-target='#createSchedule'>
+                    <a className='dropdown-item'>Add Classic schedule</a>
                   </li>
-                  <li>
-                    <a
-                      className='dropdown-item'
-                      data-bs-toggle='modal'
-                      data-bs-target='#createPreSchedule'
-                    >
-                      Add pre-schedule
-                    </a>
+                  <li
+                    data-bs-toggle='modal'
+                    data-bs-target='#createPreSchedule'
+                  >
+                    <a className='dropdown-item'>Add pre-schedule</a>
                   </li>
                   <li>
                     <a className='dropdown-item' href='#'>

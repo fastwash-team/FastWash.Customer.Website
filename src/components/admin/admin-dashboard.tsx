@@ -10,7 +10,7 @@ export function AdminOverview({
       <div className='requests-boards no-btm-border'>
         <div className='board'>
           <div className='title'>
-            <h6>Pending Reschedule</h6>
+            <h6>Pending Schedule</h6>
             <i className='bi bi-chevron-right'></i>
           </div>
           <h3>{overviewData.pendingReschedule}</h3>

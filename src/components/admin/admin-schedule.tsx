@@ -51,7 +51,6 @@ export function AdminSchedule() {
     const hasFilter = !!filterSchedule || !!filterLocation;
     let url = `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
     if (hasFilter) {
-      console.log({ filterSchedule, filterLocation });
       url = `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
       if (filterLocation !== "All") url = url + `&location=${filterLocation}`;
       if (filterSchedule !== "All") {
@@ -104,13 +103,10 @@ export function AdminSchedule() {
   };
 
   const handleApplyFilter = () => {
-    console.log("filters to be applied");
     handleFetchSchedule();
   };
 
   const handleSelectSchedule = (washSchedule: WashScheduleProps) => {
-    console.log({ washSchedule });
-    // return setSelectedSchedule({ scheduleId: "ID" });
     return setSelectedSchedule(washSchedule);
   };
 
