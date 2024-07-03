@@ -14,9 +14,11 @@ import {
 } from "../../utils/functions";
 import Skeleton from "react-loading-skeleton";
 import { EmptyContainer } from "../empty-wash-item-list";
+import { useLocation } from "react-router-dom";
 
 export function AdminSchedule() {
   const adminToken = getFWAdminToken();
+  const location = useLocation();
   const [filterDay, setFilterDay] = useState("all");
   const [filterSchedule, setFilterSchedule] = useState("All");
   const [filterLocation, setFilterLocation] = useState("All");
@@ -42,9 +44,19 @@ export function AdminSchedule() {
     defaultPageSize: 5,
   });
 
+  console.log({ location });
+
+  useEffect(() => {
+    if (location?.state?.status) setFilterSchedule(location.state.status);
+  }, []);
+
   useEffect(() => {
     handleFetchSchedule();
-  }, [paginationOptions.page, paginationOptions.defaultPageSize]);
+  }, [
+    paginationOptions.page,
+    paginationOptions.defaultPageSize,
+    filterSchedule,
+  ]);
 
   const handleFetchSchedule = async () => {
     setPageLoading(true);

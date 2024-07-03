@@ -89,14 +89,24 @@ export const Dashboard = () => {
               <img src={WashingMachine} alt='washing-machine' />
             </div>
             <div className='requests-boards'>
-              <div className='board'>
+              <div
+                className='board'
+                onClick={() =>
+                  navigate("/requests", { state: { status: "active" } })
+                }
+              >
                 <div className='title'>
                   <h6>Active Requests</h6>
                   <i className='bi bi-chevron-right'></i>
                 </div>
                 <h3>{washes.active}</h3>
               </div>
-              <div className='board'>
+              <div
+                className='board'
+                onClick={() =>
+                  navigate("/requests", { state: { status: "completed" } })
+                }
+              >
                 <div className='title'>
                   <h6>Completed Wash</h6>
                   <i className='bi bi-chevron-right'></i>

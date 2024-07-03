@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { AdminOverviewProps } from "../../utils/types";
 
 export function AdminOverview({
@@ -5,17 +6,32 @@ export function AdminOverview({
 }: {
   overviewData: AdminOverviewProps;
 }) {
+  const navigate = useNavigate();
   return (
     <>
       <div className='requests-boards no-btm-border'>
-        <div className='board'>
+        <div
+          className='board'
+          onClick={() =>
+            navigate("/admin/dashboard?page=2", {
+              state: { status: "Pre-Schedule" },
+            })
+          }
+        >
           <div className='title'>
             <h6>Pending Schedule</h6>
             <i className='bi bi-chevron-right'></i>
           </div>
           <h3>{overviewData.pendingReschedule}</h3>
         </div>
-        <div className='board green'>
+        <div
+          className='board green'
+          onClick={() =>
+            navigate("/admin/dashboard?page=2", {
+              state: { status: "Classic" },
+            })
+          }
+        >
           <div className='title'>
             <h6>Pending Classic</h6>
             <i className='bi bi-chevron-right'></i>
@@ -31,7 +47,10 @@ export function AdminOverview({
           </div>
           <h3>0</h3>
         </div>
-        <div className='board'>
+        <div
+          className='board'
+          onClick={() => navigate("/admin/dashboard?page=2")}
+        >
           <div className='title'>
             <h6>All Requests</h6>
             <i className='bi bi-chevron-right'></i>

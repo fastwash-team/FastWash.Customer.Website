@@ -3,7 +3,7 @@ import { Header } from "../components/header";
 import { WashItem } from "../utils/types";
 import { WashItemComponent } from "../components/listItem";
 import { EmptyContainer } from "../components/empty-wash-item-list";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { errorHandler, getFWUserToken } from "../utils/functions";
 import Skeleton from "react-loading-skeleton";
@@ -19,6 +19,11 @@ export const Requests = () => {
   const [items, setItems] = useState<[] | WashItem[]>([]);
   const navigate = useNavigate();
   const userToken = getFWUserToken();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state) setActiveState(location.state.status);
+  }, []);
 
   const fetchRequests = async () => {
     setPageLoading(true);

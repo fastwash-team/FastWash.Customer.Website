@@ -46,7 +46,6 @@ export const getScheduleTime = (hourTime) => {
       startHour = hour;
     }
   }
-  console.log({ startHour, startMin });
 
   // if (!hourTime && Number(hour) >= startTime) startTime = Number(hour) + 1;
   // // if (hourTime) {

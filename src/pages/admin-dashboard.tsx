@@ -14,7 +14,7 @@ import { AdminPayments } from "../components/admin/admin-payments";
 export const AdminDashboard = () => {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
-  const [activeTabNo] = useState(Number(page));
+  const [activeTabNo, setActiveTabNo] = useState(Number(page));
   const adminToken = getFWAdminToken();
   const [user, setUser] = useState<{ userName?: string }>({});
   const [overviewData, setOverviewData] = useState({
@@ -22,6 +22,10 @@ export const AdminDashboard = () => {
     pendingReschedule: 0,
     allRequests: 0,
   });
+
+  useEffect(() => {
+    if (Number(page) !== activeTabNo) setActiveTabNo(Number(page));
+  }, [page]);
 
   useEffect(() => {
     handleGetAdminDetails();
