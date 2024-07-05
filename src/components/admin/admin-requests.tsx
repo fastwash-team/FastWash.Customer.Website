@@ -243,14 +243,6 @@ export function AdminRequests() {
     defaultPageSize: 5,
   });
 
-  console.log({
-    filterLocation,
-    filterNote,
-    filterStatus,
-    filterType,
-    timeRange,
-  });
-
   const handleApplyRequestFilter = () => {
     let url = `WashOrders/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
     if (filterType !== "all") {
@@ -289,7 +281,6 @@ export function AdminRequests() {
     const url = filterUrl
       ? filterUrl
       : `WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
-    console.log({ url });
     try {
       const {
         data: {

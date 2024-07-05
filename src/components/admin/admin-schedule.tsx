@@ -44,8 +44,6 @@ export function AdminSchedule() {
     defaultPageSize: 5,
   });
 
-  console.log({ location });
-
   useEffect(() => {
     if (location?.state?.status) setFilterSchedule(location.state.status);
   }, []);

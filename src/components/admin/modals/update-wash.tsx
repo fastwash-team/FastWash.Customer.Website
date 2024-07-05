@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
-import { calculateWashPrice } from "../../../utils/functions";
+import { useEffect, useMemo, useState } from "react";
+import { calculateWashPrice, getFWAdminToken } from "../../../utils/functions";
 import { Counter } from "../../schedule-pickup/customize-wash";
 import { WASH_PRICES } from "../../../utils";
-import { AdminRequest } from "../../../utils/types";
+import { AdminRequest, WashItemDataNames } from "../../../utils/types";
 import writtenNumber from "written-number";
 import axios from "axios";
+import { handleGroupWashOrders } from "../../../pages/schedule-pickup";
+import shortUUID from "short-uuid";
 
 export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
   const [extras, setExtras] = useState({
@@ -18,6 +21,8 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
     largeLaundryBags: 0,
     washes: 0,
   });
+  const [extraDifference, setExtraDifference] = useState<WashItemDataNames>({});
+  const adminToken = getFWAdminToken();
 
   useEffect(() => {
     if (!wash) return;
@@ -27,27 +32,60 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
     const washItemDataMapped = new Map(
       washItemData.map((el) => [el.itemName.toLowerCase(), el])
     );
-    const extraMapped: any = {
-      washes: washItemDataMapped.get("washes")?.numberOfItem,
-      bleach: washItemDataMapped.get("bleach")?.numberOfItem,
-      softner: washItemDataMapped.get("softner")?.numberOfItem,
-      stainremover: washItemDataMapped.get("stain remover")?.numberOfItem,
-      colorcatcher: washItemDataMapped.get("color catcher")?.numberOfItem,
+    const extraMapped: WashItemDataNames = {
+      washes: washItemDataMapped.get("washes")?.numberOfItem || 0,
+      bleach: washItemDataMapped.get("bleach")?.numberOfItem || 0,
+      softner: washItemDataMapped.get("softner")?.numberOfItem || 0,
+      stainremover: washItemDataMapped.get("stain remover")?.numberOfItem || 0,
+      colorcatcher: washItemDataMapped.get("color catcher")?.numberOfItem || 0,
       largeLaundryBags:
-        washItemDataMapped.get("laundry bags (x)")?.numberOfItem,
+        washItemDataMapped.get("laundry bags (x)")?.numberOfItem || 0,
       mediumLaundryBags:
-        washItemDataMapped.get("laundry bags (e)")?.numberOfItem,
+        washItemDataMapped.get("laundry bags (e)")?.numberOfItem || 0,
     };
     setExtras({ ...extras, ...extraMapped });
   }, [wash]);
 
+  console.log({ extraDifference });
+
   const handleExtraCount = (extra: string, operator: string) => {
     // eslint-disable-next-line @typescript-eslint/ban-types
     const value = extras[extra as keyof {}] as number;
-    if (operator === "add") return setExtras({ ...extras, [extra]: value + 1 });
+    if (operator === "add") {
+      const difference: { [key: string]: any } = extraDifference;
+      setExtraDifference({
+        ...extraDifference,
+        [extra]: (difference[extra] || 0) + 1,
+      });
+      return setExtras({ ...extras, [extra]: value + 1 });
+    }
     // if (operator === "minus" && value > 0)
     //   return setExtras({ ...extras, [extra]: value - 1 });
   };
+
+  const total = useMemo(() => {
+    // return calculateWashPrice(extraDifference.washes || 0) + extraDifference;
+    let total = 0;
+    if (extraDifference.washes)
+      total += calculateWashPrice(extraDifference.washes);
+    if (extraDifference.softner)
+      total += extraDifference.softner * WASH_PRICES.SOFTENER;
+    if (extraDifference.bleach)
+      total += extraDifference.bleach * WASH_PRICES.BLEACH;
+    if (extraDifference.stainremover)
+      total += extraDifference.stainremover * WASH_PRICES.STAIN_REMOVER;
+    if (extraDifference.largeLaundryBags)
+      total += extraDifference.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS;
+    if (extraDifference.mediumLaundryBags)
+      total += extraDifference.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS;
+    if (extraDifference.colorcatcher)
+      total += extraDifference.colorcatcher * WASH_PRICES.COLOR_CATCHER;
+    return total;
+  }, [extraDifference]);
+
+  console.log({ extras });
+
+  console.log({ total });
 
   const handleUpdateWash = async () => {
     try {
@@ -55,16 +93,19 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/add/additionalorder`,
         {
           sharedTransactionData: {
-            transactionReference: "string",
-            transactionAmount: 0,
+            transactionReference: shortUUID.generate(),
+            transactionAmount: total,
           },
-          washItemData: [
-            {
-              itemName: "string",
-              numberOfItem: 0,
-              itemAmount: 0,
-            },
-          ],
+          washItemData: handleGroupWashOrders({
+            ...extraDifference,
+            washcount: extraDifference?.washes,
+            softener: extraDifference?.softner,
+          }),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
         }
       );
     } catch (error) {

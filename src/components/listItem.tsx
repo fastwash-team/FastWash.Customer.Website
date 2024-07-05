@@ -82,7 +82,7 @@ export const PaymentItemComponent = (props: {
           </div>
           <div className='wash-item-props'>
             <div className='wash-extras'>
-              <p>FW-394030</p>
+              <p>{el.washOrderReference}</p>
               <p>transfer</p>
               {/* <p>{el.itemno}</p>
               <p>{el.type}</p> */}

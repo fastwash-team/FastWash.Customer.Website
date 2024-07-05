@@ -25,10 +25,61 @@ import {
   ScheduleSummaryProps,
   TransactionChannel,
   UserType,
+  WashItemDataNames,
   WashServiceType,
 } from "../utils/types";
 import { calculateWashPrice, errorHandler } from "../utils/functions";
 import moment from "moment";
+
+export const handleGroupWashOrders = (
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  values: WashItemDataNames | ScheduleSummaryProps
+) => {
+  const washItems = [];
+  if (values.washcount)
+    washItems.push({
+      itemName: "Washes",
+      numberOfItem: values.washcount,
+      itemAmount: calculateWashPrice(values.washcount),
+    });
+  if (values.bleach)
+    washItems.push({
+      itemName: "bleach",
+      numberOfItem: values.bleach,
+      itemAmount: values.bleach * WASH_PRICES.BLEACH,
+    });
+  if (values.colorcatcher)
+    washItems.push({
+      itemName: "Color Catcher",
+      numberOfItem: values.colorcatcher,
+      itemAmount: values.colorcatcher * WASH_PRICES.COLOR_CATCHER,
+    });
+  if (values.softener)
+    washItems.push({
+      itemName: "Softner",
+      numberOfItem: values.softener,
+      itemAmount: values.softener * WASH_PRICES.SOFTENER,
+    });
+  if (values.stainremover)
+    washItems.push({
+      itemName: "Stain Remover",
+      numberOfItem: values.stainremover,
+      itemAmount: values.stainremover * WASH_PRICES.STAIN_REMOVER,
+    });
+  if (values.largeLaundryBags)
+    washItems.push({
+      itemName: "Laundry Bags (X)",
+      numberOfItem: values.largeLaundryBags,
+      itemAmount: values.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS,
+    });
+  if (values.mediumLaundryBags)
+    washItems.push({
+      itemName: "Laundry Bags (E)",
+      numberOfItem: values.mediumLaundryBags,
+      itemAmount: values.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS,
+    });
+  return washItems;
+};
 
 export function SchedulePickup() {
   const location = useLocation();
@@ -179,53 +230,6 @@ export function SchedulePickup() {
       });
       setLoading(false);
     }
-  };
-
-  const handleGroupWashOrders = (values: ScheduleSummaryProps) => {
-    const washItems = [];
-    if (values.washcount)
-      washItems.push({
-        itemName: "Washes",
-        numberOfItem: values.washcount,
-        itemAmount: calculateWashPrice(values.washcount),
-      });
-    if (values.bleach)
-      washItems.push({
-        itemName: "bleach",
-        numberOfItem: values.bleach,
-        itemAmount: values.bleach * WASH_PRICES.BLEACH,
-      });
-    if (values.colorcatcher)
-      washItems.push({
-        itemName: "Color Catcher",
-        numberOfItem: values.colorcatcher,
-        itemAmount: values.colorcatcher * WASH_PRICES.COLOR_CATCHER,
-      });
-    if (values.softener)
-      washItems.push({
-        itemName: "Softner",
-        numberOfItem: values.softener,
-        itemAmount: values.softener * WASH_PRICES.SOFTENER,
-      });
-    if (values.stainremover)
-      washItems.push({
-        itemName: "Stain Remover",
-        numberOfItem: values.stainremover,
-        itemAmount: values.stainremover * WASH_PRICES.STAIN_REMOVER,
-      });
-    if (values.largeLaundryBags)
-      washItems.push({
-        itemName: "Laundry Bags (X)",
-        numberOfItem: values.largeLaundryBags,
-        itemAmount: values.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS,
-      });
-    if (values.mediumLaundryBags)
-      washItems.push({
-        itemName: "Laundry Bags (E)",
-        numberOfItem: values.mediumLaundryBags,
-        itemAmount: values.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS,
-      });
-    return washItems;
   };
 
   const handleTitleClick = (pageNumber: number) => {

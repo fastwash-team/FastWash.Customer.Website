@@ -1,16 +1,9 @@
 import moment from "moment";
-import {
-  formatMoney,
-  // getFWAdminToken,
-  // getFWUserToken,
-  getWashServiceType,
-} from "../../utils/functions";
+import { formatMoney, getWashServiceType } from "../../utils/functions";
 import { AdminRequest } from "../../utils/types";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
 import { useState } from "react";
-// import axios from "axios";
-// import { useState } from "react";
 
 export function AdminRequestView({
   goBack,
@@ -20,6 +13,8 @@ export function AdminRequestView({
   selectedRequest: AdminRequest | null;
 }) {
   const [wash, setWash] = useState(selectedRequest);
+
+  console.log({ wash });
 
   const completeStatusUpdate = async (washStatus: string) => {
     if (wash) setWash({ ...wash, washStatus });
@@ -69,12 +64,7 @@ export function AdminRequestView({
         </div>
         <div className='item'>
           <h5>Payment</h5>
-          <h6>
-            N {formatMoney(selectedRequest?.orderAmount)}
-            {/* {formatMoney(
-              selectedRequest?.washOrderData.transactionData.transactionAmount
-            )} */}
-          </h6>
+          <h6>N {formatMoney(selectedRequest?.orderAmount)}</h6>
         </div>
       </div>
       <div className='items'>
@@ -104,7 +94,6 @@ export function AdminRequestView({
         <div className='item'>
           <h5>Complaints</h5>
           <h6>-</h6>
-          {/* <h6>Customer was too stubborn</h6> */}
         </div>
         <div className='item'></div>
       </div>
@@ -132,24 +121,26 @@ export function AdminRequestView({
         </div>
         <div className='item'></div>
       </div>
-      <div className='actions'>
-        <div className='actions-btn'>
-          <button data-bs-toggle='modal' data-bs-target='#update-wash-modal'>
-            Add Wash
-          </button>
-          <button
-            className='update'
-            data-bs-toggle='modal'
-            data-bs-target='#update-request-status-modal'
-          >
-            Update Status
-          </button>
+      {wash?.washStatus === "Completed" ? null : (
+        <div className='actions'>
+          <div className='actions-btn'>
+            <button data-bs-toggle='modal' data-bs-target='#update-wash-modal'>
+              Add Wash
+            </button>
+            <button
+              className='update'
+              data-bs-toggle='modal'
+              data-bs-target='#update-request-status-modal'
+            >
+              Update Status
+            </button>
+          </div>
+          <div className='actions-btn'>
+            <button>Add Complaints</button>
+            <button>Reschedule Wash</button>
+          </div>
         </div>
-        <div className='actions-btn'>
-          <button>Add Complaints</button>
-          <button>Reschedule Wash</button>
-        </div>
-      </div>
+      )}
       <UpdateRequestStatus
         wash={wash}
         completeStatusUpdate={(status: string) => completeStatusUpdate(status)}

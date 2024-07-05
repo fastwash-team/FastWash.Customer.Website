@@ -94,7 +94,15 @@ export interface WashItemData {
 }
 
 export interface WashItemDataNames {
-  bleach: number;
+  bleach?: number;
+  washes?: number;
+  softner?: number;
+  stainremover?: number;
+  largeLaundryBags?: number;
+  mediumLaundryBags?: number;
+  colorcatcher?: number;
+  washcount?: number;
+  softener?: number;
 }
 
 export interface AdminPayment {
@@ -114,6 +122,7 @@ export interface PaymentItem {
   transactionChannel: string;
   transactionReference: string;
   transactionStatus: string;
+  washOrderReference: string;
 }
 
 export interface GoogleAddressInputProps {
