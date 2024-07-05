@@ -96,7 +96,7 @@ export const reLoginUser = async () => {
       data: { responseObject: authOTP },
     } = await axios.post(
       `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
-      { userId: email }
+      { userId: email, isSystemInitiated: true }
     );
     const {
       data: { responseObject },
