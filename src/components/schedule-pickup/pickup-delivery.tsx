@@ -236,7 +236,7 @@ export function PickupDelivery({
               ))}
             </select>
             {scheduleInfo.area && !days.length && (
-              <InfoMessage message='There are no available days for this location' />
+              <InfoMessage message='There are no available schedule for this location' />
             )}
             {days.length && errors?.pickupDay && !scheduleInfo.pickupDay ? (
               <InfoMessage message={errors.pickupDay} />
