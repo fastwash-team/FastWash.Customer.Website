@@ -17,7 +17,7 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
     softner: 0,
     colorcatcher: 0,
     mediumLaundryBags: 0,
-    stainremover: 0,
+    extradetergent: 0,
     largeLaundryBags: 0,
     washes: 0,
   });
@@ -36,7 +36,8 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
       washes: washItemDataMapped.get("washes")?.numberOfItem || 0,
       bleach: washItemDataMapped.get("bleach")?.numberOfItem || 0,
       softner: washItemDataMapped.get("softner")?.numberOfItem || 0,
-      stainremover: washItemDataMapped.get("stain remover")?.numberOfItem || 0,
+      extradetergent:
+        washItemDataMapped.get("stain remover")?.numberOfItem || 0,
       colorcatcher: washItemDataMapped.get("color catcher")?.numberOfItem || 0,
       largeLaundryBags:
         washItemDataMapped.get("laundry bags (x)")?.numberOfItem || 0,
@@ -72,8 +73,8 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
       total += extraDifference.softner * WASH_PRICES.SOFTENER;
     if (extraDifference.bleach)
       total += extraDifference.bleach * WASH_PRICES.BLEACH;
-    if (extraDifference.stainremover)
-      total += extraDifference.stainremover * WASH_PRICES.STAIN_REMOVER;
+    if (extraDifference.extradetergent)
+      total += extraDifference.extradetergent * WASH_PRICES.EXTRA_DETERGENT;
     if (extraDifference.largeLaundryBags)
       total += extraDifference.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS;
     if (extraDifference.mediumLaundryBags)
@@ -199,15 +200,17 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
                 <div className='extra'>
                   <div className='-info'>
                     <p className='_name'>Stain Remover</p>
-                    <p className='_price'>N{WASH_PRICES.STAIN_REMOVER}</p>
+                    <p className='_price'>N{WASH_PRICES.EXTRA_DETERGENT}</p>
                   </div>
                   <div className='extra-count'>
                     <Counter
-                      handleAdd={() => handleExtraCount("stainremover", "add")}
-                      handleMinus={() =>
-                        handleExtraCount("stainremover", "minus")
+                      handleAdd={() =>
+                        handleExtraCount("extradetergent", "add")
                       }
-                      count={extras.stainremover}
+                      handleMinus={() =>
+                        handleExtraCount("extradetergent", "minus")
+                      }
+                      count={extras.extradetergent}
                     />
                   </div>
                 </div>

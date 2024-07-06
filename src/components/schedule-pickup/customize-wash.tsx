@@ -142,14 +142,27 @@ export function CustomizeWash(props: CustomizeWashProps) {
         </div>
         <div className='extra'>
           <div className='-info'>
-            <p className='_name'>Stain remover</p>
-            <p className='_price'>N{WASH_PRICES.STAIN_REMOVER}</p>
+            <p className='_name'>Extra Detergent</p>
+            <p className='_price'>N{WASH_PRICES.EXTRA_DETERGENT}</p>
           </div>
           <div className='extra-count'>
             <Counter
-              handleAdd={() => handleExtraCount("stainremover", "add")}
-              handleMinus={() => handleExtraCount("stainremover", "minus")}
-              count={props.scheduleInfo.stainremover}
+              handleAdd={() => handleExtraCount("extradetergent", "add")}
+              handleMinus={() => handleExtraCount("extradetergent", "minus")}
+              count={props.scheduleInfo.extradetergent}
+            />
+          </div>
+        </div>
+        <div className='extra'>
+          <div className='-info'>
+            <p className='_name'>Dryer Sheets</p>
+            <p className='_price'>N{WASH_PRICES.DRYER_SHEETS}</p>
+          </div>
+          <div className='extra-count'>
+            <Counter
+              handleAdd={() => handleExtraCount("dryersheets", "add")}
+              handleMinus={() => handleExtraCount("dryersheets", "minus")}
+              count={props.scheduleInfo.dryersheets}
             />
           </div>
         </div>

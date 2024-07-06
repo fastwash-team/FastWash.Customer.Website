@@ -51,7 +51,8 @@ export interface ScheduleSummaryProps {
   softener: number;
   bleach: number;
   colorcatcher: number;
-  stainremover: number;
+  extradetergent: number;
+  dryersheets: number;
   mediumLaundryBags: number;
   largeLaundryBags: number;
   contactperson?: string;
@@ -97,7 +98,7 @@ export interface WashItemDataNames {
   bleach?: number;
   washes?: number;
   softner?: number;
-  stainremover?: number;
+  extradetergent?: number;
   largeLaundryBags?: number;
   mediumLaundryBags?: number;
   colorcatcher?: number;

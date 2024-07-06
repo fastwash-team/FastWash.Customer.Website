@@ -61,10 +61,18 @@ const BillingItems = (props: ScheduleSummaryProps) => {
           <b>N {formatMoney(WASH_PRICES.COLOR_CATCHER * props.colorcatcher)}</b>
         </div>
       )}
-      {props.stainremover > 0 && (
+      {props.extradetergent > 0 && (
         <div className='item'>
-          <span>Stain Remover ({props.stainremover})</span>
-          <b>N {formatMoney(WASH_PRICES.STAIN_REMOVER * props.stainremover)}</b>
+          <span>Extra Detergent ({props.extradetergent})</span>
+          <b>
+            N {formatMoney(WASH_PRICES.EXTRA_DETERGENT * props.extradetergent)}
+          </b>
+        </div>
+      )}
+      {props.dryersheets > 0 && (
+        <div className='item'>
+          <span>Dryer Sheets ({props.dryersheets})</span>
+          <b>N {formatMoney(WASH_PRICES.DRYER_SHEETS * props.dryersheets)}</b>
         </div>
       )}
       {props.mediumLaundryBags > 0 && (

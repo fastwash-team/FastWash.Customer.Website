@@ -60,11 +60,11 @@ export const handleGroupWashOrders = (
       numberOfItem: values.softener,
       itemAmount: values.softener * WASH_PRICES.SOFTENER,
     });
-  if (values.stainremover)
+  if (values.extradetergent)
     washItems.push({
       itemName: "Stain Remover",
-      numberOfItem: values.stainremover,
-      itemAmount: values.stainremover * WASH_PRICES.STAIN_REMOVER,
+      numberOfItem: values.extradetergent,
+      itemAmount: values.extradetergent * WASH_PRICES.EXTRA_DETERGENT,
     });
   if (values.largeLaundryBags)
     washItems.push({
@@ -126,12 +126,13 @@ export function SchedulePickup() {
       mediumLaundryBags: 0,
       bleach: 0,
       colorcatcher: 0,
-      stainremover: 0,
+      extradetergent: 0,
       contactperson: "",
       contactemail: "",
       phonenumber: "",
       laundryInstructions: "",
       logisticsAmount: 0,
+      dryersheets: 0,
     },
     onSubmit: (values) => {
       handleNextStep(values);
@@ -157,7 +158,7 @@ export function SchedulePickup() {
       scheduleInfo.colorcatcher * WASH_PRICES.COLOR_CATCHER +
       scheduleInfo.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS +
       scheduleInfo.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS +
-      scheduleInfo.stainremover * WASH_PRICES.STAIN_REMOVER
+      scheduleInfo.extradetergent * WASH_PRICES.EXTRA_DETERGENT
     );
   }, [scheduleInfo]);
 
@@ -336,13 +337,14 @@ export function SchedulePickup() {
                 softener={scheduleInfo.softener}
                 bleach={scheduleInfo.bleach}
                 colorcatcher={scheduleInfo.colorcatcher}
-                stainremover={scheduleInfo.stainremover}
+                extradetergent={scheduleInfo.extradetergent}
                 mediumLaundryBags={scheduleInfo.mediumLaundryBags}
                 largeLaundryBags={scheduleInfo.largeLaundryBags}
                 contactemail={scheduleInfo.contactemail}
                 contactperson={scheduleInfo.contactperson}
                 phonenumber={scheduleInfo.phonenumber}
                 logisticsAmount={scheduleInfo.logisticsAmount}
+                dryersheets={scheduleInfo.dryersheets}
               />
             </div>
           </div>
