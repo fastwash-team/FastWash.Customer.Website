@@ -23,6 +23,57 @@
           padding: unset !important;
         }
       }
+      .order-container {
+        background: #fafafa;
+        /* width: 60%; */
+        padding: 15px 24px;
+        border-radius: 8px;
+        width: 75%;
+        margin: 1% 10%;
+      }
+      @media (max-width: 600px) {
+        .order-container {
+          margin: unset;
+          width: fit-content;
+          padding: 15px;
+        }
+      }
+      .order-container h5 {
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 29.05px;
+        color: #020d1c;
+      }
+
+      .order-container .type_value {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19.36px;
+        color: #666666;
+      }
+
+      .order-container .type_value p:last-child {
+        font-weight: 600;
+        color: #020d1c;
+      }
+
+      .order-container .type_value.total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 29.05px;
+        color: #020d1c;
+        background: #d6e7ff;
+        padding: 24px 16px;
+        border-radius: 8px;
+      }
+
+      .order-container .type_value.total p:last-child {
+        font-weight: 600;
+      }
 
       a {
         text-decoration: none;
@@ -42,16 +93,50 @@
         New Wash Request
       </h2>
       <p style="margin-top: 12px; font-size: 16px; font-weight: 500">
-        <br /><br />
-        You have a customer request
+        Hello, <br /><br />
+        You have a new customer request
         <br /><br />
       </p>
+      <div class="order-container">
+        <h5>#{{OrderReference}}</h5>
+        <p>Address</p>
+        <b>{{StreetAddress}}</b>
+        <hr />
+        <div class="type_value">
+          <p>Service Type</p>
+          <p>{{ServiceType}}</p>
+        </div>
+        <div class="type_value">
+          <p>Pickup Time</p>
+          <p>{{PickupTime}}</p>
+        </div>
+        <div class="type_value">
+          <p>Est Delivery Time</p>
+          <p>{{EstimatedDeliveryTime}}</p>
+        </div>
+        <div class="type_value">
+          <p>Logistics</p>
+          <p>{{LogisticsAmount}}</p>
+        </div>
+        <div class="type_value">
+          <p>Number of Wash(es)</p>
+          <p>{{TotalOrderItems}}</p>
+        </div>
+        <div class="type_value">
+          <p>Value of Wash(es)</p>
+          <p>{{OrderItemsAmount}}</p>
+        </div>
+        <div class="type_value">
+          <p>Extras</p>
+          <p>{{TotalOrderExtras}}</p>
+        </div>
+        <div class="type_value total">
+          <p>Total</p>
+          <p>NGN {{TransactionAmount}}</p>
+        </div>
+      </div>
       <p style="font-size: 16px; font-weight: 500; line-height: 19.36px">
-        If you have any questions, please contact us on
-        <a href="mailto:care@fastwash.africa">care@fastwash.africa</a> or
-        <a href="tel:+2347073378261"> +234(0)7073378261</a>
-        <br /><br /><br />
-        Track your wash Here
+        Click here to view your request.
       </p>
       <button
         style="
@@ -65,19 +150,19 @@
           font-size: 18px;
           line-height: 28px;
           margin-top: 16px;
-          margin-bottom: 24px;
+          margin-bottom: 40px;
         "
       >
-        Track Status
+        View Request
       </button>
       <p style="font-size: 16px; font-weight: 500; line-height: 25px">
-        Please note: If you have multiple orders with different addresses , you
-        may receive them on different times.
+        Thank you for choosing FastWash.
+        <br /><br />
+        Should you have any questions or concerns regarding your order, please
+        feel free to contact us at
+        <a href="mailto:care@fastwash.africa">care@fastwash.africa</a> or
+        <a href="tel:+2347073378261"> +234(0)7073378261</a>
       </p>
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
     <div
       class=""

@@ -4,7 +4,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { calculateWashPrice, getFWAdminToken } from "../../../utils/functions";
 import { Counter } from "../../schedule-pickup/customize-wash";
-import { WASH_PRICES } from "../../../utils";
+import { TRANSACTION_TAG_ENUM, WASH_PRICES } from "../../../utils";
 import { AdminRequest, WashItemDataNames } from "../../../utils/types";
 import writtenNumber from "written-number";
 import axios from "axios";
@@ -96,6 +96,7 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
           sharedTransactionData: {
             transactionReference: shortUUID.generate(),
             transactionAmount: total,
+            transactionTag: TRANSACTION_TAG_ENUM.AdditionalOrder,
           },
           washItemData: handleGroupWashOrders({
             ...extraDifference,

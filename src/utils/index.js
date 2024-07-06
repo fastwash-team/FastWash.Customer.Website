@@ -15,6 +15,10 @@ export const PAYMENT_TYPES = {
   OPAY: "opay",
   PAY_FOR_ME: "pay-for-me",
 };
+export const TRANSACTION_TAG_ENUM = {
+  MainOrder: 1,
+  AdditionalOrder: 2,
+};
 
 export const WASH_PRICES = {
   LOGISTICS: 1000,

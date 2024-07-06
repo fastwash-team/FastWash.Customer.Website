@@ -11,7 +11,7 @@ import { PickupDelivery } from "../components/schedule-pickup/pickup-delivery";
 import { CustomizeWash } from "../components/schedule-pickup/customize-wash";
 import { ContactDetails } from "../components/schedule-pickup/contact-details";
 
-import { PRESCHEDULED_WASH, WASH_PRICES } from "../utils";
+import { PRESCHEDULED_WASH, TRANSACTION_TAG_ENUM, WASH_PRICES } from "../utils";
 import { ScheduleSummary } from "../components/schedule-pickup/schedule-summary";
 import { Header } from "../components/header";
 import { useFormik } from "formik";
@@ -215,6 +215,7 @@ export function SchedulePickup() {
           transactionReference: transaction.reference,
           transactionAmount: total,
           transactionChannel: TransactionChannel.PAYSTACK,
+          transactionTag: TRANSACTION_TAG_ENUM.MainOrder,
         },
       };
       await axios.post(
