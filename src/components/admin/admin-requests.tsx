@@ -73,7 +73,9 @@ const RequestList = ({
             >
               <div className='_left'>
                 <div className='_title status'>
-                  <h2>#{el.washOrderReference}</h2>
+                  <h2>
+                    #{el.washOrderReference} | {el.washOrderData.pickupTime}
+                  </h2>
                   <span className={el.washStatus.toLowerCase()}>
                     {el.washStatus}
                   </span>
