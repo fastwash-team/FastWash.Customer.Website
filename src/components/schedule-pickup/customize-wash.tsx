@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import Tooltip from "rc-tooltip";
 import {
   CounterComponentProps,
   CustomizeWashProps,
   ScheduleSummaryProps,
 } from "../../utils/types";
 import { WASH_PRICES } from "../../utils";
+import { CustomTooltip } from "../tooltip";
 
 export const Counter = (props: CounterComponentProps) => {
   return (
@@ -84,19 +84,13 @@ export function CustomizeWash(props: CustomizeWashProps) {
       </div>
       <p className='wash-description'>
         What is a Wash?
-        <Tooltip
-          placement='right'
-          trigger={["hover"]}
-          overlay={
-            <span>
-              It is one wash, dry, and fold cycle. One Wash load usually
-              consists of 10-25 items, but thicker fabrics like duvets count as
-              one full load.
-            </span>
+        <CustomTooltip
+          text={
+            "It is one wash, dry, and fold cycle. One Wash load usually consists of 10-25 items, but thicker fabrics like duvets count as one full load."
           }
         >
           <i className='bi bi-info-circle-fill' />
-        </Tooltip>
+        </CustomTooltip>
       </p>
       <h2>Extras</h2>
       <p>Add extra bags for 10% discount per bag</p>

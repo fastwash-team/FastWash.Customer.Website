@@ -15,6 +15,7 @@ import {
 import Skeleton from "react-loading-skeleton";
 import { EmptyContainer } from "../empty-wash-item-list";
 import { useLocation } from "react-router-dom";
+import { HangerIcon } from "../../assets/svgs/hanger.icon";
 
 export function AdminSchedule() {
   const adminToken = getFWAdminToken();
@@ -205,7 +206,7 @@ export function AdminSchedule() {
                             <span>{getWashServiceType(el.serviceType)}</span>
                           </p>
                           <p>
-                            <i className='bi bi-duffle-fill'></i>
+                            <HangerIcon />
                             <span>{el.totalWashOrders} Washes</span>
                           </p>
                           <p>

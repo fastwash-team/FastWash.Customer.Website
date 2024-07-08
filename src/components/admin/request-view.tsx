@@ -97,6 +97,24 @@ export function AdminRequestView({
         </div>
         <div className='item'></div>
       </div>
+      {/* <div className='additional-order-container'>
+        <div className='header status'>
+          <h5>Additional Order</h5>
+          <span className={wash?.washStatus.toLowerCase()}>
+            {wash?.washStatus}
+          </span>
+        </div>
+        <div className='body'>
+          <div className='_section'>
+            <h3>Wash Quantity</h3>
+            <p>3 Washes</p>
+          </div>
+          <div className='_section'>
+            <h3>Wash Quantity</h3>
+            <p>Softener(2), Bleach(1)</p>
+          </div>
+        </div>
+      </div> */}
       <div className='items'>
         <div className='item'>
           <h5>Customer</h5>

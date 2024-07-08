@@ -11,6 +11,7 @@ import moment from "moment";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
+import { CustomTooltip } from "../tooltip";
 
 export const RequestDetailPage = () => {
   const { state } = useLocation();
@@ -126,7 +127,10 @@ export const RequestDetailPage = () => {
               </div>
               <div className='details-item'>
                 <p>
-                  Logistics <i className='bi bi-info-circle-fill'></i>
+                  Logistics{" "}
+                  <CustomTooltip text={"Laundry Pickup and delivery fee"}>
+                    <i className='bi bi-info-circle-fill' />
+                  </CustomTooltip>
                 </p>
                 <span>
                   NGN {formatMoney(state?.washOrderData?.logisticsAmount || 0)}

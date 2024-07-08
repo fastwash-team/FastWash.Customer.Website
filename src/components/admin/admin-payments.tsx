@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   errorHandler,
+  formatMoney,
   getFWAdminToken,
   getWashServiceType,
 } from "../../utils/functions";
@@ -91,7 +92,7 @@ export function AdminPayments() {
                 <div className='_extras'>
                   <p>{getWashServiceType(el.washOrder.serviceType)}</p>
                   <p>{el.washOrder.location}</p>
-                  <p>N{el.washOrder.orderAmount}</p>
+                  <p>N{formatMoney(el.transactionAmount)}</p>
                   {/* <p>Notes: Yes</p> */}
                 </div>
               </div>

@@ -19,7 +19,7 @@ export function AdminOverview({
           }
         >
           <div className='title'>
-            <h6>Pending Schedule</h6>
+            <h6>Pending PreSchedule</h6>
             <i className='bi bi-chevron-right'></i>
           </div>
           <h3>{overviewData.pendingReschedule}</h3>
@@ -49,7 +49,7 @@ export function AdminOverview({
         </div>
         <div
           className='board'
-          onClick={() => navigate("/admin/dashboard?page=2")}
+          onClick={() => navigate("/admin/dashboard?page=3")}
         >
           <div className='title'>
             <h6>All Requests</h6>

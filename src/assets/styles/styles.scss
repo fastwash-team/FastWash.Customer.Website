@@ -2103,7 +2103,7 @@ button:disabled {
           p {
             display: flex;
             gap: 4px;
-            align-items: baseline;
+            align-items: center;
             margin-bottom: 0;
             i {
               color: #666666;
@@ -2707,6 +2707,49 @@ button:disabled {
       &.hasBorderBottom {
         padding-bottom: 24px;
         border-bottom: 1px solid #d9d9d9;
+      }
+    }
+    .additional-order-container {
+      background: #fafafa;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      .header {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 16px;
+        h5 {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 16px;
+          color: #020d1c;
+          text-align: end;
+        }
+        span {
+          border-radius: 32px;
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 14px;
+        }
+      }
+      .body {
+        display: flex;
+        justify-content: space-between;
+        ._section {
+          h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #020d1c;
+          }
+          p {
+            color: #666666;
+            font-size: 13px;
+            font-weight: 400;
+            margin-bottom: 0;
+          }
+        }
       }
     }
     .actions {

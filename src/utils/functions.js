@@ -107,6 +107,7 @@ export const reLoginUser = async () => {
     const claims = getTokenClaims(responseObject.access_token);
     if (claims?.InternalUser) setFWAdminToken(responseObject);
     if (claims?.ExternalUser) setFWUserToken(responseObject);
+    window.location.reload();
   } catch (error) {
     console.log("error relogging user");
     // const message = errorHandler(error);

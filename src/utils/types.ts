@@ -108,6 +108,7 @@ export interface WashItemDataNames {
 
 export interface AdminPayment {
   washOrderReference: string;
+  transactionAmount: number;
   washOrder: {
     washStatus: string;
     serviceType: string;
