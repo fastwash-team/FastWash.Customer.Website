@@ -7,7 +7,7 @@ export function Layout() {
     host === "customer.dev.fastwash.africa" || "fast-wash.netlify.app";
   return (
     <div className='loader-wrapper'>
-      {isStaging && <div className='demo-banner'>DEMO</div>}
+      {isStaging && <div className='demo-banner'>STAGING</div>}
       <Outlet />
       {/* <h2>Loading</h2> */}
     </div>
