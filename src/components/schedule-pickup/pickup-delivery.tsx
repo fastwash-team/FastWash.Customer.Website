@@ -257,10 +257,18 @@ export function PickupDelivery({
                   "logisticsAmount",
                   Number(logisticsAmount || WASH_PRICES.LOGISTICS)
                 );
+                console.log({ scheduleDate, time });
+                console.log(
+                  "order date",
+                  moment(scheduleDate)
+                    .hour(Number(time.split(":")[0]) + 1)
+                    .add(1)
+                    .format()
+                );
                 changePDInfo(
                   "orderDate",
                   moment(scheduleDate)
-                    .hour(Number(time.split(":")[0]))
+                    .hour(Number(time.split(":")[0]) + 1)
                     .format()
                 );
               }}
@@ -307,7 +315,13 @@ export function PickupDelivery({
           <i className='bi bi-truck'></i>
           <p>
             Your laundry will be delivered to you{" "}
-            <b>{selectedWashType === CLASSIC_WASH ? "4hrs" : "Today"}</b>
+            <b>
+              {scheduleInfo.pickupDay && scheduleInfo.pickupWindow
+                ? moment(scheduleInfo.orderDate).isSame(new Date())
+                  ? "Today"
+                  : moment(scheduleInfo.orderDate).format("Do MMM, YYYY")
+                : ""}
+            </b>
           </p>
         </div>
       </div>

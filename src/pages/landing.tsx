@@ -29,9 +29,9 @@ const Landing: React.FC = () => {
     1500,
     "Surulere",
     1500,
-    "Ikoyi",
+    "Maryland Ikeja",
     1500,
-    "VI",
+    "Ikoyi/VI",
     1500,
     "Lekki Phase I",
     1500,
@@ -642,8 +642,8 @@ const Landing: React.FC = () => {
               <p>Yaba</p>
               <p>Gbagada</p>
               <p>Surulere</p>
-              <p>Ikoyi</p>
-              <p>VI</p>
+              <p>Maryland Ikeja</p>
+              <p>Ikoyi/VI</p>
               <p>Lekki Phase I</p>
             </div>
           </div>

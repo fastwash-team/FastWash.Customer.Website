@@ -2,7 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useState } from "react";
-import { calculateWashPrice, getFWAdminToken } from "../../../utils/functions";
+import {
+  calculateWashPrice,
+  errorHandler,
+  getFWAdminToken,
+} from "../../../utils/functions";
 import { Counter } from "../../schedule-pickup/customize-wash";
 import { TRANSACTION_TAG_ENUM, WASH_PRICES } from "../../../utils";
 import { AdminRequest, WashItemDataNames } from "../../../utils/types";
@@ -10,8 +14,15 @@ import writtenNumber from "written-number";
 import axios from "axios";
 import { handleGroupWashOrders } from "../../../pages/schedule-pickup";
 import shortUUID from "short-uuid";
+import Swal from "sweetalert2";
 
-export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
+export function UpdateWash({
+  wash,
+  handleFetchAdditionalOrder,
+}: {
+  wash: AdminRequest | null;
+  handleFetchAdditionalOrder: () => void;
+}) {
   const [extras, setExtras] = useState({
     bleach: 0,
     softner: 0,
@@ -22,6 +33,7 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
     washes: 0,
   });
   const [extraDifference, setExtraDifference] = useState<WashItemDataNames>({});
+  const [loading, setLoading] = useState(false);
   const adminToken = getFWAdminToken();
 
   useEffect(() => {
@@ -46,8 +58,6 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
     };
     setExtras({ ...extras, ...extraMapped });
   }, [wash]);
-
-  console.log({ extraDifference });
 
   const handleExtraCount = (extra: string, operator: string) => {
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -84,14 +94,11 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
     return total;
   }, [extraDifference]);
 
-  console.log({ extras });
-
-  console.log({ total });
-
   const handleUpdateWash = async () => {
     try {
+      setLoading(true);
       const res = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/add/additionalorder`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/washorders/${wash?.washOrderId}/add/additionalorder`,
         {
           sharedTransactionData: {
             transactionReference: shortUUID.generate(),
@@ -110,8 +117,19 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
           },
         }
       );
+      return Swal.fire({
+        title: "Success!",
+        text: "Additional Order has been added!",
+      });
     } catch (error) {
       console.log("updating wash", error);
+      const errorMessage = errorHandler(error);
+      return Swal.fire({
+        title: "Error!",
+        text: errorMessage || "Error adding additional items",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -249,8 +267,21 @@ export function UpdateWash({ wash }: { wash: AdminRequest | null }) {
                     />
                   </div>
                 </div>
-                <button className='btn modal-button' onClick={handleUpdateWash}>
-                  Update Wash
+                <button
+                  className='btn modal-button'
+                  onClick={handleUpdateWash}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <div
+                      className='spinner-border text-success app-spinner'
+                      role='status'
+                    >
+                      <span className='sr-only'></span>
+                    </div>
+                  ) : (
+                    "Update Wash"
+                  )}
                 </button>
               </div>
             </div>

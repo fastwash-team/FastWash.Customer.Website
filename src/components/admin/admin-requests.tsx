@@ -37,6 +37,7 @@ const RequestList = ({
   setPageLoading: (el: boolean) => void;
   hasFilter: boolean;
 }) => {
+  console.log({ paginationOptions });
   const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
   useEffect(() => {
     fetchRequests();
@@ -207,7 +208,7 @@ const RequestList = ({
         pageSize={paginationOptions.defaultPageSize}
       />
       <UpdateRequestStatus wash={selectedWash} />
-      <UpdateWash wash={selectedWash} />
+      <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
     </>
   );
 };
@@ -296,7 +297,7 @@ export function AdminRequests() {
       setPaginationOptions({
         ...paginationOptions,
         page: pageIndex,
-        totalPages: pageCount + 1,
+        totalPages: pageCount,
         pageSize: pageSize,
       });
     } catch (error) {

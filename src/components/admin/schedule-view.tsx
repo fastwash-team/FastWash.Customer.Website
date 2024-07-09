@@ -166,7 +166,7 @@ export function ScheduleView({
         />
       )}
       <UpdateRequestStatus wash={selectedWash} />
-      <UpdateWash wash={selectedWash} />
+      <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
     </div>
   );
 }

@@ -158,7 +158,8 @@ export function SchedulePickup() {
       scheduleInfo.colorcatcher * WASH_PRICES.COLOR_CATCHER +
       scheduleInfo.largeLaundryBags * WASH_PRICES.X_LAUNDRY_BAGS +
       scheduleInfo.mediumLaundryBags * WASH_PRICES.E_LAUNDRY_BAGS +
-      scheduleInfo.extradetergent * WASH_PRICES.EXTRA_DETERGENT
+      scheduleInfo.extradetergent * WASH_PRICES.EXTRA_DETERGENT +
+      scheduleInfo.dryersheets * WASH_PRICES.DRYER_SHEETS
     );
   }, [scheduleInfo]);
 
@@ -201,7 +202,7 @@ export function SchedulePickup() {
             : WashServiceType.PRESCHEDULED_WASH,
         internalNotes: values.laundryInstructions,
         logisticsAmount: values.logisticsAmount,
-        estimatedDeliveryTime: moment(new Date()).format(),
+        estimatedDeliveryTime: moment(values.orderDate).format(),
         pickupTime: values.pickupWindow,
         washItemData: washItems,
         orderNote: values.laundryInstructions,

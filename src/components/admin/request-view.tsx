@@ -1,9 +1,16 @@
 import moment from "moment";
-import { formatMoney, getWashServiceType } from "../../utils/functions";
-import { AdminRequest } from "../../utils/types";
+import {
+  formatMoney,
+  getFWAdminToken,
+  getWashServiceType,
+} from "../../utils/functions";
+import { AdditionalOrder, AdminRequest } from "../../utils/types";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { RescheduleWash } from "./modals/reschedule-wash";
+import { AddComplaint } from "./modals/add-complaint";
 
 export function AdminRequestView({
   goBack,
@@ -12,13 +19,38 @@ export function AdminRequestView({
   goBack: () => void;
   selectedRequest: AdminRequest | null;
 }) {
+  const adminToken = getFWAdminToken();
   const [wash, setWash] = useState(selectedRequest);
+  const [additionalOrder, setAdditionalOrder] =
+    useState<AdditionalOrder | null>(null);
 
   console.log({ wash });
 
   const completeStatusUpdate = async (washStatus: string) => {
     if (wash) setWash({ ...wash, washStatus });
   };
+
+  useEffect(() => {
+    handleFetchAdditionalOrder();
+  }, []);
+
+  const handleFetchAdditionalOrder = async () => {
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/additionalorder/internal`,
+        {
+          headers: { Authorization: `Bearer ${adminToken}` },
+        }
+      );
+      console.log({ responseObject });
+      setAdditionalOrder(responseObject);
+    } catch (error) {
+      console.log("additional error", error);
+    }
+  };
+
   return (
     <div className='request-view'>
       <p className='goback_'>
@@ -90,31 +122,45 @@ export function AdminRequestView({
         </div>
         <div className='item'></div>
       </div>
-      <div className='items hasBorderBottom'>
+      <div className={`items ${additionalOrder ? "" : "hasBorderBottom"}`}>
         <div className='item'>
           <h5>Complaints</h5>
           <h6>-</h6>
         </div>
         <div className='item'></div>
       </div>
-      {/* <div className='additional-order-container'>
-        <div className='header status'>
-          <h5>Additional Order</h5>
-          <span className={wash?.washStatus.toLowerCase()}>
-            {wash?.washStatus}
-          </span>
-        </div>
-        <div className='body'>
-          <div className='_section'>
-            <h3>Wash Quantity</h3>
-            <p>3 Washes</p>
+      {additionalOrder ? (
+        <>
+          <div className='additional-order-container'>
+            <div className='header status'>
+              <h5>Additional Order</h5>
+              <span className={additionalOrder?.washStatus.toLowerCase()}>
+                {additionalOrder?.washStatus}
+              </span>
+            </div>
+            <div className='body'>
+              <div className='_section'>
+                <h3>Wash Quantity</h3>
+                <p>{additionalOrder?.totalWashItems} Washes</p>
+              </div>
+              <div className='_section'>
+                <h3>Wash Quantity</h3>
+                <p>
+                  {additionalOrder?.washItemData?.map(
+                    (el, key) =>
+                      `${el.itemName}(${el.numberOfItem})${
+                        key < additionalOrder.washItemData.length - 1
+                          ? ", "
+                          : ""
+                      }`
+                  )}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className='_section'>
-            <h3>Wash Quantity</h3>
-            <p>Softener(2), Bleach(1)</p>
-          </div>
-        </div>
-      </div> */}
+          <div className='items hasBorderBottom'></div>
+        </>
+      ) : null}
       <div className='items'>
         <div className='item'>
           <h5>Customer</h5>
@@ -142,9 +188,14 @@ export function AdminRequestView({
       {wash?.washStatus === "Completed" ? null : (
         <div className='actions'>
           <div className='actions-btn'>
-            <button data-bs-toggle='modal' data-bs-target='#update-wash-modal'>
-              Add Wash
-            </button>
+            {additionalOrder ? null : (
+              <button
+                data-bs-toggle='modal'
+                data-bs-target='#update-wash-modal'
+              >
+                Add Wash
+              </button>
+            )}
             <button
               className='update'
               data-bs-toggle='modal'
@@ -154,8 +205,18 @@ export function AdminRequestView({
             </button>
           </div>
           <div className='actions-btn'>
-            <button>Add Complaints</button>
-            <button>Reschedule Wash</button>
+            <button
+              data-bs-toggle='modal'
+              data-bs-target='#add-complaint-modal'
+            >
+              Add Complaints
+            </button>
+            <button
+              data-bs-toggle='modal'
+              data-bs-target='#reschedule-wash-modal'
+            >
+              Reschedule Wash
+            </button>
           </div>
         </div>
       )}
@@ -163,7 +224,12 @@ export function AdminRequestView({
         wash={wash}
         completeStatusUpdate={(status: string) => completeStatusUpdate(status)}
       />
-      <UpdateWash wash={selectedRequest} />
+      <UpdateWash
+        wash={selectedRequest}
+        handleFetchAdditionalOrder={handleFetchAdditionalOrder}
+      />
+      <RescheduleWash wash={selectedRequest} />
+      <AddComplaint wash={selectedRequest} />
     </div>
   );
 }

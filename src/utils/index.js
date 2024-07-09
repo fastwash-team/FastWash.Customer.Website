@@ -2,9 +2,9 @@ export const supportedAreas = [
   "Yaba",
   "Lekki Phase I",
   "Surulere",
-  "Ikoyi",
+  "Maryland Ikeja",
   "Gbagada",
-  "VI",
+  "Ikoyi/VI",
 ];
 
 export const PRESCHEDULED_WASH = "pre-scheduled";

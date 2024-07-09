@@ -256,3 +256,9 @@ export interface RequestTracking {
   statusNotes: string;
   dateCreated: string;
 }
+
+export interface AdditionalOrder {
+  washStatus: string;
+  washItemData: WashItemData[];
+  totalWashItems: number;
+}
