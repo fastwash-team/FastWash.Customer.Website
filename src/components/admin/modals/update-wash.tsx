@@ -49,7 +49,8 @@ export function UpdateWash({
       bleach: washItemDataMapped.get("bleach")?.numberOfItem || 0,
       softner: washItemDataMapped.get("softner")?.numberOfItem || 0,
       extradetergent:
-        washItemDataMapped.get("stain remover")?.numberOfItem || 0,
+        washItemDataMapped.get("extradetergent")?.numberOfItem || 0,
+      dryersheets: washItemDataMapped.get("dryersheets")?.numberOfItem || 0,
       colorcatcher: washItemDataMapped.get("color catcher")?.numberOfItem || 0,
       largeLaundryBags:
         washItemDataMapped.get("laundry bags (x)")?.numberOfItem || 0,
@@ -218,8 +219,8 @@ export function UpdateWash({
                 </div>
                 <div className='extra'>
                   <div className='-info'>
-                    <p className='_name'>Stain Remover</p>
-                    <p className='_price'>N{WASH_PRICES.EXTRA_DETERGENT}</p>
+                    <p className='_name'>Dryer Sheet</p>
+                    <p className='_price'>N{WASH_PRICES.DRYER_SHEETS}</p>
                   </div>
                   <div className='extra-count'>
                     <Counter

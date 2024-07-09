@@ -99,6 +99,7 @@ export interface WashItemDataNames {
   washes?: number;
   softner?: number;
   extradetergent?: number;
+  dryersheets?: number;
   largeLaundryBags?: number;
   mediumLaundryBags?: number;
   colorcatcher?: number;

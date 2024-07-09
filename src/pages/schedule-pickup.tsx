@@ -62,9 +62,15 @@ export const handleGroupWashOrders = (
     });
   if (values.extradetergent)
     washItems.push({
-      itemName: "Stain Remover",
+      itemName: "Extra Detergent",
       numberOfItem: values.extradetergent,
       itemAmount: values.extradetergent * WASH_PRICES.EXTRA_DETERGENT,
+    });
+  if (values.dryersheets)
+    washItems.push({
+      itemName: "Dryer Sheets",
+      numberOfItem: values.dryersheets,
+      itemAmount: values.dryersheets * WASH_PRICES.DRYER_SHEETS,
     });
   if (values.largeLaundryBags)
     washItems.push({
