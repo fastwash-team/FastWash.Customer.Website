@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
-import { errorHandler } from "../utils/functions";
+import { errorHandler, validateEmail } from "../utils/functions";
 import { LoginSchema } from "../utils/schemas";
 import { InfoMessage } from "../components/info-message";
 import { useState } from "react";
@@ -21,6 +21,12 @@ export function Login(props: { isAdmin?: boolean }) {
 
   const handleLogin = async () => {
     if (!formik.values.email) return;
+    if (!validateEmail(formik.values.email))
+      return Swal.fire({
+        title: "Error",
+        text: "Invalid Email. Please, put in a valid email",
+        icon: "error",
+      });
     setLoading(true);
     try {
       await axios.post(

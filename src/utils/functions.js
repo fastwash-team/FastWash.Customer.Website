@@ -46,15 +46,6 @@ export const getScheduleTime = (hourTime) => {
       startHour = hour;
     }
   }
-
-  // if (!hourTime && Number(hour) >= startTime) startTime = Number(hour) + 1;
-  // // if (hourTime) {
-  // // }
-  // const times = [];
-  // for (let i = startHour; i < 17; i++) {
-  //   times.push(`${i}:00 - ${i + 1}:00`);
-  // }
-  // return times;
 };
 
 export const calculateWashPrice = (washCount: number) => {
@@ -75,8 +66,6 @@ export const errorHandler = (error) => {
     return "Resource not found. Please contact support!";
   }
   if (error?.response?.status === 401) {
-    // logout();
-    // return "Token has expired. Please, login again.";
     reLoginUser();
   }
   if (error?.message) return error.message;
@@ -209,4 +198,9 @@ export function filterUniqueByKey(array, key) {
   });
   newarr.sort((a, b) => a.time.localeCompare(b.time));
   return newarr;
+}
+
+export function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
 }

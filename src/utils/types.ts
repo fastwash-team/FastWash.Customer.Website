@@ -197,6 +197,7 @@ export interface AdminRequest {
     streetAddress: string;
     pickupTime: string;
     orderDate: string;
+    location: string;
     userData: { fullName: string; phoneNumber: string; email: string };
     washItemData: [
       {

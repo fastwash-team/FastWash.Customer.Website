@@ -32,6 +32,7 @@ export function UpdateWash({
     largeLaundryBags: 0,
     washes: 0,
   });
+  const [extraMapped, setExtraMapped] = useState<WashItemDataNames>({});
   const [extraDifference, setExtraDifference] = useState<WashItemDataNames>({});
   const [loading, setLoading] = useState(false);
   const adminToken = getFWAdminToken();
@@ -58,6 +59,7 @@ export function UpdateWash({
         washItemDataMapped.get("laundry bags (e)")?.numberOfItem || 0,
     };
     setExtras({ ...extras, ...extraMapped });
+    setExtraMapped(extraMapped);
   }, [wash]);
 
   const handleExtraCount = (extra: string, operator: string) => {
@@ -71,8 +73,11 @@ export function UpdateWash({
       });
       return setExtras({ ...extras, [extra]: value + 1 });
     }
-    // if (operator === "minus" && value > 0)
-    //   return setExtras({ ...extras, [extra]: value - 1 });
+    if (operator === "minus") {
+      const initialValue = extraMapped[extra as keyof {}] as number;
+      if (value > initialValue)
+        return setExtras({ ...extras, [extra]: value - 1 });
+    }
   };
 
   const total = useMemo(() => {

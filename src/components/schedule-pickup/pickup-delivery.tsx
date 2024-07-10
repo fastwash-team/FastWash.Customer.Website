@@ -19,6 +19,59 @@ import { InfoMessage } from "../info-message";
 import axios from "axios";
 import moment from "moment";
 
+export const filterScheduleToGetAvailableDays = (
+  washOrderPlanData: WashOrderPlanData[]
+) => {
+  const groupedData = washOrderPlanData.reduce(
+    (acc: { [key: string]: WashOrderPlanData[] }, curr: WashOrderPlanData) => {
+      const key = moment(curr["scheduleDate"]).format("YYYY-MM-DD");
+      // Check if the key already exists in the accumulator
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      // Push the current item into the corresponding key array
+      acc[key].push(curr);
+      return acc;
+    },
+    {}
+  );
+  const days = Object.keys(groupedData)
+    .sort()
+    .filter((el) => {
+      if (
+        moment(moment().format("YYYY-MM-DD")).isSameOrBefore(
+          moment(el).format("YYYY-MM-DD")
+        )
+      )
+        return el;
+    })
+    .map((el) => ({
+      formattedDate: moment(el).format("ddd, Do MMM"),
+      date: el,
+    }));
+  return days;
+};
+
+export const filterDaysToGetAvailableTimes = (
+  availableDays: WashOrderPlanData[]
+) => {
+  const validDateTimes: WashOrderPlanData[] = [];
+  availableDays.forEach((el) => {
+    const [hour, minute] = el.scheduleEndTime.split(":");
+    const endDateTime = moment(el.scheduleDate)
+      .hour(Number(hour))
+      .minute(Number(minute));
+    if (!moment().isAfter(endDateTime)) validDateTimes.push(el);
+  });
+  const formattedArr = validDateTimes.map((el, key) => ({
+    time: `${el.scheduleStartTime} - ${el.scheduleEndTime}`,
+    key,
+    logisticsAmount: el.logisticsAmount,
+    scheduleDate: el.scheduleDate,
+  }));
+  return filterUniqueByKey(formattedArr, "time");
+};
+
 export function PickupDelivery({
   selectedWashType,
   scheduleInfo,
@@ -82,21 +135,7 @@ export function PickupDelivery({
     );
     if (!findDate?.date) return;
     const arr = scheduleForSelectedArea[findDate?.date];
-    const validDateTimes: WashOrderPlanData[] = [];
-    arr.forEach((el) => {
-      const [hour, minute] = el.scheduleEndTime.split(":");
-      const endDateTime = moment(el.scheduleDate)
-        .hour(Number(hour))
-        .minute(Number(minute));
-      if (!moment().isAfter(endDateTime)) validDateTimes.push(el);
-    });
-    const formattedArr = validDateTimes.map((el, key) => ({
-      time: `${el.scheduleStartTime} - ${el.scheduleEndTime}`,
-      key,
-      logisticsAmount: el.logisticsAmount,
-      scheduleDate: el.scheduleDate,
-    }));
-    return filterUniqueByKey(formattedArr, "time");
+    return filterDaysToGetAvailableTimes(arr);
   }, [scheduleInfo.pickupDay, days]);
 
   useEffect(() => {
