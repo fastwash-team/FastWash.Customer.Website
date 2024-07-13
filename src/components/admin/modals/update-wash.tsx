@@ -123,10 +123,12 @@ export function UpdateWash({
           },
         }
       );
-      return Swal.fire({
+      Swal.fire({
         title: "Success!",
         text: "Additional Order has been added!",
       });
+      document.getElementById("btn-update-wash-close")?.click();
+      return handleFetchAdditionalOrder();
     } catch (error) {
       console.log("updating wash", error);
       const errorMessage = errorHandler(error);
@@ -160,6 +162,14 @@ export function UpdateWash({
             <h1 className='modal-title fs-5' id='exampleModalLabel'>
               Add Wash
             </h1>
+            <button
+              type='button'
+              style={{ display: "none" }}
+              className='btn-close'
+              id='btn-update-wash-close'
+              data-bs-dismiss='modal'
+              aria-label='Close'
+            ></button>
           </div>
           <div className='modal-body'>
             <div className='update-wash-container'>

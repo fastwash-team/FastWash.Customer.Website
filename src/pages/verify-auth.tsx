@@ -1,11 +1,12 @@
 import { Header } from "../components/header";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import {
   errorHandler,
   getTokenClaims,
+  redirectAfterLogin,
   setFWAdminToken,
   setFWUserToken,
 } from "../utils/functions";
@@ -15,7 +16,6 @@ import { useState } from "react";
 
 export function VerifyAuth() {
   const location = useLocation();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {
     state: { isAdmin, email },
@@ -61,7 +61,7 @@ export function VerifyAuth() {
       console.log({ claims, isAdmin });
       if (isAdmin && claims?.InternalUser) {
         setFWAdminToken(responseObject);
-        navigate("/admin/dashboard");
+        redirectAfterLogin("/admin/dashboard");
       }
       if (isAdmin && claims?.ExternalUser) {
         setLoading(false);
@@ -81,7 +81,7 @@ export function VerifyAuth() {
       }
       if (!isAdmin && claims?.ExternalUser) {
         setFWUserToken(responseObject);
-        navigate("/dashboard");
+        redirectAfterLogin("/dashboard");
       }
     } catch (error) {
       console.log({ error }, "validating token");

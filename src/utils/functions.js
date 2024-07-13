@@ -142,14 +142,21 @@ export const getFWAdminToken = () => {
 export const logout = () => {
   const lastRoute = window.location.pathname;
   console.log({ lastRoute });
-  // localStorage.setItem("rerouteTo", lastRoute);
-  localStorage.removeItem("rerouteTo");
+  localStorage.setItem("rerouteTo", lastRoute);
   localStorage.removeItem("fw_user_token");
   localStorage.removeItem("fw_admin_token");
   if (window.location.pathname.startsWith("/admin"))
     return window.location.replace("/admin/login");
   return window.location.replace("/login");
 };
+
+export function redirectAfterLogin(defaultUrl) {
+  const reRouteTo = localStorage.getItem("rerouteTo");
+  if (reRouteTo) {
+    localStorage.removeItem("rerouteTo");
+    window.location.replace(reRouteTo);
+  } else window.location.replace(defaultUrl);
+}
 
 export const isUserLoggedIn = () => {
   return localStorage.getItem("fw_user_token");
