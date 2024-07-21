@@ -85,7 +85,9 @@ export function VerifyAuth() {
       }
     } catch (error) {
       console.log({ error }, "validating token");
-      const errorMessage = errorHandler(error);
+      let errorMessage = errorHandler(error);
+      if (errorMessage.toLowerCase() === "user not found")
+        errorMessage = "Invalid Email Address, user not found!";
       setLoading(false);
       return Swal.fire({ title: "Error", text: errorMessage, icon: "error" });
     }

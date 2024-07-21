@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { GoogleAddressInputProps } from "../../utils/types";
 import { supportedAreas } from "../../utils";
+import Swal from "sweetalert2";
 
 export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -31,21 +32,24 @@ export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
           console.log("Selected Place:", place);
           // getting neighborhood and administrative_2
           const addressComponents = place.address_components || [];
-          console.log({ addressComponents });
-          console.log({ supportedAreas });
           const hasSupportedArea = addressComponents.filter((el) => {
-            console.log({ el });
-            supportedAreas
+            const firstEightAreaLong = el.long_name
+              .toLowerCase()
+              .substring(0, 8);
+            return supportedAreas
               .map((el) => el.toLowerCase())
-              // .includes(el.long_name.toLowerCase());
-              .some((area) => {
-                console.log({ area, el: el.long_name });
-                return el.long_name.toLowerCase().includes(area.toLowerCase());
-                return area.toLowerCase() === el.long_name.toLowerCase();
-              });
+              .flatMap((el) => el.split(" "))
+              .flatMap((el) => el.split("/"))
+              .some((area) => area.startsWith(firstEightAreaLong));
           });
-          console.log({ hasSupportedArea });
-          props.handleChange(place?.formatted_address || "");
+          if (!hasSupportedArea.length) {
+            if (inputRef && inputRef.current) inputRef.current.value = "";
+            props.handleChange("");
+            return Swal.fire({
+              title: "Invalid Location!",
+              text: "Sorry, we do not support this location yet",
+            });
+          } else props.handleChange(place?.formatted_address || "");
         });
       }
     };

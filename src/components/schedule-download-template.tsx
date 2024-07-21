@@ -2,9 +2,11 @@ import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import { HangerIcon } from "../assets/svgs/hanger.icon";
 import { formatMoney, getWashServiceType } from "../utils/functions";
 import writtenNumber from "written-number";
-import { AdminRequest, WashScheduleProps } from "../utils/types";
-import { Document, Page, View, StyleSheet, Text } from "@react-pdf/renderer";
-import { display } from "html2canvas/dist/types/css/property-descriptors/display";
+import {
+  // AdminRequest,
+  WashScheduleProps,
+} from "../utils/types";
+// import { Document, Page, View, StyleSheet, Text } from "@react-pdf/renderer";
 
 export function ScheduleDownloadTemplate({
   schedule,
