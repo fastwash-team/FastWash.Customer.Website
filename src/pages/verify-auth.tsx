@@ -112,7 +112,7 @@ export function VerifyAuth() {
                     formik.setFieldValue("token", value);
                   }
                 }}
-                // type='number'
+                type='number'
                 max={6}
               />
               {formik?.errors?.token && (

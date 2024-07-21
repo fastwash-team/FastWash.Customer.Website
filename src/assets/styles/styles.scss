@@ -12,6 +12,12 @@ $wash-yellow: #f26419;
   box-shadow: none;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .demo-banner {
   background: #16499fa1;
   color: white;
@@ -3056,6 +3062,96 @@ button:disabled {
       }
       &:not(.collapsed) {
         box-shadow: none;
+      }
+    }
+  }
+}
+
+.schedule-template {
+  .header {
+    text-align: center;
+    background: #fff8ec;
+    padding: 20px;
+  }
+  .body {
+    margin-top: 20px;
+
+    .schedule-title {
+      font-size: 24px;
+      color: #020d1c;
+      line-height: 29px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .schedule-details {
+      display: flex;
+      justify-content: space-between;
+
+      p {
+        display: flex;
+        gap: 4px;
+        color: #666666;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 15px;
+        align-items: center;
+      }
+    }
+
+    .schedule-requests-list {
+      .request {
+        border-top: 1px solid #d9d9d9;
+        padding-top: 16px;
+        margin-bottom: 16px;
+        h3 {
+          color: #020d1c;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 19.36px;
+
+          span {
+            background: #edf3fc;
+            font-size: 12px;
+            line-height: 14px;
+            font-weight: 600;
+            color: #17499f;
+            text-transform: capitalize;
+            padding: 4px 8px;
+            border-radius: 32px;
+            margin-left: 8px;
+          }
+        }
+        .tags {
+          display: flex;
+          gap: 4px;
+          margin-top: 16px;
+          p {
+            background: #f4f4f4;
+            color: #666666;
+            font-size: 13px;
+            line-height: 15px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: capitalize;
+          }
+        }
+        .contact-information {
+          display: flex;
+          flex-flow: wrap;
+          column-gap: 24px;
+          p {
+            color: #666666;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 15px;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            margin-bottom: 8px;
+          }
+        }
       }
     }
   }

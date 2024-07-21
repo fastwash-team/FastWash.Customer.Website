@@ -1,11 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import moment from "moment";
 import { formatMoney } from "../../utils/functions";
 import { AdminRequest, WashScheduleProps } from "../../utils/types";
 import writtenNumber from "written-number";
 import { EmptyContainer } from "../empty-wash-item-list";
 import { UpdateRequestStatus } from "./modals/update-request-status";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { BlobProviderParams, PDFDownloadLink } from "@react-pdf/renderer";
 import { UpdateWash } from "./modals/update-wash";
+import JsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import ReactDOMServer from "react-dom/server";
+import { ScheduleDownloadTemplate } from "../schedule-download-template";
 
 export function ScheduleView({
   goBack,
@@ -14,7 +20,59 @@ export function ScheduleView({
   goBack: () => void;
   schedule: WashScheduleProps;
 }) {
+  const reportTemplateRef = useRef(null);
   const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
+  console.log({ schedule, selectedWash });
+
+  const handleGeneratePDF = async (htmlString: string) => {
+    console.log({ htmlString });
+    // return;
+    const iframe = document.createElement("iframe");
+    iframe.style.visibility = "hidden";
+    document.body.appendChild(iframe);
+    const iframedoc: Document | undefined =
+      iframe.contentDocument || iframe?.contentWindow?.document;
+    if (!iframedoc || iframedoc === undefined) return;
+    iframedoc.body.innerHTML = htmlString;
+
+    const canvas = await html2canvas(iframedoc.body, {});
+
+    const componentWidth = iframedoc.body.offsetWidth;
+    const componentHeight = iframedoc.body.offsetHeight;
+    const orientation = componentWidth >= componentHeight ? "l" : "p";
+    // Convert the iframe into a PNG image using canvas.
+    const imgData = canvas.toDataURL("image/png");
+    // Create a PDF document and add the image as a page.
+    const doc = new JsPDF({
+      orientation,
+      unit: "px",
+      format: "a4",
+    });
+    doc.setFont("Helvetica");
+    doc.addImage(imgData, "PNG", 0, 0, componentWidth, componentHeight);
+
+    doc.save("document-1");
+
+    // Remove the iframe from the document when the file is generated.
+    document.body.removeChild(iframe);
+  };
+
+  // const handleGeneratePDF = () => {
+  //   const doc = new JsPDF({
+  //     format: "a4",
+  // unit: "px",
+  // orientation: "portrait",
+  //   });
+  //   doc.setFont("Helvetica");
+  //   if (!reportTemplateRef.current) return console.log("returned here!");
+  //   doc.html(reportTemplateRef.current, {
+  //     async callback(doc) {
+  //       console.log({ doc, fontList: doc.getFontList() });
+  //       // return;
+  //       await doc.save("document");
+  //     },
+  //   });
+  // };
   return (
     <div className='schedule-view'>
       <p className='goback_'>
@@ -45,7 +103,51 @@ export function ScheduleView({
             </p>
           </div>
         </div>
-        {(schedule?.washOrders || []).length ? <button>Download</button> : null}
+        {/* {(schedule?.washOrders || []).length ? (
+          <PDFDownloadLink
+            document={<ScheduleDownloadTemplate wash={selectedWash} />}
+            fileName='schedule.pdf'
+          >
+            {({ blob, url, loading, error }: BlobProviderParams) => (
+              <button
+                onClick={() => {
+                  console.log({ url, loading });
+                  // You can trigger the download here if needed
+                  // For example:
+                  // if (url) {
+                  //   window.open(url, "_blank");
+                  // }
+                }}
+              >
+                Download
+              </button>
+            )}
+          </PDFDownloadLink>
+        ) : null} */}
+        {(schedule?.washOrders || []).length ? (
+          <button
+            onClick={() => {
+              const template: string = ReactDOMServer.renderToString(
+                <ScheduleDownloadTemplate schedule={schedule} />
+              );
+              console.log({ template });
+              if (!template) return;
+              handleGeneratePDF(template);
+            }}
+            // onClick={() => {
+            //   const report = new JsPDF("portrait", "pt", "a4");
+            // const template: HTMLElement | null =
+            //   document.querySelector("#schedule-template");
+            // console.log({ template });
+            // if (!template) return;
+            //   report.html(template).then(() => {
+            //     report.save("report.pdf");
+            //   });
+            // }}
+          >
+            Download
+          </button>
+        ) : null}
       </div>
       {(schedule?.washOrders || []).length ? (
         (schedule.washOrders || []).map((el, key) => (
@@ -167,6 +269,9 @@ export function ScheduleView({
       )}
       <UpdateRequestStatus wash={selectedWash} />
       <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
+      <div ref={reportTemplateRef}>
+        <ScheduleDownloadTemplate schedule={schedule} />
+      </div>
     </div>
   );
 }

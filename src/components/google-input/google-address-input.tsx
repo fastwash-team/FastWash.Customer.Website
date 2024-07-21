@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { GoogleAddressInputProps } from "../../utils/types";
+import { supportedAreas } from "../../utils";
 
 export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -28,6 +29,16 @@ export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
         autocomplete.addListener("place_changed", () => {
           const place = autocomplete.getPlace();
           console.log("Selected Place:", place);
+          // getting neighborhood and administrative_2
+          const addressComponents = place.address_components || [];
+          console.log({ addressComponents });
+          const hasSupportedArea = addressComponents.find((el) => {
+            console.log({ el });
+            supportedAreas
+              .map((el) => el.toLowerCase())
+              .includes(el.long_name.toLowerCase());
+          });
+          console.log({ hasSupportedArea });
           props.handleChange(place?.formatted_address || "");
         });
       }
