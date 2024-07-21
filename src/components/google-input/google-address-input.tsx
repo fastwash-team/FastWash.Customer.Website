@@ -32,11 +32,17 @@ export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
           // getting neighborhood and administrative_2
           const addressComponents = place.address_components || [];
           console.log({ addressComponents });
-          const hasSupportedArea = addressComponents.find((el) => {
+          console.log({ supportedAreas });
+          const hasSupportedArea = addressComponents.filter((el) => {
             console.log({ el });
             supportedAreas
               .map((el) => el.toLowerCase())
-              .includes(el.long_name.toLowerCase());
+              // .includes(el.long_name.toLowerCase());
+              .some((area) => {
+                console.log({ area, el: el.long_name });
+                return el.long_name.toLowerCase().includes(area.toLowerCase());
+                return area.toLowerCase() === el.long_name.toLowerCase();
+              });
           });
           console.log({ hasSupportedArea });
           props.handleChange(place?.formatted_address || "");
