@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import WashingMachine from "../assets/svgs/washing-machine.svg";
 import { Header } from "../components/header";
 import { isUserLoggedIn } from "../utils/functions";
+import { useEffect } from "react";
 
 export function OrderCreateSuccess() {
   const navigate = useNavigate();
@@ -9,6 +10,10 @@ export function OrderCreateSuccess() {
   const handleLogin = () => {
     navigate("/login");
   };
+
+  useEffect(() => {
+    localStorage.removeItem("washOrder");
+  }, []);
 
   return (
     <div className='schedule-pickup'>

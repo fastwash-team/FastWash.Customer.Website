@@ -16,8 +16,8 @@ export function AddComplaint({ wash }: { wash: AdminRequest | null }) {
     try {
       setLoading(true);
       const res = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/add/complaint?complaintNote=${complaint}`,
-        {},
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/add/complaint`,
+        { complaintNote: complaint },
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );
       console.log({ res });

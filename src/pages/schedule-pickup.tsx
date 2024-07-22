@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import shortUUID from "short-uuid";
@@ -91,6 +91,13 @@ export function SchedulePickup() {
   const location = useLocation();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [savedWashOrder] = useState<ScheduleSummaryProps | null>(
+    JSON.parse(localStorage.getItem("washOrder") || "")
+  );
+
+  useEffect(() => {
+    if (savedWashOrder) setStep(2);
+  }, []);
 
   const validateScheduleFlow = () => {
     if (step === 1) return PickUpInformationSchema;
@@ -122,23 +129,32 @@ export function SchedulePickup() {
 
   const formik = useFormik({
     initialValues: {
-      selectedWashType: PRESCHEDULED_WASH,
-      address: location?.state?.address || "",
-      pickupDay: "",
-      pickupWindow: "",
-      washcount: 0,
-      softener: 0,
-      largeLaundryBags: 0,
-      mediumLaundryBags: 0,
-      bleach: 0,
-      colorcatcher: 0,
-      extradetergent: 0,
-      contactperson: "",
-      contactemail: "",
-      phonenumber: "",
-      laundryInstructions: "",
-      logisticsAmount: 0,
-      dryersheets: 0,
+      selectedWashType: savedWashOrder
+        ? savedWashOrder.selectedWashType
+        : PRESCHEDULED_WASH,
+      address: savedWashOrder
+        ? savedWashOrder.address
+        : location?.state?.address || "",
+      pickupDay: savedWashOrder ? savedWashOrder.pickupDay : "",
+      area: savedWashOrder ? savedWashOrder.area : "",
+      pickupWindow: savedWashOrder ? savedWashOrder.pickupWindow : "",
+      washcount: savedWashOrder ? savedWashOrder.washcount : 0,
+      softener: savedWashOrder ? savedWashOrder.softener : 0,
+      largeLaundryBags: savedWashOrder ? savedWashOrder.largeLaundryBags : 0,
+      mediumLaundryBags: savedWashOrder ? savedWashOrder.mediumLaundryBags : 0,
+      bleach: savedWashOrder ? savedWashOrder.bleach : 0,
+      colorcatcher: savedWashOrder ? savedWashOrder.colorcatcher : 0,
+      extradetergent: savedWashOrder ? savedWashOrder.extradetergent : 0,
+      contactperson: savedWashOrder ? savedWashOrder.contactperson : "",
+      contactemail: savedWashOrder ? savedWashOrder.contactemail : "",
+      phonenumber: savedWashOrder ? savedWashOrder.phonenumber : "",
+      laundryInstructions: savedWashOrder
+        ? savedWashOrder.laundryInstructions
+        : "",
+      logisticsAmount: savedWashOrder?.logisticsAmount
+        ? savedWashOrder.logisticsAmount
+        : 0,
+      dryersheets: savedWashOrder ? savedWashOrder.dryersheets : 0,
     },
     onSubmit: (values) => {
       handleNextStep(values);
@@ -197,6 +213,7 @@ export function SchedulePickup() {
         total,
         shortUUID.generate()
       );
+      localStorage.setItem("washOrder", JSON.stringify(values));
       const washItems = handleGroupWashOrders(values);
       const body = {
         streetAddress: values.address,
