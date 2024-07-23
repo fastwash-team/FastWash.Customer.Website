@@ -127,6 +127,7 @@ export function SchedulePickup() {
   const handleGoBack = () => {
     if (step > 1) {
       setStep(step - 1);
+      window.scrollTo({ top: 0 });
     }
   };
 
