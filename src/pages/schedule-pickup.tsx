@@ -159,6 +159,7 @@ export function SchedulePickup() {
         ? savedWashOrder.logisticsAmount
         : 0,
       dryersheets: savedWashOrder ? savedWashOrder.dryersheets : 0,
+      // orderDate: savedWashOrder ? savedWashOrder.orderDate : null,
     },
     onSubmit: (values) => {
       handleNextStep(values);
@@ -245,6 +246,11 @@ export function SchedulePickup() {
           transactionTag: TRANSACTION_TAG_ENUM.MainOrder,
         },
       };
+      if (!body.orderDate && values.pickupDay) {
+        body.orderDate = moment(moment(values.pickupDay, "Do, MMM YYYY"))
+          .hour(Number(values.pickupWindow.split(":")[0]) + 1)
+          .format();
+      }
       await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
         body
