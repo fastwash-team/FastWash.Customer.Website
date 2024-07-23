@@ -1,5 +1,5 @@
 export const supportedAreas = [
-  "Yaba",
+  "Yaba/Shomolu",
   "Lekki Phase I",
   "Surulere",
   "Maryland Ikeja",

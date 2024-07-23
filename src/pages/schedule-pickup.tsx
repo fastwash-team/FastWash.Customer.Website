@@ -110,6 +110,7 @@ export function SchedulePickup() {
   const handleNextStep = (values: ScheduleSummaryProps) => {
     if (step < 3) {
       setStep(step + 1);
+      window.scrollTo({ top: 0 });
     }
     if (step === 3) {
       const phoneNumber = values.phonenumber || "";

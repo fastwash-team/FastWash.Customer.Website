@@ -23,7 +23,7 @@ const Landing: React.FC = () => {
   const navigate = useNavigate();
 
   const locations = [
-    "Yaba",
+    "Yaba/Shomolu",
     1500,
     "Gbagada",
     1500,
