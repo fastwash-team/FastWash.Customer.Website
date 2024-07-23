@@ -535,7 +535,7 @@ $wash-yellow: #f26419;
         .tracker-wrapper {
           .step {
             &::before {
-              height: 70px;
+              height: 100%;
             }
             p {
               width: 75%;
@@ -546,7 +546,7 @@ $wash-yellow: #f26419;
             }
             h4 {
               &::before {
-                left: 22.5px;
+                left: none;
               }
             }
           }
