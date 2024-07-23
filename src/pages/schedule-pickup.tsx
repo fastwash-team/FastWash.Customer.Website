@@ -92,7 +92,9 @@ export function SchedulePickup() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [savedWashOrder] = useState<ScheduleSummaryProps | null>(
-    JSON.parse(localStorage.getItem("washOrder") || "")
+    localStorage.getItem("washOrder")
+      ? JSON.parse(localStorage.getItem("washOrder") || "")
+      : null
   );
 
   useEffect(() => {

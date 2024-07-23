@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { GoogleAddressInputProps } from "../../utils/types";
-import { supportedAreas } from "../../utils";
-import Swal from "sweetalert2";
+// import { supportedAreas } from "../../utils";
+// import Swal from "sweetalert2";
 
 export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -31,25 +31,26 @@ export const GoogleAddressInput = (props: GoogleAddressInputProps) => {
           const place = autocomplete.getPlace();
           console.log("Selected Place:", place);
           // getting neighborhood and administrative_2
-          const addressComponents = place.address_components || [];
-          const hasSupportedArea = addressComponents.filter((el) => {
-            const firstEightAreaLong = el.long_name
-              .toLowerCase()
-              .substring(0, 8);
-            return supportedAreas
-              .map((el) => el.toLowerCase())
-              .flatMap((el) => el.split(" "))
-              .flatMap((el) => el.split("/"))
-              .some((area) => area.startsWith(firstEightAreaLong));
-          });
-          if (!hasSupportedArea.length) {
-            if (inputRef && inputRef.current) inputRef.current.value = "";
-            props.handleChange("");
-            return Swal.fire({
-              title: "Invalid Location!",
-              text: "Sorry, we do not support this location yet",
-            });
-          } else props.handleChange(place?.formatted_address || "");
+          // const addressComponents = place.address_components || [];
+          // const hasSupportedArea = addressComponents.filter((el) => {
+          //   const firstEightAreaLong = el.long_name
+          //     .toLowerCase()
+          //     .substring(0, 8);
+          //   return supportedAreas
+          //     .map((el) => el.toLowerCase())
+          //     .flatMap((el) => el.split(" "))
+          //     .flatMap((el) => el.split("/"))
+          //     .some((area) => area.startsWith(firstEightAreaLong));
+          // });
+          // if (!hasSupportedArea.length) {
+          //   if (inputRef && inputRef.current) inputRef.current.value = "";
+          //   props.handleChange("");
+          //   return Swal.fire({
+          //     title: "Invalid Location!",
+          //     text: "Sorry, we do not support this location yet",
+          //   });
+          // } else
+          props.handleChange(place?.formatted_address || "");
         });
       }
     };

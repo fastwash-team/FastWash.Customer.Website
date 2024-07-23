@@ -18,7 +18,7 @@ import { errorHandler, filterUniqueByKey } from "../../utils/functions";
 import { InfoMessage } from "../info-message";
 import axios from "axios";
 import moment from "moment";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 export const filterScheduleToGetAvailableDays = (
   washOrderPlanData: WashOrderPlanData[]
@@ -235,27 +235,27 @@ export function PickupDelivery({
           aria-label='Default select example'
           value={!scheduleInfo.area ? undefined : scheduleInfo.area}
           onChange={({ target: { value } }) => {
-            let setA = value.split(" ");
-            setA = setA
-              .flatMap((el) => el.split("/"))
-              .filter((el) => el.length > 1);
-            let matchesAddress = false;
-            setA.forEach((el) => {
-              if (!matchesAddress && scheduleInfo.address.startsWith(el))
-                matchesAddress = true;
-            });
-            if (!matchesAddress) {
-              resetSelectBox("area");
-              changePDInfo("area", "");
-              changePDInfo("pickupDay", "");
-              changePDInfo("pickupWindow", "");
-              resetSelectBox("pickup-day");
-              resetSelectBox("pickup-window");
-              return Swal.fire({
-                title: "Invalid Area!",
-                text: "This area does not match the address you selected. Please pick the right area.",
-              });
-            }
+            // let setA = value.split(" ");
+            // setA = setA
+            //   .flatMap((el) => el.split("/"))
+            //   .filter((el) => el.length > 1);
+            // let matchesAddress = false;
+            // setA.forEach((el) => {
+            //   if (!matchesAddress && scheduleInfo.address.startsWith(el))
+            //     matchesAddress = true;
+            // });
+            // if (!matchesAddress) {
+            //   resetSelectBox("area");
+            //   changePDInfo("area", "");
+            //   changePDInfo("pickupDay", "");
+            //   changePDInfo("pickupWindow", "");
+            //   resetSelectBox("pickup-day");
+            //   resetSelectBox("pickup-window");
+            //   return Swal.fire({
+            //     title: "Invalid Area!",
+            //     text: "This area does not match the address you selected. Please pick the right area.",
+            //   });
+            // }
             changePDInfo("area", value);
             changePDInfo("pickupDay", "");
             changePDInfo("pickupWindow", "");
