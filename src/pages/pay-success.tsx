@@ -12,7 +12,7 @@ export function OrderCreateSuccess() {
   };
 
   useEffect(() => {
-    localStorage.removeItem("washOrder");
+    sessionStorage.removeItem("currentWashOrder");
   }, []);
 
   return (

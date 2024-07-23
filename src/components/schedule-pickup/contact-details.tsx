@@ -29,6 +29,7 @@ export function ContactDetails(props: ContactDetailsProps) {
           onChange={({ target: { value } }) =>
             handleContactEntry("contactperson", value)
           }
+          value={props.scheduleInfo.contactperson}
         />
         {props.errors?.contactperson && (
           <InfoMessage message={props.errors.contactperson} />
@@ -66,6 +67,7 @@ export function ContactDetails(props: ContactDetailsProps) {
               onChange={({ target: { value } }) =>
                 handleContactEntry("contactemail", value)
               }
+              value={props.scheduleInfo.contactemail}
             />
             {props.errors?.contactemail && (
               <InfoMessage message={props.errors.contactemail} />

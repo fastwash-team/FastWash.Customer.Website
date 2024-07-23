@@ -269,9 +269,9 @@ export function ScheduleView({
       )}
       <UpdateRequestStatus wash={selectedWash} />
       <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
-      <div ref={reportTemplateRef}>
+      {/* <div ref={reportTemplateRef}>
         <ScheduleDownloadTemplate schedule={schedule} />
-      </div>
+      </div> */}
     </div>
   );
 }

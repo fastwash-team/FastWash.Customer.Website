@@ -1,4 +1,5 @@
-import { createStore } from "@reduxjs/toolkit";
+// import { createStore } from "@reduxjs/toolkit";
+import { legacy_createStore as createStore } from "redux";
 import sagas from "./sagas";
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
 import createSagaMiddleware from "redux-saga";

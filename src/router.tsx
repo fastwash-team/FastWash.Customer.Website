@@ -22,7 +22,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Landing />} />
-          <Route path='/schedule-pickup' element={<SchedulePickup />} />
+          <Route path='/schedule-pickup/:id' element={<SchedulePickup />} />
           <Route path='/order/success' element={<OrderCreateSuccess />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Signup />} />

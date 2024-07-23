@@ -337,7 +337,7 @@ export function PickupDelivery({
                 );
               }}
               value={
-                scheduleInfo.pickupWindow.length
+                scheduleInfo?.pickupWindow?.length
                   ? scheduleInfo.pickupWindow
                   : undefined
               }

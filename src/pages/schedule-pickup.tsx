@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import shortUUID from "short-uuid";
 import Swal from "sweetalert2";
@@ -30,6 +30,9 @@ import {
 } from "../utils/types";
 import { calculateWashPrice, errorHandler } from "../utils/functions";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { getSchedulePickupInformation } from "../redux-files/schedule-pickup/selector";
+import { save_wash_details } from "../redux-files/schedule-pickup/reducer";
 
 export const handleGroupWashOrders = (
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -89,16 +92,19 @@ export const handleGroupWashOrders = (
 
 export function SchedulePickup() {
   const location = useLocation();
-  const [step, setStep] = useState(1);
+  const dispatch = useDispatch();
+  const schedulePickupData = useSelector(getSchedulePickupInformation);
+  const { id } = useParams();
+  const [step, setStep] = useState(Number(id || 1));
   const [loading, setLoading] = useState(false);
   const [savedWashOrder] = useState<ScheduleSummaryProps | null>(
-    localStorage.getItem("washOrder")
-      ? JSON.parse(localStorage.getItem("washOrder") || "")
-      : null
+    schedulePickupData
   );
 
+  console.log({ savedWashOrder });
+
   useEffect(() => {
-    if (savedWashOrder) setStep(2);
+    if (Number(id) < 1) window.location.replace("/schedule-pickup/1");
   }, []);
 
   const validateScheduleFlow = () => {
@@ -108,9 +114,9 @@ export function SchedulePickup() {
   };
 
   const handleNextStep = (values: ScheduleSummaryProps) => {
+    if (Object.keys(values).length) dispatch(save_wash_details({ ...values }));
     if (step < 3) {
-      setStep(step + 1);
-      window.scrollTo({ top: 0 });
+      window.location.replace(`/schedule-pickup/${step + 1}`);
     }
     if (step === 3) {
       const phoneNumber = values.phonenumber || "";
@@ -122,44 +128,60 @@ export function SchedulePickup() {
         return formik.setFieldError("phonenumber", "Invalid Phone Number");
       handleFinishScheduling({ ...values, phonenumber: formattedPhoneNumber });
     }
+    window.scrollTo({ top: 0 });
   };
 
   const handleGoBack = () => {
     if (step > 1) {
-      setStep(step - 1);
+      window.location.replace(`/schedule-pickup/${step - 1}`);
       window.scrollTo({ top: 0 });
     }
   };
 
   const formik = useFormik({
     initialValues: {
-      selectedWashType: savedWashOrder
+      selectedWashType: savedWashOrder?.selectedWashType
         ? savedWashOrder.selectedWashType
         : PRESCHEDULED_WASH,
-      address: savedWashOrder
+      address: savedWashOrder?.address
         ? savedWashOrder.address
         : location?.state?.address || "",
-      pickupDay: savedWashOrder ? savedWashOrder.pickupDay : "",
-      area: savedWashOrder ? savedWashOrder.area : "",
-      pickupWindow: savedWashOrder ? savedWashOrder.pickupWindow : "",
-      washcount: savedWashOrder ? savedWashOrder.washcount : 0,
-      softener: savedWashOrder ? savedWashOrder.softener : 0,
-      largeLaundryBags: savedWashOrder ? savedWashOrder.largeLaundryBags : 0,
-      mediumLaundryBags: savedWashOrder ? savedWashOrder.mediumLaundryBags : 0,
-      bleach: savedWashOrder ? savedWashOrder.bleach : 0,
-      colorcatcher: savedWashOrder ? savedWashOrder.colorcatcher : 0,
-      extradetergent: savedWashOrder ? savedWashOrder.extradetergent : 0,
-      contactperson: savedWashOrder ? savedWashOrder.contactperson : "",
-      contactemail: savedWashOrder ? savedWashOrder.contactemail : "",
-      phonenumber: savedWashOrder ? savedWashOrder.phonenumber : "",
-      laundryInstructions: savedWashOrder
+      pickupDay: savedWashOrder?.pickupDay ? savedWashOrder.pickupDay : "",
+      area: savedWashOrder?.area ? savedWashOrder.area : "",
+      pickupWindow: savedWashOrder?.pickupWindow
+        ? savedWashOrder.pickupWindow
+        : "",
+      washcount: savedWashOrder?.washcount ? savedWashOrder.washcount : 0,
+      softener: savedWashOrder?.softener ? savedWashOrder.softener : 0,
+      largeLaundryBags: savedWashOrder?.largeLaundryBags
+        ? savedWashOrder.largeLaundryBags
+        : 0,
+      mediumLaundryBags: savedWashOrder?.mediumLaundryBags
+        ? savedWashOrder.mediumLaundryBags
+        : 0,
+      bleach: savedWashOrder?.bleach ? savedWashOrder.bleach : 0,
+      colorcatcher: savedWashOrder?.colorcatcher
+        ? savedWashOrder.colorcatcher
+        : 0,
+      extradetergent: savedWashOrder?.extradetergent
+        ? savedWashOrder.extradetergent
+        : 0,
+      contactperson: savedWashOrder?.contactperson
+        ? savedWashOrder.contactperson
+        : "",
+      contactemail: savedWashOrder?.contactemail
+        ? savedWashOrder.contactemail
+        : "",
+      phonenumber: savedWashOrder?.phonenumber
+        ? savedWashOrder.phonenumber
+        : "",
+      laundryInstructions: savedWashOrder?.laundryInstructions
         ? savedWashOrder.laundryInstructions
         : "",
       logisticsAmount: savedWashOrder?.logisticsAmount
         ? savedWashOrder.logisticsAmount
         : 0,
-      dryersheets: savedWashOrder ? savedWashOrder.dryersheets : 0,
-      // orderDate: savedWashOrder ? savedWashOrder.orderDate : null,
+      dryersheets: savedWashOrder?.dryersheets ? savedWashOrder.dryersheets : 0,
     },
     onSubmit: (values) => {
       handleNextStep(values);
@@ -255,7 +277,6 @@ export function SchedulePickup() {
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
         body
       );
-      localStorage.setItem("washOrder", JSON.stringify(values));
       window.location.replace(transaction.authorizationUrl);
     } catch (error) {
       const errorMessage = errorHandler(error);
