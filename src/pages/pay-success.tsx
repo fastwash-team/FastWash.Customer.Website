@@ -39,7 +39,9 @@ export function OrderCreateSuccess() {
                     Go to Dashboard <i className='bi bi-arrow-right-short'></i>
                   </p>
                 ) : (
-                  <button onClick={handleLogin}>Login</button>
+                  <button style={{ display: "inline" }} onClick={handleLogin}>
+                    Login
+                  </button>
                 )}
               </div>
             </div>
