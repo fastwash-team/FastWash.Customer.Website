@@ -217,7 +217,6 @@ export function SchedulePickup() {
         total,
         shortUUID.generate()
       );
-      localStorage.setItem("washOrder", JSON.stringify(values));
       const washItems = handleGroupWashOrders(values);
       const body = {
         streetAddress: values.address,
@@ -250,6 +249,7 @@ export function SchedulePickup() {
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
         body
       );
+      localStorage.setItem("washOrder", JSON.stringify(values));
       window.location.replace(transaction.authorizationUrl);
     } catch (error) {
       const errorMessage = errorHandler(error);
