@@ -38,7 +38,8 @@ const Landing: React.FC = () => {
   ];
 
   const handleSchedulePickup = () => {
-    return navigate("/schedule-pickup", { state: { address } });
+    navigate("/schedule-pickup", { state: { address } });
+    return window.scrollTo({ top: 0 });
   };
 
   return (
