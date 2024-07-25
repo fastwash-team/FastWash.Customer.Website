@@ -83,7 +83,7 @@ export const Dashboard = () => {
                 Get your laundry done quickly and delivered today at an
                 affordable price
               </p>
-              <a href='/schedule-pickup'>
+              <a href='/schedule-pickup/1'>
                 Schedule Pickup <i className='bi bi-chevron-right'></i>
               </a>
               <img src={WashingMachine} alt='washing-machine' />

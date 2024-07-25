@@ -11,9 +11,9 @@ import {
   filterScheduleToGetAvailableDays,
 } from "../../schedule-pickup/pickup-delivery";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
-  console.log({ wash });
   const isWashPrescheduled = wash?.serviceType === "PreScheduledWash";
   const isClassicWash = wash?.serviceType === "ClassicWash";
   const [availablePickupDays, setAvailablePickupDays] = useState<
@@ -27,6 +27,12 @@ export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
     selectedLocationWashOrderPlanData,
     setSelectedLocationWashOrderPlanData,
   ] = useState<WashOrderPlanData[] | []>([]);
+  const [locationSchedules, setLocationSchedules] = useState<
+    LocationSchedule[] | []
+  >([]);
+  const [selectedArea, setSelectedArea] = useState(
+    wash?.washOrderData.location
+  );
   const [selectedPickupDay, setSelectedPickupDay] = useState("");
   const [timeLogistics, setTimeLogistics] = useState({
     time: "",
@@ -36,7 +42,12 @@ export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
 
   useEffect(() => {
     fetchSchedules();
-  }, []);
+  }, [isClassicWash, isWashPrescheduled]);
+
+  useEffect(() => {
+    if (wash?.washOrderData.location)
+      setSelectedArea(wash.washOrderData.location);
+  }, [wash]);
 
   const fetchSchedules = async () => {
     try {
@@ -49,30 +60,30 @@ export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
           isWashPrescheduled ? 1 : isClassicWash ? 2 : ""
         }`
       );
-      console.log({ locationSchedules });
-      const locationSchedule = locationSchedules.find(
-        (el: LocationSchedule) => el.location === wash?.washOrderData.location
-      );
-      console.log({ locationSchedule });
-      const days = filterScheduleToGetAvailableDays(
-        locationSchedule.washOrderPlanData
-      );
-      setSelectedLocationWashOrderPlanData(locationSchedule.washOrderPlanData);
-      console.log({ days });
-      setAvailablePickupDays(days);
+      setLocationSchedules(locationSchedules);
     } catch (error) {
       console.log("e", error);
     }
   };
 
+  useEffect(() => {
+    if (!locationSchedules.length) return;
+    const locationSchedule = locationSchedules.find(
+      (el: LocationSchedule) => el.location === selectedArea
+    );
+    if (!locationSchedule) return;
+    const days = filterScheduleToGetAvailableDays(
+      locationSchedule.washOrderPlanData
+    );
+    setSelectedLocationWashOrderPlanData(locationSchedule.washOrderPlanData);
+    setAvailablePickupDays(days);
+  }, [locationSchedules, selectedArea]);
+
   const availableTimesForPickupDay = useMemo(() => {
-    console.log({ selectedPickupDay });
     if (!selectedPickupDay) return [];
-    console.log({ selectedLocationWashOrderPlanData });
     const selectedDate = availablePickupDays.find(
       (el) => el.formattedDate === selectedPickupDay
     );
-    console.log({ selectedDate });
     if (!selectedDate?.date) return [];
     const arr = selectedLocationWashOrderPlanData.filter(
       (el: WashOrderPlanData) =>
@@ -81,7 +92,13 @@ export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
     return filterDaysToGetAvailableTimes(arr);
   }, [selectedPickupDay]);
 
-  console.log({ availableTimesForPickupDay });
+  const handleRescheduleWash = () => {
+    document.getElementById("btn-reschedule-wash-close")?.click();
+    return Swal.fire({
+      title: "We're sorry!",
+      text: "This feature is not available at the moment.",
+    });
+  };
 
   return (
     <div
@@ -126,8 +143,8 @@ export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
               <label>Choose area</label>
               <select
                 className='form-select'
-                value={wash?.washOrderData.location}
-                disabled={!!wash?.washOrderData.location}
+                value={selectedArea}
+                onChange={({ target: { value } }) => setSelectedArea(value)}
               >
                 <option selected disabled>
                   -- Select an area --
@@ -182,7 +199,12 @@ export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
                   </select>
                 </div>
               </div>
-              <button className='btn modal-button'>Reschedule Wash</button>
+              <button
+                onClick={handleRescheduleWash}
+                className='btn modal-button'
+              >
+                Reschedule Wash
+              </button>
             </div>
           </div>
         </div>

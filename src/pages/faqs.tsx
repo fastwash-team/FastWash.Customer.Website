@@ -39,7 +39,7 @@ export function FAQs() {
                   >
                     <div className='accordion-body'>
                       You can click{" "}
-                      <a href='/schedule-pickup' target='_blank'>
+                      <a href='/schedule-pickup/1' target='_blank'>
                         here
                       </a>{" "}
                       to schedule your first wash. Choose a convenient wash

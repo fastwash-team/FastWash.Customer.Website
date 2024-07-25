@@ -38,7 +38,7 @@ const Landing: React.FC = () => {
   ];
 
   const handleSchedulePickup = () => {
-    navigate("/schedule-pickup", { state: { address } });
+    navigate("/schedule-pickup/1", { state: { address } });
     return window.scrollTo({ top: 0 });
   };
 
@@ -230,7 +230,7 @@ const Landing: React.FC = () => {
                   </p>
                 </div>
                 <a
-                  href='/schedule-pickup'
+                  href='/schedule-pickup/1'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -251,7 +251,7 @@ const Landing: React.FC = () => {
                   </p>
                 </div>
                 <a
-                  href='/schedule-pickup'
+                  href='/schedule-pickup/1'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -274,7 +274,7 @@ const Landing: React.FC = () => {
                   <p>Free wrap bags</p>
                 </div>
                 <a
-                  href='/schedule-pickup'
+                  href='/schedule-pickup/1'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -290,7 +290,7 @@ const Landing: React.FC = () => {
                   <p>Free wrap bags</p>
                 </div>
                 <a
-                  href='/schedule-pickup'
+                  href='/schedule-pickup/1'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -307,7 +307,7 @@ const Landing: React.FC = () => {
                   <p>Free wrap bags</p>
                 </div>
                 <a
-                  href='/schedule-pickup'
+                  href='/schedule-pickup/1'
                   type='button'
                   className='schedule-pickup-btn'
                 >
@@ -453,7 +453,7 @@ const Landing: React.FC = () => {
                     >
                       <div className='accordion-body'>
                         You can click{" "}
-                        <a href='/schedule-pickup' target='_blank'>
+                        <a href='/schedule-pickup/1' target='_blank'>
                           here
                         </a>{" "}
                         to schedule your first wash. Choose a convenient wash
