@@ -188,6 +188,7 @@ export interface WashScheduleProps {
 
 export interface AdminRequest {
   orderAmount: number;
+  complaintNote: string;
   orderNotes: string;
   washOrderReference: string;
   washStatus: string;

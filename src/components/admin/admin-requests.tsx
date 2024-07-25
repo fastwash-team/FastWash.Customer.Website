@@ -16,6 +16,8 @@ import { Pagination } from "../pagination";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { UpdateWash } from "./modals/update-wash";
 import { useNavigate } from "react-router-dom";
+import { RescheduleWash } from "./modals/reschedule-wash";
+import { AddComplaint } from "./modals/add-complaint";
 
 const RequestList = ({
   setComponentView,
@@ -26,7 +28,7 @@ const RequestList = ({
   requests,
   pageLoading,
   hasFilter = false,
-  handleUpdateRequestStatusInList,
+  handleUpdateRequestInList,
 }: {
   setComponentView: (el: string) => void;
   setSelectedRequest: (el: AdminRequest) => void;
@@ -37,7 +39,7 @@ const RequestList = ({
   pageLoading: boolean;
   setPageLoading: (el: boolean) => void;
   hasFilter: boolean;
-  handleUpdateRequestStatusInList: (el: AdminRequest) => void;
+  handleUpdateRequestInList: (el: AdminRequest) => void;
 }) => {
   const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
   useEffect(() => {
@@ -171,12 +173,28 @@ const RequestList = ({
                       </a>
                     </li>
                     <li>
-                      <a className='dropdown-item' href='#'>
+                      <a
+                        className='dropdown-item'
+                        onClick={() => {
+                          document
+                            .getElementById("reschedule-wash-modal-btn")
+                            ?.click();
+                          setSelectedWash(el);
+                        }}
+                      >
                         Reschedule Wash
                       </a>
                     </li>
                     <li>
-                      <a className='dropdown-item' href='#'>
+                      <a
+                        className='dropdown-item'
+                        onClick={() => {
+                          document
+                            .getElementById("add-complaint-modal-btn")
+                            ?.click();
+                          setSelectedWash(el);
+                        }}
+                      >
                         Add Complaints
                       </a>
                     </li>
@@ -210,11 +228,18 @@ const RequestList = ({
       />
       <UpdateRequestStatus
         wash={selectedWash}
-        handleUpdateRequestStatusInList={(el: AdminRequest) =>
-          handleUpdateRequestStatusInList(el)
+        handleUpdateRequestInList={(el: AdminRequest) =>
+          handleUpdateRequestInList(el)
         }
       />
       <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
+      <RescheduleWash wash={selectedWash} />
+      <AddComplaint
+        wash={selectedWash}
+        handleUpdateRequestInList={(el: AdminRequest) =>
+          handleUpdateRequestInList(el)
+        }
+      />
     </>
   );
 };
@@ -287,7 +312,6 @@ export function AdminRequests() {
 
   const fetchRequests = async (filterUrl = "") => {
     setPageLoading(true);
-    // dispatch(fetch_admin_requests());
     const url = filterUrl
       ? filterUrl
       : `WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
@@ -315,7 +339,7 @@ export function AdminRequests() {
     }
   };
 
-  const handleUpdateRequestStatusInList = (wash: AdminRequest) => {
+  const handleUpdateRequestInList = (wash: AdminRequest) => {
     const requestIndex = requests.findIndex(
       (el) => el.washOrderReference === wash.washOrderReference
     );
@@ -344,8 +368,8 @@ export function AdminRequests() {
                 filterType !== "all"
               )
             }
-            handleUpdateRequestStatusInList={(wash: AdminRequest) =>
-              handleUpdateRequestStatusInList(wash)
+            handleUpdateRequestInList={(wash: AdminRequest) =>
+              handleUpdateRequestInList(wash)
             }
           />
         ) : componentView === "detail-view" ? (

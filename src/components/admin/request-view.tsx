@@ -24,8 +24,6 @@ export function AdminRequestView({
   const [additionalOrder, setAdditionalOrder] =
     useState<AdditionalOrder | null>(null);
 
-  console.log({ wash });
-
   const completeStatusUpdate = async (washStatus: string) => {
     if (wash) setWash({ ...wash, washStatus });
   };
@@ -125,7 +123,7 @@ export function AdminRequestView({
       <div className={`items ${additionalOrder ? "" : "hasBorderBottom"}`}>
         <div className='item'>
           <h5>Complaints</h5>
-          <h6>-</h6>
+          <h6>{selectedRequest?.complaintNote || "-"}</h6>
         </div>
         <div className='item'></div>
       </div>

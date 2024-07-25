@@ -7,11 +7,11 @@ import Swal from "sweetalert2";
 export function UpdateRequestStatus({
   wash,
   completeStatusUpdate,
-  handleUpdateRequestStatusInList,
+  handleUpdateRequestInList,
 }: {
   wash: AdminRequest | null;
   completeStatusUpdate?: (status: string) => void;
-  handleUpdateRequestStatusInList?: (el: AdminRequest) => void;
+  handleUpdateRequestInList?: (el: AdminRequest) => void;
 }) {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<number | null>(null);
@@ -56,8 +56,8 @@ export function UpdateRequestStatus({
         text: "Successfully updated order status",
       });
       const updatedStatus = statuses[status - 1];
-      if (handleUpdateRequestStatusInList)
-        handleUpdateRequestStatusInList({ ...wash, washStatus: updatedStatus });
+      if (handleUpdateRequestInList)
+        handleUpdateRequestInList({ ...wash, washStatus: updatedStatus });
       if (completeStatusUpdate) completeStatusUpdate(updatedStatus);
       document.getElementById("btn-update-request-status-close")?.click();
       setStatus(null);

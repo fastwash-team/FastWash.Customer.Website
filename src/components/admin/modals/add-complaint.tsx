@@ -4,23 +4,28 @@ import axios from "axios";
 import { errorHandler, getFWAdminToken } from "../../../utils/functions";
 import Swal from "sweetalert2";
 
-export function AddComplaint({ wash }: { wash: AdminRequest | null }) {
-  console.log({ wash });
+export function AddComplaint({
+  wash,
+  handleUpdateRequestInList,
+}: {
+  wash: AdminRequest | null;
+  handleUpdateRequestInList?: (el: AdminRequest) => void;
+}) {
   const adminToken = getFWAdminToken();
   const [complaint, setComplaint] = useState("");
   const [loading, setLoading] = useState(false);
 
-  console.log({ complaint });
-
   const handleSaveComplaint = async () => {
     try {
       setLoading(true);
-      const res = await axios.put(
+      await axios.put(
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/add/complaint`,
         { complaintNote: complaint },
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );
-      console.log({ res });
+      if (handleUpdateRequestInList && wash)
+        handleUpdateRequestInList({ ...wash, complaintNote: complaint });
+      document.getElementById("btn-add-complaint-close")?.click();
       return Swal.fire({
         title: "Success!",
         text: "Complaint note has been saved!",
