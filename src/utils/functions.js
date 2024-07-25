@@ -122,6 +122,7 @@ export const setFWAdminToken = (userObj) => {
 };
 
 const checkTokenExpiry = (token) => {
+  if (!token) return logout();
   const { exp } = getTokenClaims(token);
   const diff = moment.unix(exp).diff(moment(), "minutes");
   if (diff < 15) return reLoginUser();
@@ -141,6 +142,7 @@ export const getFWAdminToken = () => {
 
 export const logout = () => {
   const lastRoute = window.location.pathname;
+  if (lastRoute === "/login" || lastRoute === "/admin/login") return;
   console.log({ lastRoute });
   localStorage.setItem("rerouteTo", lastRoute);
   localStorage.removeItem("fw_user_token");

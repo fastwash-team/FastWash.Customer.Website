@@ -26,6 +26,7 @@ const RequestList = ({
   requests,
   pageLoading,
   hasFilter = false,
+  handleUpdateRequestStatusInList,
 }: {
   setComponentView: (el: string) => void;
   setSelectedRequest: (el: AdminRequest) => void;
@@ -36,8 +37,8 @@ const RequestList = ({
   pageLoading: boolean;
   setPageLoading: (el: boolean) => void;
   hasFilter: boolean;
+  handleUpdateRequestStatusInList: (el: AdminRequest) => void;
 }) => {
-  console.log({ paginationOptions });
   const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
   useEffect(() => {
     fetchRequests();
@@ -207,7 +208,12 @@ const RequestList = ({
         }
         pageSize={paginationOptions.defaultPageSize}
       />
-      <UpdateRequestStatus wash={selectedWash} />
+      <UpdateRequestStatus
+        wash={selectedWash}
+        handleUpdateRequestStatusInList={(el: AdminRequest) =>
+          handleUpdateRequestStatusInList(el)
+        }
+      />
       <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
     </>
   );
@@ -281,6 +287,7 @@ export function AdminRequests() {
 
   const fetchRequests = async (filterUrl = "") => {
     setPageLoading(true);
+    // dispatch(fetch_admin_requests());
     const url = filterUrl
       ? filterUrl
       : `WashOrders?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
@@ -308,6 +315,14 @@ export function AdminRequests() {
     }
   };
 
+  const handleUpdateRequestStatusInList = (wash: AdminRequest) => {
+    const requestIndex = requests.findIndex(
+      (el) => el.washOrderReference === wash.washOrderReference
+    );
+    requests[requestIndex] = { ...wash };
+    setRequests([...requests]);
+  };
+
   return (
     <>
       <div className='admin-column'>
@@ -328,6 +343,9 @@ export function AdminRequests() {
                 (timeRange.startTime && timeRange.endTime) ||
                 filterType !== "all"
               )
+            }
+            handleUpdateRequestStatusInList={(wash: AdminRequest) =>
+              handleUpdateRequestStatusInList(wash)
             }
           />
         ) : componentView === "detail-view" ? (
