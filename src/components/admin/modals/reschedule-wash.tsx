@@ -41,6 +41,7 @@ export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
   console.log({ timeLogistics });
 
   useEffect(() => {
+    if (!wash) return;
     fetchSchedules();
   }, [isClassicWash, isWashPrescheduled]);
 

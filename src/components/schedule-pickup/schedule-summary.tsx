@@ -21,7 +21,7 @@ const BillingItems = (props: ScheduleSummaryProps) => {
         <b>{props.pickupWindow}</b>
       </div>
       <div className='item'>
-        <span>Est Delivery Time</span>
+        <span>Est Delivery Date</span>
         <b>{props.pickupDay || "-"}</b>
       </div>
       <div className='item'>

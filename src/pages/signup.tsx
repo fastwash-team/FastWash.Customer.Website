@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import { SignUpSchema } from "../utils/schemas";
 import { InfoMessage } from "../components/info-message";
-import { errorHandler } from "../utils/functions";
+import { errorHandler, validateEmail } from "../utils/functions";
 
 export function Signup() {
   const navigate = useNavigate();
@@ -19,6 +19,12 @@ export function Signup() {
   });
 
   const handleSignup = async () => {
+    if (!validateEmail(formik.values.email))
+      return Swal.fire({
+        title: "Error",
+        text: "Invalid Email. Please, put in a valid email",
+        icon: "error",
+      });
     setLoading(true);
     try {
       const body = { ...formik.values, userType: 1 };
@@ -26,6 +32,10 @@ export function Signup() {
         `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/signup`,
         body
       );
+      Swal.fire({
+        title: "Successful!",
+        text: "You have been registered successfully, please login",
+      });
       return navigate("/login");
     } catch (error) {
       console.log("sign up error", error);

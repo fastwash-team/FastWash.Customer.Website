@@ -93,6 +93,18 @@ export function VerifyAuth() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChange = (e: any) => {
+    const newValue = e.target.value;
+    if (/^[0-9]*$/.test(newValue)) {
+      console.log({ newValue });
+      const token = Number(newValue);
+      if (String(token).length <= 6) {
+        formik.setFieldValue("token", newValue);
+      }
+    }
+  };
+
   return (
     <div className='login'>
       <Header />
@@ -108,12 +120,16 @@ export function VerifyAuth() {
                 className='form-control'
                 placeholder='Enter 6 digit code'
                 value={formik.values.token}
-                onChange={({ target: { value } }) => {
-                  const token = Number(value);
-                  if (String(token).length <= 6) {
-                    formik.setFieldValue("token", value);
-                  }
-                }}
+                onChange={handleChange}
+                // onChange={(e) => {
+                //   console.log("sdsss", e);
+                //   if (!e) return;
+                //   const { value } = e.target;
+                //   const token = Number(value);
+                //   if (String(token).length <= 6) {
+                //     formik.setFieldValue("token", value);
+                //   }
+                // }}
                 type='number'
                 max={6}
               />

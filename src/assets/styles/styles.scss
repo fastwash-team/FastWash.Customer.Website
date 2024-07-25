@@ -1513,7 +1513,6 @@ button:disabled {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 56px;
 
     &.-admin {
       margin-top: 16px;
@@ -1575,11 +1574,44 @@ button:disabled {
       align-items: center;
       border-radius: 50%;
       cursor: pointer;
+      position: relative;
       i {
         font-size: 24px;
         color: #17499f;
 
         &.dropdown {
+        }
+      }
+
+      .user-card {
+        box-shadow: 0px 2px 8px 0px #00000014;
+        background: #fff;
+        width: 304px;
+        height: 128px;
+        position: absolute;
+        z-index: 1;
+        top: 56px;
+        right: 0;
+        border-radius: 8px;
+        padding: 16px;
+        color: #020d1c;
+
+        h3 {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 16px;
+          margin-bottom: 9px;
+        }
+
+        p {
+          color: #666666;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 14px;
+          margin-bottom: 9px;
+          display: flex;
+          column-gap: 8px;
+          align-items: center;
         }
       }
     }

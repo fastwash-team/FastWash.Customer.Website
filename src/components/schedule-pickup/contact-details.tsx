@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import OpayLogo from "../../assets/svgs/OPay - png.png";
+// import OpayLogo from "../../assets/svgs/OPay - png.png";
 import PaystackLogo from "../../assets/svgs/paystack.svg";
 import { PAYMENT_TYPES } from "../../utils";
 import { CustomizeWashProps as ContactDetailsProps } from "../../utils/types";
@@ -77,8 +77,8 @@ export function ContactDetails(props: ContactDetailsProps) {
       </div>
       <div className='payments'>
         <h3>Payment</h3>
-        <p>Choose a payment option</p>
-        <div
+        {/* <p>Choose a payment option</p> */}
+        {/* <div
           className={`payment-option ${
             paymentOption === PAYMENT_TYPES.WALLET && "active"
           } disabled`}
@@ -89,7 +89,7 @@ export function ContactDetails(props: ContactDetailsProps) {
             <b>Pay with Wallet </b>
             <span>- NGN 5,000</span>
           </p>
-        </div>
+        </div> */}
         <div
           className={`payment-option ${
             paymentOption === PAYMENT_TYPES.PAYSTACK && "active"
@@ -100,28 +100,25 @@ export function ContactDetails(props: ContactDetailsProps) {
           <p>
             <b>Pay with Paystack </b>
           </p>
-          <input
+          {/* <input
             type='radio'
             checked={paymentOption === PAYMENT_TYPES.PAYSTACK}
-          />
+          /> */}
         </div>
-        <div
+        {/* <div
           className={`payment-option ${
             paymentOption === PAYMENT_TYPES.OPAY && "active"
           } disabled`}
-          // onClick={() => setPaymentOption(PAYMENT_TYPES.OPAY)}
         >
           <img src={OpayLogo} alt='opay logo' />
           <p>
             <b>Pay with Opay </b>
           </p>
-          {/* <input type='radio' checked={paymentOption === PAYMENT_TYPES.OPAY} /> */}
-        </div>
-        <div
+        </div> */}
+        {/* <div
           className={`payment-option ${
             paymentOption === PAYMENT_TYPES.PAY_FOR_ME && "active"
           } disabled`}
-          // onClick={() => setPaymentOption(PAYMENT_TYPES.PAY_FOR_ME)}
         >
           <div className='user-icon'>
             <i className='bi bi-person-plus-fill'></i>
@@ -131,15 +128,11 @@ export function ContactDetails(props: ContactDetailsProps) {
               Pay for me <span>(Get a friend to pay for your wash)</span>{" "}
             </b>
           </p>
-          {/* <input
-            type='radio'
-            checked={paymentOption === PAYMENT_TYPES.PAY_FOR_ME}
-          /> */}
-        </div>
-        <div className='coupon mt-3'>
+        </div> */}
+        {/* <div className='coupon mt-3'>
           <input className='form-control' placeholder='Enter code here' />
           <button>Apply</button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

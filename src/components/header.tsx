@@ -36,9 +36,7 @@ export function Header({ isExtendedHeader = false }) {
             <button className='d-flex' onClick={handleLogout}>
               Logout
             </button>
-          ) : (
-            <button className='d-flex'>Menu</button>
-          )}
+          ) : null}
         </div>
       </nav>
       {isExtendedHeader ? (
