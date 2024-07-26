@@ -379,6 +379,24 @@ export function SchedulePickup() {
                   }
                 />
               ) : null}
+              <button
+                className='mt-4 mb-5 next-button'
+                disabled={loading}
+                onClick={() => formik.handleSubmit()}
+              >
+                {loading ? (
+                  <div
+                    className='spinner-border text-success app-spinner'
+                    role='status'
+                  >
+                    <span className='sr-only'></span>
+                  </div>
+                ) : step === 3 ? (
+                  "Make Payment"
+                ) : (
+                  "Next"
+                )}
+              </button>
             </div>
             <div className='col-2'></div>
             <div className='col-md-5 col-sm-12 col-summary'>
@@ -404,24 +422,6 @@ export function SchedulePickup() {
               />
             </div>
           </div>
-          <button
-            className='mt-4 mb-5 next-button'
-            disabled={loading}
-            onClick={() => formik.handleSubmit()}
-          >
-            {loading ? (
-              <div
-                className='spinner-border text-success app-spinner'
-                role='status'
-              >
-                <span className='sr-only'></span>
-              </div>
-            ) : step === 3 ? (
-              "Make Payment"
-            ) : (
-              "Next"
-            )}
-          </button>
         </div>
       </div>
     </div>

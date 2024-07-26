@@ -24,11 +24,12 @@ const RequestList = ({
   setSelectedRequest,
   paginationOptions,
   setPaginationOptions,
-  fetchRequests,
+  // fetchRequests,
   requests,
   pageLoading,
   hasFilter = false,
   handleUpdateRequestInList,
+  handleApplyRequestFilter,
 }: {
   setComponentView: (el: string) => void;
   setSelectedRequest: (el: AdminRequest) => void;
@@ -40,10 +41,12 @@ const RequestList = ({
   setPageLoading: (el: boolean) => void;
   hasFilter: boolean;
   handleUpdateRequestInList: (el: AdminRequest) => void;
+  handleApplyRequestFilter: () => void;
 }) => {
   const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
   useEffect(() => {
-    fetchRequests();
+    // fetchRequests();
+    handleApplyRequestFilter();
   }, [paginationOptions.page, paginationOptions.defaultPageSize]);
   const navigate = useNavigate();
 
@@ -278,8 +281,10 @@ export function AdminRequests() {
   });
 
   const handleApplyRequestFilter = () => {
-    let url = `WashOrders/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
-    if (filterType !== "all") {
+    setPaginationOptions({ ...paginationOptions, page: 0 });
+    let url = `WashOrders/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=0`;
+    console.log({ filterType });
+    if (filterType.toLowerCase() !== "all") {
       const scheduleEnum =
         filterType === "Prescheduled" ? 1 : filterType === "Classic" ? 2 : null;
       url = url + `&serviceType=${scheduleEnum}`;
@@ -311,6 +316,7 @@ export function AdminRequests() {
   };
 
   const fetchRequests = async (filterUrl = "") => {
+    console.log({ filterUrl });
     setPageLoading(true);
     const url = filterUrl
       ? filterUrl
@@ -371,6 +377,7 @@ export function AdminRequests() {
             handleUpdateRequestInList={(wash: AdminRequest) =>
               handleUpdateRequestInList(wash)
             }
+            handleApplyRequestFilter={handleApplyRequestFilter}
           />
         ) : componentView === "detail-view" ? (
           <AdminRequestView

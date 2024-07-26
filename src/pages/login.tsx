@@ -3,10 +3,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
-import { errorHandler, validateEmail } from "../utils/functions";
+import {
+  errorHandler,
+  isUserLoggedIn,
+  validateEmail,
+} from "../utils/functions";
 import { LoginSchema } from "../utils/schemas";
 import { InfoMessage } from "../components/info-message";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Login(props: { isAdmin?: boolean }) {
   const [loading, setLoading] = useState(false);
@@ -18,6 +22,10 @@ export function Login(props: { isAdmin?: boolean }) {
     onSubmit: () => handleLogin(),
     validationSchema: LoginSchema,
   });
+
+  useEffect(() => {
+    if (isUserLoggedIn()) return navigate("/dashboard");
+  }, []);
 
   const handleLogin = async () => {
     if (!formik.values.email) return;

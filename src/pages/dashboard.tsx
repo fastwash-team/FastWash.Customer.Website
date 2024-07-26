@@ -8,7 +8,11 @@ import { errorHandler, getFWUserToken } from "../utils/functions";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<{ userName?: string }>({});
+  const [user, setUser] = useState<{
+    userName?: string;
+    userEmail?: string;
+    userPhoneNumber?: string;
+  }>({});
   const [washes, setWashes] = useState({ active: 0, completed: 0 });
   const [showUserCard, setShowUserCard] = useState(false);
 
@@ -89,7 +93,7 @@ export const Dashboard = () => {
                     className='user-card'
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <h3>Gbolahan Fawale</h3>
+                    <h3>{user.userName}</h3>
                     <p>
                       <svg
                         width='16'
@@ -110,7 +114,7 @@ export const Dashboard = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                      gb@meial.com
+                      {user.userEmail}
                     </p>
                     <p>
                       <svg
@@ -132,7 +136,7 @@ export const Dashboard = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                      08068156789
+                      {user.userPhoneNumber}
                     </p>
                     <p>
                       <svg

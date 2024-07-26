@@ -1014,7 +1014,7 @@ button:disabled {
         color: #fafafa;
         font-size: 14px;
         font-weight: 700;
-        width: 41%;
+        width: 100%;
         padding: 19px;
       }
 
@@ -1170,7 +1170,7 @@ button:disabled {
           align-items: center;
           gap: 32px;
           cursor: pointer;
-          margin-bottom: 16px;
+          // margin-bottom: 16px;
           position: relative;
           &.active {
             border: 1px solid #f6ae2d;
