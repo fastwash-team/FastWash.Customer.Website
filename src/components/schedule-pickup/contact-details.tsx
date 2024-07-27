@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import OpayLogo from "../../assets/svgs/OPay - png.png";
 import PaystackLogo from "../../assets/svgs/paystack.svg";
 import { PAYMENT_TYPES } from "../../utils";
@@ -9,6 +9,10 @@ export function ContactDetails(props: ContactDetailsProps) {
   const [paymentOption, setPaymentOption] = useState<string | null>(
     PAYMENT_TYPES.PAYSTACK
   );
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   const handleContactEntry = (key: string, value: string) => {
     return props.changePDInfo(key, value);

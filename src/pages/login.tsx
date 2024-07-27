@@ -11,6 +11,7 @@ import {
 import { LoginSchema } from "../utils/schemas";
 import { InfoMessage } from "../components/info-message";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export function Login(props: { isAdmin?: boolean }) {
   const [loading, setLoading] = useState(false);
@@ -41,11 +42,7 @@ export function Login(props: { isAdmin?: boolean }) {
         `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
         { userId: formik.values.email }
       );
-      Swal.fire({
-        title: "Verify yourself!",
-        text: "A verification code has been sent to your inbox",
-        icon: "info",
-      });
+      toast.info("A verification code has been sent to your inbox");
       navigate("/verify-auth", {
         state: {
           isAdmin,

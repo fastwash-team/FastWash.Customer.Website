@@ -89,6 +89,10 @@ export function PickupDelivery({
 
   console.log({ scheduleInfo });
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   const scheduleForSelectedArea = useMemo(() => {
     if (!scheduleInfo.area) return {};
     const locationSchedule = schedulePerLocation.find(

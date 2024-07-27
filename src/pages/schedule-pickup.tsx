@@ -95,7 +95,7 @@ export function SchedulePickup() {
   const dispatch = useDispatch();
   const schedulePickupData = useSelector(getSchedulePickupInformation);
   const { id } = useParams();
-  const [step, setStep] = useState(Number(id || 1));
+  const [step] = useState(Number(id || 1));
   const [loading, setLoading] = useState(false);
   const [savedWashOrder] = useState<ScheduleSummaryProps | null>(
     schedulePickupData
@@ -128,7 +128,6 @@ export function SchedulePickup() {
         return formik.setFieldError("phonenumber", "Invalid Phone Number");
       handleFinishScheduling({ ...values, phonenumber: formattedPhoneNumber });
     }
-    window.scrollTo({ top: 0 });
   };
 
   const handleGoBack = () => {
@@ -290,8 +289,8 @@ export function SchedulePickup() {
   };
 
   const handleTitleClick = (pageNumber: number) => {
-    if (pageNumber < step) setStep(pageNumber);
-    return;
+    if (pageNumber < step)
+      window.location.replace(`/schedule-pickup/${pageNumber}`);
   };
 
   return (

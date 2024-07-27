@@ -29,6 +29,10 @@ export function CustomizeWash(props: CustomizeWashProps) {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   const handleExtraCount = (extra: string, variant: string) => {
     const val = (props.scheduleInfo[extra as keyof ScheduleSummaryProps] ||
       0) as number;
