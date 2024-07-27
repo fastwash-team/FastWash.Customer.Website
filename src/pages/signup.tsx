@@ -80,10 +80,12 @@ export function Signup() {
                     <input
                       type='number'
                       value={formik.values.phoneNumber}
-                      maxLength={11}
-                      onChange={(e) =>
-                        formik.setFieldValue("phoneNumber", e.target.value)
-                      }
+                      max={10}
+                      maxLength={10}
+                      onChange={(e) => {
+                        if (e.target.value.length <= 10)
+                          formik.setFieldValue("phoneNumber", e.target.value);
+                      }}
                     />
                   </div>
                   {formik?.errors?.phoneNumber && (

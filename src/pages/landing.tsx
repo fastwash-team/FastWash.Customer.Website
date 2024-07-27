@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import FashWashTransparent from "../assets/imgs/fash-wash-transparent.png";
 import Hanger from "../assets/svgs/hanger.svg";
@@ -36,6 +36,12 @@ const Landing: React.FC = () => {
     "Lekki Phase I",
     1500,
   ];
+
+  useEffect(() => {
+    const hasWashOrderSession = sessionStorage.getItem("currentWashOrder");
+    if (hasWashOrderSession)
+      return window.location.replace(`/schedule-pickup/1`);
+  }, []);
 
   const handleSchedulePickup = () => {
     navigate("/schedule-pickup/1", { state: { address } });
