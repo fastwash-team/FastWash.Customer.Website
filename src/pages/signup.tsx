@@ -89,7 +89,7 @@ export function Signup() {
                     />
                   </div>
                   {formik?.errors?.phoneNumber && (
-                    <InfoMessage message={formik.errors.phoneNumber} />
+                    <InfoMessage message={"Incorrect Phone Number"} />
                   )}
                 </div>
                 <div className='col-md-6 col-sm-12'>

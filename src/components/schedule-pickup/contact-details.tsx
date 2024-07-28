@@ -58,7 +58,7 @@ export function ContactDetails(props: ContactDetailsProps) {
               />
             </div>
             {props.errors?.phonenumber && (
-              <InfoMessage message={props.errors.phonenumber} />
+              <InfoMessage message={"Incorrect Phone Number"} />
             )}
           </div>
           <div className='col-md-6 col-sm-12'>
