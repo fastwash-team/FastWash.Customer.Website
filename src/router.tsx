@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Landing from "./pages/landing";
 import { SchedulePickup } from "./pages/schedule-pickup";
 import { Layout } from "./pages/layout";
@@ -25,16 +20,20 @@ const AppRoutes = () => {
   const ADMIN_FASTWASH = ["admin.fastwash.africa", "admin.dev.fastwash.africa"];
   const domain = window.location.host;
 
-  console.log("is domain admin", ADMIN_FASTWASH.includes(domain));
+  const isDomainAdmin = ADMIN_FASTWASH.includes(domain);
 
-  if (ADMIN_FASTWASH.includes(domain)) redirect("/admin/dashboard");
-  redirect("/");
+  console.log({ isDomainAdmin });
+
+  console.log("is domain admin", ADMIN_FASTWASH.includes(domain));
 
   return (
     <Router>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Landing />} />
+          <Route
+            index
+            element={isDomainAdmin ? <AdminDashboard /> : <Landing />}
+          />
           <Route path='/schedule-pickup/:id' element={<SchedulePickup />} />
           <Route path='/order/success' element={<OrderCreateSuccess />} />
           <Route path='/login' element={<Login />} />
