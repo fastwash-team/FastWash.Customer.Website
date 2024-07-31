@@ -151,9 +151,10 @@ export const logout = () => {
   if (
     window.location.pathname.startsWith("/admin") ||
     ADMIN_FASTWASH.includes(window.location.host)
-  )
+  ) {
+    console.log("im an admin, i am rereouting");
     return window.location.replace("/admin/login");
-  return window.location.replace("/login");
+  } else return window.location.replace("/login");
 };
 
 export function redirectAfterLogin(defaultUrl) {
