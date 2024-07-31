@@ -13,7 +13,8 @@ export function AdminOverview({
         <div
           className='board'
           onClick={() =>
-            navigate("/admin/dashboard?page=2", {
+            // admin dashboard
+            navigate("/dashboard?page=2", {
               state: { status: "Pre-Schedule" },
             })
           }
@@ -27,7 +28,8 @@ export function AdminOverview({
         <div
           className='board green'
           onClick={() =>
-            navigate("/admin/dashboard?page=2", {
+            navigate("/dashboard?page=2", {
+              // admin dashboard
               state: { status: "Classic" },
             })
           }
@@ -49,7 +51,7 @@ export function AdminOverview({
         </div>
         <div
           className='board'
-          onClick={() => navigate("/admin/dashboard?page=3")}
+          onClick={() => navigate("/dashboard?page=3")} // admin dashboard
         >
           <div className='title'>
             <h6>All Requests</h6>

@@ -143,57 +143,43 @@ export const AdminDashboard = () => {
             <ul className='admin-tabs'>
               <li
                 className={activeTabNo === 1 ? "active" : ""}
-                onClick={() =>
-                  window.location.replace(`/admin/dashboard?page=1`)
-                }
+                onClick={() => window.location.replace(`/dashboard?page=1`)}
               >
                 Overview
               </li>
               <li
                 className={activeTabNo === 2 ? "active" : ""}
-                onClick={() =>
-                  window.location.replace(`/admin/dashboard?page=2`)
-                }
+                onClick={() => window.location.replace(`/dashboard?page=2`)}
               >
                 Schedule
               </li>
               <li
                 className={activeTabNo === 3 ? "active" : ""}
-                onClick={() =>
-                  window.location.replace(`/admin/dashboard?page=3`)
-                }
+                onClick={() => window.location.replace(`/dashboard?page=3`)}
               >
                 Requests
               </li>
               <li
                 className={activeTabNo === 4 ? "active" : ""}
-                onClick={() =>
-                  window.location.replace(`/admin/dashboard?page=4`)
-                }
+                onClick={() => window.location.replace(`/dashboard?page=4`)}
               >
                 Payments
               </li>
               <li
                 className={activeTabNo === 5 ? "active" : ""}
-                onClick={() =>
-                  window.location.replace(`/admin/dashboard?page=5`)
-                }
+                onClick={() => window.location.replace(`/dashboard?page=5`)}
               >
                 Coupons
               </li>
               <li
                 className={activeTabNo === 6 ? "active" : ""}
-                onClick={() =>
-                  window.location.replace(`/admin/dashboard?page=6`)
-                }
+                onClick={() => window.location.replace(`/dashboard?page=6`)}
               >
                 Reports
               </li>
               <li
                 className={activeTabNo === 7 ? "active" : ""}
-                onClick={() =>
-                  window.location.replace(`/admin/dashboard?page=7`)
-                }
+                onClick={() => window.location.replace(`/dashboard?page=7`)}
               >
                 Settings
               </li>

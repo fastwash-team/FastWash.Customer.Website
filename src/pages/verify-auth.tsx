@@ -61,7 +61,7 @@ export function VerifyAuth() {
       console.log({ claims, isAdmin });
       if (isAdmin && claims?.InternalUser) {
         setFWAdminToken(responseObject);
-        redirectAfterLogin("/admin/dashboard");
+        redirectAfterLogin("/dashboard"); // admin dashboard
       }
       if (isAdmin && claims?.ExternalUser) {
         setLoading(false);

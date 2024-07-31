@@ -209,7 +209,7 @@ const RequestList = ({
         ) : !pageLoading && !requests.length ? (
           <EmptyContainer
             hasFilter={hasFilter}
-            buttonAction={() => navigate("/admin/dashboard?page=2")}
+            buttonAction={() => navigate("/dashboard?page=2")} // admin dashboard
           />
         ) : null}
         <br />

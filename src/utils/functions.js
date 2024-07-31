@@ -143,16 +143,17 @@ export const getFWAdminToken = () => {
 
 export const logout = () => {
   const lastRoute = window.location.pathname;
+  console.log("got hereee odogwu", window.location.host);
   if (lastRoute === "/login" || lastRoute === "/admin/login") return;
   console.log({ lastRoute });
   localStorage.setItem("rerouteTo", lastRoute);
   localStorage.removeItem("fw_user_token");
   localStorage.removeItem("fw_admin_token");
-  if (
-    window.location.pathname.startsWith("/admin") ||
+  console.log(
+    "is user an admin",
     ADMIN_FASTWASH.includes(window.location.host)
-  ) {
-    console.log("im an admin, i am rereouting");
+  );
+  if (window.location.pathname.startsWith("/admin")) {
     return window.location.replace("/admin/login");
   } else return window.location.replace("/login");
 };
@@ -165,7 +166,8 @@ export function redirectAfterLogin(defaultUrl) {
   } else window.location.replace(defaultUrl);
 }
 
-export const isUserLoggedIn = () => {
+export const isUserLoggedIn = (isAdmin = false) => {
+  if (isAdmin) return localStorage.getItem("fw_admin_token");
   return localStorage.getItem("fw_user_token");
 };
 

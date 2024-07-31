@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 export function Login(props: { isAdmin?: boolean }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const isAdmin = !!props.isAdmin;
+  const isAdmin = !!props?.isAdmin || false;
 
   const formik = useFormik({
     initialValues: { email: "" },
@@ -25,7 +25,10 @@ export function Login(props: { isAdmin?: boolean }) {
   });
 
   useEffect(() => {
-    if (isUserLoggedIn()) return navigate("/dashboard");
+    if (isUserLoggedIn(isAdmin)) {
+      // if (isAdmin) return navigate("/dashboard");
+      return navigate("/dashboard");
+    }
   }, []);
 
   const handleLogin = async () => {

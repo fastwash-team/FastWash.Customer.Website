@@ -28,10 +28,46 @@ const AppRoutes = () => {
 
   console.log("is domain admin", ADMIN_FASTWASH.includes(domain));
 
+  const AdminRoutes = () => (
+    <Routes>
+      <Route path={"/"} element={<Layout />}>
+        <Route index element={<AdminDashboard />} />
+        <Route path='/login' element={<Login isAdmin={true} />} />
+        <Route path='/dashboard' element={<AdminDashboard />} />
+        <Route path='/faqs' element={<FAQs />} />
+        <Route path='/verify-auth' element={<VerifyAuth />} />
+        <Route path='/terms' element={<TermsAndConditions />} />
+      </Route>
+    </Routes>
+  );
+
+  const CustomerRoutes = () => (
+    <Routes>
+      <Route path={"/"} element={<Layout />}>
+        <Route index element={<Landing />} />
+        <Route path='/schedule-pickup/:id' element={<SchedulePickup />} />
+        <Route path='/order/success' element={<OrderCreateSuccess />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Signup />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/requests' element={<Requests />} />
+        <Route path='/requests/:id' element={<RequestDetailPage />} />
+        <Route path='/payments' element={<Payments />} />
+        {/* <Route path='/admin/login' element={<Login isAdmin={true} />} />
+        <Route path='/admin/dashboard' element={<AdminDashboard />} /> */}
+        <Route path='/faqs' element={<FAQs />} />
+        <Route path='/verify-auth' element={<VerifyAuth />} />
+        <Route path='/terms' element={<TermsAndConditions />} />
+      </Route>
+    </Routes>
+  );
+
   return (
     <Router>
-      <Routes>
-        <Route path='/' element={<Layout />}>
+      {/* <Routes> */}
+      {/* <AdminRoutes /> */}
+      {isDomainAdmin ? <AdminRoutes /> : <CustomerRoutes />}
+      {/* <Route path={isDomainAdmin ? "/admin" : "/"} element={<Layout />}>
           <Route
             index
             element={isDomainAdmin ? <AdminDashboard /> : <Landing />}
@@ -49,8 +85,8 @@ const AppRoutes = () => {
           <Route path='/payments' element={<Payments />} />
           <Route path='/admin/login' element={<Login isAdmin={true} />} />
           <Route path='/admin/dashboard' element={<AdminDashboard />} />
-        </Route>
-      </Routes>
+        </Route> */}
+      {/* </Routes> */}
     </Router>
   );
 };
