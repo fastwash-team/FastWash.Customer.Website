@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  redirect,
+} from "react-router-dom";
 import Landing from "./pages/landing";
 import { SchedulePickup } from "./pages/schedule-pickup";
 import { Layout } from "./pages/layout";
@@ -17,6 +22,12 @@ import { TermsAndConditions } from "./pages/terms-conditions";
 import { FAQs } from "./pages/faqs";
 
 const AppRoutes = () => {
+  const ADMIN_FASTWASH = "admin.fastwash.africa";
+  const domain = window.location.hostname;
+
+  if (domain === ADMIN_FASTWASH) redirect("/admin/dashboard");
+  redirect("/");
+
   return (
     <Router>
       <Routes>
