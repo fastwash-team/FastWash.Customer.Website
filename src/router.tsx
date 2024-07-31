@@ -23,7 +23,9 @@ import { FAQs } from "./pages/faqs";
 
 const AppRoutes = () => {
   const ADMIN_FASTWASH = ["admin.fastwash.africa", "admin.dev.fastwash.africa"];
-  const domain = window.location.hostname;
+  const domain = window.location.host;
+
+  console.log("is domain admin", ADMIN_FASTWASH.includes(domain));
 
   if (ADMIN_FASTWASH.includes(domain)) redirect("/admin/dashboard");
   redirect("/");
