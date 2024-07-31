@@ -11,6 +11,7 @@ import moment from "moment";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { WashServiceType } from "../../../utils/types";
+import { toast } from "react-toastify";
 
 export function CreatePreScheduleModal() {
   const adminToken = getFWAdminToken();
@@ -38,6 +39,13 @@ export function CreatePreScheduleModal() {
   >([]);
 
   const handleAddSchedule = () => {
+    if (!preData.location) return toast.error("Please, put select a location");
+    if (!preData.washesCount) return toast.error("Please, put in a wash count");
+    if (!preData.logistics)
+      return toast.error("Please, put in a logistics amount");
+    if (!selectedDates.length) return toast.error("Select Pickup days");
+    if (!times.startTime) return toast.error("Select start time");
+    if (!times.endTime) return toast.error("Select end time");
     const schedules = selectedDates.map((el) => {
       return {
         scheduleDate: new Date(el),

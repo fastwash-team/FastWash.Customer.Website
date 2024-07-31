@@ -21,12 +21,7 @@ export const ADMIN_FASTWASH = [
 ];
 const AppRoutes = () => {
   const domain = window.location.host;
-
   const isDomainAdmin = ADMIN_FASTWASH.includes(domain);
-
-  console.log({ isDomainAdmin });
-
-  console.log("is domain admin", ADMIN_FASTWASH.includes(domain));
 
   const AdminRoutes = () => (
     <Routes>
@@ -66,6 +61,7 @@ const AppRoutes = () => {
     <Router>
       {/* <Routes> */}
       {/* <AdminRoutes /> */}
+      {/* <CustomerRoutes /> */}
       {isDomainAdmin ? <AdminRoutes /> : <CustomerRoutes />}
       {/* <Route path={isDomainAdmin ? "/admin" : "/"} element={<Layout />}>
           <Route

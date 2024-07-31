@@ -10,7 +10,7 @@ export const schedulePickupReducerSlice = createSlice({
   reducers: {
     save_wash_details: (state, { payload }) => {
       const washOrder = { ...state.washDetails, ...payload };
-      // sessionStorage.setItem("currentWashOrder", JSON.stringify(washOrder));
+      sessionStorage.setItem("currentWashOrder", JSON.stringify(washOrder));
       state.washDetails = { ...washOrder };
     },
   },

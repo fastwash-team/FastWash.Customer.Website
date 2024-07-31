@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import MultiDatePicker from "react-multi-date-picker";
 import axios from "axios";
 import { WashServiceType } from "../../../utils/types";
+import { toast } from "react-toastify";
 
 export function CreateClassicScheduleModal() {
   const adminToken = getFWAdminToken();
@@ -104,6 +105,12 @@ export function CreateClassicScheduleModal() {
     setLoading(false);
   };
 
+  const handleNextPage = () => {
+    if (!preData.location) return toast.error("Select a location");
+    if (!preData.logistics) return toast.error("Give a price for logistics");
+    setPage(2);
+  };
+
   return (
     <div
       className='modal fade'
@@ -158,7 +165,7 @@ export function CreateClassicScheduleModal() {
                 <button
                   type='button'
                   className='modal-button btn btn-primary'
-                  onClick={() => setPage(2)}
+                  onClick={handleNextPage}
                 >
                   Next
                 </button>

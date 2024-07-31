@@ -104,6 +104,12 @@ export function SchedulePickup() {
   console.log({ savedWashOrder });
 
   useEffect(() => {
+    () => {
+      console.log("i am leaving schedile pickup");
+    };
+  }, []);
+
+  useEffect(() => {
     if (Number(id) < 1) window.location.replace("/schedule-pickup/1");
   }, []);
 
