@@ -1,6 +1,7 @@
 import moment from "moment";
 import { WASH_PRICES } from ".";
 import axios from "axios";
+import { ADMIN_FASTWASH } from "../router";
 // import { toast } from "react-toastify";
 
 export const formatMoney = (value) =>
@@ -147,7 +148,10 @@ export const logout = () => {
   localStorage.setItem("rerouteTo", lastRoute);
   localStorage.removeItem("fw_user_token");
   localStorage.removeItem("fw_admin_token");
-  if (window.location.pathname.startsWith("/admin"))
+  if (
+    window.location.pathname.startsWith("/admin") ||
+    ADMIN_FASTWASH.includes(window.location.host)
+  )
     return window.location.replace("/admin/login");
   return window.location.replace("/login");
 };

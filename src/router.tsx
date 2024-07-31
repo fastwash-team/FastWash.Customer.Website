@@ -15,9 +15,11 @@ import { OrderCreateSuccess } from "./pages/pay-success";
 import "rc-tooltip/assets/bootstrap_white.css";
 import { TermsAndConditions } from "./pages/terms-conditions";
 import { FAQs } from "./pages/faqs";
-
+export const ADMIN_FASTWASH = [
+  "admin.fastwash.africa",
+  "admin.dev.fastwash.africa",
+];
 const AppRoutes = () => {
-  const ADMIN_FASTWASH = ["admin.fastwash.africa", "admin.dev.fastwash.africa"];
   const domain = window.location.host;
 
   const isDomainAdmin = ADMIN_FASTWASH.includes(domain);
