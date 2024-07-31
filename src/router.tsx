@@ -22,10 +22,10 @@ import { TermsAndConditions } from "./pages/terms-conditions";
 import { FAQs } from "./pages/faqs";
 
 const AppRoutes = () => {
-  const ADMIN_FASTWASH = "admin.fastwash.africa";
+  const ADMIN_FASTWASH = ["admin.fastwash.africa", "admin.dev.fastwash.africa"];
   const domain = window.location.hostname;
 
-  if (domain === ADMIN_FASTWASH) redirect("/admin/dashboard");
+  if (ADMIN_FASTWASH.includes(domain)) redirect("/admin/dashboard");
   redirect("/");
 
   return (
