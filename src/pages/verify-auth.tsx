@@ -97,7 +97,6 @@ export function VerifyAuth() {
   const handleChange = (e: any) => {
     const newValue = e.target.value;
     if (/^[0-9]*$/.test(newValue)) {
-      console.log({ newValue });
       const token = Number(newValue);
       if (String(token).length <= 6) {
         formik.setFieldValue("token", newValue);

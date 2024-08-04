@@ -104,7 +104,7 @@ export function SchedulePickup() {
   console.log({ savedWashOrder });
 
   useEffect(() => {
-    () => {
+    return () => {
       console.log("i am leaving schedile pickup");
     };
   }, []);

@@ -58,7 +58,7 @@ export const AdminDashboard = () => {
           responseObject: { allOrders, classicOrders, preScheduledOrders },
         },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/pending/count`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/received/count`,
         {
           headers: {
             Authorization: `Bearer ${adminToken}`,

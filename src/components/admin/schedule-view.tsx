@@ -5,13 +5,14 @@ import { AdminRequest, WashScheduleProps } from "../../utils/types";
 import writtenNumber from "written-number";
 import { EmptyContainer } from "../empty-wash-item-list";
 import { UpdateRequestStatus } from "./modals/update-request-status";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BlobProviderParams, PDFDownloadLink } from "@react-pdf/renderer";
 import { UpdateWash } from "./modals/update-wash";
 import JsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import ReactDOMServer from "react-dom/server";
 import { ScheduleDownloadTemplate } from "../schedule-download-template";
+import { AdminRequestView } from "./request-view";
 
 export function ScheduleView({
   goBack,
@@ -22,7 +23,13 @@ export function ScheduleView({
 }) {
   const reportTemplateRef = useRef(null);
   const [selectedWash, setSelectedWash] = useState<AdminRequest | null>(null);
-  console.log({ schedule, selectedWash });
+  const [washToView, setWashToView] = useState<AdminRequest | null>(null);
+  const [selectedSchedule, setSelectedSchedule] =
+    useState<WashScheduleProps | null>(null);
+
+  useEffect(() => {
+    if (schedule && !selectedSchedule) setSelectedSchedule(schedule);
+  }, []);
 
   const handleGeneratePDF = async (htmlString: string) => {
     console.log({ htmlString });
@@ -57,6 +64,8 @@ export function ScheduleView({
     document.body.removeChild(iframe);
   };
 
+  console.log({ selectedSchedule });
+
   // const handleGeneratePDF = () => {
   //   const doc = new JsPDF({
   //     format: "a4",
@@ -73,7 +82,22 @@ export function ScheduleView({
   //     },
   //   });
   // };
-  return (
+
+  const handleUpdateRequestInList = (wash: AdminRequest) => {
+    if (!selectedSchedule?.washOrders.length) return;
+    const requestIndex = selectedSchedule?.washOrders.findIndex(
+      (el) => el.washOrderReference === wash.washOrderReference
+    );
+    selectedSchedule.washOrders[requestIndex] = { ...wash };
+    setSelectedSchedule({ ...schedule });
+  };
+
+  return washToView ? (
+    <AdminRequestView
+      selectedRequest={washToView}
+      goBack={() => setWashToView(null)}
+    />
+  ) : (
     <div className='schedule-view'>
       <p className='goback_'>
         <i className='bi bi-arrow-left-short _back' onClick={goBack} />
@@ -151,7 +175,11 @@ export function ScheduleView({
       </div>
       {(schedule?.washOrders || []).length ? (
         (schedule.washOrders || []).map((el, key) => (
-          <div className='schedule-view-body' key={key}>
+          <div
+            className='schedule-view-body'
+            key={key}
+            onClick={() => setWashToView(el)}
+          >
             <div className='_left'>
               <div className='_title status'>
                 <h2>#{el.washOrderReference}</h2>
@@ -213,7 +241,7 @@ export function ScheduleView({
             </div>
             <div className='date'>
               <p>{moment(el?.washOrderData?.orderDate).format("Do MMM")}</p>
-              <div className='dropdown'>
+              <div className='dropdown' onClick={(e) => e.stopPropagation()}>
                 <i
                   className='bi bi-three-dots'
                   data-bs-toggle='dropdown'
@@ -267,7 +295,12 @@ export function ScheduleView({
           showAction={false}
         />
       )}
-      <UpdateRequestStatus wash={selectedWash} />
+      <UpdateRequestStatus
+        wash={selectedWash}
+        handleUpdateRequestInList={(wash: AdminRequest) =>
+          handleUpdateRequestInList(wash)
+        }
+      />
       <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
       {/* <div ref={reportTemplateRef}>
         <ScheduleDownloadTemplate schedule={schedule} />
