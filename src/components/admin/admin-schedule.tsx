@@ -76,16 +76,18 @@ export function AdminSchedule() {
       if (priceRange.max)
         url =
           url +
-          `&fromOrderAmount=${priceRange.min}&toOrderAmount=${priceRange.max}`;
+          `&fromLogisticsAmount=${priceRange.min}&toLogisticsAmount=${priceRange.max}`;
       if (timeRange.startTime)
         url =
           url +
-          `&startDate=${moment(timeRange.startTime).format().split("+")[0]}`;
+          `&scheduleStartDate=${
+            moment(timeRange.startTime).format().split("T")[0]
+          }`;
       if (timeRange.endTime)
         url =
           url +
-          `&endDate=${
-            moment(timeRange.endTime).endOf("day").format().split("+")[0]
+          `&scheduleEndDate=${
+            moment(timeRange.endTime).endOf("day").format().split("T")[0]
           }`;
     }
 
