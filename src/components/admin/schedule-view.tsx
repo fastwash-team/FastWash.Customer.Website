@@ -3,6 +3,7 @@ import moment from "moment";
 import { formatMoney } from "../../utils/functions";
 import { AdminRequest, WashScheduleProps } from "../../utils/types";
 import writtenNumber from "written-number";
+import { useReactToPrint } from "react-to-print";
 import { EmptyContainer } from "../empty-wash-item-list";
 import { UpdateRequestStatus } from "./modals/update-request-status";
 import { useEffect, useRef, useState } from "react";
@@ -26,6 +27,9 @@ export function ScheduleView({
   const [washToView, setWashToView] = useState<AdminRequest | null>(null);
   const [selectedSchedule, setSelectedSchedule] =
     useState<WashScheduleProps | null>(null);
+  const handlePrint = useReactToPrint({
+    content: () => reportTemplateRef.current,
+  });
 
   useEffect(() => {
     if (schedule && !selectedSchedule) setSelectedSchedule(schedule);
@@ -151,12 +155,13 @@ export function ScheduleView({
         {(schedule?.washOrders || []).length ? (
           <button
             onClick={() => {
-              const template: string = ReactDOMServer.renderToString(
-                <ScheduleDownloadTemplate schedule={schedule} />
-              );
-              console.log({ template });
-              if (!template) return;
-              handleGeneratePDF(template);
+              handlePrint();
+              // const template: string = ReactDOMServer.renderToString(
+              //   <ScheduleDownloadTemplate schedule={schedule} />
+              // );
+              // console.log({ template });
+              // if (!template) return;
+              // handleGeneratePDF(template);
             }}
             // onClick={() => {
             //   const report = new JsPDF("portrait", "pt", "a4");
@@ -302,9 +307,11 @@ export function ScheduleView({
         }
       />
       <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
-      {/* <div ref={reportTemplateRef}>
-        <ScheduleDownloadTemplate schedule={schedule} />
-      </div> */}
+      <div style={{ display: "none" }}>
+        <div className='' ref={reportTemplateRef}>
+          <ScheduleDownloadTemplate schedule={schedule} />
+        </div>
+      </div>
     </div>
   );
 }
