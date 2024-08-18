@@ -110,6 +110,7 @@ export interface WashItemDataNames {
 export interface AdminPayment {
   washOrderReference: string;
   transactionAmount: number;
+  transactionTag: string;
   washOrder: {
     washStatus: string;
     serviceType: string;
@@ -169,6 +170,7 @@ export interface FilterRequestProps {
   }) => void;
   handleApplyFilter: () => void;
   resetFilters: () => void;
+  resetPageNumber: () => void;
 }
 
 export interface WashScheduleProps {

@@ -32,6 +32,7 @@ export function Signup() {
         `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/signup`,
         body
       );
+      localStorage.clear();
       Swal.fire({
         title: "Successful!",
         text: "You have been registered successfully, please login",

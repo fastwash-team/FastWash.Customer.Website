@@ -12,7 +12,7 @@ import JsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import ReactDOMServer from "react-dom/server";
 import { ScheduleDownloadTemplate } from "../schedule-download-template";
-import { AdminRequestView } from "./request-view";
+import { AdminRequestView } from "./admin-request-view";
 
 export function ScheduleView({
   goBack,

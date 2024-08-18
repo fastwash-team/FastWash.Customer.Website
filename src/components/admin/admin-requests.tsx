@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FilterRequestsModal } from "./modals/filter-requests";
-import { AdminRequestView } from "./request-view";
+import { AdminRequestView } from "./admin-request-view";
 import axios from "axios";
 import writtenNumber from "written-number";
 import Skeleton from "react-loading-skeleton";
@@ -227,6 +227,7 @@ const RequestList = ({
             page: 1,
           })
         }
+        currentPage={paginationOptions.page}
         pageSize={paginationOptions.defaultPageSize}
       />
       <UpdateRequestStatus
@@ -280,9 +281,11 @@ export function AdminRequests() {
     defaultPageSize: 5,
   });
 
+  console.log({ paginationOptions });
+
   const handleApplyRequestFilter = () => {
-    setPaginationOptions({ ...paginationOptions, page: 0 });
-    let url = `WashOrders/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=0`;
+    // setPaginationOptions({ ...paginationOptions, page: 0 });
+    let url = `WashOrders/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
     console.log({ filterType });
     if (filterType.toLowerCase() !== "all") {
       const scheduleEnum =
@@ -312,6 +315,7 @@ export function AdminRequests() {
     setFilterLocation("all");
     setFilterStatus({ el: "all", statusEnum: 0 });
     setFilterType("all");
+    setPaginationOptions({ ...paginationOptions, page: 0 });
     fetchRequests();
   };
 
@@ -401,6 +405,9 @@ export function AdminRequests() {
         timeRange={timeRange}
         handleApplyFilter={handleApplyRequestFilter}
         resetFilters={resetFilters}
+        resetPageNumber={() =>
+          setPaginationOptions({ ...paginationOptions, page: 0 })
+        }
       />
     </>
   );

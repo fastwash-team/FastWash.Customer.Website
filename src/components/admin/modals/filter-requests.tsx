@@ -18,6 +18,7 @@ export function FilterRequestsModal({
   setTimeRange,
   handleApplyFilter,
   resetFilters,
+  resetPageNumber,
 }: FilterRequestProps) {
   return (
     <div
@@ -43,8 +44,8 @@ export function FilterRequestsModal({
                     placeholder='dd/mm/yy'
                     selected={timeRange.startTime ? timeRange.startTime : null}
                     onChange={(date: string) => {
-                      console.log({ date });
                       setTimeRange({ ...timeRange, startTime: date });
+                      resetPageNumber();
                     }}
                   />
                 </div>
@@ -57,6 +58,7 @@ export function FilterRequestsModal({
                     minDate={new Date(timeRange.startTime as string)}
                     onChange={(date: string) => {
                       setTimeRange({ ...timeRange, endTime: date });
+                      resetPageNumber();
                     }}
                   />
                 </div>
@@ -72,7 +74,10 @@ export function FilterRequestsModal({
                         ? "active"
                         : ""
                     }
-                    onClick={() => setFilterType(el)}
+                    onClick={() => {
+                      setFilterType(el);
+                      resetPageNumber();
+                    }}
                     key={key}
                   >
                     {el}
@@ -99,9 +104,10 @@ export function FilterRequestsModal({
                         ? "active"
                         : ""
                     }
-                    onClick={() =>
-                      setFilterStatus({ el, statusEnum: Number(key) })
-                    }
+                    onClick={() => {
+                      setFilterStatus({ el, statusEnum: Number(key) });
+                      resetPageNumber();
+                    }}
                     key={key}
                   >
                     {el}
@@ -119,7 +125,10 @@ export function FilterRequestsModal({
                         ? "active"
                         : ""
                     }
-                    onClick={() => setFilterLocation(el)}
+                    onClick={() => {
+                      setFilterLocation(el);
+                      resetPageNumber();
+                    }}
                     key={key}
                   >
                     {el}
@@ -133,7 +142,10 @@ export function FilterRequestsModal({
                 {["All", "Attached", "Non Attached"].map((el, key) => (
                   <li
                     className={filterNote === el ? "active" : ""}
-                    onClick={() => setFilterNote(el)}
+                    onClick={() => {
+                      setFilterNote(el);
+                      resetPageNumber();
+                    }}
                     key={key}
                   >
                     {el}
@@ -156,6 +168,7 @@ export function FilterRequestsModal({
                     ...priceRange,
                     max: Number(e.target.value),
                   });
+                  resetPageNumber();
                 }}
               />
               <div className='range-inputs'>

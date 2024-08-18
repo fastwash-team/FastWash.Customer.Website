@@ -158,7 +158,7 @@ export const Dashboard = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                      No 89 plot 20 Adeola Odeku, Victoria island
+                     '-'
                     </p>
                   </div>
                 ) : null}
@@ -183,7 +183,7 @@ export const Dashboard = () => {
                 }
               >
                 <div className='title'>
-                  <h6>Active Requests</h6>
+                  <h6>Pending Requests</h6>
                   <i className='bi bi-chevron-right'></i>
                 </div>
                 <h3>{washes.active}</h3>

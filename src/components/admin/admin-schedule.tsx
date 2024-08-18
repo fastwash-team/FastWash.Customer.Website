@@ -244,6 +244,7 @@ export function AdminSchedule() {
                       page: 1,
                     })
                   }
+                  currentPage={paginationOptions.page}
                   pageSize={paginationOptions.defaultPageSize}
                 />
               </>

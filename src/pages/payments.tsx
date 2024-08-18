@@ -6,13 +6,16 @@ import { EmptyContainer } from "../components/empty-wash-item-list";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { errorHandler, getFWUserToken } from "../utils/functions";
+import Skeleton from "react-loading-skeleton";
 
 export const Payments = () => {
   const [items, setItems] = useState<[] | PaymentItem[]>([]);
   const navigate = useNavigate();
   const userToken = getFWUserToken();
+  const [pageLoading, setPageLoading] = useState(true);
 
   const fetchPayments = async () => {
+    setPageLoading(true);
     try {
       const {
         data: { responseObject },
@@ -23,6 +26,8 @@ export const Payments = () => {
       setItems(responseObject);
     } catch (error) {
       errorHandler(error);
+    } finally {
+      setPageLoading(false);
     }
   };
 
@@ -45,7 +50,9 @@ export const Payments = () => {
               <h3>Payments</h3>
               <h6>List of all your FastWash request payments</h6>
               <div className='list-container'>
-                {!items.length ? (
+                {pageLoading ? (
+                  <Skeleton />
+                ) : !pageLoading && !items.length ? (
                   <EmptyContainer />
                 ) : (
                   <PaymentItemComponent items={items} />

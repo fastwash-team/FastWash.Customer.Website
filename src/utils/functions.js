@@ -76,10 +76,12 @@ export const errorHandler = (error) => {
 export const reLoginUser = async () => {
   console.log("reauthenticating user.......");
   try {
-    const token = window.location.pathname.startsWith("/admin")
-      ? localStorage.getItem("fw_admin_token")
-      : localStorage.getItem("fw_user_token");
-    if (!token) return logout();
+    let token = localStorage.getItem("fw_user_token");
+    if (!token && localStorage.getItem("fw_admin_token"))
+      token = localStorage.getItem("fw_admin_token");
+    if (!token) {
+      return logout();
+    }
     const arrayToken = token.split(".");
     const { Name: email } = JSON.parse(atob(arrayToken[1]));
     const {
@@ -153,9 +155,7 @@ export const logout = () => {
     "is user an admin",
     ADMIN_FASTWASH.includes(window.location.host)
   );
-  if (window.location.pathname.startsWith("/admin")) {
-    return window.location.replace("/admin/login");
-  } else return window.location.replace("/login");
+  return window.location.replace("/login");
 };
 
 export function redirectAfterLogin(defaultUrl) {

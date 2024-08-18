@@ -10,12 +10,16 @@ import { Pagination } from "../pagination";
 import { EmptyContainer } from "../empty-wash-item-list";
 import moment from "moment";
 import Skeleton from "react-loading-skeleton";
-import { AdminPayment } from "../../utils/types";
+import { AdminPayment, AdminRequest } from "../../utils/types";
 
 export function AdminPayments() {
   const adminToken = getFWAdminToken();
   const [payments, setPayments] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const [
+    selectedRequest,
+    // setSelectedRequest
+  ] = useState<AdminRequest | null>(null);
   const [paginationOptions, setPaginationOptions] = useState({
     page: 0,
     totalPages: 0,
@@ -54,6 +58,8 @@ export function AdminPayments() {
     }
   };
 
+  console.log({ selectedRequest });
+
   return (
     <>
       <div className='column-title-wrapper brd-btm'>
@@ -77,10 +83,11 @@ export function AdminPayments() {
             <div
               key={key}
               className='schedule-view-body'
-              //   onClick={() => {
-              //     setComponentView("detail-view");
-              //     setSelectedRequest(el);
-              //   }}
+              onClick={() => {
+                console.log({ el });
+                // setComponentView("detail-view");
+                // setSelectedRequest(el);
+              }}
             >
               <div className='_left'>
                 <div className='_title status'>
@@ -88,6 +95,16 @@ export function AdminPayments() {
                   <span className={el.washOrder.washStatus.toLowerCase()}>
                     {el.washOrder.washStatus}
                   </span>
+                  {el.transactionTag ? (
+                    <span className={"received"}>
+                      {el.transactionTag.toLowerCase() === "additionalorder"
+                        ? "Additional Order"
+                        : el.transactionTag.toLowerCase() === "mainorder"
+                        ? "Main Order"
+                        : ""}
+                    </span>
+                  ) : null}
+                  <span></span>
                 </div>
                 <div className='_extras'>
                   <p>{getWashServiceType(el.washOrder.serviceType)}</p>

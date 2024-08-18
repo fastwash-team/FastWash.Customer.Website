@@ -50,7 +50,9 @@ export const RequestDetailPage = () => {
       const errorMessage = errorHandler(error);
       return Swal.fire({
         title: "Error!",
-        text: errorMessage || "Error fetching order by ID",
+        text:
+          errorMessage ||
+          "There was a problem fetching your order details. Please contact support.",
       });
     }
   };
@@ -88,6 +90,10 @@ export const RequestDetailPage = () => {
     };
     return status.washStatus;
   }, [requestTracking]);
+
+  console.log("dds", state?.washOrderData);
+
+  const show = false;
 
   return (
     <div className='__dashboard'>
@@ -144,6 +150,82 @@ export const RequestDetailPage = () => {
                   </div>
                 )
               )}
+              <div className='details-item'>
+                <p>Order Total</p>
+                <span>
+                  NGN{" "}
+                  {formatMoney(
+                    state?.washOrderData?.transactionData?.transactionAmount ||
+                      0
+                  )}
+                </span>
+              </div>
+              {show ? (
+                <>
+                  <div className='additional-order-container'>
+                    <div className='header status'>
+                      <h5>Additional Order</h5>
+                      <span className='received'>Received</span>
+                      {/* <span className={additionalOrder?.washStatus.toLowerCase()}>
+                      {additionalOrder?.washStatus}
+                    </span> */}
+                    </div>
+                    <div className='body'>
+                      <section>
+                        <div className='_section'>
+                          <h3>Wash Quantity</h3>
+                          <p>20 Washes</p>
+                          {/* <p>
+                          {additionalOrder?.washItemData?.find(
+                            (el) => el.itemName.toLowerCase() === "washes"
+                          )?.numberOfItem || 0}{" "}
+                          Washes
+                        </p> */}
+                        </div>
+                        <div className='_section'>
+                          <h3>Payment</h3>
+                          <p>
+                            N{formatMoney(3000)}
+                            {/* {formatMoney(
+                            additionalOrder?.washItemData?.reduce(
+                              (acc, curr) => acc + Number(curr.itemAmount),
+                              0
+                            )
+                          )} */}
+                          </p>
+                        </div>
+                      </section>
+                      <section>
+                        <div className='_section'>
+                          <h3>Extras</h3>
+                          <p>
+                            Bleach(2)
+                            {/* {additionalOrder?.washItemData
+                            ?.filter(
+                              (el) => el.itemName?.toLowerCase() !== "washes"
+                            )
+                            ?.map(
+                              (el, key) =>
+                                `${el.itemName}(${el.numberOfItem})${
+                                  key <
+                                  additionalOrder.washItemData.filter(
+                                    (el) =>
+                                      el.itemName?.toLowerCase() !== "washes"
+                                  ).length -
+                                    1
+                                    ? ", "
+                                    : ""
+                                }`
+                            )} */}
+                          </p>
+                        </div>
+                        <div></div>
+                      </section>
+                    </div>
+                  </div>
+                  <div className='items hasBorderBottom'></div>
+                </>
+              ) : null}
               <div className='tracking'>
                 <h4>Track</h4>
                 <div className='tracker-wrapper'>
