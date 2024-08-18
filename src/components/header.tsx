@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import FashWashLogo from "../assets/imgs/fashwash-logo.png";
 import { logout } from "../utils/functions";
+import Swal from "sweetalert2";
 
 export function Header({ isExtendedHeader = false }) {
   const location = useLocation();
@@ -9,8 +10,18 @@ export function Header({ isExtendedHeader = false }) {
   const isAuthenticated = authenticatedRoutes.includes(location.pathname); // the condition changes over time
 
   const handleLogout = () => {
-    logout();
-    return navigate("/login");
+    return Swal.fire({
+      title: "Are you sure you want to logout?",
+      showCancelButton: true,
+      confirmButtonText: "Logout",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire("Logout Successful!", "", "success");
+        logout();
+        return navigate("/login");
+      }
+    });
   };
 
   return (
