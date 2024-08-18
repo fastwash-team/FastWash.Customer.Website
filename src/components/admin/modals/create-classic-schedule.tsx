@@ -30,6 +30,9 @@ export function CreateClassicScheduleModal() {
   const [page, setPage] = useState(1);
 
   const handleCreateScheduleRef = () => {
+    if (!selectedDates.length) return toast.error("Select dates");
+    if (!times.startTime) return toast.error("Select start time");
+    if (!times.endTime) return toast.error("Select end time");
     const schedules = selectedDates.map((el) => {
       return {
         time: new Date(el),
@@ -91,7 +94,8 @@ export function CreateClassicScheduleModal() {
   };
 
   const handleRemoveSchedule = (key: number) => {
-    if (schedules.length < 2) return;
+    if (schedules.length < 2)
+      return toast.error("You must have at least one schedule");
     selectedDates.splice(key, 1);
     schedules.splice(key, 1);
     setSelectedDates([...selectedDates]);

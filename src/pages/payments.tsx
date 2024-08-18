@@ -51,7 +51,7 @@ export const Payments = () => {
               <h6>List of all your FastWash request payments</h6>
               <div className='list-container'>
                 {pageLoading ? (
-                  <Skeleton />
+                  <Skeleton count={7} />
                 ) : !pageLoading && !items.length ? (
                   <EmptyContainer />
                 ) : (
