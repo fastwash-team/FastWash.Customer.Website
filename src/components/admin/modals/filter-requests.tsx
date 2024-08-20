@@ -172,32 +172,38 @@ export function FilterRequestsModal({
                 }}
               />
               <div className='range-inputs'>
-                <input
-                  className='form-control'
-                  type='number'
-                  min={1000}
-                  max={50000}
-                  value={priceRange.min}
-                  onChange={(e) =>
-                    setPriceRange({
-                      ...priceRange,
-                      min: Number(e.target.value),
-                    })
-                  }
-                />
-                <input
-                  className='form-control'
-                  value={priceRange.max}
-                  type='number'
-                  min={1000}
-                  max={50000}
-                  onChange={(e) =>
-                    setPriceRange({
-                      ...priceRange,
-                      max: Number(e.target.value),
-                    })
-                  }
-                />
+                <div>
+                  <label>Min Amount</label>
+                  <input
+                    className='form-control'
+                    type='number'
+                    min={1000}
+                    max={50000}
+                    value={priceRange.min}
+                    onChange={(e) =>
+                      setPriceRange({
+                        ...priceRange,
+                        min: Number(e.target.value),
+                      })
+                    }
+                  />
+                </div>
+                <div>
+                  <label>Max Amount</label>
+                  <input
+                    className='form-control'
+                    value={priceRange.max}
+                    type='number'
+                    min={1000}
+                    max={50000}
+                    onChange={(e) =>
+                      setPriceRange({
+                        ...priceRange,
+                        max: Number(e.target.value),
+                      })
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>

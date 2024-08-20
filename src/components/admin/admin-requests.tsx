@@ -281,12 +281,9 @@ export function AdminRequests() {
     defaultPageSize: 5,
   });
 
-  console.log({ paginationOptions });
-
   const handleApplyRequestFilter = () => {
     // setPaginationOptions({ ...paginationOptions, page: 0 });
     let url = `WashOrders/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
-    console.log({ filterType });
     if (filterType.toLowerCase() !== "all") {
       const scheduleEnum =
         filterType === "Prescheduled" ? 1 : filterType === "Classic" ? 2 : null;
@@ -306,6 +303,10 @@ export function AdminRequests() {
         `&orderEndDate=${
           moment(timeRange.endTime).endOf("day").format().split("+")[0]
         }`;
+    if (priceRange.max)
+      url =
+        url +
+        `&fromOrderAmount=${priceRange.min}&toOrderAmount=${priceRange.max}`;
     fetchRequests(url);
   };
 
@@ -320,7 +321,6 @@ export function AdminRequests() {
   };
 
   const fetchRequests = async (filterUrl = "") => {
-    console.log({ filterUrl });
     setPageLoading(true);
     const url = filterUrl
       ? filterUrl
