@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import shortUUID from "short-uuid";
 import Swal from "sweetalert2";
@@ -93,6 +93,7 @@ export const handleGroupWashOrders = (
 export function SchedulePickup() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const schedulePickupData = useSelector(getSchedulePickupInformation);
   const { id } = useParams();
   const [step] = useState(Number(id || 1));
@@ -140,7 +141,7 @@ export function SchedulePickup() {
     if (step > 1) {
       window.location.replace(`/schedule-pickup/${step - 1}`);
       window.scrollTo({ top: 0 });
-    }
+    } else navigate(-1);
   };
 
   const formik = useFormik({
@@ -320,7 +321,9 @@ export function SchedulePickup() {
 
       <div className='schedule-pickup__body'>
         <div className='schedule-pickup__body__flow-tracker-wrapper'>
-          <i className='bi bi-chevron-left' onClick={handleGoBack}></i>
+          <span className='_back' onClick={handleGoBack}>
+            <i className='bi bi-chevron-left'></i>
+          </span>
           <div
             className='schedule-pickup__body__flow-tracker'
             onClick={() => handleTitleClick(1)}

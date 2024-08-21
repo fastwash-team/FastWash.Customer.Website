@@ -16,9 +16,11 @@ import { AdditionalOrderComponent } from "../additional-order";
 export function AdminRequestView({
   goBack,
   selectedRequest,
+  isFromPayment = false,
 }: {
   goBack: () => void;
   selectedRequest: AdminRequest | null;
+  isFromPayment?: boolean;
 }) {
   const adminToken = getFWAdminToken();
   const [wash, setWash] = useState(selectedRequest);
@@ -50,6 +52,8 @@ export function AdminRequestView({
     }
   };
 
+  console.log({ selectedRequest });
+
   return (
     <div className='request-view'>
       <p className='goback_'>
@@ -57,10 +61,11 @@ export function AdminRequestView({
       </p>
       <div className='price_ status'>
         <h2>
-          N
-          {formatMoney(
-            selectedRequest?.washOrderData.transactionData.transactionAmount
-          )}
+          {isFromPayment
+            ? `N${formatMoney(
+                selectedRequest?.washOrderData.transactionData.transactionAmount
+              )}`
+            : selectedRequest?.washOrderReference}
         </h2>
         <span className={wash?.washStatus.toLowerCase()}>
           {wash?.washStatus}
@@ -95,7 +100,15 @@ export function AdminRequestView({
         </div>
         <div className='item'>
           <h5>Payment</h5>
-          <h6>N {formatMoney(selectedRequest?.orderAmount)}</h6>
+          <h6>
+            N
+            {!isFromPayment
+              ? formatMoney(
+                  selectedRequest?.washOrderData.transactionData
+                    .transactionAmount
+                )
+              : formatMoney(selectedRequest?.orderAmount)}
+          </h6>
         </div>
       </div>
       <div className='items'>

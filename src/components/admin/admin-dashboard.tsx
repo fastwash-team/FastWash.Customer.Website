@@ -20,7 +20,7 @@ export function AdminOverview({
           }
         >
           <div className='title'>
-            <h6>Pending PreSchedule</h6>
+            <h6>Received PreSchedule</h6>
             <i className='bi bi-chevron-right'></i>
           </div>
           <h3>{overviewData.pendingReschedule}</h3>
@@ -35,7 +35,7 @@ export function AdminOverview({
           }
         >
           <div className='title'>
-            <h6>Pending Classic</h6>
+            <h6>Received Classic</h6>
             <i className='bi bi-chevron-right'></i>
           </div>
           <h3>{overviewData.pendingClassic}</h3>

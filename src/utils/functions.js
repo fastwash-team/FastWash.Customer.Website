@@ -76,8 +76,8 @@ export const errorHandler = (error) => {
 export const reLoginUser = async () => {
   console.log("reauthenticating user.......");
   try {
-    // let token = localStorage.getItem("fw_user_token");
-    let token = "";
+    let token = localStorage.getItem("fw_user_token");
+    // let token = "";
     if (!token && localStorage.getItem("fw_admin_token"))
       token = localStorage.getItem("fw_admin_token");
     if (!token) {

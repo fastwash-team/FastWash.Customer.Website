@@ -77,6 +77,10 @@ export function CreatePreScheduleModal() {
       washesCount: 0,
     });
     setTimes({ startTime: "", endTime: "" });
+    const selectBox = document.getElementById(
+      "location-select"
+    ) as HTMLSelectElement;
+    if (selectBox) selectBox.selectedIndex = 0;
   };
 
   const handleCreateSchedules = async () => {
@@ -136,6 +140,7 @@ export function CreatePreScheduleModal() {
                 onChange={({ target: { value } }) =>
                   setPreData({ ...preData, location: value })
                 }
+                id='location-select'
                 value={preData.location ? preData.location : undefined}
               >
                 <option selected disabled>

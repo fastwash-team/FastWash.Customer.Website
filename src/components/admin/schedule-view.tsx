@@ -36,8 +36,6 @@ export function ScheduleView({
   }, []);
 
   const handleGeneratePDF = async (htmlString: string) => {
-    console.log({ htmlString });
-    // return;
     const iframe = document.createElement("iframe");
     iframe.style.visibility = "hidden";
     document.body.appendChild(iframe);
@@ -67,25 +65,6 @@ export function ScheduleView({
     // Remove the iframe from the document when the file is generated.
     document.body.removeChild(iframe);
   };
-
-  console.log({ selectedSchedule });
-
-  // const handleGeneratePDF = () => {
-  //   const doc = new JsPDF({
-  //     format: "a4",
-  // unit: "px",
-  // orientation: "portrait",
-  //   });
-  //   doc.setFont("Helvetica");
-  //   if (!reportTemplateRef.current) return console.log("returned here!");
-  //   doc.html(reportTemplateRef.current, {
-  //     async callback(doc) {
-  //       console.log({ doc, fontList: doc.getFontList() });
-  //       // return;
-  //       await doc.save("document");
-  //     },
-  //   });
-  // };
 
   const handleUpdateRequestInList = (wash: AdminRequest) => {
     if (!selectedSchedule?.washOrders.length) return;
@@ -152,7 +131,7 @@ export function ScheduleView({
             )}
           </PDFDownloadLink>
         ) : null} */}
-        {(schedule?.washOrders || []).length ? (
+        {(schedule?.washOrders || [])?.length ? (
           <button
             onClick={() => {
               handlePrint();
@@ -309,7 +288,9 @@ export function ScheduleView({
       <UpdateWash wash={selectedWash} handleFetchAdditionalOrder={() => null} />
       <div style={{ display: "none" }}>
         <div className='' ref={reportTemplateRef}>
-          <ScheduleDownloadTemplate schedule={schedule} />
+          {schedule && schedule?.washOrders ? (
+            <ScheduleDownloadTemplate schedule={schedule} />
+          ) : null}
         </div>
       </div>
     </div>

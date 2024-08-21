@@ -198,14 +198,14 @@ const Landing: React.FC = () => {
               <h1>Schedule Wash</h1>
               <p>
                 Enter your address, choose your desired <br />
-                service, and the your most convenient <br /> schedule.
+                service, and your most convenient <br /> schedule.
               </p>
               <p>
                 Select the number of washes and any
                 <br /> other laundry extras you may need.
               </p>
               <p>
-                Simple make payment, your fast and <br />
+                Simply make payment, your fast and <br />
                 convenient laundry experience begins.
               </p>
               <img src={Calendar} alt='' />

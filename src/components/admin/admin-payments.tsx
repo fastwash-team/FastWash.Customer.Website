@@ -201,6 +201,7 @@ export function AdminPayments() {
         <AdminRequestView
           goBack={() => setComponentView("payment-list")}
           selectedRequest={selectedRequest}
+          isFromPayment={true}
         />
       )}
     </div>

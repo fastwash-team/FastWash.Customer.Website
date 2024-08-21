@@ -56,8 +56,20 @@ export const filterScheduleToGetAvailableDays = (
 export const filterDaysToGetAvailableTimes = (
   availableDays: WashOrderPlanData[]
 ) => {
+  console.log({ availableDays });
   const validDateTimes: WashOrderPlanData[] = [];
-  availableDays.forEach((el) => {
+  const availabledays = availableDays.map((el) => {
+    const { scheduleStartTime, scheduleEndTime } = el;
+    const [firstHr] = scheduleStartTime.split(":");
+    const [secondHr] = scheduleEndTime.split(":");
+    let update = { ...el };
+    if (firstHr.length === 1)
+      update = { ...update, scheduleStartTime: "0" + scheduleStartTime };
+    if (secondHr.length === 1)
+      update = { ...update, scheduleEndTime: "0" + scheduleEndTime };
+    return update;
+  });
+  availabledays.forEach((el) => {
     const [hour, minute] = el.scheduleEndTime.split(":");
     const endDateTime = moment(el.scheduleDate)
       .hour(Number(hour))
@@ -85,7 +97,7 @@ export function PickupDelivery({
     LocationSchedule[] | []
   >([]);
 
-  console.log({ scheduleInfo });
+  console.log({ errors });
 
   console.log({ scheduleInfo });
 
@@ -146,6 +158,8 @@ export function PickupDelivery({
     const arr = scheduleForSelectedArea[findDate?.date];
     return filterDaysToGetAvailableTimes(arr);
   }, [scheduleInfo.pickupDay, days]);
+
+  console.log({ selectedTimesForSelectedDay });
 
   useEffect(() => {
     handleFetchSchedules();
@@ -277,7 +291,9 @@ export function PickupDelivery({
             <option key={el}>{el}</option>
           ))}
         </select>
-        {errors?.area && <InfoMessage message={errors.area} />}
+        {errors?.area && !scheduleInfo?.area && (
+          <InfoMessage message={errors.area} />
+        )}
       </div>
       <div className='mt-3'>
         <div className='row'>
