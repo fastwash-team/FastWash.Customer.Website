@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "FastWash App",
+  "name": "Same day Laundry pickup and delivery.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -14,14 +14,3 @@
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
-
-// {
-// "src": "brand.png",
-// "type": "image/png",
-// "sizes": "192x192"
-// },
-// {
-//   "src": "brand.png",
-//   "type": "image/png",
-//   "sizes": "512x512"
-// }

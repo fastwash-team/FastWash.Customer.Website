@@ -56,6 +56,7 @@ export function CreatePreScheduleModal() {
         location: preData.location,
       };
     });
+    toast.success("Schedule has been updated!");
     setSchedules(schedules);
   };
 
