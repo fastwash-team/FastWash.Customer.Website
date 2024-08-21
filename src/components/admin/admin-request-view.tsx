@@ -49,8 +49,6 @@ export function AdminRequestView({
     }
   };
 
-  console.log({ additionalOrder });
-
   return (
     <div className='request-view'>
       <p className='goback_'>

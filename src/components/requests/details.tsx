@@ -6,23 +6,34 @@ import {
   getFWUserToken,
   getWashServiceType,
 } from "../../utils/functions";
-import { RequestTracking, WashItemData } from "../../utils/types";
+import {
+  AdditionalOrder,
+  RequestTracking,
+  WashItemData,
+} from "../../utils/types";
 import moment from "moment";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
 import { CustomTooltip } from "../tooltip";
+import { AdditionalOrderComponent } from "../additional-order";
 
 export const RequestDetailPage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const userToken = getFWUserToken();
   const [requestTracking, setRequestTracking] = useState([]);
+  const [additionalOrder, setAdditionalOrder] =
+    useState<AdditionalOrder | null>(null);
 
   useEffect(() => {
     // call every 10 seconds
     const callOrderByStatusInterval = setInterval(getAnOrderStatusById, 10000);
     return () => clearInterval(callOrderByStatusInterval);
+  }, []);
+
+  useEffect(() => {
+    handleFetchAdditionalOrder();
   }, []);
 
   const statuses = [
@@ -91,9 +102,21 @@ export const RequestDetailPage = () => {
     return status.washStatus;
   }, [requestTracking]);
 
-  console.log("dds", state?.washOrderData);
-
-  const show = false;
+  const handleFetchAdditionalOrder = async () => {
+    try {
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${state?.washOrderId}/additionalorder/external`,
+        {
+          headers: { Authorization: `Bearer ${userToken}` },
+        }
+      );
+      setAdditionalOrder(responseObject);
+    } catch (error) {
+      console.log("additional error", error);
+    }
+  };
 
   return (
     <div className='__dashboard'>
@@ -160,71 +183,8 @@ export const RequestDetailPage = () => {
                   )}
                 </span>
               </div>
-              {show ? (
-                <>
-                  <div className='additional-order-container'>
-                    <div className='header status'>
-                      <h5>Additional Order</h5>
-                      <span className='received'>Received</span>
-                      {/* <span className={additionalOrder?.washStatus.toLowerCase()}>
-                      {additionalOrder?.washStatus}
-                    </span> */}
-                    </div>
-                    <div className='body'>
-                      <section>
-                        <div className='_section'>
-                          <h3>Wash Quantity</h3>
-                          <p>20 Washes</p>
-                          {/* <p>
-                          {additionalOrder?.washItemData?.find(
-                            (el) => el.itemName.toLowerCase() === "washes"
-                          )?.numberOfItem || 0}{" "}
-                          Washes
-                        </p> */}
-                        </div>
-                        <div className='_section'>
-                          <h3>Payment</h3>
-                          <p>
-                            N{formatMoney(3000)}
-                            {/* {formatMoney(
-                            additionalOrder?.washItemData?.reduce(
-                              (acc, curr) => acc + Number(curr.itemAmount),
-                              0
-                            )
-                          )} */}
-                          </p>
-                        </div>
-                      </section>
-                      <section>
-                        <div className='_section'>
-                          <h3>Extras</h3>
-                          <p>
-                            Bleach(2)
-                            {/* {additionalOrder?.washItemData
-                            ?.filter(
-                              (el) => el.itemName?.toLowerCase() !== "washes"
-                            )
-                            ?.map(
-                              (el, key) =>
-                                `${el.itemName}(${el.numberOfItem})${
-                                  key <
-                                  additionalOrder.washItemData.filter(
-                                    (el) =>
-                                      el.itemName?.toLowerCase() !== "washes"
-                                  ).length -
-                                    1
-                                    ? ", "
-                                    : ""
-                                }`
-                            )} */}
-                          </p>
-                        </div>
-                        <div></div>
-                      </section>
-                    </div>
-                  </div>
-                  <div className='items hasBorderBottom'></div>
-                </>
+              {additionalOrder ? (
+                <AdditionalOrderComponent additionalOrder={additionalOrder} />
               ) : null}
               <div className='tracking'>
                 <h4>Track</h4>
