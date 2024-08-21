@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { RescheduleWash } from "./modals/reschedule-wash";
 import { AddComplaint } from "./modals/add-complaint";
+import { AdditionalOrderComponent } from "../additional-order";
 
 export function AdminRequestView({
   goBack,
@@ -128,64 +129,7 @@ export function AdminRequestView({
         <div className='item'></div>
       </div>
       {additionalOrder ? (
-        <>
-          <div className='additional-order-container'>
-            <div className='header status'>
-              <h5>Additional Order</h5>
-              <span className={additionalOrder?.washStatus.toLowerCase()}>
-                {additionalOrder?.washStatus}
-              </span>
-            </div>
-            <div className='body'>
-              <section>
-                <div className='_section'>
-                  <h3>Wash Quantity</h3>
-                  <p>
-                    {additionalOrder?.washItemData?.find(
-                      (el) => el.itemName.toLowerCase() === "washes"
-                    )?.numberOfItem || 0}{" "}
-                    Washes
-                  </p>
-                </div>
-                <div className='_section'>
-                  <h3>Payment</h3>
-                  <p>
-                    N{" "}
-                    {formatMoney(
-                      additionalOrder?.washItemData?.reduce(
-                        (acc, curr) => acc + Number(curr.itemAmount),
-                        0
-                      )
-                    )}
-                  </p>
-                </div>
-              </section>
-              <section>
-                <div className='_section'>
-                  <h3>Extras</h3>
-                  <p>
-                    {additionalOrder?.washItemData
-                      ?.filter((el) => el.itemName?.toLowerCase() !== "washes")
-                      ?.map(
-                        (el, key) =>
-                          `${el.itemName}(${el.numberOfItem})${
-                            key <
-                            additionalOrder.washItemData.filter(
-                              (el) => el.itemName?.toLowerCase() !== "washes"
-                            ).length -
-                              1
-                              ? ", "
-                              : ""
-                          }`
-                      )}
-                  </p>
-                </div>
-                <div></div>
-              </section>
-            </div>
-          </div>
-          <div className='items hasBorderBottom'></div>
-        </>
+        <AdditionalOrderComponent additionalOrder={additionalOrder} />
       ) : null}
       <div className='items'>
         <div className='item'>
