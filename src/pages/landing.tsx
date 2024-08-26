@@ -670,6 +670,14 @@ const Landing: React.FC = () => {
               <a href='/terms'>Terms & Conditions</a>
               <ul>
                 <li>
+                  <a href='tel:+2347073378261'>+234(0)7073378261</a>
+                </li>
+                <li>
+                  <a href='mailto:care@fastwash.africa'>care@fastwash.africa</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
                   <a
                     href='https://x.com/fastwashafrica?s=11&t=UY9bR4lRRRLR9aj6XjKa4g'
                     target='_blank'

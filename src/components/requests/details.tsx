@@ -183,17 +183,22 @@ export const RequestDetailPage = () => {
                   )}
                 </span>
               </div>
+              <div className='details-item'>
+                <p>Location</p>
+                <span>{state?.washOrderData?.location}</span>
+              </div>
               {additionalOrder ? (
                 <AdditionalOrderComponent additionalOrder={additionalOrder} />
               ) : null}
               <div className='tracking'>
                 <h4>Track</h4>
                 <div className='tracker-wrapper'>
-                  {trackingSteps.map((el) => (
+                  {trackingSteps.map((el, key) => (
                     <div
                       className={`step ${el.isCompleted ? "done" : ""} ${
                         currentWashStatus === el.status ? "last" : ""
                       }`}
+                      key={key}
                     >
                       <h4 className={`${el.isCompleted ? "done" : ""}`}>
                         {el.status}

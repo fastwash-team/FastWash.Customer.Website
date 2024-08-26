@@ -90,16 +90,13 @@ export function PickupDelivery({
   scheduleInfo,
   changePDInfo,
   errors,
+  touched,
 }: PickupDeliveryProps) {
   const isWashPrescheduled = selectedWashType === PRESCHEDULED_WASH;
   const isClassicWash = selectedWashType === CLASSIC_WASH;
   const [schedulePerLocation, setSchedulePerLocation] = useState<
     LocationSchedule[] | []
   >([]);
-
-  console.log({ errors });
-
-  console.log({ scheduleInfo });
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -159,8 +156,6 @@ export function PickupDelivery({
     return filterDaysToGetAvailableTimes(arr);
   }, [scheduleInfo.pickupDay, days]);
 
-  console.log({ selectedTimesForSelectedDay });
-
   useEffect(() => {
     handleFetchSchedules();
   }, [isWashPrescheduled, isClassicWash]);
@@ -185,8 +180,6 @@ export function PickupDelivery({
     }
   };
 
-  console.log("errors", errors);
-
   function resetSelectBox(selectBoxId: string) {
     const selectBox = document.getElementById(selectBoxId) as HTMLSelectElement;
     if (selectBox) selectBox.selectedIndex = 0;
@@ -204,6 +197,7 @@ export function PickupDelivery({
             changePDInfo("area", "");
             changePDInfo("pickupDay", "");
             changePDInfo("pickupWindow", "");
+            changePDInfo("orderDate", "");
           }}
         >
           <div className='imgs'>
@@ -226,6 +220,7 @@ export function PickupDelivery({
             resetSelectBox("pickup-window");
             resetSelectBox("pickup-day");
             resetSelectBox("area");
+            changePDInfo("orderDate", "");
           }}
         >
           <div className='imgs'>
@@ -246,7 +241,9 @@ export function PickupDelivery({
           handleChange={(address) => changePDInfo("address", address)}
           address={scheduleInfo.address}
         />
-        {errors?.address && <InfoMessage message={errors.address} />}
+        {errors?.address && touched?.address && (
+          <InfoMessage message={errors.address} />
+        )}
       </div>
       <div className='mt-3'>
         <label>Choose area</label>
@@ -291,7 +288,7 @@ export function PickupDelivery({
             <option key={el}>{el}</option>
           ))}
         </select>
-        {errors?.area && !scheduleInfo?.area && (
+        {errors?.area && touched?.area && !scheduleInfo?.area && (
           <InfoMessage message={errors.area} />
         )}
       </div>
@@ -400,8 +397,15 @@ export function PickupDelivery({
           <p>
             Your laundry will be delivered to you{" "}
             <b>
-              {scheduleInfo.selectedWashType === "classic-wash"
+              {scheduleInfo.selectedWashType === "classic-wash" &&
+              moment(scheduleInfo.orderDate).isSame(new Date())
                 ? "in less than FOUR hours"
+                : scheduleInfo.selectedWashType === "classic-wash" &&
+                  scheduleInfo.orderDate &&
+                  !moment(scheduleInfo.orderDate).isSame(new Date())
+                ? moment(scheduleInfo.orderDate).format("Do MMM, YYYY")
+                : !scheduleInfo.pickupDay && !scheduleInfo.pickupWindow
+                ? "on the SAME DAY"
                 : scheduleInfo.pickupDay && scheduleInfo.pickupWindow
                 ? moment(scheduleInfo.orderDate).isSame(new Date())
                   ? "Today"

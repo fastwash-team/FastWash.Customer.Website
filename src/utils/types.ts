@@ -8,11 +8,22 @@ export interface ScheduleFormErrors {
   phonenumber: string;
 }
 
+export interface ScheduleFormTouched {
+  address: boolean;
+  area: boolean;
+  pickupDay: boolean;
+  pickupWindow: boolean;
+  contactperson: boolean;
+  contactemail: boolean;
+  phonenumber: boolean;
+}
+
 export interface PickupDeliveryProps {
   selectedWashType: string;
   scheduleInfo: ScheduleSummaryProps;
   changePDInfo: (e: string, f: string | number) => void;
   errors: ScheduleFormErrors;
+  touched: ScheduleFormTouched;
 }
 
 export interface InfoMessageComponentProps {

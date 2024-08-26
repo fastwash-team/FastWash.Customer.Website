@@ -115,8 +115,8 @@ export function FilterScheduleModal({
                     type='number'
                     placeholder='Min. Amount'
                     min={1000}
+                    value={Number(priceRange.min).toString()}
                     max={50000}
-                    value={priceRange.min}
                     onChange={(e) =>
                       setPriceRange({
                         ...priceRange,
@@ -129,7 +129,7 @@ export function FilterScheduleModal({
                   <label>Max Amount</label>
                   <input
                     className='form-control'
-                    value={priceRange.max}
+                    value={Number(priceRange.max).toString()}
                     type='number'
                     placeholder='Max Amount'
                     min={1000}

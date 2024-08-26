@@ -22,6 +22,7 @@ import {
 } from "../utils/schemas";
 import {
   ScheduleFormErrors,
+  ScheduleFormTouched,
   ScheduleSummaryProps,
   TransactionChannel,
   UserType,
@@ -300,6 +301,8 @@ export function SchedulePickup() {
       window.location.replace(`/schedule-pickup/${pageNumber}`);
   };
 
+  console.log({ formik });
+
   return (
     <div className='schedule-pickup'>
       <Header />
@@ -366,6 +369,7 @@ export function SchedulePickup() {
                     handleChangeInfo(key, value);
                   }}
                   scheduleInfo={scheduleInfo}
+                  touched={formik.touched as ScheduleFormTouched}
                   errors={formik.errors as ScheduleFormErrors}
                 />
               ) : step === 2 ? (

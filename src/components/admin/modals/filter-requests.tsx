@@ -179,7 +179,7 @@ export function FilterRequestsModal({
                     type='number'
                     min={1000}
                     max={50000}
-                    value={priceRange.min}
+                    value={Number(priceRange.min).toString()}
                     onChange={(e) =>
                       setPriceRange({
                         ...priceRange,
@@ -192,7 +192,7 @@ export function FilterRequestsModal({
                   <label>Max Amount</label>
                   <input
                     className='form-control'
-                    value={priceRange.max}
+                    value={Number(priceRange.max).toString()}
                     type='number'
                     min={1000}
                     max={50000}
