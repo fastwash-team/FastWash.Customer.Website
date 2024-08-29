@@ -258,7 +258,7 @@ export function SchedulePickup() {
             : WashServiceType.PRESCHEDULED_WASH,
         internalNotes: values.laundryInstructions,
         logisticsAmount: values.logisticsAmount,
-        estimatedDeliveryTime: moment(values.orderDate).format(),
+        estimatedDeliveryTime: values.orderDate,
         pickupTime: values.pickupWindow,
         washItemData: washItems,
         orderNote: values.laundryInstructions,
@@ -279,6 +279,7 @@ export function SchedulePickup() {
         body.orderDate = moment(moment(values.pickupDay, "Do, MMM YYYY"))
           .hour(Number(values.pickupWindow.split(":")[0]) + 1)
           .format();
+        body.estimatedDeliveryTime = body.orderDate;
       }
       await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
