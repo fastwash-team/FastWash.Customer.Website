@@ -1,7 +1,25 @@
 import React from "react";
 import FashWashLogo from "../../assets/imgs/fashwash-logo.png";
+import Swal from "sweetalert2";
+import { logout } from "../../utils/functions";
+import { useNavigate } from "react-router-dom";
 
 export function AdminHeader() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    return Swal.fire({
+      title: "Are you sure you want to logout?",
+      showCancelButton: true,
+      confirmButtonText: "Logout",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire("Logout Successful!", "", "success");
+        logout();
+        return navigate("/login");
+      }
+    });
+  };
   return (
     <div className='schedule-pickup__header'>
       <div className='row'>
@@ -31,6 +49,13 @@ export function AdminHeader() {
                   <i className='bi bi-person-fill'></i>
                 </li>
               </ul>
+              <button
+                className='d-flex'
+                onClick={handleLogout}
+                style={{ marginLeft: "30px" }}
+              >
+                Logout
+              </button>
             </div>
           </nav>
         </div>

@@ -12,14 +12,19 @@ import MultiDatePicker from "react-multi-date-picker";
 import axios from "axios";
 import { WashServiceType } from "../../../utils/types";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import {
+  fetch_admin_schedules,
+  set_admin_schedules_pagination,
+} from "../../../redux-files/admin-schedules/reducer";
 
 export function CreateClassicScheduleModal() {
   const adminToken = getFWAdminToken();
+  const dispatch = useDispatch();
   const startTimes = timeRangeClassic.filter(
     (el, key) => key < timeRangeClassic.length - 1
   );
   const endTimes = timeRangeClassic.filter((el, key) => key !== 0);
-  console.log({ startTimes, endTimes });
   const [loading, setLoading] = useState(false);
   const [times, setTimes] = useState({ startTime: "", endTime: "" });
   const [preData, setPreData] = useState({ location: "", logistics: 0 });
@@ -78,6 +83,8 @@ export function CreateClassicScheduleModal() {
       );
       document.getElementById("close-modal")?.click();
       resetPage();
+      dispatch(set_admin_schedules_pagination({ page: 1 }));
+      dispatch(fetch_admin_schedules());
       return Swal.fire({
         title: "Success!",
         text: "Schedules created successfully",

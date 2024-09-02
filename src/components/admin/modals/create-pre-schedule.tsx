@@ -12,9 +12,15 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { WashServiceType } from "../../../utils/types";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import {
+  fetch_admin_schedules,
+  set_admin_schedules_pagination,
+} from "../../../redux-files/admin-schedules/reducer";
 
 export function CreatePreScheduleModal() {
   const adminToken = getFWAdminToken();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const startTimes = timeRangeClassic.filter(
     (el, key) => key < timeRangeClassic.length - 1
@@ -96,6 +102,8 @@ export function CreatePreScheduleModal() {
       );
       document.getElementById("close-modal-2")?.click();
       resetPage();
+      dispatch(set_admin_schedules_pagination({ page: 1 }));
+      dispatch(fetch_admin_schedules());
       return Swal.fire({
         title: "Success!",
         text: "Schedules created successfully",

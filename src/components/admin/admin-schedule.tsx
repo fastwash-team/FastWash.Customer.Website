@@ -1,134 +1,116 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Pagination } from "../pagination";
 import { FilterScheduleModal } from "./modals/filter-schedules";
 import { WashScheduleProps } from "../../utils/types";
 import { ScheduleView } from "./schedule-view";
 import CalendarSvg from "../../assets/svgs/calender.svg";
-import axios from "axios";
 import moment from "moment";
-import {
-  errorHandler,
-  formatMoney,
-  getFWAdminToken,
-  getWashServiceType,
-} from "../../utils/functions";
+import { formatMoney, getWashServiceType } from "../../utils/functions";
 import Skeleton from "react-loading-skeleton";
 import { EmptyContainer } from "../empty-wash-item-list";
 import { useLocation } from "react-router-dom";
 import { HangerIcon } from "../../assets/svgs/hanger.icon";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetch_admin_schedules,
+  set_admin_schedules_filter,
+  set_admin_schedules_pagination,
+} from "../../redux-files/admin-schedules/reducer";
+import {
+  getAdminScheduleFilters,
+  getAdminScheduleLoadingState,
+  getAdminSchedulePaginationOptions,
+  getAllAdminSchedule,
+} from "../../redux-files/admin-schedules/selector";
 
 export function AdminSchedule() {
-  const adminToken = getFWAdminToken();
   const location = useLocation();
-  const [filterDay, setFilterDay] = useState("all");
-  const [filterSchedule, setFilterSchedule] = useState("All");
-  const [filterLocation, setFilterLocation] = useState("All");
-  const [pageLoading, setPageLoading] = useState(true);
-  const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
-    min: 0,
-    max: 0,
-  });
-  const [timeRange, setTimeRange] = useState<{
-    startTime: string | null;
-    endTime: string | null;
-  }>({
-    startTime: "",
-    endTime: "",
-  });
-  const [selectedSchedule, setSelectedSchedule] =
-    useState<null | WashScheduleProps>(null);
-  const [schedules, setSchedules] = useState<WashScheduleProps[] | []>([]);
-  const [paginationOptions, setPaginationOptions] = useState({
-    page: 0,
-    totalPages: 0,
-    pageSize: 0,
-    defaultPageSize: 5,
-  });
+  const dispatch = useDispatch();
+  const schedules: WashScheduleProps[] = useSelector(getAllAdminSchedule) || [];
+  const pageLoading = useSelector(getAdminScheduleLoadingState);
+  const paginationOptions = useSelector(getAdminSchedulePaginationOptions);
+  const {
+    filterDay,
+    filterLocation,
+    filterSchedule,
+    selectedSchedule,
+    timeRange,
+    priceRange,
+  } = useSelector(getAdminScheduleFilters);
 
   useEffect(() => {
-    if (location?.state?.status) setFilterSchedule(location.state.status);
+    if (location?.state?.status)
+      dispatch(
+        set_admin_schedules_filter({
+          id: "filterSchedule",
+          value: location.state.status,
+        })
+      );
   }, []);
 
   useEffect(() => {
-    handleFetchSchedule();
-  }, [
-    paginationOptions.page,
-    paginationOptions.defaultPageSize,
-    filterSchedule,
-  ]);
+    dispatch(
+      set_admin_schedules_filter({
+        filterLocation,
+        filterDay,
+        filterSchedule,
+        paginationOptions,
+        timeRange,
+        priceRange,
+      })
+    );
+  }, [filterLocation, filterDay, filterSchedule]);
 
-  const handleFetchSchedule = async () => {
-    setPageLoading(true);
-    const hasFilter = !!filterSchedule || !!filterLocation;
-    let url = `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
-    if (hasFilter) {
-      url = `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans/filter?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`;
-      if (filterLocation !== "All") url = url + `&location=${filterLocation}`;
-      if (filterSchedule !== "All") {
-        const scheduleEnum =
-          filterSchedule === "Pre-Schedule"
-            ? 1
-            : filterSchedule === "Classic"
-            ? 2
-            : null;
-        url = url + `&serviceType=${scheduleEnum}`;
-      }
-      if (priceRange.max)
-        url =
-          url +
-          `&fromLogisticsAmount=${priceRange.min}&toLogisticsAmount=${priceRange.max}`;
-      if (timeRange.startTime)
-        url =
-          url +
-          `&scheduleStartDate=${
-            moment(timeRange.startTime).format().split("T")[0]
-          }`;
-      if (timeRange.endTime)
-        url =
-          url +
-          `&scheduleEndDate=${
-            moment(timeRange.endTime).endOf("day").format().split("T")[0]
-          }`;
-    }
-
-    try {
-      const {
-        data: {
-          responseObject: { data, pageCount, pageIndex, pageSize },
-        },
-      } = await axios.get(url, {
-        headers: { Authorization: `Bearer ${adminToken}` },
-      });
-      setSchedules(data);
-      setPaginationOptions({
-        ...paginationOptions,
-        page: pageIndex,
-        totalPages: pageCount + 1,
-        pageSize: pageSize,
-      });
-    } catch (error) {
-      console.log({ error });
-      const errorMessage = errorHandler(error);
-      console.log({ errorMessage });
-    } finally {
-      setPageLoading(false);
-    }
-  };
+  useEffect(() => {
+    dispatch(fetch_admin_schedules());
+  }, [paginationOptions.page, paginationOptions.defaultPageSize]);
 
   const handleApplyFilter = () => {
-    handleFetchSchedule();
+    dispatch(fetch_admin_schedules());
   };
 
   const handleSelectSchedule = (washSchedule: WashScheduleProps) => {
-    return setSelectedSchedule(washSchedule);
+    return dispatch(
+      set_admin_schedules_filter({
+        id: "selectedSchedule",
+        value: washSchedule,
+      })
+    );
   };
 
   const handleResetFilters = () => {
-    setTimeRange({ startTime: "", endTime: "" });
-    setPriceRange({ min: 0, max: 0 });
-    setFilterLocation("All");
-    setFilterSchedule("All");
-    setFilterDay("All");
+    Promise.all([
+      dispatch(
+        set_admin_schedules_filter({
+          id: "timeRange",
+          value: { startTime: "", endTime: "" },
+        })
+      ),
+      dispatch(
+        set_admin_schedules_filter({
+          id: "priceRange",
+          value: { min: 0, max: 0 },
+        })
+      ),
+      dispatch(
+        set_admin_schedules_filter({
+          id: "filterLocation",
+          value: "All",
+        })
+      ),
+      dispatch(
+        set_admin_schedules_filter({
+          id: "filterSchedule",
+          value: "All",
+        })
+      ),
+      dispatch(
+        set_admin_schedules_filter({
+          id: "filterDay",
+          value: "All",
+        })
+      ),
+    ]);
   };
 
   return (
@@ -137,7 +119,14 @@ export function AdminSchedule() {
         {selectedSchedule?.washOrderPlanReference ? (
           <ScheduleView
             schedule={selectedSchedule}
-            goBack={() => setSelectedSchedule(null)}
+            goBack={() =>
+              dispatch(
+                set_admin_schedules_filter({
+                  id: "selectedSchedule",
+                  value: null,
+                })
+              )
+            }
           />
         ) : (
           <>
@@ -235,14 +224,21 @@ export function AdminSchedule() {
                 <Pagination
                   pageCount={paginationOptions.totalPages}
                   changePage={(el) =>
-                    setPaginationOptions({ ...paginationOptions, page: el })
+                    dispatch(
+                      set_admin_schedules_pagination({
+                        ...paginationOptions,
+                        page: el,
+                      })
+                    )
                   }
                   changePageSize={(el) =>
-                    setPaginationOptions({
-                      ...paginationOptions,
-                      defaultPageSize: el,
-                      page: 1,
-                    })
+                    dispatch(
+                      set_admin_schedules_pagination({
+                        ...paginationOptions,
+                        defaultPageSize: el,
+                        page: 1,
+                      })
+                    )
                   }
                   currentPage={paginationOptions.page}
                   pageSize={paginationOptions.defaultPageSize}
@@ -256,14 +252,34 @@ export function AdminSchedule() {
         filterDay={filterDay}
         filterLocation={filterLocation}
         filterSchedule={filterSchedule}
-        setFilterDay={setFilterDay}
-        setFilterLocation={setFilterLocation}
-        setPriceRange={setPriceRange}
-        setFilterSchedule={setFilterSchedule}
+        setFilterDay={(event) =>
+          dispatch(
+            set_admin_schedules_filter({ id: "filterDay", value: event })
+          )
+        }
+        setFilterLocation={(event) =>
+          dispatch(
+            set_admin_schedules_filter({ id: "filterLocation", value: event })
+          )
+        }
+        setPriceRange={(event) =>
+          dispatch(
+            set_admin_schedules_filter({ id: "priceRange", value: event })
+          )
+        }
+        setFilterSchedule={(event) =>
+          dispatch(
+            set_admin_schedules_filter({ id: "filterSchedule", value: event })
+          )
+        }
+        setTimeRange={(event) =>
+          dispatch(
+            set_admin_schedules_filter({ id: "timeRange", value: event })
+          )
+        }
         handleApplyFilter={handleApplyFilter}
         priceRange={priceRange}
         timeRange={timeRange}
-        setTimeRange={setTimeRange}
         resetFilters={handleResetFilters}
       />
     </>
