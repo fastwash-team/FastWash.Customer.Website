@@ -81,6 +81,7 @@ export const reLoginUser = async () => {
     if (!token && localStorage.getItem("fw_admin_token"))
       token = localStorage.getItem("fw_admin_token");
     if (!token) {
+      console.log("this is where logout is called");
       return logout();
     }
     const arrayToken = token.split(".");

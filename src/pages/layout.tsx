@@ -6,6 +6,7 @@ export function Layout() {
   const isStaging = ["dev.fastwash.africa", "fast-wash.netlify.app"].includes(
     host
   );
+  console.log({ host, isStaging });
 
   return (
     <div className='loader-wrapper'>
