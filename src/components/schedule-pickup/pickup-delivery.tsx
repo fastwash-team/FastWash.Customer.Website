@@ -18,6 +18,7 @@ import { errorHandler, filterUniqueByKey } from "../../utils/functions";
 import { InfoMessage } from "../info-message";
 import axios from "axios";
 import moment from "moment";
+import { REACT_APP_API_BASE_URL } from "../../utils/service/env.keys";
 // import Swal from "sweetalert2";
 
 export const filterScheduleToGetAvailableDays = (
@@ -165,9 +166,7 @@ export function PickupDelivery({
       const {
         data: { responseObject },
       } = await axios.get(
-        `${
-          process.env.REACT_APP_API_BASE_URL
-        }/api/WashOrderPlans/servicetype?serviceType=${
+        `${REACT_APP_API_BASE_URL}/api/WashOrderPlans/servicetype?serviceType=${
           isWashPrescheduled ? 1 : isClassicWash ? 2 : ""
         }`
       );

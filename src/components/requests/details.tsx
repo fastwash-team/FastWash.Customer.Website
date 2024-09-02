@@ -17,6 +17,7 @@ import { useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
 import { CustomTooltip } from "../tooltip";
 import { AdditionalOrderComponent } from "../additional-order";
+import { REACT_APP_API_BASE_URL } from "../../utils/service/env.keys";
 
 export const RequestDetailPage = () => {
   const { state } = useLocation();
@@ -52,7 +53,7 @@ export const RequestDetailPage = () => {
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/${state.washOrderId}/status`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/order/${state.washOrderId}/status`,
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
       if (responseObject.length !== requestTracking.length)
@@ -107,7 +108,7 @@ export const RequestDetailPage = () => {
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${state?.washOrderId}/additionalorder/external`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/${state?.washOrderId}/additionalorder/external`,
         {
           headers: { Authorization: `Bearer ${userToken}` },
         }

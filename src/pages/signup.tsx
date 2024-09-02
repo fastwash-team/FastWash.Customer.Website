@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { SignUpSchema } from "../utils/schemas";
 import { InfoMessage } from "../components/info-message";
 import { errorHandler, validateEmail } from "../utils/functions";
+import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
 export function Signup() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export function Signup() {
     try {
       const body = { ...formik.values, userType: 1 };
       await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/signup`,
+        `${REACT_APP_API_BASE_URL}/api/Authentication/signup`,
         body
       );
       localStorage.clear();

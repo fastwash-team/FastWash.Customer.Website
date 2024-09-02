@@ -3,6 +3,7 @@ import axios from "axios";
 import { errorHandler, getFWAdminToken } from "../../../utils/functions";
 import { AdminRequest } from "../../../utils/types";
 import Swal from "sweetalert2";
+import { REACT_APP_API_BASE_URL } from "../../../utils/service/env.keys";
 
 export function UpdateRequestStatus({
   wash,
@@ -47,7 +48,7 @@ export function UpdateRequestStatus({
     try {
       setLoading(true);
       await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/status`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/order/status`,
         { washOrderId: wash?.washOrderId, washStatus: status },
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );

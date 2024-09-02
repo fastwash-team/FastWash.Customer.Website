@@ -12,6 +12,7 @@ import {
 } from "../../schedule-pickup/pickup-delivery";
 import moment from "moment";
 import Swal from "sweetalert2";
+import { REACT_APP_API_BASE_URL } from "../../../utils/service/env.keys";
 
 export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
   const isWashPrescheduled = wash?.serviceType === "PreScheduledWash";
@@ -55,9 +56,7 @@ export function RescheduleWash({ wash }: { wash: AdminRequest | null }) {
       const {
         data: { responseObject: locationSchedules },
       } = await axios.get(
-        `${
-          process.env.REACT_APP_API_BASE_URL
-        }/api/WashOrderPlans/servicetype?serviceType=${
+        `${REACT_APP_API_BASE_URL}/api/WashOrderPlans/servicetype?serviceType=${
           isWashPrescheduled ? 1 : isClassicWash ? 2 : ""
         }`
       );

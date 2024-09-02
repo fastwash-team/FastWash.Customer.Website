@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { errorHandler, getFWUserToken } from "../utils/functions";
 import Skeleton from "react-loading-skeleton";
+import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
 export const Requests = () => {
   const searchWashStatusEnum: { active: number; completed: number } = {
@@ -31,7 +32,7 @@ export const Requests = () => {
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/searchwashstatus?status=${searchWashStatusEnum[activeState]}`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/searchwashstatus?status=${searchWashStatusEnum[activeState]}`,
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
       setItems(responseObject);

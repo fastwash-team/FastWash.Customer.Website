@@ -5,6 +5,7 @@ import WashingMachine from "../assets/svgs/small-washing-machine.svg";
 import { useNavigate } from "react-router-dom";
 import { HelpCenter } from "../components/help-center";
 import { errorHandler, getFWUserToken } from "../utils/functions";
+import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export const Dashboard = () => {
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Profiles/profile/external`,
+        `${REACT_APP_API_BASE_URL}/api/Profiles/profile/external`,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -44,7 +45,7 @@ export const Dashboard = () => {
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/count`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/order/count`,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -158,7 +159,7 @@ export const Dashboard = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                     '-'
+                      '-'
                     </p>
                   </div>
                 ) : null}

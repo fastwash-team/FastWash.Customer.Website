@@ -2,6 +2,7 @@ import moment from "moment";
 import { WASH_PRICES } from ".";
 import axios from "axios";
 import { ADMIN_FASTWASH } from "../router";
+import { REACT_APP_API_BASE_URL } from "./service/env.keys";
 // import { toast } from "react-toastify";
 
 export const formatMoney = (value) =>
@@ -90,13 +91,13 @@ export const reLoginUser = async () => {
     const {
       data: { responseObject: authOTP },
     } = await axios.post(
-      `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
+      `${REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
       { userId: email, isSystemInitiated: true }
     );
     const {
       data: { responseObject },
     } = await axios.put(
-      `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
+      `${REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
       { passCode: authOTP }
     );
     console.log({ responseObject });

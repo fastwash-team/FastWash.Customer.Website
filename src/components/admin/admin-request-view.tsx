@@ -12,6 +12,7 @@ import axios from "axios";
 import { RescheduleWash } from "./modals/reschedule-wash";
 import { AddComplaint } from "./modals/add-complaint";
 import { AdditionalOrderComponent } from "../additional-order";
+import { REACT_APP_API_BASE_URL } from "../../utils/service/env.keys";
 
 export function AdminRequestView({
   goBack,
@@ -40,7 +41,7 @@ export function AdminRequestView({
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/additionalorder/internal`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/additionalorder/internal`,
         {
           headers: { Authorization: `Bearer ${adminToken}` },
         }

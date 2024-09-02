@@ -34,6 +34,7 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { getSchedulePickupInformation } from "../redux-files/schedule-pickup/selector";
 import { save_wash_details } from "../redux-files/schedule-pickup/reducer";
+import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
 export const handleGroupWashOrders = (
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -228,7 +229,7 @@ export function SchedulePickup() {
       const {
         data: { responseObject },
       } = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/payment/initiate`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/payment/initiate`,
         { email, amount: amount * 100, reference }
       );
       return responseObject;
@@ -281,10 +282,7 @@ export function SchedulePickup() {
           .format();
         body.estimatedDeliveryTime = body.orderDate;
       }
-      await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders`,
-        body
-      );
+      await axios.post(`${REACT_APP_API_BASE_URL}/api/WashOrders`, body);
       window.location.replace(transaction.authorizationUrl);
     } catch (error) {
       const errorMessage = errorHandler(error);

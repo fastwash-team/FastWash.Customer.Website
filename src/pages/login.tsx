@@ -12,6 +12,7 @@ import { LoginSchema } from "../utils/schemas";
 import { InfoMessage } from "../components/info-message";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
 export function Login(props: { isAdmin?: boolean }) {
   const [loading, setLoading] = useState(false);
@@ -42,7 +43,7 @@ export function Login(props: { isAdmin?: boolean }) {
     setLoading(true);
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
+        `${REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
         { userId: formik.values.email }
       );
       toast.info("A verification code has been sent to your inbox");

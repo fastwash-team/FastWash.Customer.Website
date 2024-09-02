@@ -17,6 +17,7 @@ import {
   fetch_admin_schedules,
   set_admin_schedules_pagination,
 } from "../../../redux-files/admin-schedules/reducer";
+import { REACT_APP_API_BASE_URL } from "../../../utils/service/env.keys";
 
 export function CreateClassicScheduleModal() {
   const adminToken = getFWAdminToken();
@@ -67,7 +68,7 @@ export function CreateClassicScheduleModal() {
     setLoading(true);
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrderPlans`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrderPlans`,
         {
           serviceType: WashServiceType.CLASSIC_WASH,
           washOrderPlanCreationData: schedules.map((el) => ({

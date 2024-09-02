@@ -10,6 +10,7 @@ import { CreatePreScheduleModal } from "../components/admin/modals/create-pre-sc
 import { errorHandler, getFWAdminToken } from "../utils/functions";
 import { useSearchParams } from "react-router-dom";
 import { AdminPayments } from "../components/admin/admin-payments";
+import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
 export const AdminDashboard = () => {
   const [searchParams] = useSearchParams();
@@ -37,7 +38,7 @@ export const AdminDashboard = () => {
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Profiles/profile/external`,
+        `${REACT_APP_API_BASE_URL}/api/Profiles/profile/external`,
         {
           headers: {
             Authorization: `Bearer ${adminToken}`,
@@ -58,7 +59,7 @@ export const AdminDashboard = () => {
           responseObject: { allOrders, classicOrders, preScheduledOrders },
         },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/order/received/count`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/order/received/count`,
         {
           headers: {
             Authorization: `Bearer ${adminToken}`,

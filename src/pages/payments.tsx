@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { errorHandler, getFWUserToken } from "../utils/functions";
 import Skeleton from "react-loading-skeleton";
+import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
 export const Payments = () => {
   const [items, setItems] = useState<[] | PaymentItem[]>([]);
@@ -20,7 +21,7 @@ export const Payments = () => {
       const {
         data: { responseObject },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/payment/history`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/payment/history`,
         { headers: { Authorization: `Bearer ${userToken}` } }
       );
       setItems(responseObject);

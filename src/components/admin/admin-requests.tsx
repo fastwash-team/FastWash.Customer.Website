@@ -18,6 +18,7 @@ import { UpdateWash } from "./modals/update-wash";
 import { useNavigate } from "react-router-dom";
 import { RescheduleWash } from "./modals/reschedule-wash";
 import { AddComplaint } from "./modals/add-complaint";
+import { REACT_APP_API_BASE_URL } from "../../utils/service/env.keys";
 
 const RequestList = ({
   setComponentView,
@@ -330,7 +331,7 @@ export function AdminRequests() {
         data: {
           responseObject: { data, pageCount, pageIndex, pageSize },
         },
-      } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/${url}`, {
+      } = await axios.get(`${REACT_APP_API_BASE_URL}/api/${url}`, {
         headers: { Authorization: `Bearer ${adminToken}` },
       });
       setRequests(data);

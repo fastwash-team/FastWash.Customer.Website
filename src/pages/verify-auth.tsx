@@ -13,6 +13,7 @@ import {
 import { ValidateTokenSchema } from "../utils/schemas";
 import { InfoMessage } from "../components/info-message";
 import { useState } from "react";
+import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
 export function VerifyAuth() {
   const location = useLocation();
@@ -32,7 +33,7 @@ export function VerifyAuth() {
     setLoading(true);
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
+        `${REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
         { userId: email }
       );
       Swal.fire({
@@ -54,7 +55,7 @@ export function VerifyAuth() {
       const {
         data: { responseObject },
       } = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
+        `${REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
         { passCode: formik.values.token }
       );
       const claims = getTokenClaims(responseObject.access_token);

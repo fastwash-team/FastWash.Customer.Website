@@ -3,6 +3,7 @@ import { AdminRequest } from "../../../utils/types";
 import axios from "axios";
 import { errorHandler, getFWAdminToken } from "../../../utils/functions";
 import Swal from "sweetalert2";
+import { REACT_APP_API_BASE_URL } from "../../../utils/service/env.keys";
 
 export function AddComplaint({
   wash,
@@ -19,7 +20,7 @@ export function AddComplaint({
     try {
       setLoading(true);
       await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/add/complaint`,
+        `${REACT_APP_API_BASE_URL}/api/WashOrders/${wash?.washOrderId}/add/complaint`,
         { complaintNote: complaint },
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );

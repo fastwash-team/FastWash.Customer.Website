@@ -13,6 +13,7 @@ import Skeleton from "react-loading-skeleton";
 import { AdminPayment, AdminRequest } from "../../utils/types";
 import { AdminRequestView } from "./admin-request-view";
 import { toast } from "react-toastify";
+import { REACT_APP_API_BASE_URL } from "../../utils/service/env.keys";
 
 export function AdminPayments() {
   const adminToken = getFWAdminToken();
@@ -41,7 +42,7 @@ export function AdminPayments() {
           responseObject: { data, pageSize, pageIndex, pageCount },
         },
       } = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/api/TransactionHistories?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
+        `${REACT_APP_API_BASE_URL}/api/TransactionHistories?pageSize=${paginationOptions.defaultPageSize}&pageIndex=${paginationOptions.page}`,
         { headers: { Authorization: `Bearer ${adminToken}` } }
       );
       setPayments(data);

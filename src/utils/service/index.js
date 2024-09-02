@@ -1,6 +1,7 @@
 import axios from "axios";
+import { REACT_APP_API_BASE_URL } from "../service/env.keys";
 
-const serverURL = process.env.REACT_APP_API_BASE_URL;
+const serverURL = REACT_APP_API_BASE_URL;
 
 export const APISERVICES = {
   async getData(url, customHeaders) {

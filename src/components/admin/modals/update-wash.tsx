@@ -15,6 +15,7 @@ import axios from "axios";
 import { handleGroupWashOrders } from "../../../pages/schedule-pickup";
 import shortUUID from "short-uuid";
 import Swal from "sweetalert2";
+import { REACT_APP_API_BASE_URL } from "../../../utils/service/env.keys";
 
 export function UpdateWash({
   wash,
@@ -104,7 +105,7 @@ export function UpdateWash({
     try {
       setLoading(true);
       const res = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/api/washorders/${wash?.washOrderId}/add/additionalorder`,
+        `${REACT_APP_API_BASE_URL}/api/washorders/${wash?.washOrderId}/add/additionalorder`,
         {
           sharedTransactionData: {
             transactionReference: shortUUID.generate(),
