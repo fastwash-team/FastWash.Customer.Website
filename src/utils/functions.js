@@ -154,11 +154,12 @@ export const logout = () => {
   localStorage.setItem("rerouteTo", lastRoute);
   localStorage.removeItem("fw_user_token");
   localStorage.removeItem("fw_admin_token");
+  const isOnAdminDomain = ADMIN_FASTWASH.includes(window.location.host);
   console.log(
     "is user an admin",
     ADMIN_FASTWASH.includes(window.location.host)
   );
-  return window.location.replace("/login");
+  if (isOnAdminDomain) return window.location.replace("/login");
 };
 
 export function redirectAfterLogin(defaultUrl) {

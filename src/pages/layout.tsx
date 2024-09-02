@@ -3,8 +3,10 @@ import { Outlet } from "react-router-dom";
 
 export function Layout() {
   const { host } = window.location;
-  const isStaging =
-    host === "customer.dev.fastwash.africa" || "fast-wash.netlify.app";
+  const isStaging = ["dev.fastwash.africa", "fast-wash.netlify.app"].includes(
+    host
+  );
+
   return (
     <div className='loader-wrapper'>
       {isStaging && <div className='demo-banner'>STAGING</div>}
