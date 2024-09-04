@@ -109,7 +109,7 @@ export function UpdateWash({
         {
           sharedTransactionData: {
             transactionReference: shortUUID.generate(),
-            transactionAmount: total,
+            transactionAmount: total * 100,
             transactionTag: TRANSACTION_TAG_ENUM.AdditionalOrder,
           },
           washItemData: handleGroupWashOrders({

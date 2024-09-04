@@ -36,9 +36,6 @@ export const getPickupWindow = (pickupday) => {
 export const getScheduleTime = (hourTime) => {
   const hour = moment().hours();
   const minutes = moment().minutes();
-  console.log({ minutes });
-  console.log({ hour });
-  console.log({ hourTime });
   let startHour = 7;
   let startMin = 30;
 
@@ -77,8 +74,8 @@ export const errorHandler = (error) => {
 export const reLoginUser = async () => {
   console.log("reauthenticating user.......");
   try {
-    let token = localStorage.getItem("fw_user_token");
-    // let token = "";
+    // let token = localStorage.getItem("fw_user_token");
+    let token = "";
     if (!token && localStorage.getItem("fw_admin_token"))
       token = localStorage.getItem("fw_admin_token");
     if (!token) {
@@ -87,7 +84,6 @@ export const reLoginUser = async () => {
     }
     const arrayToken = token.split(".");
     const { Name: email } = JSON.parse(atob(arrayToken[1]));
-    console.log({ email });
     const {
       data: { responseObject: authOTP },
     } = await axios.post(
@@ -100,7 +96,6 @@ export const reLoginUser = async () => {
       `${REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
       { passCode: authOTP }
     );
-    console.log({ responseObject });
     const claims = getTokenClaims(responseObject.access_token);
     if (claims?.InternalUser) setFWAdminToken(responseObject);
     if (claims?.ExternalUser) setFWUserToken(responseObject);
@@ -165,11 +160,12 @@ export const logout = () => {
 };
 
 export function redirectAfterLogin(defaultUrl) {
-  const reRouteTo = localStorage.getItem("rerouteTo");
-  if (reRouteTo) {
-    localStorage.removeItem("rerouteTo");
-    window.location.replace(reRouteTo);
-  } else window.location.replace(defaultUrl);
+  // const reRouteTo = localStorage.getItem("rerouteTo");
+  // if (reRouteTo) {
+  //   localStorage.removeItem("rerouteTo");
+  //   window.location.replace(reRouteTo);
+  // } else
+  window.location.replace(defaultUrl);
 }
 
 export const isUserLoggedIn = (isAdmin = false) => {

@@ -53,6 +53,11 @@ export function CreatePreScheduleModal() {
     if (!selectedDates.length) return toast.error("Select Pickup days");
     if (!times.startTime) return toast.error("Select start time");
     if (!times.endTime) return toast.error("Select end time");
+    console.log({
+      selectedDates,
+      times,
+      startUtc: moment(times.startTime).utc(),
+    });
     const schedules = selectedDates.map((el) => {
       return {
         scheduleDate: new Date(el),
@@ -88,6 +93,12 @@ export function CreatePreScheduleModal() {
       "location-select"
     ) as HTMLSelectElement;
     if (selectBox) selectBox.selectedIndex = 0;
+    const selectBox1 = document.getElementById(
+      "start-time"
+    ) as HTMLSelectElement;
+    if (selectBox1) selectBox1.selectedIndex = 0;
+    const selectBox2 = document.getElementById("end-time") as HTMLSelectElement;
+    if (selectBox2) selectBox2.selectedIndex = 0;
   };
 
   const handleCreateSchedules = async () => {
@@ -203,17 +214,6 @@ export function CreatePreScheduleModal() {
                   }}
                   value={selectedDates.map((el) => new Date(el))}
                 />
-                {/* <select className='form-select'>
-                  {[
-                    "Today",
-                    "Tomorrow",
-                    "All Week",
-                    "All Month",
-                    "All Year",
-                  ].map((el, i) => (
-                    <option key={i}>{el}</option>
-                  ))}
-                </select> */}
               </div>
               <div className='col-md-6 col-sm-12'>
                 <div className='row'>
@@ -224,6 +224,7 @@ export function CreatePreScheduleModal() {
                       onChange={({ target: { value } }) =>
                         setTimes({ ...times, startTime: value })
                       }
+                      id='start-time'
                     >
                       <option selected disabled>
                         Select Start Time
@@ -242,6 +243,7 @@ export function CreatePreScheduleModal() {
                       onChange={({ target: { value } }) =>
                         setTimes({ ...times, endTime: value })
                       }
+                      id='end-time'
                     >
                       <option selected disabled>
                         Select Start Time

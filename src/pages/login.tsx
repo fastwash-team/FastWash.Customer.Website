@@ -89,7 +89,24 @@ export function Login(props: { isAdmin?: boolean }) {
               )}
             </div>
             <br />
-            <button disabled={loading} onClick={() => formik.handleSubmit()}>
+            <button
+              disabled={loading}
+              onClick={() => formik.handleSubmit()}
+              // onClick={() => toast.info("Hello there", { autoClose: 3000000 })}
+              // onClick={() =>
+              //   toast(
+              //     <div>
+              //       <p></p>
+              //       <div>
+              //         <span>Great seeing you</span>
+              //         <br />
+              //         <span>When will I see you next</span>
+              //       </div>
+              //     </div>,
+              //     { autoClose: 2300000000 }
+              //   )
+              // }
+            >
               {loading ? (
                 <div
                   className='spinner-border text-success app-spinner'

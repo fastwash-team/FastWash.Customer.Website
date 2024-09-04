@@ -35,6 +35,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSchedulePickupInformation } from "../redux-files/schedule-pickup/selector";
 import { save_wash_details } from "../redux-files/schedule-pickup/reducer";
 import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
+import { Overlay } from "../components/overlay";
 
 export const handleGroupWashOrders = (
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -103,6 +104,8 @@ export function SchedulePickup() {
   const [savedWashOrder] = useState<ScheduleSummaryProps | null>(
     schedulePickupData
   );
+
+  console.log({ loading });
 
   console.log({ savedWashOrder });
 
@@ -276,9 +279,11 @@ export function SchedulePickup() {
           transactionTag: TRANSACTION_TAG_ENUM.MainOrder,
         },
       };
-      if (!body.orderDate && values.pickupDay) {
+      if (values.pickupDay) {
         body.orderDate = moment(moment(values.pickupDay, "Do, MMM YYYY"))
-          .hour(Number(values.pickupWindow.split(":")[0]) + 1)
+          .hour(Number(values.pickupWindow.split("-")[1].split(":")[0]))
+          .minute(Number(values.pickupWindow.split("-")[1].split(":")[1]))
+          .subtract(15, "minutes")
           .format();
         body.estimatedDeliveryTime = body.orderDate;
       }
@@ -303,138 +308,144 @@ export function SchedulePickup() {
   console.log({ formik });
 
   return (
-    <div className='schedule-pickup'>
-      <Header />
-      <div className='schedule-pickup__body__flow-tracker-wrapper-mobile'>
-        <p>
-          <button className='_back' onClick={handleGoBack}>
-            <i className='bi bi-chevron-left'></i>
-          </button>
-          {step === 1
-            ? "Pick up & Delivery"
-            : step === 2
-            ? "Customize Wash"
-            : step === 3
-            ? "Contact Details"
-            : null}
-        </p>
-        <p className='step-count'>Step {step} of 3</p>
-      </div>
-
-      <div className='schedule-pickup__body'>
-        <div className='schedule-pickup__body__flow-tracker-wrapper'>
-          <span className='_back' onClick={handleGoBack}>
-            <i className='bi bi-chevron-left'></i>
-          </span>
-          <div
-            className='schedule-pickup__body__flow-tracker'
-            onClick={() => handleTitleClick(1)}
-          >
-            <img
-              src={step === 1 || step > 1 ? RadioChecked : RadioCheckedDisabled}
-              alt=''
-            />
-            <p>Pick up & Delivery</p>
-          </div>
-          <div
-            className='schedule-pickup__body__flow-tracker disabled'
-            onClick={() => handleTitleClick(2)}
-          >
-            <img
-              src={step === 2 || step > 2 ? RadioChecked : RadioCheckedDisabled}
-              alt=''
-            />
-            <p>Customize Wash</p>
-          </div>
-          <div
-            className='schedule-pickup__body__flow-tracker disabled'
-            onClick={() => handleTitleClick(3)}
-          >
-            <img
-              src={step === 3 ? RadioChecked : RadioCheckedDisabled}
-              alt=''
-            />
-            <p>Payment</p>
-          </div>
+    <Overlay loading={false}>
+      <div className='schedule-pickup'>
+        <Header />
+        <div className='schedule-pickup__body__flow-tracker-wrapper-mobile'>
+          <p>
+            <button className='_back' onClick={handleGoBack}>
+              <i className='bi bi-chevron-left'></i>
+            </button>
+            {step === 1
+              ? "Pick up & Delivery"
+              : step === 2
+              ? "Customize Wash"
+              : step === 3
+              ? "Contact Details"
+              : null}
+          </p>
+          <p className='step-count'>Step {step} of 3</p>
         </div>
 
-        <div className='schedule-pickup__body__steps-view'>
-          <div className='row'>
-            <div className='col-md-5 col-sm-12'>
-              {step === 1 ? (
-                <PickupDelivery
-                  selectedWashType={scheduleInfo.selectedWashType}
-                  changePDInfo={(key: string, value: string | number) => {
-                    handleChangeInfo(key, value);
-                  }}
-                  scheduleInfo={scheduleInfo}
-                  touched={formik.touched as ScheduleFormTouched}
-                  errors={formik.errors as ScheduleFormErrors}
-                />
-              ) : step === 2 ? (
-                <CustomizeWash
-                  scheduleInfo={scheduleInfo}
-                  changePDInfo={(key: string, value: string | number) => {
-                    handleChangeInfo(key, value);
-                  }}
-                />
-              ) : step === 3 ? (
-                <ContactDetails
-                  scheduleInfo={scheduleInfo}
-                  changePDInfo={(key: string, value: string | number) => {
-                    handleChangeInfo(key, value);
-                  }}
-                  errors={formik.errors as ScheduleFormErrors}
-                  setError={(key: string, value: string) =>
-                    formik.setFieldError(key, value)
-                  }
-                />
-              ) : null}
-              <button
-                className='mt-4 mb-5 next-button'
-                disabled={loading}
-                onClick={() => formik.handleSubmit()}
-              >
-                {loading ? (
-                  <div
-                    className='spinner-border text-success app-spinner'
-                    role='status'
-                  >
-                    <span className='sr-only'></span>
-                  </div>
-                ) : step === 3 ? (
-                  "Make Payment"
-                ) : (
-                  "Next"
-                )}
-              </button>
-            </div>
-            <div className='col-2'></div>
-            <div className='col-md-5 col-sm-12 col-summary'>
-              <ScheduleSummary
-                total={total}
-                selectedWashType={scheduleInfo.selectedWashType}
-                pickupWindow={scheduleInfo.pickupWindow}
-                address={scheduleInfo.address}
-                pickupDay={scheduleInfo.pickupDay}
-                washcount={scheduleInfo.washcount}
-                area={""}
-                softener={scheduleInfo.softener}
-                bleach={scheduleInfo.bleach}
-                colorcatcher={scheduleInfo.colorcatcher}
-                extradetergent={scheduleInfo.extradetergent}
-                mediumLaundryBags={scheduleInfo.mediumLaundryBags}
-                largeLaundryBags={scheduleInfo.largeLaundryBags}
-                contactemail={scheduleInfo.contactemail}
-                contactperson={scheduleInfo.contactperson}
-                phonenumber={scheduleInfo.phonenumber}
-                logisticsAmount={scheduleInfo.logisticsAmount}
-                dryersheets={scheduleInfo.dryersheets}
+        <div className='schedule-pickup__body'>
+          <div className='schedule-pickup__body__flow-tracker-wrapper'>
+            <span className='_back' onClick={handleGoBack}>
+              <i className='bi bi-chevron-left'></i>
+            </span>
+            <div
+              className='schedule-pickup__body__flow-tracker'
+              onClick={() => handleTitleClick(1)}
+            >
+              <img
+                src={
+                  step === 1 || step > 1 ? RadioChecked : RadioCheckedDisabled
+                }
+                alt=''
               />
+              <p>Pick up & Delivery</p>
+            </div>
+            <div
+              className='schedule-pickup__body__flow-tracker disabled'
+              onClick={() => handleTitleClick(2)}
+            >
+              <img
+                src={
+                  step === 2 || step > 2 ? RadioChecked : RadioCheckedDisabled
+                }
+                alt=''
+              />
+              <p>Customize Wash</p>
+            </div>
+            <div
+              className='schedule-pickup__body__flow-tracker disabled'
+              onClick={() => handleTitleClick(3)}
+            >
+              <img
+                src={step === 3 ? RadioChecked : RadioCheckedDisabled}
+                alt=''
+              />
+              <p>Payment</p>
+            </div>
+          </div>
+
+          <div className='schedule-pickup__body__steps-view'>
+            <div className='row'>
+              <div className='col-md-5 col-sm-12'>
+                {step === 1 ? (
+                  <PickupDelivery
+                    selectedWashType={scheduleInfo.selectedWashType}
+                    changePDInfo={(key: string, value: string | number) => {
+                      handleChangeInfo(key, value);
+                    }}
+                    scheduleInfo={scheduleInfo}
+                    touched={formik.touched as ScheduleFormTouched}
+                    errors={formik.errors as ScheduleFormErrors}
+                  />
+                ) : step === 2 ? (
+                  <CustomizeWash
+                    scheduleInfo={scheduleInfo}
+                    changePDInfo={(key: string, value: string | number) => {
+                      handleChangeInfo(key, value);
+                    }}
+                  />
+                ) : step === 3 ? (
+                  <ContactDetails
+                    scheduleInfo={scheduleInfo}
+                    changePDInfo={(key: string, value: string | number) => {
+                      handleChangeInfo(key, value);
+                    }}
+                    errors={formik.errors as ScheduleFormErrors}
+                    setError={(key: string, value: string) =>
+                      formik.setFieldError(key, value)
+                    }
+                  />
+                ) : null}
+                <button
+                  className='mt-4 mb-5 next-button'
+                  disabled={loading}
+                  onClick={() => formik.handleSubmit()}
+                >
+                  {loading ? (
+                    <div
+                      className='spinner-border text-success app-spinner'
+                      role='status'
+                    >
+                      <span className='sr-only'></span>
+                    </div>
+                  ) : step === 3 ? (
+                    "Make Payment"
+                  ) : (
+                    "Next"
+                  )}
+                </button>
+              </div>
+              <div className='col-2'></div>
+              <div className='col-md-5 col-sm-12 col-summary'>
+                <ScheduleSummary
+                  total={total}
+                  selectedWashType={scheduleInfo.selectedWashType}
+                  pickupWindow={scheduleInfo.pickupWindow}
+                  address={scheduleInfo.address}
+                  pickupDay={scheduleInfo.pickupDay}
+                  washcount={scheduleInfo.washcount}
+                  area={""}
+                  softener={scheduleInfo.softener}
+                  bleach={scheduleInfo.bleach}
+                  colorcatcher={scheduleInfo.colorcatcher}
+                  extradetergent={scheduleInfo.extradetergent}
+                  mediumLaundryBags={scheduleInfo.mediumLaundryBags}
+                  largeLaundryBags={scheduleInfo.largeLaundryBags}
+                  contactemail={scheduleInfo.contactemail}
+                  contactperson={scheduleInfo.contactperson}
+                  phonenumber={scheduleInfo.phonenumber}
+                  logisticsAmount={scheduleInfo.logisticsAmount}
+                  dryersheets={scheduleInfo.dryersheets}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Overlay>
   );
 }

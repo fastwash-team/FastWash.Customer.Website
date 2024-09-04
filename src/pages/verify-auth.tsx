@@ -59,7 +59,6 @@ export function VerifyAuth() {
         { passCode: formik.values.token }
       );
       const claims = getTokenClaims(responseObject.access_token);
-      console.log({ claims, isAdmin });
       if (isAdmin && claims?.InternalUser) {
         setFWAdminToken(responseObject);
         redirectAfterLogin("/dashboard"); // admin dashboard
@@ -121,15 +120,6 @@ export function VerifyAuth() {
                 placeholder='Enter 6 digit code'
                 value={formik.values.token}
                 onChange={handleChange}
-                // onChange={(e) => {
-                //   console.log("sdsss", e);
-                //   if (!e) return;
-                //   const { value } = e.target;
-                //   const token = Number(value);
-                //   if (String(token).length <= 6) {
-                //     formik.setFieldValue("token", value);
-                //   }
-                // }}
                 type='number'
                 max={6}
               />

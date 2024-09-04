@@ -12,6 +12,38 @@ $wash-yellow: #f26419;
   box-shadow: none;
 }
 
+// .global-overlay {
+// }
+
+.global-overlay .global-overlay-container {
+  position: fixed;
+  background: #88888869;
+  height: 100%;
+  z-index: 4;
+  width: 100%;
+  cursor: no-drop;
+  top: 0;
+  left: 0;
+}
+
+.global-overlay .loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid;
+  border-color: #17499f #0000;
+  animation: l1 1s infinite;
+}
+
+@keyframes l1 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

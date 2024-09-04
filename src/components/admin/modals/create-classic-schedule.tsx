@@ -115,6 +115,16 @@ export function CreateClassicScheduleModal() {
     setSelectedDates([]);
     setPage(1);
     setLoading(false);
+    const selectBox = document.getElementById(
+      "location-select"
+    ) as HTMLSelectElement;
+    if (selectBox) selectBox.selectedIndex = 0;
+    const selectBox1 = document.getElementById(
+      "start-time"
+    ) as HTMLSelectElement;
+    if (selectBox1) selectBox1.selectedIndex = 0;
+    const selectBox2 = document.getElementById("end-time") as HTMLSelectElement;
+    if (selectBox2) selectBox2.selectedIndex = 0;
   };
 
   const handleNextPage = () => {
@@ -155,6 +165,7 @@ export function CreateClassicScheduleModal() {
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, location: value })
                     }
+                    id='location-select'
                   >
                     <option selected disabled>
                       Select an location
@@ -210,6 +221,7 @@ export function CreateClassicScheduleModal() {
                         onChange={({ target: { value } }) =>
                           setTimes({ ...times, startTime: value })
                         }
+                        id='start-time'
                       >
                         <option selected disabled>
                           Select Start Time
@@ -228,6 +240,7 @@ export function CreateClassicScheduleModal() {
                         onChange={({ target: { value } }) =>
                           setTimes({ ...times, endTime: value })
                         }
+                        id='end-time'
                       >
                         <option selected disabled>
                           Select End Time

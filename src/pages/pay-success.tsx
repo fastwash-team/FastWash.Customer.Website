@@ -28,7 +28,7 @@ export function OrderCreateSuccess() {
                 <center>
                   <p>
                     We are processing your request, a message has been sent to
-                    your phone number and email
+                    your email.
                   </p>
                 </center>
                 {isUserLoggedIn() ? (
@@ -56,13 +56,17 @@ export function OrderCreateSuccess() {
                 <div className='tracker-wrapper'>
                   <div className='step'>
                     <h4 className={`done`}>Received</h4>
-                    <p>Your request is being processed for pickup</p>
+                    <p>
+                      Wash Order accepted. Your request will proceed processing
+                      once payment is done
+                    </p>
                   </div>
-                  <div className='step'>
+
+                  {/* <div className='step'>
                     <h4 className={`processing`}>Pickup</h4>
                     <p>Your request is being processed for pickup</p>
-                  </div>
-                  <div className='step'>
+                  </div> */}
+                  {/* <div className='step'>
                     <h4 className={``}>Washing</h4>
                     <p>Your request is being processed for pickup</p>
                   </div>
@@ -73,7 +77,7 @@ export function OrderCreateSuccess() {
                   <div className='step'>
                     <h4 className={``}>Fold</h4>
                     <p>Your request is being processed for pickup</p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
