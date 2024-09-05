@@ -970,6 +970,7 @@ button:disabled {
             h3 {
               font-size: 20px;
               font-weight: 600;
+              text-transform: capitalize;
               // margin-top: 24px;
               margin-bottom: 16px;
             }
@@ -1404,6 +1405,7 @@ button:disabled {
         border-radius: 24px;
         .step {
           margin-left: 45px;
+          position: relative;
           h4 {
             font-size: 16px;
             font-weight: 700;
@@ -1426,7 +1428,7 @@ button:disabled {
               background: #ece9e9;
               position: absolute;
               border-radius: 21px;
-              left: 55px;
+              left: -37px;
               margin-top: 2px;
             }
           }
@@ -1434,15 +1436,20 @@ button:disabled {
             font-size: 14px;
             font-weight: 400;
             color: #666;
+
+            &.placeholder-text {
+              color: #dbdada;
+            }
           }
 
           &::before {
             content: "";
-            height: 47px;
+            left: -30px;
+            height: 100%;
             width: 6px;
             background: #ebebeb;
             position: absolute;
-            left: 62px;
+            left: -30px;
             margin-top: 20px;
           }
 

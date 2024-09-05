@@ -280,10 +280,11 @@ export function SchedulePickup() {
         },
       };
       if (values.pickupDay) {
+        // we add 45 mins to maintain the date within a UTC range
         body.orderDate = moment(moment(values.pickupDay, "Do, MMM YYYY"))
           .hour(Number(values.pickupWindow.split("-")[1].split(":")[0]))
           .minute(Number(values.pickupWindow.split("-")[1].split(":")[1]))
-          .subtract(15, "minutes")
+          .add(45, "minutes")
           .format();
         body.estimatedDeliveryTime = body.orderDate;
       }

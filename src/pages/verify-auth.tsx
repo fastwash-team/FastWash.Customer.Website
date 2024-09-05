@@ -59,29 +59,44 @@ export function VerifyAuth() {
         { passCode: formik.values.token }
       );
       const claims = getTokenClaims(responseObject.access_token);
-      if (isAdmin && claims?.InternalUser) {
-        setFWAdminToken(responseObject);
-        redirectAfterLogin("/dashboard"); // admin dashboard
-      }
-      if (isAdmin && claims?.ExternalUser) {
-        setLoading(false);
-        return Swal.fire({
-          title: "Error",
-          text: "This user is not an admin. You cannot enter here!",
-          icon: "error",
-        });
-      }
-      if (!isAdmin && claims?.InternalUser) {
-        setLoading(false);
-        return Swal.fire({
-          title: "Error",
-          text: "This user does not have a valid account. Please create a wash to register!",
-          icon: "error",
-        });
-      }
-      if (!isAdmin && claims?.ExternalUser) {
-        setFWUserToken(responseObject);
-        redirectAfterLogin("/dashboard");
+      console.log(claims, "claims");
+      setLoading(false);
+      if (isAdmin) {
+        // this is admin login
+        if (claims?.ExternalUser)
+          return Swal.fire({
+            title: "Error",
+            text: "This user is not an admin. You cannot enter here!",
+            icon: "error",
+          });
+        if (claims?.InternalUser) {
+          setLoading(true);
+          setFWAdminToken(responseObject);
+          setTimeout(() => {
+            setLoading(false);
+            redirectAfterLogin("/dashboard"); // admin dashboard
+          }, 2000);
+        }
+      } else {
+        // this is customer login
+        if (claims?.InternalUser)
+          return Swal.fire({
+            title: "Error",
+            text: "This user does not have a valid account. Please create a wash to register!",
+            icon: "error",
+          });
+        if (claims?.ExternalUser) {
+          setLoading(true);
+          setFWUserToken(responseObject);
+          setTimeout(() => {
+            console.log(
+              "rereouting to dashboard",
+              localStorage.getItem("fw_user_token")
+            );
+            setLoading(false);
+            redirectAfterLogin("/dashboard"); // admin dashboard
+          }, 2000);
+        }
       }
     } catch (error) {
       console.log({ error }, "validating token");

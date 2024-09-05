@@ -12,9 +12,8 @@ import {
 } from "./selector";
 import moment from "moment";
 
-const adminToken = getFWAdminToken();
-
 function* fetchAdminSchedules() {
+  const adminToken = getFWAdminToken();
   try {
     const paginationOptions = yield select(getAdminSchedulePaginationOptions);
     const filterOptions = yield select(getAdminScheduleFilters);

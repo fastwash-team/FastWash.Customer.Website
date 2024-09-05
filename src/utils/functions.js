@@ -74,10 +74,11 @@ export const errorHandler = (error) => {
 export const reLoginUser = async () => {
   console.log("reauthenticating user.......");
   try {
-    // let token = localStorage.getItem("fw_user_token");
-    let token = "";
+    let token = localStorage.getItem("fw_user_token");
+    // let token = "";
     if (!token && localStorage.getItem("fw_admin_token"))
       token = localStorage.getItem("fw_admin_token");
+    console.log("reauthing a user", token);
     if (!token) {
       console.log("this is where logout is called");
       return logout();
@@ -148,7 +149,7 @@ export const logout = () => {
   console.log("got hereee odogwu", window.location.host);
   if (lastRoute === "/login" || lastRoute === "/admin/login") return;
   console.log({ lastRoute });
-  localStorage.setItem("rerouteTo", lastRoute);
+  // localStorage.setItem("rerouteTo", lastRoute);
   localStorage.removeItem("fw_user_token");
   localStorage.removeItem("fw_admin_token");
   const isOnAdminDomain = ADMIN_FASTWASH.includes(window.location.host);

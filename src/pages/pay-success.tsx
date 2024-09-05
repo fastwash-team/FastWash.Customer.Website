@@ -56,28 +56,45 @@ export function OrderCreateSuccess() {
                 <div className='tracker-wrapper'>
                   <div className='step'>
                     <h4 className={`done`}>Received</h4>
-                    <p>
-                      Wash Order accepted. Your request will proceed processing
-                      once payment is done
+                    <p>Your request is being processed for pickup</p>
+                  </div>
+                  <div className='step'>
+                    <h4 className={`processing`}>Pickup</h4>
+                    <p className='placeholder-text'>
+                      Your clothes have been picked up
                     </p>
                   </div>
-
-                  {/* <div className='step'>
-                    <h4 className={`processing`}>Pickup</h4>
-                    <p>Your request is being processed for pickup</p>
-                  </div> */}
-                  {/* <div className='step'>
+                  <div className='step'>
                     <h4 className={``}>Washing</h4>
-                    <p>Your request is being processed for pickup</p>
+                    <p className='placeholder-text'>
+                      Your clothes are currently being washed
+                    </p>
                   </div>
                   <div className='step'>
-                    <h4 className={``}>Dry</h4>
-                    <p>Your request is being processed for pickup</p>
+                    <h4 className={``}>Drying</h4>
+                    <p className='placeholder-text'>
+                      Your clothes are currently being dried
+                    </p>
                   </div>
                   <div className='step'>
-                    <h4 className={``}>Fold</h4>
-                    <p>Your request is being processed for pickup</p>
-                  </div> */}
+                    <h4 className={``}>Folding</h4>
+                    <p className='placeholder-text'>
+                      Your clothes are currently being folded and getting ready
+                      for delivery
+                    </p>
+                  </div>
+                  <div className='step'>
+                    <h4 className={``}>Delivering</h4>
+                    <p className='placeholder-text'>
+                      We are on our way to deliver your clothes
+                    </p>
+                  </div>
+                  <div className='step'>
+                    <h4 className={``}>Completed</h4>
+                    <p className='placeholder-text'>
+                      Your clothes have been delivered
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

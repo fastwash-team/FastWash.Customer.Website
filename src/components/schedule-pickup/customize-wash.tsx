@@ -5,6 +5,7 @@ import {
   ScheduleSummaryProps,
 } from "../../utils/types";
 import { WASH_PRICES } from "../../utils";
+import writtenNumber from "written-number";
 import { CustomTooltip } from "../tooltip";
 
 export const Counter = (props: CounterComponentProps) => {
@@ -52,13 +53,17 @@ export function CustomizeWash(props: CustomizeWashProps) {
         return props.changePDInfo("softener", props.scheduleInfo.softener - 1);
     }
   };
+
   return (
     <div className='schedule-pickup__body__steps-view-render customize-wash'>
       <h2>Customize Wash</h2>
       <p>How many clothes do you want to wash?</p>
       <div className='__options'>
         <div className='option'>
-          <h3>One Wash</h3>
+          <h3>
+            {writtenNumber(props?.scheduleInfo?.washcount || 1)} Wash
+            {(props?.scheduleInfo?.washcount || 1) > 1 ? "es" : ""}
+          </h3>
           <p>
             Every wash comes with free detergent, you can add more options in
             the Extras section below.

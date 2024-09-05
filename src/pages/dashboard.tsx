@@ -17,9 +17,14 @@ export const Dashboard = () => {
   const [washes, setWashes] = useState({ active: 0, completed: 0 });
   const [showUserCard, setShowUserCard] = useState(false);
 
-  console.log({ user });
-
   const userToken = getFWUserToken();
+
+  useEffect(() => {
+    if (!userToken) {
+      localStorage.clear();
+      navigate("/login");
+    }
+  }, []);
 
   const handleGetUserProfile = async () => {
     try {

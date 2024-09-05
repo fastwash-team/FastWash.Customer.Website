@@ -342,14 +342,6 @@ export function PickupDelivery({
                     "logisticsAmount",
                     Number(logisticsAmount || WASH_PRICES.LOGISTICS)
                   );
-                  console.log({ scheduleDate, time });
-                  console.log(
-                    "order date",
-                    moment(scheduleDate)
-                      .hour(Number(time.split(":")[0]) + 1)
-                      .add(1)
-                      .format()
-                  );
                   changePDInfo(
                     "orderDate",
                     moment(scheduleDate)
