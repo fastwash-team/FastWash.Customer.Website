@@ -198,7 +198,15 @@ export function AdminSchedule() {
                           </p>
                           <p>
                             <HangerIcon />
-                            <span>{el.totalWashOrders} Washes</span>
+                            <span>
+                              {getWashServiceType(el.serviceType) === "Classic"
+                                ? `${el?.numberOfOrders}`
+                                : `${el.totalWashOrders}` +
+                                  `/${
+                                    el?.numberOfOrders || el.totalWashOrders
+                                  }`}{" "}
+                              Washes
+                            </span>
                           </p>
                           <p>
                             <i className='bi bi-bag-check-fill'></i>

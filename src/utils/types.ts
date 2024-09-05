@@ -190,6 +190,7 @@ export interface WashScheduleProps {
   logisticsAmount: number;
   totalLogisticsAmount: number;
   totalWashOrdersAmount: number;
+  numberOfOrders: number;
   location: string;
   scheduleDate: string;
   washOrderPlanReference: string;

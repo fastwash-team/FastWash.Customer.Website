@@ -118,10 +118,12 @@ export function Login(props: { isAdmin?: boolean }) {
                 "Login"
               )}
             </button>
-            <p className='no-account'>
-              Don’t have an account?{" "}
-              <a onClick={handleRegisterRoute}>Sign up</a>
-            </p>
+            {!isAdmin ? (
+              <p className='no-account'>
+                Don’t have an account?{" "}
+                <a onClick={handleRegisterRoute}>Sign up</a>
+              </p>
+            ) : null}
           </div>
           <div className='col-md-4'></div>
         </div>
