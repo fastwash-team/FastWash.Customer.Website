@@ -285,8 +285,17 @@ export function SchedulePickup() {
           .hour(Number(values.pickupWindow.split("-")[1].split(":")[0]))
           .minute(Number(values.pickupWindow.split("-")[1].split(":")[1]))
           .add(45, "minutes")
+          .utc()
           .format();
-        body.estimatedDeliveryTime = body.orderDate;
+        // body.estimatedDeliveryTime = body.orderDate;
+        body.estimatedDeliveryTime = moment(
+          moment(values.pickupDay, "Do, MMM YYYY")
+        )
+          .hour(Number(values.pickupWindow.split("-")[1].split(":")[0]))
+          .minute(Number(values.pickupWindow.split("-")[1].split(":")[1]))
+          .add(45, "minutes")
+          .utc()
+          .format();
       }
       await axios.post(`${REACT_APP_API_BASE_URL}/api/WashOrders`, body);
       window.location.replace(transaction.authorizationUrl);

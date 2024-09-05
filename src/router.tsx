@@ -13,15 +13,23 @@ import { RequestDetailPage } from "./components/requests/details";
 import { AdminDashboard } from "./pages/admin-dashboard";
 import { OrderCreateSuccess } from "./pages/pay-success";
 import "rc-tooltip/assets/bootstrap_white.css";
+// import { useClearCache } from "react-clear-cache-v2";
 import { TermsAndConditions } from "./pages/terms-conditions";
 import { FAQs } from "./pages/faqs";
+// import { useClearCache } from "react-clear-cache-v2";
 export const ADMIN_FASTWASH = [
   "admin.fastwash.africa",
   "admin.dev.fastwash.africa",
 ];
+
 const AppRoutes = () => {
   const domain = window.location.host;
   const isDomainAdmin = ADMIN_FASTWASH.includes(domain);
+  // const { isLatestVersion, emptyCacheStorage } = useClearCache();
+
+  // useEffect(() => {
+  //   if (!isLatestVersion) emptyCacheStorage();
+  // }, []);
 
   const AdminRoutes = () => (
     <Routes>
