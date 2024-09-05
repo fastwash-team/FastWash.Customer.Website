@@ -8,7 +8,7 @@ import { CreateClassicScheduleModal } from "../components/admin/modals/create-cl
 import { AdminRequests } from "../components/admin/admin-requests";
 import { CreatePreScheduleModal } from "../components/admin/modals/create-pre-schedule";
 import { errorHandler, getFWAdminToken } from "../utils/functions";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AdminPayments } from "../components/admin/admin-payments";
 import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
@@ -23,10 +23,18 @@ export const AdminDashboard = () => {
     pendingReschedule: 0,
     allRequests: 0,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Number(page) !== activeTabNo) setActiveTabNo(Number(page));
   }, [page]);
+
+  useEffect(() => {
+    if (!adminToken) {
+      localStorage.clear();
+      navigate("/login");
+    }
+  }, []);
 
   useEffect(() => {
     handleGetAdminDetails();

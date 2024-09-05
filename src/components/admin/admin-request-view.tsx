@@ -46,14 +46,11 @@ export function AdminRequestView({
           headers: { Authorization: `Bearer ${adminToken}` },
         }
       );
-      console.log({ responseObject });
       setAdditionalOrder(responseObject);
     } catch (error) {
       console.log("additional error", error);
     }
   };
-
-  console.log({ selectedRequest });
 
   return (
     <div className='request-view'>
@@ -160,7 +157,10 @@ export function AdminRequestView({
           <h5>Email</h5>
           <h6>{selectedRequest?.washOrderData.userData.email}</h6>
         </div>
-        <div className='item'></div>
+        <div className='item'>
+          <h5>Location</h5>
+          <h6>{selectedRequest?.washOrderData.location}</h6>
+        </div>
       </div>
       <div className='items'>
         <div className='item'>

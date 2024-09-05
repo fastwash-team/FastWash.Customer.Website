@@ -188,6 +188,10 @@ export const RequestDetailPage = () => {
                 <p>Location</p>
                 <span>{state?.washOrderData?.location}</span>
               </div>
+              <div className='details-item'>
+                <p>Address</p>
+                <span>{state?.washOrderData?.streetAddress}</span>
+              </div>
               {additionalOrder ? (
                 <AdditionalOrderComponent additionalOrder={additionalOrder} />
               ) : null}
