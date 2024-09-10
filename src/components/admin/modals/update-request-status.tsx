@@ -109,7 +109,9 @@ export function UpdateRequestStatus({
               {mappedStatuses.map((el) => {
                 return (
                   <div
-                    className={`status ${el.disabled ? "disabled" : ""}`}
+                    className={`status ${
+                      el.disabled ? "disabled" : "not-disabled"
+                    }`}
                     onClick={() => {
                       if (el.disabled) return;
                       if (status) return setStatus(null);

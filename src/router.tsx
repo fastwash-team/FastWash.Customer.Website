@@ -69,8 +69,8 @@ const AppRoutes = () => {
     <Router>
       {/* <Routes> */}
       {/* <AdminRoutes /> */}
-      <CustomerRoutes />
-      {/* {isDomainAdmin ? <AdminRoutes /> : <CustomerRoutes />} */}
+      {/* <CustomerRoutes /> */}
+      {isDomainAdmin ? <AdminRoutes /> : <CustomerRoutes />}
       {/* <Route path={isDomainAdmin ? "/admin" : "/"} element={<Layout />}>
           <Route
             index

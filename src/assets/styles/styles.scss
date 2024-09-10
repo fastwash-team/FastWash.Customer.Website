@@ -1914,6 +1914,8 @@ button:disabled {
       justify-content: space-between;
       font-size: 16px;
       margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 8px;
       span {
         font-weight: 600;
         color: #020d1c;
@@ -2416,9 +2418,25 @@ button:disabled {
             p {
               margin-bottom: 0;
               color: #919191;
+              font-size: 14px;
+              font-weight: 500;
             }
+
             input {
-              height: auto;
+              height: 18px;
+              width: 18px;
+              outline: auto;
+              outline-color: #d0d1d1;
+            }
+
+            &.not-disabled {
+              p {
+                color: #020d1c;
+              }
+
+              input {
+                outline-color: #020d1c;
+              }
             }
           }
           button.modal-button {

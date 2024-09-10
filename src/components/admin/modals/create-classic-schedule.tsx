@@ -166,6 +166,7 @@ export function CreateClassicScheduleModal() {
                       setPreData({ ...preData, location: value })
                     }
                     id='location-select'
+                    value={preData.location}
                   >
                     <option selected disabled>
                       Select an location
@@ -183,6 +184,7 @@ export function CreateClassicScheduleModal() {
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, logistics: Number(value) })
                     }
+                    value={preData.logistics}
                   />
                 </div>
                 <button
@@ -222,6 +224,7 @@ export function CreateClassicScheduleModal() {
                           setTimes({ ...times, startTime: value })
                         }
                         id='start-time'
+                        value={times.startTime}
                       >
                         <option selected disabled>
                           Select Start Time
@@ -241,6 +244,7 @@ export function CreateClassicScheduleModal() {
                           setTimes({ ...times, endTime: value })
                         }
                         id='end-time'
+                        value={times.endTime}
                       >
                         <option selected disabled>
                           Select End Time
