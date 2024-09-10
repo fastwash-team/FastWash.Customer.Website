@@ -45,6 +45,13 @@ export function CreatePreScheduleModal() {
     }[]
   >([]);
 
+  // Close modal when clicking on the background
+  const handleBackgroundClick = (e: { target: { id: string } }) => {
+    if (e.target.id === "createPreSchedule") {
+      resetPage();
+    }
+  };
+
   const handleAddSchedule = () => {
     if (!preData.location) return toast.error("Please, put select a location");
     if (!preData.washesCount) return toast.error("Please, put in a wash count");
@@ -136,6 +143,7 @@ export function CreatePreScheduleModal() {
       id='createPreSchedule'
       aria-labelledby='createPreScheduleLabel'
       aria-hidden='true'
+      onClick={handleBackgroundClick}
     >
       <div className='modal-dialog modal-lg'>
         <div className='modal-content'>
@@ -164,7 +172,7 @@ export function CreatePreScheduleModal() {
                 value={preData.location ? preData.location : undefined}
               >
                 <option selected disabled>
-                  Select an location
+                  Select a location
                 </option>
                 {supportedAreas.map((el) => (
                   <option key={el}>{el}</option>
@@ -178,7 +186,7 @@ export function CreatePreScheduleModal() {
                   <input
                     className='form-control'
                     type='number'
-                    value={preData.washesCount ? preData.washesCount : ""}
+                    value={Number(preData.washesCount).toString()}
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, washesCount: Number(value) })
                     }
@@ -189,10 +197,11 @@ export function CreatePreScheduleModal() {
                   <input
                     className='form-control'
                     type='number'
-                    value={preData.logistics ? preData.logistics : ""}
+                    value={Number(preData.logistics).toString()}
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, logistics: Number(value) })
                     }
+                    placeholder='Logistics Fee'
                   />
                 </div>
               </div>
@@ -225,6 +234,7 @@ export function CreatePreScheduleModal() {
                         setTimes({ ...times, startTime: value })
                       }
                       id='start-time'
+                      value={times.startTime ? times.startTime : undefined}
                     >
                       <option selected disabled>
                         Select Start Time
@@ -244,6 +254,7 @@ export function CreatePreScheduleModal() {
                         setTimes({ ...times, endTime: value })
                       }
                       id='end-time'
+                      value={times.endTime ? times.endTime : undefined}
                     >
                       <option selected disabled>
                         Select Start Time

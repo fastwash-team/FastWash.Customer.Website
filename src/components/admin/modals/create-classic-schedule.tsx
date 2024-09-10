@@ -35,6 +35,14 @@ export function CreateClassicScheduleModal() {
   >([]);
   const [page, setPage] = useState(1);
 
+  // Close modal when clicking on the background
+  const handleBackgroundClick = (e: any) => {
+    console.log("sdss", e.target.id);
+    if (e.target.id === "createSchedule") {
+      resetPage();
+    }
+  };
+
   const handleCreateScheduleRef = () => {
     if (!selectedDates.length) return toast.error("Select dates");
     if (!times.startTime) return toast.error("Select start time");
@@ -113,6 +121,8 @@ export function CreateClassicScheduleModal() {
   const resetPage = () => {
     setSchedules([]);
     setSelectedDates([]);
+    setPreData({ location: "", logistics: 0 });
+    setTimes({ startTime: "", endTime: "" });
     setPage(1);
     setLoading(false);
     const selectBox = document.getElementById(
@@ -138,6 +148,7 @@ export function CreateClassicScheduleModal() {
       className='modal fade'
       id='createSchedule'
       aria-labelledby='createScheduleLabel'
+      onClick={handleBackgroundClick}
       aria-hidden='true'
     >
       <div className='modal-dialog modal-lg'>
@@ -166,10 +177,10 @@ export function CreateClassicScheduleModal() {
                       setPreData({ ...preData, location: value })
                     }
                     id='location-select'
-                    value={preData.location}
+                    value={preData.location ? preData.location : undefined}
                   >
                     <option selected disabled>
-                      Select an location
+                      Select a location
                     </option>
                     {supportedAreas.map((el) => (
                       <option key={el}>{el}</option>
@@ -184,7 +195,7 @@ export function CreateClassicScheduleModal() {
                     onChange={({ target: { value } }) =>
                       setPreData({ ...preData, logistics: Number(value) })
                     }
-                    value={preData.logistics}
+                    value={Number(preData.logistics).toString()}
                   />
                 </div>
                 <button
@@ -224,7 +235,7 @@ export function CreateClassicScheduleModal() {
                           setTimes({ ...times, startTime: value })
                         }
                         id='start-time'
-                        value={times.startTime}
+                        value={times.startTime ? times.startTime : undefined}
                       >
                         <option selected disabled>
                           Select Start Time
@@ -244,7 +255,7 @@ export function CreateClassicScheduleModal() {
                           setTimes({ ...times, endTime: value })
                         }
                         id='end-time'
-                        value={times.endTime}
+                        value={times.endTime ? times.endTime : undefined}
                       >
                         <option selected disabled>
                           Select End Time
