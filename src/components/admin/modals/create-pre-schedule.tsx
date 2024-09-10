@@ -46,7 +46,8 @@ export function CreatePreScheduleModal() {
   >([]);
 
   // Close modal when clicking on the background
-  const handleBackgroundClick = (e: { target: { id: string } }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleBackgroundClick = (e: any) => {
     if (e.target.id === "createPreSchedule") {
       resetPage();
     }
