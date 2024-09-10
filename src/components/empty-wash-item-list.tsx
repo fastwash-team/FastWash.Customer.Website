@@ -5,7 +5,7 @@ export const EmptyContainer = ({
   emptyTitle = "No requests",
   emptyText = "Your have not created any FastWash requests yet. Click the button below to start.",
   buttonText = "Schedule Pickup",
-  buttonAction = () => null,
+  buttonAction = () => window.location.replace("/schedule-pickup/1"),
   pageIcon = WashingMachine,
   showAction = true,
   hasFilter = false,
