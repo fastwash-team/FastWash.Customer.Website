@@ -60,6 +60,7 @@ export const RequestDetailPage = () => {
         setRequestTracking(responseObject);
     } catch (error) {
       const errorMessage = errorHandler(error);
+      if (error?.response?.status === 401) return;
       return Swal.fire({
         title: "Error!",
         text:
