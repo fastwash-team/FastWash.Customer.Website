@@ -163,7 +163,10 @@ export function CreateClassicScheduleModal() {
               id='close-modal'
               data-bs-dismiss='modal'
               aria-label='Close'
-              onClick={() => setPage(1)}
+              onClick={() => {
+                setPage(1);
+                resetPage();
+              }}
             />
           </div>
           <div className='modal-body'>

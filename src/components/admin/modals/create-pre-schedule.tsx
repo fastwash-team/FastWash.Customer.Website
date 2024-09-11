@@ -87,6 +87,8 @@ export function CreatePreScheduleModal() {
     setSchedules([...schedules]);
   };
 
+  console.log({ preData });
+
   const resetPage = () => {
     setSchedules([]);
     setSelectedDates([]);
@@ -97,10 +99,10 @@ export function CreatePreScheduleModal() {
       washesCount: 0,
     });
     setTimes({ startTime: "", endTime: "" });
-    const selectBox = document.getElementById(
-      "location-select"
+    const selectBox5 = document.getElementById(
+      "location-select-1"
     ) as HTMLSelectElement;
-    if (selectBox) selectBox.selectedIndex = 0;
+    if (selectBox5) selectBox5.selectedIndex = 0;
     const selectBox1 = document.getElementById(
       "start-time"
     ) as HTMLSelectElement;
@@ -169,14 +171,16 @@ export function CreatePreScheduleModal() {
                 onChange={({ target: { value } }) =>
                   setPreData({ ...preData, location: value })
                 }
-                id='location-select'
+                id='location-select-1'
                 value={preData.location ? preData.location : undefined}
               >
                 <option selected disabled>
                   Select a location
                 </option>
-                {supportedAreas.map((el) => (
-                  <option key={el}>{el}</option>
+                {supportedAreas.map((el: string | undefined) => (
+                  <option value={el} key={el}>
+                    {el}
+                  </option>
                 ))}
               </select>
             </div>
