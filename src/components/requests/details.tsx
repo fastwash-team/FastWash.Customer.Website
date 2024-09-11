@@ -58,9 +58,10 @@ export const RequestDetailPage = () => {
       );
       if (responseObject.length !== requestTracking.length)
         setRequestTracking(responseObject);
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       const errorMessage = errorHandler(error);
-      if (error?.response?.status === 401) return;
+      if (error?.response && error?.response?.status === 401) return;
       return Swal.fire({
         title: "Error!",
         text:
