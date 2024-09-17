@@ -164,7 +164,16 @@ $wash-yellow: #f26419;
       ._extras {
         &-box {
           flex-wrap: wrap;
-          gap: 30px;
+          row-gap: 30px;
+          // gap: 30px;
+
+          .extra {
+            width: 50%;
+
+            &:nth-child(even) {
+              text-align: right;
+            }
+          }
         }
       }
 
