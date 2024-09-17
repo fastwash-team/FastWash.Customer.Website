@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "../components/header";
+import { phone } from "phone";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -26,13 +27,28 @@ export function Signup() {
         text: "Invalid Email. Please, put in a valid email",
         icon: "error",
       });
+    const phoneNumber = formik.values.phoneNumber || "";
+    const { isValid: numberIsValid, phoneNumber: formattedPhoneNumber } = phone(
+      phoneNumber,
+      {
+        country: "NG",
+      }
+    );
+    if (!numberIsValid) {
+      formik.setFieldError("phoneNumber", "Invalid Phone Number");
+      return Swal.fire({
+        title: "Error",
+        text: "Invalid Phone Number. Please, put in a valid phone number",
+        icon: "error",
+      });
+    }
     setLoading(true);
     try {
       const body = { ...formik.values, userType: 1 };
-      await axios.post(
-        `${REACT_APP_API_BASE_URL}/api/Authentication/signup`,
-        body
-      );
+      await axios.post(`${REACT_APP_API_BASE_URL}/api/Authentication/signup`, {
+        ...body,
+        phoneNumber: formattedPhoneNumber,
+      });
       localStorage.clear();
       Swal.fire({
         title: "Successful!",

@@ -200,7 +200,7 @@ export function AdminSchedule() {
                             <HangerIcon />
                             <span>
                               {getWashServiceType(el.serviceType) === "Classic"
-                                ? `${el?.numberOfOrders}`
+                                ? `${el?.totalWashOrders}`
                                 : `${el.totalWashOrders}` +
                                   `/${
                                     el?.numberOfOrders || el.totalWashOrders
