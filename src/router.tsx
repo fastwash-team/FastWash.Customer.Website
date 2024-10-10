@@ -71,9 +71,9 @@ const AppRoutes = () => {
   return (
     <Router>
       {/* <Routes> */}
-      <AdminRoutes />
+      {/* <AdminRoutes /> */}
       {/* <CustomerRoutes /> */}
-      {/* {isDomainAdmin ? <AdminRoutes /> : <CustomerRoutes />} */}
+      {isDomainAdmin ? <AdminRoutes /> : <CustomerRoutes />}
       {/* <Route path={isDomainAdmin ? "/admin" : "/"} element={<Layout />}>
           <Route
             index
