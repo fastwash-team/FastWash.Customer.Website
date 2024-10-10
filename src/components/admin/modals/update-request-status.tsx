@@ -14,13 +14,14 @@ export function UpdateRequestStatus({
   completeStatusUpdate?: (status: string) => void;
   handleUpdateRequestInList?: (el: AdminRequest) => void;
 }) {
+  console.log({ wash });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<number | null>(null);
   const adminToken = getFWAdminToken();
   const washStatus = wash?.washStatus;
   const statuses = [
-    "Pending",
-    "Received",
+    // "Pending",
+    // "Received",
     "Pickup",
     "Washing",
     "Drying",
@@ -33,7 +34,10 @@ export function UpdateRequestStatus({
     if (key < currentStatusIndex || key === currentStatusIndex) {
       return { status: el, completed: true, disabled: true, enumNum: key + 1 };
     }
-    if (key === currentStatusIndex + 1)
+    if (
+      key === currentStatusIndex + 1 &&
+      washStatus?.toLowerCase() !== "pending"
+    )
       return {
         status: el,
         completed: false,
@@ -73,6 +77,8 @@ export function UpdateRequestStatus({
       });
     }
   };
+
+  console.log({ mappedStatuses });
 
   return (
     <div

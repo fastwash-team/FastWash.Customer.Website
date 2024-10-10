@@ -71,7 +71,9 @@ export function ScheduleView({
     const requestIndex = selectedSchedule?.washOrders.findIndex(
       (el) => el.washOrderReference === wash.washOrderReference
     );
-    selectedSchedule.washOrders[requestIndex] = { ...wash };
+    const allWashOrders = selectedSchedule.washOrders;
+    allWashOrders[requestIndex] = { ...wash };
+    const schedule = { ...selectedSchedule, washOrders: allWashOrders };
     setSelectedSchedule({ ...schedule });
   };
 

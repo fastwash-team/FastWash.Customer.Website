@@ -15,6 +15,7 @@ import { OrderCreateSuccess } from "./pages/pay-success";
 import "rc-tooltip/assets/bootstrap_white.css";
 // import { useClearCache } from "react-clear-cache-v2";
 import { TermsAndConditions } from "./pages/terms-conditions";
+// import { version } from "../package.json";
 import { FAQs } from "./pages/faqs";
 // import { useClearCache } from "react-clear-cache-v2";
 export const ADMIN_FASTWASH = [
@@ -23,8 +24,10 @@ export const ADMIN_FASTWASH = [
 ];
 
 const AppRoutes = () => {
+  // console.log({ version });
   const domain = window.location.host;
   const isDomainAdmin = ADMIN_FASTWASH.includes(domain);
+
   // const { isLatestVersion, emptyCacheStorage } = useClearCache();
 
   // useEffect(() => {
@@ -68,9 +71,9 @@ const AppRoutes = () => {
   return (
     <Router>
       {/* <Routes> */}
-      {/* <AdminRoutes /> */}
+      <AdminRoutes />
       {/* <CustomerRoutes /> */}
-      {isDomainAdmin ? <AdminRoutes /> : <CustomerRoutes />}
+      {/* {isDomainAdmin ? <AdminRoutes /> : <CustomerRoutes />} */}
       {/* <Route path={isDomainAdmin ? "/admin" : "/"} element={<Layout />}>
           <Route
             index
