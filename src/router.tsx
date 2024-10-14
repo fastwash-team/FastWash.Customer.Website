@@ -18,6 +18,7 @@ import { TermsAndConditions } from "./pages/terms-conditions";
 // import { version } from "../package.json";
 import { FAQs } from "./pages/faqs";
 // import { useClearCache } from "react-clear-cache-v2";
+
 export const ADMIN_FASTWASH = [
   "admin.fastwash.africa",
   "admin.dev.fastwash.africa",
