@@ -20,8 +20,8 @@ export function UpdateRequestStatus({
   const adminToken = getFWAdminToken();
   const washStatus = wash?.washStatus;
   const statuses = [
-    // "Pending",
-    // "Received",
+    "Pending",
+    "Received",
     "Pickup",
     "Washing",
     "Drying",
@@ -30,14 +30,12 @@ export function UpdateRequestStatus({
     "Completed",
   ];
   const currentStatusIndex = statuses.findIndex((el) => el === washStatus);
-  const mappedStatuses = statuses.map((el, key) => {
+
+  let mappedStatuses = statuses.map((el, key) => {
     if (key < currentStatusIndex || key === currentStatusIndex) {
       return { status: el, completed: true, disabled: true, enumNum: key + 1 };
     }
-    if (
-      key === currentStatusIndex + 1 &&
-      washStatus?.toLowerCase() !== "pending"
-    )
+    if (key === currentStatusIndex + 1)
       return {
         status: el,
         completed: false,
@@ -46,6 +44,10 @@ export function UpdateRequestStatus({
       };
     return { status: el, completed: false, disabled: true, enumNum: key + 1 };
   });
+  // remove the pending and received status -- emergency fix
+  mappedStatuses = mappedStatuses.filter((el) => el.enumNum > 2);
+  if (washStatus?.toLowerCase() !== "pending")
+    mappedStatuses[0].disabled = true;
 
   const handleUpdateWashStatus = async () => {
     if (!status || !wash) return;
