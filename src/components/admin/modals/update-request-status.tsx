@@ -46,7 +46,7 @@ export function UpdateRequestStatus({
   });
   // remove the pending and received status -- emergency fix
   mappedStatuses = mappedStatuses.filter((el) => el.enumNum > 2);
-  if (washStatus?.toLowerCase() !== "pending")
+  if (washStatus?.toLowerCase() !== "received")
     mappedStatuses[0].disabled = true;
 
   const handleUpdateWashStatus = async () => {
