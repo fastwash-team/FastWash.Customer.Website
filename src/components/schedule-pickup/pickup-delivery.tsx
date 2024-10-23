@@ -201,6 +201,9 @@ export function PickupDelivery({
               changePDInfo("area", "");
               changePDInfo("pickupDay", "");
               changePDInfo("pickupWindow", "");
+              resetSelectBox("pickup-window");
+              resetSelectBox("pickup-day");
+              resetSelectBox("area");
               changePDInfo("orderDate", "");
             }}
           >
