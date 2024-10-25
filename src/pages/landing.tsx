@@ -120,7 +120,7 @@ const Landing: React.FC = () => {
                 </p>
               </div>
               <h1>
-                Affordable laundry service in less than <span>24 hours</span>
+                Affordable laundry service delivered the<span>same day</span>
               </h1>
               <p className='_location-prompt' id='pickup-address'>
                 Enter a pick location to start
