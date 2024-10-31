@@ -103,17 +103,11 @@ const RequestList = ({
                     </p>
                   ) : null}
                   <p>
-                    {el?.washOrderData?.washItemData.filter(
-                      (el) => el.itemName !== "Washes"
-                    ).length
-                      ? writtenNumber(
-                          el?.washOrderData?.washItemData.filter(
-                            (el) => el.itemName !== "Washes"
-                          ).length
-                        )
+                    {el?.washOrderData?.washItemData.length
+                      ? writtenNumber(el?.washOrderData?.washItemData.length)
                       : "No"}{" "}
                     Extra
-                    {el?.washOrderData?.washItemData?.length - 1 > 1 ? "s" : ""}
+                    {el?.washOrderData?.washItemData?.length > 1 ? "s" : ""}
                   </p>
                   {/* <p>Notes: Yes</p> */}
                 </div>

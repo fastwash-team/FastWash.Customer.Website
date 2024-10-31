@@ -155,7 +155,9 @@ export function AdminRequestView({
       <div className='items'>
         <div className='item'>
           <h5>Email</h5>
-          <h6>{selectedRequest?.washOrderData.userData.email}</h6>
+          <h6 style={{ textTransform: "lowercase" }}>
+            {selectedRequest?.washOrderData.userData.email}
+          </h6>
         </div>
         <div className='item'>
           <h5>Location</h5>
