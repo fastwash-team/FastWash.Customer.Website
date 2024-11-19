@@ -1,0 +1,668 @@
+:root {
+  --wash-black: #020d1c;
+  --wash-orange: #f2ca89;
+  --wash-blue: #17499f;
+  --wash-yellow: #f26419;
+}
+
+/* RESET */
+
+input,
+select {
+  height: 56px;
+}
+input {
+  &::placeholder {
+    color: #d9d9d9 !important;
+  }
+}
+label {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+button:disabled {
+  background: #cfcfcf !important;
+  cursor: none;
+  border: none;
+}
+
+/* RESET ENDS */
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.global-overlay .global-overlay-container {
+  position: fixed;
+  background: #88888869;
+  height: 100%;
+  z-index: 4;
+  width: 100%;
+  cursor: no-drop;
+  top: 0;
+  left: 0;
+}
+
+.global-overlay .loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid;
+  border-color: #17499f #0000;
+  animation: l1 1s infinite;
+}
+
+@keyframes l1 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.demo-banner {
+  background: #16499fa1;
+  color: white;
+  position: absolute;
+  width: 220px;
+  text-align: center;
+  font-size: 18px;
+  transform: rotate(325deg);
+  left: -31px;
+  height: 29px;
+  top: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pickup-button {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  width: 100%;
+  height: 56px;
+  color: var(--wash-blue);
+  border: none;
+  letter-spacing: 0.28px;
+  border-radius: 8px;
+  background: linear-gradient(0deg, #fff 0%, #fff 100%), #fff;
+}
+
+/* LANDING PAGE BEGINS */
+
+.app-landing p {
+  color: var(--wash-black);
+  line-height: normal;
+}
+
+.app-landing .section-one {
+  background: url("../svgs/BBackground.svg");
+  background-size: cover;
+}
+
+.app-landing .section-one .navbar-toggler-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.app-landing .section-one .header-container {
+  padding-top: 24px;
+  align-items: center;
+}
+
+.app-landing .section-one .header-container ul {
+  display: flex;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 700;
+  column-gap: 24px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.app-landing .section-one .header-container ul a {
+  color: var(--wash-black);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.app-landing .section-one .header-container .login-section {
+  display: flex;
+  align-items: center;
+  column-gap: 56px;
+  justify-content: center;
+}
+
+.app-landing .section-one .header-container .login-section a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.app-landing .section-one .header-container .login-section button {
+  border-radius: 8px;
+  background: #17499f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 20px 32px;
+  border: none;
+}
+
+.app-landing .section-one .body {
+  margin-top: 56px;
+}
+
+.app-landing .section-one .body ._location .info {
+  display: flex;
+  align-items: center;
+  border-radius: 24px;
+  background: var(--wash-orange);
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 12px;
+  column-gap: 5px;
+}
+
+.app-landing .section-one .body ._location .info i {
+  font-size: 11px;
+  line-height: normal;
+}
+
+.app-landing .section-one .body ._location .info p {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.app-landing .section-one .body ._location .info p span {
+  font-weight: 700;
+}
+
+.app-landing .section-one .body h1 {
+  font-size: 64px;
+  margin-top: 16px;
+  font-weight: 600;
+  width: 546px;
+}
+
+.app-landing .section-one .body h1 span {
+  display: block;
+  color: #f26419;
+}
+
+.app-landing .section-one .body ._location.prompt {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 19px;
+}
+
+.app-landing .section-one .body ._location.input-wrapper {
+  height: 56px;
+  width: 480px;
+}
+
+.app-landing .section-one .body ._location.input-wrapper.addon {
+  width: 45px;
+  background: white;
+  display: flex;
+  justify-content: center;
+}
+
+.app-landing .section-one .body ._location.input-wrapper.inputbox {
+  border-left: none;
+}
+
+.app-landing .section-one .body ._location.schedule-button {
+  background: var(--wash-blue);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 16px;
+  width: 480px;
+  height: 56px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 115px;
+}
+
+.app-landing .section-two {
+  display: block;
+  padding-top: 80px;
+}
+
+.app-landing .section-two ._attributes {
+  margin-bottom: 80px;
+}
+
+.app-landing .section-two ._attributes h1.head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.app-landing .section-two ._attributes .body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-landing .section-two ._attributes .body .item {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.app-landing .section-two ._attributes .body .item .icon-wrapper {
+  border-radius: 4px;
+  background: #ffe6bc;
+  padding: 16px;
+  color: #323232;
+  margin-bottom: 0;
+}
+
+.app-landing .section-two ._attributes .body .item .header {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.app-landing .section-two ._attributes .body .item .info {
+  color: #666;
+  font-weight: 300;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.app-landing .section-two .benefit {
+  border-radius: 8px;
+  background: #e4eeff;
+  padding: 40px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.app-landing .section-two .benefit h1 {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 150%;
+  margin-bottom: 24px;
+}
+
+.app-landing .section-two .benefit p {
+  line-height: 28px;
+  margin-bottom: 32px;
+  width: 40%;
+}
+
+.app-landing .section-two .benefit img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.app-landing .section-two .benefits-flex {
+  display: flex;
+  column-gap: 24px;
+  margin-bottom: 120px;
+}
+
+.app-landing .section-two .benefits-flex .benefit p {
+  width: 63%;
+}
+
+.app-landing .section-two .benefits-flex .benefit:first-child {
+  background: #e6faff;
+}
+
+.app-landing .section-two .benefits-flex .benefit:last-child {
+  background: #f6ffe3;
+}
+
+.app-landing .section-two .benefits-flex .benefit .check-icon::before {
+  content: "\f26e";
+  font-family: "bootstrap-icons";
+  margin-right: 3px;
+  top: 2.5px;
+  position: relative;
+}
+
+.app-landing .section-two ._services h1 {
+  text-align: center;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--wash-black);
+}
+
+.app-landing .section-two ._services .services-flex {
+  display: flex;
+  margin-top: 40px;
+  column-gap: 24px;
+  margin-bottom: 120px;
+}
+
+.app-landing .section-two ._services .services-flex .service {
+  border-radius: 16px;
+  background: #f5c87e;
+  padding: 40px;
+  color: var(--wash-black);
+  width: 100%;
+}
+
+.app-landing .section-two ._services .services-flex .service img {
+  width: 100px;
+}
+
+.app-landing .section-two ._services .services-flex .service ._text-section {
+  min-height: 240px;
+  height: auto;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 150%;
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  p {
+    line-height: 26px;
+    margin-bottom: 32px;
+    color: #323232;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.app-landing .section-two a.schedule-pickup-btn {
+  border-radius: 8px;
+  background: #fff;
+  color: var(--wash-blue);
+  letter-spacing: 0.32px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  text-align: center;
+}
+
+.app-landing .section-two ._pricing h1 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--wash-black);
+  margin-bottom: 40px;
+}
+
+.app-landing .section-two ._pricing .pricing-flex {
+  display: flex;
+  column-gap: 24px;
+}
+
+.app-landing .section-two ._pricing .pricing-flex .pricing {
+  color: var(--wash-black);
+  border-radius: 16px;
+  background: #fbe8ca;
+  padding: 40px;
+  width: 100%;
+}
+
+.app-landing .section-two ._pricing h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 150%;
+  margin-bottom: 24px;
+}
+
+.app-landing .section-two ._pricing ._price {
+  color: #666;
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.app-landing .section-two ._pricing ._loads {
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.app-landing .section-two ._pricing ._benefits {
+  height: 115px;
+}
+
+.app-landing .section-two ._pricing ._benefits p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.app-landing .section-two ._extras {
+  margin-top: 24px;
+  background: #fbe8ca;
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.app-landing .section-two ._extras h1 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 150%;
+  margin-bottom: 24px;
+}
+
+.app-landing .section-two ._extras ._extras-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-landing .section-two ._extras ._extras-box .extra p:first-child {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.app-landing .section-two ._extras ._extras-box .extra p:last-child {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.app-landing .section-two ._reviews {
+  margin-top: 120px;
+  color: var(--wash-black);
+  padding-bottom: 120px;
+}
+
+.app-landing .section-two ._reviews h1 {
+  text-align: center;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.app-landing .section-two ._reviews .reviews-flex {
+  display: flex;
+  column-gap: 24px;
+}
+
+.app-landing .section-two ._reviews .reviews-flex .review-container {
+  border-radius: 16px;
+  background: #f4ede1;
+  padding: 40px;
+  font-size: 16px;
+}
+
+.app-landing
+  .section-two
+  ._reviews
+  .reviews-flex
+  .review-container
+  .quotes-mark {
+  margin-bottom: 16px;
+}
+
+.app-landing .section-two ._reviews .reviews-flex .review-container p {
+  font-weight: 400;
+  line-height: 160%;
+  margin-bottom: 50px;
+}
+
+.app-landing .section-two ._reviews .reviews-flex .review-container .reviewer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-landing
+  .section-two
+  ._reviews
+  .reviews-flex
+  .review-container
+  .reviewer
+  .info
+  span {
+  display: block;
+  &:first-child {
+    font-weight: 600;
+  }
+}
+
+.app-landing
+  .section-two
+  ._reviews
+  .reviews-flex
+  .review-container
+  .reviewer
+  ._wrapper {
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.app-landing .section-three {
+  background-color: var(--wash-black);
+}
+
+.app-landing .section-three ._faqs h1 {
+  color: #fff;
+  padding-top: 120px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.app-landing .section-three ._faqs .accordion-item {
+  margin-bottom: 8px;
+  border-radius: 15px;
+  padding-bottom: 15px;
+}
+
+.app-landing .section-three ._faqs .accordion-button {
+  border-radius: inherit;
+  height: 83px;
+  color: #020d1c;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: none;
+  margin-bottom: -15px;
+
+  &:not(.collapsed) {
+    background: none;
+  }
+}
+
+.app-landing .section-three ._current-location {
+  margin-top: 100px;
+  padding-bottom: 77px;
+  color: white;
+}
+
+.app-landing .section-three ._current-location h1 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.app-landing .section-three ._current-location div {
+  display: flex;
+  border-radius: 16px;
+  border: 1px solid #1b2e40;
+  background: #021024;
+  justify-content: center;
+  column-gap: 120px;
+  height: 83px;
+  align-items: center;
+}
+
+.app-landing .section-three ._current-location div p {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+}
+
+.app-landing .section-three ._footer {
+  border-top: 1px solid #041b3d;
+  padding: 120px 90px;
+  padding-bottom: 180px;
+}
+
+.app-landing .section-three ._footer ._elements {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: #fafafa;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.app-landing .section-three ._footer ._elements .logo-section {
+  display: flex;
+  align-items: baseline;
+  column-gap: 26px;
+}
+
+.app-landing .section-three ._footer ._elements .logo-section img {
+  width: 116px;
+  height: 56px;
+}
+
+.app-landing .section-three ._footer ._elements .logo-section p {
+  position: relative;
+  top: -7px;
+  color: #fff;
+}
+
+.app-landing .section-three ._footer ._elements a {
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  top: -7px;
+}
+
+.app-landing .section-three ._footer ._elements ul {
+  top: 0;
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+/* LANDING PAGE ENDS */

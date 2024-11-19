@@ -1,0 +1,199 @@
+:root {
+  --wash-black: #020d1c;
+  --wash-orange: #f2ca89;
+  --wash-blue: #17499f;
+  --wash-yellow: #f26419;
+}
+
+@media screen and (max-width: 767px) {
+  .app-landing .section-one .navbar-toggler {
+    border: none;
+    font-size: 28px;
+    margin-top: -10px;
+
+    &:focus {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  .app-landing .section-one {
+    min-height: 100%;
+  }
+
+  .app-landing .section-one .header-container ul {
+    font-size: 16px;
+    align-items: baseline;
+    padding: 0 16px;
+  }
+
+  .app-landing .section-one .header-container .login-section {
+    flex-flow: column;
+    row-gap: 20px;
+    margin-top: 30px;
+    align-items: flex-start;
+    padding: 0 16px;
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .app-landing .section-one .body {
+    margin-top: 15px;
+  }
+
+  .app-landing .section-one .body h1 {
+    width: 400px;
+    font-size: 46px;
+  }
+
+  .app-landing .section-one .body ._location.input-wrapper {
+    width: 100%;
+  }
+
+  .app-landing .section-one .body ._location.schedule-button {
+    width: 100%;
+    margin-bottom: 35px;
+  }
+
+  .app-landing .section-two {
+    padding-top: 40px;
+  }
+
+  .app-landing .section-two ._attributes {
+    margin-bottom: 30px;
+  }
+
+  .app-landing .section-two ._attributes h1.head {
+    margin-bottom: 30px;
+  }
+
+  .app-landing .section-two ._attributes .body {
+    flex-flow: column;
+    gap: 14px;
+  }
+
+  .app-landing .section-two .benefit {
+    padding-bottom: 130px;
+  }
+
+  .app-landing .section-two .benefit p {
+    width: 100%;
+    margin-bottom: 18px;
+  }
+
+  .app-landing .section-two .benefit img {
+    width: 47%;
+    bottom: 0px;
+  }
+
+  .app-landing .section-two .benefits-flex {
+    flex-flow: column;
+    margin-bottom: 40px;
+
+    .benefit {
+      p {
+        width: 100%;
+      }
+      li {
+        margin-bottom: 15px;
+      }
+
+      img {
+        width: 32%;
+      }
+    }
+  }
+
+  .app-landing .section-two ._services h1 {
+    font-size: 33px;
+  }
+
+  .app-landing .section-two ._services .services-flex {
+    flex-flow: column;
+    row-gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .app-landing .section-two ._services .services-flex .service {
+    text-align: center;
+
+    ._text-section {
+      p {
+        text-align: center;
+        font-size: 17px;
+        margin-bottom: 1rem;
+      }
+      h2 {
+        font-size: 30px;
+        margin-top: 15px;
+      }
+    }
+    img {
+      width: 30%;
+    }
+  }
+
+  .app-landing .section-two ._pricing h1 {
+    font-size: 33px;
+  }
+
+  .app-landing .section-two ._pricing .pricing-flex {
+    flex-flow: column;
+    row-gap: 24px;
+  }
+
+  .app-landing .section-two ._extras ._extras-box {
+    flex-wrap: wrap;
+    row-gap: 30px;
+  }
+
+  .app-landing .section-two ._extras ._extras-box .extra {
+    width: 50%;
+    &:nth-child(even) {
+      text-align: right;
+    }
+  }
+
+  .app-landing .section-two ._reviews {
+    margin-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .app-landing .section-two ._reviews h1 {
+    font-size: 33px;
+  }
+
+  .app-landing .section-two ._reviews .reviews-flex {
+    flex-flow: column;
+    row-gap: 24px;
+  }
+
+  .app-landing .section-three ._faqs h1 {
+    padding-top: 60px;
+  }
+
+  .app-landing .section-three ._current-location {
+    padding-bottom: 35px;
+  }
+
+  .app-landing .section-three ._current-location div {
+    flex-wrap: wrap;
+    column-gap: 20px;
+  }
+
+  .app-landing .section-three ._footer {
+    padding: 40px 20px;
+  }
+
+  .app-landing .section-three ._footer ._elements {
+    display: flex;
+    flex-flow: column;
+    gap: 25px;
+  }
+
+  .app-landing .section-three ._footer ._elements ul {
+    padding: 0;
+  }
+}
