@@ -1,0 +1,400 @@
+import { useEffect, useMemo, useState } from "react";
+import moment from "moment";
+import CircleCalendar from "../../assets/svgs/1.svg";
+import CircleTruck from "../../assets/svgs/2.svg";
+import CheckedRadioButton from "../../assets/svgs/input-radio-checked.svg";
+import {
+  CLASSIC_WASH,
+  PRESCHEDULED_WASH,
+  supportedAreas,
+  WASH_PRICES,
+} from "../../utils/constants";
+import { REACT_APP_API_BASE_URL } from "../../utils/services";
+import { GoogleAddressInput } from "../google-address-input";
+import { Overlay } from "../overlay";
+import { InfoMessage } from "../info-message";
+import axios from "axios";
+import { errorHandler } from "../../utils/functions";
+
+export const filterScheduleToGetAvailableDays = (washOrderPlanData) => {
+  const groupedData = washOrderPlanData.reduce((acc, curr) => {
+    const key = moment(curr["scheduleDate"]).format("YYYY-MM-DD");
+    // Check if the key already exists in the accumulator
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    // Push the current item into the corresponding key array
+    acc[key].push(curr);
+    return acc;
+  }, {});
+
+  const days = Object.keys(groupedData)
+    .sort()
+    .filter((el) => {
+      if (
+        moment(moment().format("YYYY-MM-DD")).isSameOrBefore(
+          moment(el).format("YYYY-MM-DD")
+        )
+      )
+        return el;
+    })
+    .map((el) => ({
+      formattedDate: moment(el).format("ddd, Do MMM"),
+      date: el,
+    }));
+  return days;
+};
+
+export function filterUniqueByKey(array, key) {
+  const newArr = [];
+  array.forEach((el) => {
+    if (
+      !newArr.find(
+        (al) =>
+          al["logisticsAmount"] === el["logisticsAmount"] && al[key] === el[key]
+      )
+    ) {
+      newArr.push({ ...el });
+    }
+  });
+  newArr.sort((a, b) => a.time.localeCompare(b.time));
+  return newArr;
+}
+
+export const filterDaysToGetAvailableTimes = (propAvailableDays) => {
+  const validDateTimes = [];
+  const availableDays = propAvailableDays.map((el) => {
+    const { scheduleStartTime, scheduleEndTime } = el;
+    const [firstHr] = scheduleStartTime.split(":");
+    const [secondHr] = scheduleEndTime.split(":");
+    let update = { ...el };
+    if (firstHr.length === 1)
+      update = { ...update, scheduleStartTime: "0" + scheduleStartTime };
+    if (secondHr.length === 1)
+      update = { ...update, scheduleEndTime: "0" + scheduleEndTime };
+    return update;
+  });
+  availableDays.forEach((el) => {
+    const [hour, minute] = el.scheduleEndTime.split(":");
+    const endDateTime = moment(el.scheduleDate)
+      .hour(Number(hour))
+      .minute(Number(minute));
+    if (!moment().isAfter(endDateTime)) validDateTimes.push(el);
+  });
+  const formattedArr = validDateTimes.map((el, key) => ({
+    time: `${el.scheduleStartTime} - ${el.scheduleEndTime}`,
+    key,
+    logisticsAmount: el.logisticsAmount,
+    scheduleDate: el.scheduleDate,
+  }));
+  return filterUniqueByKey(formattedArr, "time");
+};
+
+export function PickUpDelivery({
+  selectedWashType,
+  scheduleInfo,
+  changePDInfo,
+  errors,
+  touched,
+}) {
+  const isWashPrescheduled = selectedWashType === PRESCHEDULED_WASH;
+  const isClassicWash = selectedWashType === CLASSIC_WASH;
+  const [loading, setLoading] = useState(true);
+  const [schedulePerLocation, setSchedulePerLocation] = useState([]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  useEffect(() => {
+    handleFetchSchedules();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isWashPrescheduled, isClassicWash]);
+
+  const handleFetchSchedules = async () => {
+    try {
+      setLoading(true);
+      const {
+        data: { responseObject },
+      } = await axios.get(
+        `${REACT_APP_API_BASE_URL}/api/WashOrderPlans/servicetype?serviceType=${
+          isWashPrescheduled ? 1 : isClassicWash ? 2 : ""
+        }`
+      );
+      setLoading(false);
+      setSchedulePerLocation(responseObject);
+    } catch (error) {
+      setLoading(false);
+      const errorRes = errorHandler(error);
+      console.log({ errorRes });
+    }
+  };
+
+  const scheduleForSelectedArea = useMemo(() => {
+    if (!scheduleInfo.area) return {};
+    const locationSchedule = schedulePerLocation.find(
+      (el) => el.location === scheduleInfo.area
+    );
+    if (!locationSchedule) return {};
+    if (locationSchedule) {
+      const { washOrderPlanData } = locationSchedule;
+      const groupedData = washOrderPlanData.reduce((acc, curr) => {
+        const key = moment(curr["scheduleDate"]).format("YYYY-MM-DD");
+        // Check if the key already exists in the accumulator
+        if (!acc[key]) {
+          acc[key] = [];
+        }
+        // Push the current item into the corresponding key array
+        acc[key].push(curr);
+        return acc;
+      }, {});
+      return groupedData;
+    }
+    return {};
+  }, [scheduleInfo.area, schedulePerLocation]);
+
+  const days = Object.keys(scheduleForSelectedArea)
+    .sort()
+    .filter((el) => {
+      if (
+        moment(moment().format("YYYY-MM-DD")).isSameOrBefore(
+          moment(el).format("YYYY-MM-DD")
+        )
+      )
+        return el;
+    })
+    .map((el) => ({
+      formattedDate: moment(el).format("ddd, Do MMM"),
+      date: el,
+    }));
+
+  const resetSelectBox = (name) => {
+    const selectBox = document.getElementById(name);
+    selectBox.selectedIndex = 0;
+  };
+
+  const selectedTimesForSelectedDay = useMemo(() => {
+    if (!scheduleInfo.pickupDay) return;
+    const findDate = days.find(
+      (el) => el.formattedDate === scheduleInfo.pickupDay
+    );
+    if (!findDate?.date) return;
+    const arr = scheduleForSelectedArea[findDate?.date];
+    return filterDaysToGetAvailableTimes(arr);
+  }, [scheduleInfo.pickupDay, days, scheduleForSelectedArea]);
+
+  return (
+    <Overlay loading={loading}>
+      <div className='step-view'>
+        <h2>Pick up & Delivery</h2>
+        <p>Where and how are we picking up your clothes?</p>
+        <div className='__options'>
+          <div
+            className={`option ${isWashPrescheduled && "active"}`}
+            onClick={() => {
+              changePDInfo("selectedWashType", PRESCHEDULED_WASH);
+              changePDInfo("area", "");
+              changePDInfo("pickupDay", "");
+              changePDInfo("pickupWindow", "");
+              resetSelectBox("pickup-window");
+              resetSelectBox("pickup-day");
+              resetSelectBox("area");
+              changePDInfo("orderDate", "");
+            }}
+          >
+            <div className='imgs'>
+              <img src={CircleCalendar} alt='' className='option-img' />
+              {isWashPrescheduled && <img src={CheckedRadioButton} alt='' />}
+            </div>
+            <h3>Pre-Scheduled Wash</h3>
+            <p>
+              Enjoy deeply discounted logistics for your location. Have your
+              laundry pickup up, washed, and delivered on the same day.
+            </p>
+          </div>
+          <div
+            className={`option ${isClassicWash && "active"}`}
+            onClick={() => {
+              changePDInfo("selectedWashType", CLASSIC_WASH);
+              changePDInfo("area", "");
+              changePDInfo("pickupDay", "");
+              changePDInfo("pickupWindow", "");
+              resetSelectBox("pickup-window");
+              resetSelectBox("pickup-day");
+              resetSelectBox("area");
+              changePDInfo("orderDate", "");
+            }}
+          >
+            <div className='imgs'>
+              <img src={CircleTruck} alt='' className='option-img' />
+              {isClassicWash && <img src={CheckedRadioButton} alt='' />}
+            </div>
+            <h3>Classic Wash</h3>
+            <p>
+              Experience extreme convenience and speed. Your laundry will be
+              picked up immediately and delivered back to you in less than 4
+              hours.
+            </p>
+          </div>
+        </div>
+        <div className='mt-3'>
+          <label>Address</label>
+          <GoogleAddressInput
+            handleChange={(address) => changePDInfo("address", address)}
+            address={scheduleInfo.address}
+          />
+          {errors?.address && touched?.address && (
+            <InfoMessage message={errors.address} />
+          )}
+        </div>
+        <div className='mt-3'>
+          <label>Choose area</label>
+          <select
+            className='form-select'
+            aria-label='Default select example'
+            value={!scheduleInfo.area ? undefined : scheduleInfo.area}
+            onChange={({ target: { value } }) => {
+              changePDInfo("area", value);
+              changePDInfo("pickupDay", "");
+              changePDInfo("pickupWindow", "");
+              resetSelectBox("pickup-day");
+              resetSelectBox("pickup-window");
+            }}
+            id='area'
+          >
+            <option selected disabled>
+              -- Select an area --
+            </option>
+            {supportedAreas.map((el) => (
+              <option key={el}>{el}</option>
+            ))}
+          </select>
+          {errors?.area && touched?.area && !scheduleInfo?.area && (
+            <InfoMessage message={errors.area} />
+          )}
+        </div>
+        <div className='mt-3'>
+          <div className='row'>
+            <div className='col-md-6 col-sm-12'>
+              <label>Choose Day</label>
+              <select
+                className='form-select'
+                disabled={!scheduleInfo.area}
+                onChange={({ target: { value } }) => {
+                  changePDInfo("pickupDay", value);
+                  changePDInfo("pickupWindow", "");
+                  resetSelectBox("pickup-window");
+                }}
+                id='pickup-day'
+                value={scheduleInfo.pickupDay || undefined}
+              >
+                <option disabled selected>
+                  -- Select pickup day --
+                </option>
+                {days.map((el, i) => (
+                  <option key={i} value={el.formattedDate}>
+                    {el.formattedDate}
+                  </option>
+                ))}
+              </select>
+              {scheduleInfo.area && !days.length && (
+                <InfoMessage message='There are no available schedule for this location' />
+              )}
+              {days.length && errors?.pickupDay && !scheduleInfo.pickupDay ? (
+                <InfoMessage message={errors.pickupDay} />
+              ) : null}
+            </div>
+            <div className='col-md-6 col-sm-12'>
+              <label>Pick up window</label>
+              <select
+                className='form-select'
+                disabled={!scheduleInfo.area || !scheduleInfo.pickupDay}
+                onChange={({ target: { value } }) => {
+                  const { logisticsAmount, scheduleDate, time } =
+                    selectedTimesForSelectedDay?.find(
+                      (el) => String(el.time) === String(value)
+                    ) || {};
+                  changePDInfo("pickupWindow", time);
+                  changePDInfo(
+                    "logisticsAmount",
+                    Number(logisticsAmount || WASH_PRICES.LOGISTICS)
+                  );
+                  changePDInfo(
+                    "orderDate",
+                    moment(scheduleDate)
+                      .hour(Number(time.split(":")[0]) + 1)
+                      .format()
+                  );
+                }}
+                value={
+                  scheduleInfo?.pickupWindow?.length
+                    ? scheduleInfo.pickupWindow
+                    : undefined
+                }
+                id='pickup-window'
+              >
+                <option disabled selected>
+                  -- Select pickup window --
+                </option>
+                {scheduleInfo.pickupDay &&
+                  (!selectedTimesForSelectedDay ||
+                    !selectedTimesForSelectedDay.length) && (
+                    <option selected disabled>
+                      We have no schedule times available
+                    </option>
+                  )}
+                {selectedTimesForSelectedDay &&
+                  selectedTimesForSelectedDay.map((el) => (
+                    <option key={el.key} value={el.time}>
+                      {el.time}
+                    </option>
+                  ))}
+              </select>
+              {scheduleInfo.pickupDay &&
+                errors?.pickupWindow &&
+                !scheduleInfo.pickupWindow && (
+                  <InfoMessage message={errors.pickupWindow} />
+                )}
+            </div>
+          </div>
+        </div>
+        <div className='mt-3'>
+          <div className='etd'>
+            <i className='bi bi-truck'></i>
+            <p>
+              Your laundry will be delivered to you{" "}
+              <b>
+                {scheduleInfo.selectedWashType === "classic-wash" &&
+                moment(scheduleInfo.orderDate).isSame(new Date())
+                  ? "in less than FOUR hours"
+                  : scheduleInfo.selectedWashType === "classic-wash" &&
+                    scheduleInfo.orderDate &&
+                    !moment(scheduleInfo.orderDate).isSame(new Date())
+                  ? moment(scheduleInfo.orderDate).format("Do MMM, YYYY")
+                  : !scheduleInfo.pickupDay && !scheduleInfo.pickupWindow
+                  ? "on the SAME DAY"
+                  : scheduleInfo.pickupDay && scheduleInfo.pickupWindow
+                  ? moment(scheduleInfo.orderDate).isSame(new Date())
+                    ? "Today"
+                    : moment(scheduleInfo.orderDate).format("Do MMM, YYYY")
+                  : ""}
+              </b>
+            </p>
+          </div>
+        </div>
+        <div className='mt-3'>
+          <label>Laundry Instructions</label>
+          <textarea
+            className='form-control'
+            placeholder='Add any special instructions for the driver'
+            id='floatingTextarea'
+            value={scheduleInfo.laundryInstructions}
+            onChange={({ target: { value } }) =>
+              changePDInfo("laundryInstructions", value)
+            }
+          />
+        </div>
+      </div>
+    </Overlay>
+  );
+}

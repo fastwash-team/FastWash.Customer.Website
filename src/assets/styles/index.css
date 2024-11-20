@@ -84,6 +84,13 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-content: center;
 }
 
+.error-message-text {
+  margin-bottom: 0;
+  font-size: 12px;
+  margin-top: 5px;
+  color: #f26419;
+}
+
 .pickup-button {
   margin-top: 16px;
   font-size: 14px;
@@ -95,6 +102,46 @@ input[type="number"]::-webkit-outer-spin-button {
   letter-spacing: 0.28px;
   border-radius: 8px;
   background: linear-gradient(0deg, #fff 0%, #fff 100%), #fff;
+}
+
+.app-spinner {
+  color: #fff;
+  width: 27px;
+  height: 27px;
+}
+
+.counter-view {
+  display: flex;
+  font-size: 24px;
+  align-items: center;
+  border-radius: 24px;
+  background: #fafafa;
+  width: fit-content;
+  height: fit-content;
+  gap: 40px;
+
+  .sign {
+    height: 50px;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+
+    &._minus {
+      background: #fff8ec;
+      border: 1px solid #ffe6bc;
+    }
+    &._add {
+      background: #ffd59a;
+      border: none;
+    }
+  }
+
+  p {
+    margin-bottom: 0 !important;
+    font-size: 20px !important;
+  }
 }
 
 /* LANDING PAGE BEGINS */
@@ -666,3 +713,474 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 16px;
 }
 /* LANDING PAGE ENDS */
+
+/* SCHEDULE PICKUP BEGINS  */
+
+.schedule-pickup__header {
+  background: #fff8ec;
+  padding: 0px 120px;
+  border-bottom: 8px solid #ffe6bc;
+  margin-bottom: 64px;
+}
+
+.schedule-pickup__header button.logout {
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  color: var(--wash-black);
+  font-size: 14px;
+  font-weight: 600;
+  width: 119px;
+  height: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-pickup__header ._container {
+  padding-top: 10px;
+}
+
+.schedule-pickup__header .extended-header h3 {
+  text-align: center;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 77.5px;
+  color: var(--wash-black);
+  padding: 108px 0;
+}
+
+.schedule-pickup .body {
+  padding: 0 120px;
+
+  &.mobile {
+    display: none;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.schedule-pickup .body .flow-tracker-wrapper {
+  border-radius: 8px;
+  background: #fafafa;
+  display: flex;
+  justify-content: center;
+  gap: 121px;
+  padding: 30px 0;
+  margin-bottom: 40px;
+  position: relative;
+
+  i {
+    position: absolute;
+    left: 30px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
+.schedule-pickup .body .flow-tracker-wrapper .tracker {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  p {
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  input {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.disabled {
+    p {
+      color: #919191;
+    }
+  }
+}
+
+.schedule-pickup .body .steps .step-view h2 {
+  font-size: 36px;
+  color: var(--wash-black);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.schedule-pickup .body .steps .step-view p {
+  color: #666666;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.schedule-pickup .body .steps .step-view .__options {
+  display: flex;
+  gap: 24px;
+  cursor: pointer;
+}
+
+.schedule-pickup .body .steps .step-view .__options .option {
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid #d9d9d9;
+  background: #fff;
+  padding: 24px;
+
+  &.active {
+    border-color: #efaf33;
+  }
+}
+
+.schedule-pickup .body .steps .step-view .__options .option .imgs {
+  display: flex;
+  justify-content: space-between;
+
+  img {
+    width: 24px;
+    height: 24px;
+
+    &.option-img {
+      width: 56px;
+      height: 56px;
+    }
+  }
+}
+
+.schedule-pickup .body .steps .step-view .__options .option h3 {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 16px;
+}
+
+.schedule-pickup .body .steps .step-view .__options .option p {
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 150%;
+}
+
+.schedule-pickup .body .steps .step-view .input-group {
+  input {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .input-group-text {
+    background: white;
+  }
+}
+
+.schedule-pickup .body .steps .step-view label,
+.schedule-pickup .body .steps .step-view select {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.schedule-pickup .body .steps .step-view .etd {
+  display: flex;
+  border-radius: 8px;
+  background: #d6e7ff;
+  padding: 16px;
+  gap: 8px;
+  align-items: center;
+  i {
+    font-size: 24px;
+  }
+  p {
+    margin-bottom: 0;
+    color: var(--wash-black);
+    font-size: 14px;
+    font-weight: 300;
+    b {
+      font-weight: 600;
+    }
+  }
+}
+
+.schedule-pickup .body .steps .step-view textarea {
+  height: 120px;
+  &::placeholder {
+    color: #d9d9d9;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.schedule-pickup .body .steps .step-view.customize-wash h2 {
+  color: var(--wash-black);
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.schedule-pickup .body .steps .step-view.customize-wash p {
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.schedule-pickup .body .steps .step-view.customize-wash .__options .option {
+  border-width: 1px;
+}
+
+.schedule-pickup
+  .body
+  .steps
+  .step-view.customize-wash
+  .__options
+  .option
+  .wash-counter-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.schedule-pickup
+  .body
+  .steps
+  .step-view.customize-wash
+  .__options
+  .option
+  .wash-counter-flex
+  h3 {
+  color: #666;
+  font-weight: 300;
+
+  span {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 150%;
+    text-transform: lowercase;
+  }
+}
+
+.schedule-pickup .body .steps .step-view.customize-wash .wash-description {
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  width: 100%;
+  margin-bottom: 24px;
+  color: #17499f;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.schedule-pickup .body .steps .step-view.customize-wash .extras .extra {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.schedule-pickup
+  .body
+  .steps
+  .step-view.customize-wash
+  .extras
+  .extra
+  .-info
+  ._name {
+  color: var(--wash-black);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.schedule-pickup
+  .body
+  .steps
+  .step-view.customize-wash
+  .extras
+  .extra
+  .-info
+  ._price {
+  color: #666;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.schedule-pickup .body .steps .step-view.contact-details .phone-input-0 {
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 12px 16px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+
+  span {
+    border-right: 1px solid #d9d9d9;
+    padding-right: 16px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+
+  input {
+    height: auto;
+    border: none;
+    width: 100%;
+    border-left: 0;
+    border-right: 0;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+.schedule-pickup .body .steps .step-view.contact-details .payments h3 {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.schedule-pickup
+  .body
+  .steps
+  .step-view.contact-details
+  .payments
+  .payment-option {
+  display: flex;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  padding: 26px 24px;
+  align-items: center;
+  gap: 32px;
+  cursor: pointer;
+  position: relative;
+
+  &.active {
+    border-color: #f6ae2d;
+  }
+}
+
+.schedule-pickup
+  .body
+  .steps
+  .step-view.contact-details
+  .payments
+  .payment-option
+  img {
+  width: 30px;
+  margin-right: -10px;
+}
+
+.schedule-pickup
+  .body
+  .steps
+  .step-view.contact-details
+  .payments
+  .payment-option
+  p {
+  margin-bottom: 0;
+  font-size: 16px;
+  color: var(--wash-black);
+
+  b {
+    font-weight: 600;
+  }
+}
+
+.schedule-pickup .body .steps .next-button {
+  border-radius: 8px;
+  border: none;
+  background: #17499f;
+  color: #fafafa;
+  font-size: 14px;
+  font-weight: 700;
+  width: 100%;
+  padding: 19px;
+
+  &:disabled {
+    background: #cfcfcf;
+    cursor: not-allowed;
+  }
+}
+
+.schedule-pickup .body .steps .summary-container {
+  display: flex;
+  justify-content: flex-end;
+  height: fit-content;
+}
+
+.schedule-pickup .body .steps .summary-container .order-summary {
+  border-radius: 8px;
+  padding: 24px;
+  width: 480px;
+  background: #fafafa;
+}
+
+.schedule-pickup .body .steps .summary-container .order-summary-mobile {
+  display: none;
+}
+
+.schedule-pickup .body .steps .summary-container .order-summary h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #020d1c;
+  margin-bottom: 24px;
+}
+
+.schedule-pickup .body .steps .summary-container .order-summary .address-block {
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  p {
+    margin-bottom: 12px;
+    color: #666;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  b {
+    color: #020d1c;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.schedule-pickup
+  .body
+  .steps
+  .summary-container
+  .order-summary
+  .billing-items
+  .item {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  font-weight: 500;
+  span {
+    color: #666;
+    font-weight: 400;
+  }
+}
+
+.schedule-pickup .body .steps .summary-container .order-summary .total {
+  border-radius: 8px;
+  background: #d6e7ff;
+  display: flex;
+  padding: 24px 16px;
+  justify-content: space-between;
+  font-size: 24px;
+  color: #020d1c;
+  margin-top: 40px;
+
+  span {
+    font-weight: 400;
+  }
+  b {
+    font-weight: 600;
+  }
+}
+
+/* SCHEDULE PICKUP ENDS */

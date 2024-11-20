@@ -25,7 +25,7 @@ export const GoogleAddressInput = (props) => {
 
         autocomplete.addListener("place_changed", () => {
           const place = autocomplete.getPlace();
-          console.log("Selected Place:", place);
+
           // getting neighborhood and administrative_2
           // const addressComponents = place.address_components || [];
           // const hasSupportedArea = addressComponents.filter((el) => {
