@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import CircleCalendar from "../../assets/svgs/1.svg";
