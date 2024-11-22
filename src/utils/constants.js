@@ -12,6 +12,7 @@ export const WASH_PRICES = {
   DRYER_SHEETS: 350,
 };
 export const PRESCHEDULED_WASH = "pre-scheduled";
+
 export const CLASSIC_WASH = "classic-wash";
 
 export const supportedAreas = [

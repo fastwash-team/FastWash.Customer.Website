@@ -37,3 +37,8 @@ export const errorHandler = (error) => {
   if (error?.message) return error.message;
   return "Something went wrong. Try again!";
 };
+
+export function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}

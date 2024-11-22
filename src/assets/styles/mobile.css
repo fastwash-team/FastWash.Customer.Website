@@ -6,6 +6,17 @@
 }
 
 @media screen and (max-width: 767px) {
+  .counter-view {
+    gap: 24px;
+    .sign {
+      width: 40px;
+      height: 40px;
+    }
+    p {
+      font-size: 17px !important;
+    }
+  }
+
   .app-landing .section-one .navbar-toggler {
     border: none;
     font-size: 28px;
@@ -195,5 +206,234 @@
 
   .app-landing .section-three ._footer ._elements ul {
     padding: 0;
+  }
+
+  /* SCHEDULE PICKUP BEGINS  */
+
+  .schedule-pickup__header {
+    padding: 16px;
+    margin-bottom: 0;
+
+    nav {
+      width: 100%;
+      padding: 0;
+
+      .navbar-toggler {
+        width: fit-content;
+        background: none;
+        border: none;
+      }
+    }
+  }
+
+  .schedule-pickup .body.mobile {
+    display: flex;
+    padding: 16px;
+    background: #fafafa;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 24px;
+  }
+
+  .schedule-pickup .body.mobile p {
+    margin-bottom: 0;
+    color: #020d1c;
+    font-weight: 600;
+
+    ._back {
+      width: fit-content;
+      border: none;
+      background: none;
+    }
+
+    &.step-count {
+      color: #758e4f;
+    }
+  }
+
+  .schedule-pickup .body .flow-tracker-wrapper {
+    display: none;
+  }
+
+  .schedule-pickup .body {
+    padding: 0 16px;
+  }
+
+  .schedule-pickup .body .steps .step-view h2 {
+    font-size: 24px;
+  }
+
+  .schedule-pickup .body .steps .step-view p {
+    font-size: 14px;
+  }
+
+  .schedule-pickup .body .steps .step-view .__options {
+    flex-flow: column;
+  }
+
+  .schedule-pickup .body .steps .step-view .__options .option {
+    width: 100%;
+    padding: 16px;
+
+    h3 {
+      font-size: 16px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+  .schedule-pickup .body .steps .summary-container .order-summary {
+    display: none;
+  }
+
+  .schedule-pickup .body .steps .summary-container .order-summary-mobile {
+    display: block;
+    background: #fafafa;
+    border-radius: 8px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .schedule-pickup
+    .body
+    .steps
+    .summary-container
+    .order-summary-mobile
+    .accordion-item {
+    background: none;
+    border: none;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  .schedule-pickup
+    .body
+    .steps
+    .summary-container
+    .order-summary-mobile
+    .accordion-item
+    .accordion-header
+    button {
+    background: none;
+    box-shadow: none;
+    color: #020d1c;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .schedule-pickup
+    .body
+    .steps
+    .summary-container
+    .order-summary-mobile
+    .accordion
+    .accordion-body {
+    padding-top: 0;
+  }
+
+  .schedule-pickup
+    .body
+    .steps
+    .summary-container
+    .order-summary-mobile
+    .accordion
+    .accordion-body
+    .address-block {
+    border-bottom: 1px solid #d9d9d9;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+
+    p,
+    b {
+      margin-bottom: 8px;
+      color: #666;
+      font-weight: 400;
+      font-size: 14px;
+    }
+    b {
+      color: #020d1c;
+      font-weight: 600;
+    }
+  }
+
+  .schedule-pickup
+    .body
+    .steps
+    .summary-container
+    .order-summary-mobile
+    .accordion
+    .accordion-body
+    .billing-items
+    .item {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .schedule-pickup
+    .body
+    .steps
+    .summary-container
+    .order-summary-mobile
+    .accordion
+    .accordion-body
+    .contact-details {
+    border-top: 1px solid #d9d9d9;
+    padding-top: 16px;
+    margin-top: 16px;
+  }
+
+  .schedule-pickup
+    .body
+    .steps
+    .summary-container
+    .order-summary-mobile
+    .total {
+    border-radius: 8px;
+    background: #d6e7ff;
+    display: flex;
+    padding: 24px 16px;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #020d1c;
+    margin: 16px;
+  }
+
+  .schedule-pickup .body .steps .tracking-container {
+    width: 100%;
+    padding: 20px;
+    margin-top: 35px;
+  }
+
+  .schedule-pickup .body .steps .tracking-container .wrapper {
+    padding: 20px;
+  }
+
+  .schedule-pickup .body .steps .tracking-container .wrapper .step {
+    margin-left: 35px;
+
+    &::before {
+      left: -30px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    h4::before {
+      width: 16px;
+      height: 16px;
+      margin-top: 5px;
+      left: -35px;
+    }
   }
 }

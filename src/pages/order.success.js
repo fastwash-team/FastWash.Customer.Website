@@ -32,12 +32,15 @@ export function OrderSuccessView() {
                   </p>
                 </center>
                 {isUserLoggedIn() ? (
-                  <p
-                    className='btn_link'
-                    onClick={() => navigate("/dashboard")}
-                  >
-                    Go to Dashboard <i className='bi bi-arrow-right-short'></i>
-                  </p>
+                  <center>
+                    <p
+                      className='btn_link'
+                      onClick={() => navigate("/dashboard")}
+                    >
+                      Go to Dashboard{" "}
+                      <i className='bi bi-arrow-right-short'></i>
+                    </p>
+                  </center>
                 ) : (
                   <button style={{ display: "inline" }} onClick={handleLogin}>
                     Login

@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Header } from "../components/header";
 import { Overlay } from "../components/overlay";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import RadioChecked from "../assets/svgs/input-radio-checked.svg";
 import RadioCheckedDisabled from "../assets/svgs/input-radio-checked-disabled.svg";
 import { PickUpDelivery } from "../components/booking-steps/pickup.delivery";
@@ -35,6 +35,12 @@ export function SchedulePickup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [savedWashOrder] = useState({ ...location.state });
+
+  useEffect(() => {
+    if (![1, 2, 3].includes(Number(id)))
+      return window.location.replace(`/schedule-pickup/1`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const validateScheduleFlow = () => {
     if (step === 1) return PickUpInformationSchema;
@@ -283,7 +289,7 @@ export function SchedulePickup() {
     <Overlay loading={false}>
       <div className='schedule-pickup'>
         <Header />
-        <div className='schedule-pickup__body__flow-tracker-wrapper-mobile body mobile'>
+        <div className='schedule-pickup body mobile'>
           <p>
             <button className='_back' onClick={handleGoBack}>
               <i className='bi bi-chevron-left'></i>
@@ -300,7 +306,7 @@ export function SchedulePickup() {
         </div>
 
         <div className='schedule-pickup body'>
-          <div className='flow-tracker-wrapper'>
+          <div className='flow-tracker-wrapper desktop'>
             <span className='_back' onClick={handleGoBack}>
               <i className='bi bi-chevron-left'></i>
             </span>
