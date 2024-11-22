@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { Header } from "../components/header";
-import { LoginSchema } from "../schemas/LoginSchema";
+import { LoginSchema } from "../schemas/Login.Schema";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {

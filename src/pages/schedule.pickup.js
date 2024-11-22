@@ -14,9 +14,9 @@ import {
   WASH_PRICES,
   WashServiceTypeEnum,
 } from "../utils/constants";
-import { PickUpInformationSchema } from "../schemas/PickupDelivery";
-import { ContactDetailsSchema } from "../schemas/ContactDetails";
-import { CustomizeWashSchema } from "../schemas/CustomizeWash";
+import { PickUpInformationSchema } from "../schemas/PickupDelivery.Schema";
+import { ContactDetailsSchema } from "../schemas/ContactDetails.Schema";
+import { CustomizeWashSchema } from "../schemas/CustomizeWash.Schema";
 import { OrderSummary } from "../components/booking-steps/order.summary";
 import { calculateWashPrice, errorHandler } from "../utils/functions";
 import { CustomizeWash } from "../components/booking-steps/customize.wash";
