@@ -33,6 +33,11 @@ button:disabled {
   box-shadow: none;
 }
 
+nav .navbar-collapse ul {
+  width: 100%;
+  justify-content: flex-end;
+}
+
 .global-overlay .global-overlay-container {
   position: fixed;
   background: #88888869;
@@ -735,6 +740,11 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.blue {
+    background-color: var(--wash-blue);
+    color: #fff;
+  }
 }
 
 .schedule-pickup__header ._container {
@@ -1323,3 +1333,46 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* SCHEDULE PICKUP ENDS */
+
+/* LOGIN BEGINS  */
+
+.login .form p {
+  color: #666;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+  margin-bottom: 40px;
+}
+
+.login .form label {
+  color: #020d1c;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login .form button {
+  border-radius: 8px;
+  background: #17499f;
+  width: 100%;
+  padding: 20px 0;
+  border: none;
+  color: #fafafa;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.login .form .no-account {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+
+  a {
+    color: var(--wash-blue);
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+
+/* LOGIN END */

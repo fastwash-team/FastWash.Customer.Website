@@ -436,4 +436,12 @@
       left: -35px;
     }
   }
+
+  .login .form {
+    padding: 10px 30px;
+  }
+
+  .login .form h2 {
+    margin-top: 15px;
+  }
 }

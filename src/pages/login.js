@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { REACT_APP_API_BASE_URL } from "../utils/services";
+import { InfoMessage } from "../components/info-message";
 
 export function Login() {
   const [loading, setLoading] = useState(false);
@@ -55,10 +56,6 @@ export function Login() {
     }
   };
 
-  const handleRegisterRoute = () => {
-    navigate("/register");
-  };
-
   return (
     <div className='login'>
       <Header />
@@ -83,24 +80,7 @@ export function Login() {
               )}
             </div>
             <br />
-            <button
-              disabled={loading}
-              onClick={() => formik.handleSubmit()}
-              // onClick={() => toast.info("Hello there", { autoClose: 3000000 })}
-              // onClick={() =>
-              //   toast(
-              //     <div>
-              //       <p></p>
-              //       <div>
-              //         <span>Great seeing you</span>
-              //         <br />
-              //         <span>When will I see you next</span>
-              //       </div>
-              //     </div>,
-              //     { autoClose: 2300000000 }
-              //   )
-              // }
-            >
+            <button disabled={loading} onClick={() => formik.handleSubmit()}>
               {loading ? (
                 <div
                   className='spinner-border text-success app-spinner'
@@ -112,12 +92,10 @@ export function Login() {
                 "Login"
               )}
             </button>
-            {!isAdmin ? (
-              <p className='no-account'>
-                Don’t have an account?{" "}
-                <a onClick={handleRegisterRoute}>Sign up</a>
-              </p>
-            ) : null}
+
+            <p className='no-account'>
+              Don’t have an account? <a href='/register'>Sign up</a>
+            </p>
           </div>
           <div className='col-md-4'></div>
         </div>

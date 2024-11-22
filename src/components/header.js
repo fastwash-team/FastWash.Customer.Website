@@ -42,12 +42,20 @@ export function Header({ isExtendedHeader = false }) {
           <span className='navbar-toggler-icon'></span>
         </button>
         <div className='collapse navbar-collapse' id='navbarScroll'>
-          <ul className='navbar-nav me-auto mb-2 mb-lg-0'></ul>
-          {isAuthenticated ? (
-            <button className='d-flex logout' onClick={handleLogout}>
-              Logout
-            </button>
-          ) : null}
+          <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
+            {isAuthenticated ? (
+              <button className='d-flex logout' onClick={handleLogout}>
+                Logout
+              </button>
+            ) : (
+              <button
+                className='d-flex logout blue'
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </button>
+            )}
+          </ul>
         </div>
       </nav>
       {isExtendedHeader ? (
