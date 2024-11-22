@@ -42,3 +42,13 @@ export function validateEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);
 }
+
+export const getTokenClaims = (token) => {
+  if (!token) return logUserOut();
+  const arrayToken = token.split(".");
+  const tokenPayload = JSON.parse(atob(arrayToken[1]));
+  return tokenPayload;
+};
+
+export const setFWUserToken = (userObj) =>
+  localStorage.setItem("fw_user_token", userObj.access_token);

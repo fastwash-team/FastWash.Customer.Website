@@ -5,6 +5,7 @@ import { SchedulePickup } from "./pages/schedule.pickup";
 import { OrderSuccessView } from "./pages/order.success";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
+import { VerifyAuth } from "./pages/verify-auth";
 
 export function AppRoutes() {
   return (
@@ -16,6 +17,7 @@ export function AppRoutes() {
           <Route path='/order/success' element={<OrderSuccessView />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/verify-auth' element={<VerifyAuth />} />
         </Route>
       </Routes>
     </BrowserRouter>
