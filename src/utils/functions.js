@@ -93,3 +93,8 @@ export const getFWUserToken = () => {
   checkTokenExpiry(token);
   return token;
 };
+
+export const getWashServiceType = (washType) => {
+  if (washType === "PreScheduledWash") return "Pre Scheduled";
+  if (washType === "Classic" || washType === "ClassicWash") return "Classic";
+};

@@ -8,6 +8,9 @@ import { Register } from "./pages/register";
 import { VerifyAuth } from "./pages/verify-auth";
 import { Dashboard } from "./pages/dashboard";
 import { FAQs } from "./pages/faqs";
+import { Requests } from "./pages/requests";
+import { RequestDetails } from "./pages/request.details";
+import { Payments } from "./pages/payments";
 
 export function AppRoutes() {
   return (
@@ -22,6 +25,9 @@ export function AppRoutes() {
           <Route path='/verify-auth' element={<VerifyAuth />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/faqs' element={<FAQs />} />
+          <Route path='/requests' element={<Requests />} />
+          <Route path='/request/:id' element={<RequestDetails />} />
+          <Route path='/payments' element={<Payments />} />
         </Route>
       </Routes>
     </BrowserRouter>
