@@ -6,6 +6,8 @@ import { OrderSuccessView } from "./pages/order.success";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
 import { VerifyAuth } from "./pages/verify-auth";
+import { Dashboard } from "./pages/dashboard";
+import { FAQs } from "./pages/faqs";
 
 export function AppRoutes() {
   return (
@@ -18,6 +20,8 @@ export function AppRoutes() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/verify-auth' element={<VerifyAuth />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/faqs' element={<FAQs />} />
         </Route>
       </Routes>
     </BrowserRouter>

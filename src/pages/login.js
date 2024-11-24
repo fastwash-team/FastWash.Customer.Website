@@ -8,7 +8,6 @@ import {
   isUserLoggedIn,
   validateEmail,
 } from "../utils/functions";
-import Swal from "sweetalert2";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { REACT_APP_API_BASE_URL } from "../utils/services";
@@ -32,11 +31,7 @@ export function Login() {
   const handleLogin = async () => {
     if (!formik.values.email) return;
     if (!validateEmail(formik.values.email))
-      return Swal.fire({
-        title: "Error",
-        text: "Invalid Email. Please, put in a valid email",
-        icon: "error",
-      });
+      return toast.error("Invalid Email. Please, put in a valid email");
     setLoading(true);
     try {
       await axios.post(
@@ -52,7 +47,7 @@ export function Login() {
     } catch (error) {
       const errorMessage = errorHandler(error);
       setLoading(false);
-      return Swal.fire({ title: "Error", text: errorMessage, icon: "error" });
+      return toast.error(errorMessage);
     }
   };
 

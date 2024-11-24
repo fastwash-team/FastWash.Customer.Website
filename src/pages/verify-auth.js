@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Header } from "../components/header";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -7,10 +8,6 @@ import {
   errorHandler,
   getTokenClaims,
   setFWUserToken,
-  // getTokenClaims,
-  // redirectAfterLogin,
-  // setFWAdminToken,
-  // setFWUserToken,
 } from "../utils/functions";
 import { ValidateTokenSchema } from "../schemas/AuthToken.Schema";
 import { InfoMessage } from "../components/info-message";

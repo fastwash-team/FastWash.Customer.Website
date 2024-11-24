@@ -1,4 +1,7 @@
+import moment from "moment";
 import { WASH_PRICES } from "./constants";
+import axios from "axios";
+import { REACT_APP_API_BASE_URL } from "./services";
 
 export const isUserLoggedIn = (isAdmin = false) => {
   if (isAdmin) return localStorage.getItem("fw_admin_token");
@@ -10,6 +13,33 @@ export const logUserOut = () => {
   if (lastRoute === "/login" || lastRoute === "/admin/login") return;
   localStorage.removeItem("fw_user_token");
   return window.location.replace("/");
+};
+
+export const reLoginUser = async () => {
+  try {
+    let token = localStorage.getItem("fw_user_token");
+    if (!token && localStorage.getItem("fw_admin_token"))
+      token = localStorage.getItem("fw_admin_token");
+    console.log("reauthing a user", token);
+    if (!token) return logUserOut();
+    const arrayToken = token.split(".");
+    const { Name: email } = JSON.parse(atob(arrayToken[1]));
+    const {
+      data: { responseObject: authOTP },
+    } = await axios.post(
+      `${REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
+      { userId: email, isSystemInitiated: true }
+    );
+    const {
+      data: { responseObject },
+    } = await axios.put(
+      `${REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
+      { passCode: authOTP }
+    );
+    const claims = getTokenClaims(responseObject.access_token);
+    if (claims?.ExternalUser) setFWUserToken(responseObject);
+    window.location.reload();
+  } catch (error) {}
 };
 
 export const formatMoney = (value) =>
@@ -31,9 +61,7 @@ export const errorHandler = (error) => {
   if (error?.response?.status === 404) {
     return "Resource not found. Please contact support!";
   }
-  if (error?.response?.status === 401) {
-    // reLoginUser();
-  }
+  if (error?.response?.status === 401) return reLoginUser();
   if (error?.message) return error.message;
   return "Something went wrong. Try again!";
 };
@@ -50,5 +78,18 @@ export const getTokenClaims = (token) => {
   return tokenPayload;
 };
 
+const checkTokenExpiry = (token) => {
+  if (!token) return logUserOut();
+  const { exp } = getTokenClaims(token);
+  const diff = moment.unix(exp).diff(moment(), "minutes");
+  if (diff < 15) return reLoginUser();
+};
+
 export const setFWUserToken = (userObj) =>
   localStorage.setItem("fw_user_token", userObj.access_token);
+
+export const getFWUserToken = () => {
+  const token = localStorage.getItem("fw_user_token");
+  checkTokenExpiry(token);
+  return token;
+};
