@@ -444,4 +444,43 @@
   .login .form h2 {
     margin-top: 15px;
   }
+
+  .__dashboard .user-details {
+    margin-top: 16px;
+  }
+
+  .__dashboard .request-wash {
+    padding: 16px;
+
+    p {
+      width: 220px;
+    }
+  }
+
+  .__dashboard .requests-boards {
+    gap: 8px;
+  }
+
+  .__dashboard .requests-boards .board {
+    .title {
+      i {
+        display: none;
+      }
+    }
+  }
+
+  .__dashboard .list-items .item {
+    border-bottom: 1px solid #d9d9d9;
+    margin-bottom: 18px;
+
+    &:last-child {
+      border: none;
+      margin-bottom: 0;
+    }
+  }
+
+  .__dashboard .help-container {
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
 }
