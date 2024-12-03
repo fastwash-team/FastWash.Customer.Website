@@ -115,7 +115,11 @@ export function AdminPayments() {
                     <div className='_extras'>
                       <p>{getWashServiceType(el.washOrder.serviceType)}</p>
                       <p>{el.washOrder.location}</p>
-                      <p>N{formatMoney(el.transactionAmount)}</p>
+                      <p>
+                        {el.transactionTag.toLowerCase() === "additionalorder"
+                          ? `N ${formatMoney(el.transactionAmount / 100)}`
+                          : `N ${formatMoney(el.transactionAmount)}`}
+                      </p>
                       {/* <p>Notes: Yes</p> */}
                     </div>
                   </div>
