@@ -39,11 +39,11 @@ export function Login() {
         { userId: formik.values.email },
       );
       toast.info("A verification code has been sent to your inbox");
-      //navigate("/verify-auth", {
-      //  state: {
-      //    email: formik.values.email,
-      //  },
-      //});
+      navigate("/verify-auth", {
+        state: {
+          email: formik.values.email,
+        },
+      });
     } catch (error) {
       const errorMessage = errorHandler(error);
       setLoading(false);

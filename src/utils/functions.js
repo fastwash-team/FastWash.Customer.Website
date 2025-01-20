@@ -28,13 +28,13 @@ export const reLoginUser = async () => {
       data: { responseObject: authOTP },
     } = await axios.post(
       `${REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
-      { userId: email, isSystemInitiated: true }
+      { userId: email, isSystemInitiated: true },
     );
     const {
       data: { responseObject },
     } = await axios.put(
       `${REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
-      { passCode: authOTP }
+      { passCode: authOTP },
     );
     const claims = getTokenClaims(responseObject.access_token);
     if (claims?.ExternalUser) setFWUserToken(responseObject);
@@ -79,10 +79,12 @@ export const getTokenClaims = (token) => {
 };
 
 const checkTokenExpiry = (token) => {
-  if (!token) return logUserOut();
-  const { exp } = getTokenClaims(token);
-  const diff = moment.unix(exp).diff(moment(), "minutes");
-  if (diff < 15) return reLoginUser();
+  if (isUserLoggedIn()) {
+    if (!token) return logUserOut();
+    const { exp } = getTokenClaims(token);
+    const diff = moment.unix(exp).diff(moment(), "minutes");
+    if (diff < 15) return reLoginUser();
+  }
 };
 
 export const setFWUserToken = (userObj) =>
