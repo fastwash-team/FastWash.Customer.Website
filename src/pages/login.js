@@ -36,14 +36,14 @@ export function Login() {
     try {
       await axios.post(
         `${REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
-        { userId: formik.values.email }
+        { userId: formik.values.email },
       );
       toast.info("A verification code has been sent to your inbox");
-      navigate("/verify-auth", {
-        state: {
-          email: formik.values.email,
-        },
-      });
+      //navigate("/verify-auth", {
+      //  state: {
+      //    email: formik.values.email,
+      //  },
+      //});
     } catch (error) {
       const errorMessage = errorHandler(error);
       setLoading(false);
@@ -52,19 +52,19 @@ export function Login() {
   };
 
   return (
-    <div className='login'>
+    <div className="login">
       <Header />
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-md-4'></div>
-          <div className='col-md-4 col-sm-12 form'>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-4 col-sm-12 form">
             <h2>Login</h2>
             <p>Log into your account with your email</p>
-            <div className='mt3'>
+            <div className="mt3">
               <label>Email</label>
               <input
-                className='form-control'
-                placeholder='Enter email'
+                className="form-control"
+                placeholder="Enter email"
                 value={formik.values.email}
                 onChange={({ target: { value } }) =>
                   formik.setFieldValue("email", value)
@@ -78,21 +78,21 @@ export function Login() {
             <button disabled={loading} onClick={() => formik.handleSubmit()}>
               {loading ? (
                 <div
-                  className='spinner-border text-success app-spinner'
-                  role='status'
+                  className="spinner-border text-success app-spinner"
+                  role="status"
                 >
-                  <span className='sr-only'></span>
+                  <span className="sr-only"></span>
                 </div>
               ) : (
                 "Login"
               )}
             </button>
 
-            <p className='no-account'>
-              Don’t have an account? <a href='/register'>Sign up</a>
+            <p className="no-account">
+              Don’t have an account? <a href="/register">Sign up</a>
             </p>
           </div>
-          <div className='col-md-4'></div>
+          <div className="col-md-4"></div>
         </div>
       </div>
     </div>
