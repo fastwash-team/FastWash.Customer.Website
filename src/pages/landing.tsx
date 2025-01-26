@@ -151,7 +151,7 @@ const Landing: React.FC = () => {
                 Affordable laundry service delivered the<span>same day</span>
               </h1>
               <p className="_location-prompt" id="pickup-address">
-                Enter a pick location to start
+                Enter a pickup location to start
               </p>
               <GoogleAddressInput
                 handleChange={(address: string) => setAddress(address)}
