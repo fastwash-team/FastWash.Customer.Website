@@ -7,7 +7,6 @@ import {
   errorHandler,
   getTokenClaims,
   redirectAfterLogin,
-  setFWAdminToken,
   setFWUserToken,
 } from "../utils/functions";
 import { ValidateTokenSchema } from "../utils/schemas";
@@ -19,7 +18,7 @@ export function VerifyAuth() {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
   const {
-    state: { isAdmin, email },
+    state: { email },
   } = location;
 
   const formik = useFormik({
@@ -34,7 +33,7 @@ export function VerifyAuth() {
     try {
       await axios.post(
         `${REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
-        { userId: email }
+        { userId: email },
       );
       Swal.fire({
         title: "User Verification",
@@ -56,47 +55,29 @@ export function VerifyAuth() {
         data: { responseObject },
       } = await axios.put(
         `${REACT_APP_API_BASE_URL}/api/Authentication/login/complete`,
-        { passCode: formik.values.token }
+        { passCode: formik.values.token },
       );
       const claims = getTokenClaims(responseObject.access_token);
       console.log(claims, "claims");
       setLoading(false);
-      if (isAdmin) {
-        // this is admin login
-        if (claims?.ExternalUser)
-          return Swal.fire({
-            title: "Error",
-            text: "This user is not an admin. You cannot enter here!",
-            icon: "error",
-          });
-        if (claims?.InternalUser) {
-          setLoading(true);
-          setFWAdminToken(responseObject);
-          setTimeout(() => {
-            setLoading(false);
-            redirectAfterLogin("/dashboard"); // admin dashboard
-          }, 2000);
-        }
-      } else {
-        // this is customer login
-        if (claims?.InternalUser)
-          return Swal.fire({
-            title: "Error",
-            text: "This user does not have a valid account. Please create a wash to register!",
-            icon: "error",
-          });
-        if (claims?.ExternalUser) {
-          setLoading(true);
-          setFWUserToken(responseObject);
-          setTimeout(() => {
-            console.log(
-              "rereouting to dashboard",
-              localStorage.getItem("fw_user_token")
-            );
-            setLoading(false);
-            redirectAfterLogin("/dashboard"); // admin dashboard
-          }, 2000);
-        }
+      // this is customer login
+      if (claims?.InternalUser)
+        return Swal.fire({
+          title: "Error",
+          text: "This user does not have a valid account. Please create a wash to register!",
+          icon: "error",
+        });
+      if (claims?.ExternalUser) {
+        setLoading(true);
+        setFWUserToken(responseObject);
+        setTimeout(() => {
+          console.log(
+            "rereouting to dashboard",
+            localStorage.getItem("fw_user_token"),
+          );
+          setLoading(false);
+          redirectAfterLogin("/dashboard"); // admin dashboard
+        }, 2000);
       }
     } catch (error) {
       console.log({ error }, "validating token");
@@ -120,22 +101,22 @@ export function VerifyAuth() {
   };
 
   return (
-    <div className='login'>
+    <div className="login">
       <Header />
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-md-4'></div>
-          <div className='col-md-4 col-sm-12 form'>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-4 col-sm-12 form">
             <h2>Enter Code</h2>
             <p>Enter code that was sent to your email or phone number</p>
-            <div className='mt3'>
+            <div className="mt3">
               <label>Code</label>
               <input
-                className='form-control'
-                placeholder='Enter 6 digit code'
+                className="form-control"
+                placeholder="Enter 6 digit code"
                 value={formik.values.token}
                 onChange={handleChange}
-                type='number'
+                type="number"
                 max={6}
               />
               {formik?.errors?.token && (
@@ -146,20 +127,20 @@ export function VerifyAuth() {
             <button onClick={() => formik.handleSubmit()} disabled={loading}>
               {loading ? (
                 <div
-                  className='spinner-border text-success app-spinner'
-                  role='status'
+                  className="spinner-border text-success app-spinner"
+                  role="status"
                 >
-                  <span className='sr-only'></span>
+                  <span className="sr-only"></span>
                 </div>
               ) : (
                 "Take me in"
               )}
             </button>
-            <p className='no-account' onClick={resendEmail}>
+            <p className="no-account" onClick={resendEmail}>
               Didn’t get code? <a>Resend</a>
             </p>
           </div>
-          <div className='col-md-4'></div>
+          <div className="col-md-4"></div>
         </div>
       </div>
     </div>

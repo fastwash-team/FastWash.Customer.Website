@@ -49,16 +49,28 @@ export const getScheduleTime = (hourTime) => {
 
 export const calculateWashPrice = (washCount: number) => {
   let price = 0;
-  // 1 wash = 3000, 2 washes = 5600
-  for (let count = 1; count <= washCount; count++) {
-    if (count % 2) price += WASH_PRICES.WASH;
-    else price += WASH_PRICES.EXTRA_WASH;
+  // 1 wash = 3500, 2 washes = 6100, 3 washes = 2 washes + 1 wash
+  const washCountIsEven = washCount % 2 === 0;
+  if (washCount === 1) {
+    price = WASH_PRICES.WASH;
+  } else if (washCount === 2) {
+    price = WASH_PRICES.TWO_WASHES;
+  } else if (washCount > 2) {
+    const absoluteRounds = Math.floor(washCount / 2); // how many absolute rounds rounds
+    price = absoluteRounds * WASH_PRICES.TWO_WASHES;
+    if (!washCountIsEven) {
+      price += WASH_PRICES.WASH;
+    }
   }
   return price;
+  // previous code
+  //for (let count = 1; count <= washCount; count++) {
+  //  if (count % 2) price += WASH_PRICES.WASH;
+  //  else price += WASH_PRICES.EXTRA_WASH;
+  //}
 };
 
 export const errorHandler = (error) => {
-  console.log("response", error.response);
   if (error?.response?.data?.statusMessage)
     return error.response.data.statusMessage;
   if (error?.response?.status === 404) {
@@ -169,8 +181,7 @@ export function redirectAfterLogin(defaultUrl) {
   window.location.replace(defaultUrl);
 }
 
-export const isUserLoggedIn = (isAdmin = false) => {
-  if (isAdmin) return localStorage.getItem("fw_admin_token");
+export const isUserLoggedIn = () => {
   return localStorage.getItem("fw_user_token");
 };
 

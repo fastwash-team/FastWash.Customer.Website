@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import ReactDOM from "react-dom/client";
 import AppRoutes from "./router";
 import { ToastContainer } from "react-toastify";
@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import store from "./redux-files/store";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 
 root.render(
@@ -19,6 +19,6 @@ root.render(
   <Provider store={store}>
     <AppRoutes />
     <ToastContainer />
-  </Provider>
+  </Provider>,
   // </React.StrictMode>
 );

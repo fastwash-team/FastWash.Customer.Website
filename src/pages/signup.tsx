@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Header } from "../components/header";
 import { phone } from "phone";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ export function Signup() {
       phoneNumber,
       {
         country: "NG",
-      }
+      },
     );
     if (!numberIsValid) {
       formik.setFieldError("phoneNumber", "Invalid Phone Number");
@@ -68,19 +68,19 @@ export function Signup() {
   };
 
   return (
-    <div className='login'>
+    <div className="login">
       <Header />
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-md-4'></div>
-          <div className='col-md-4 col-sm-12 form'>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-4 col-sm-12 form">
             <h2>Sign up</h2>
             <p>Create your account</p>
-            <div className='mt-3'>
+            <div className="mt-3">
               <label>Full Name</label>
               <input
-                className='form-control'
-                placeholder='Full name'
+                className="form-control"
+                placeholder="Full name"
                 onChange={({ target: { value } }) =>
                   formik.setFieldValue("fullName", value)
                 }
@@ -89,14 +89,14 @@ export function Signup() {
                 <InfoMessage message={formik.errors.fullName} />
               )}
             </div>
-            <div className='mt-3 mb-5'>
-              <div className='row'>
-                <div className='col-md-6 col-sm-12'>
+            <div className="mt-3 mb-5">
+              <div className="row">
+                <div className="col-md-6 col-sm-12">
                   <label>Phone number</label>
-                  <div className='phone-input-0'>
+                  <div className="phone-input-0">
                     <span>+234</span>
                     <input
-                      type='number'
+                      type="number"
                       value={formik.values.phoneNumber}
                       max={10}
                       maxLength={10}
@@ -110,13 +110,13 @@ export function Signup() {
                     <InfoMessage message={"Incorrect Phone Number"} />
                   )}
                 </div>
-                <div className='col-md-6 col-sm-12'>
+                <div className="col-md-6 col-sm-12">
                   <label>Email</label>
                   <input
-                    className='form-control'
-                    placeholder='email@address.com'
-                    name='contactemail'
-                    id='contactemail'
+                    className="form-control"
+                    placeholder="email@address.com"
+                    name="contactemail"
+                    id="contactemail"
                     onChange={({ target: { value } }) =>
                       formik.setFieldValue("email", value)
                     }
@@ -130,20 +130,20 @@ export function Signup() {
             <button disabled={loading} onClick={() => formik.handleSubmit()}>
               {loading ? (
                 <div
-                  className='spinner-border text-success app-spinner'
-                  role='status'
+                  className="spinner-border text-success app-spinner"
+                  role="status"
                 >
-                  <span className='sr-only'></span>
+                  <span className="sr-only"></span>
                 </div>
               ) : (
                 "Create Account"
               )}
             </button>
-            <p className='no-account'>
+            <p className="no-account">
               Already have an account? <a onClick={handleLoginRoute}>Sign in</a>
             </p>
           </div>
-          <div className='col-md-4'></div>
+          <div className="col-md-4"></div>
         </div>
       </div>
     </div>

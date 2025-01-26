@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../components/header";
 import { PaymentItem } from "../utils/types";
 import { PaymentItemComponent } from "../components/listItem";
@@ -22,7 +22,7 @@ export const Payments = () => {
         data: { responseObject },
       } = await axios.get(
         `${REACT_APP_API_BASE_URL}/api/WashOrders/payment/history`,
-        { headers: { Authorization: `Bearer ${userToken}` } }
+        { headers: { Authorization: `Bearer ${userToken}` } },
       );
       setItems(responseObject);
     } catch (error) {
@@ -37,20 +37,20 @@ export const Payments = () => {
   }, []);
 
   return (
-    <div className='__dashboard'>
+    <div className="__dashboard">
       <Header />
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-3'></div>
-          <div className='col-md-6 col-sm-12'>
-            <div className='_requests'>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-6 col-sm-12">
+            <div className="_requests">
               <i
-                className='bi bi-arrow-left-short _back'
+                className="bi bi-arrow-left-short _back"
                 onClick={() => navigate(-1)}
               />
               <h3>Payments</h3>
               <h6>List of all your FastWash request payments</h6>
-              <div className='list-container'>
+              <div className="list-container">
                 {pageLoading ? (
                   <Skeleton count={7} />
                 ) : !pageLoading && !items.length ? (
@@ -61,7 +61,7 @@ export const Payments = () => {
               </div>
             </div>
           </div>
-          <div className='col-md-3'></div>
+          <div className="col-md-3"></div>
         </div>
       </div>
     </div>

@@ -14,10 +14,9 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { REACT_APP_API_BASE_URL } from "../utils/service/env.keys";
 
-export function Login(props: { isAdmin?: boolean }) {
+export function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const isAdmin = !!props?.isAdmin || false;
 
   const formik = useFormik({
     initialValues: { email: "" },
@@ -26,8 +25,7 @@ export function Login(props: { isAdmin?: boolean }) {
   });
 
   useEffect(() => {
-    if (isUserLoggedIn(isAdmin)) {
-      // if (isAdmin) return navigate("/dashboard");
+    if (isUserLoggedIn()) {
       return navigate("/dashboard");
     }
   }, []);
@@ -44,12 +42,11 @@ export function Login(props: { isAdmin?: boolean }) {
     try {
       await axios.post(
         `${REACT_APP_API_BASE_URL}/api/Authentication/login/initiate`,
-        { userId: formik.values.email }
+        { userId: formik.values.email },
       );
       toast.info("A verification code has been sent to your inbox");
       navigate("/verify-auth", {
         state: {
-          isAdmin,
           email: formik.values.email,
         },
       });
@@ -66,19 +63,19 @@ export function Login(props: { isAdmin?: boolean }) {
   };
 
   return (
-    <div className='login'>
+    <div className="login">
       <Header />
-      <div className='container-fluid'>
-        <div className='row'>
-          <div className='col-md-4'></div>
-          <div className='col-md-4 col-sm-12 form'>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-4 col-sm-12 form">
             <h2>Login</h2>
             <p>Log into your account with your email</p>
-            <div className='mt3'>
+            <div className="mt3">
               <label>Email</label>
               <input
-                className='form-control'
-                placeholder='Enter email'
+                className="form-control"
+                placeholder="Enter email"
                 value={formik.values.email}
                 onChange={({ target: { value } }) =>
                   formik.setFieldValue("email", value)
@@ -109,23 +106,21 @@ export function Login(props: { isAdmin?: boolean }) {
             >
               {loading ? (
                 <div
-                  className='spinner-border text-success app-spinner'
-                  role='status'
+                  className="spinner-border text-success app-spinner"
+                  role="status"
                 >
-                  <span className='sr-only'></span>
+                  <span className="sr-only"></span>
                 </div>
               ) : (
                 "Login"
               )}
             </button>
-            {!isAdmin ? (
-              <p className='no-account'>
-                Don’t have an account?{" "}
-                <a onClick={handleRegisterRoute}>Sign up</a>
-              </p>
-            ) : null}
+            <p className="no-account">
+              Don’t have an account?{" "}
+              <a onClick={handleRegisterRoute}>Sign up</a>
+            </p>
           </div>
-          <div className='col-md-4'></div>
+          <div className="col-md-4"></div>
         </div>
       </div>
     </div>
