@@ -1,0 +1,4 @@
+{
+  "prebuild": "npm run generate-build-meta",
+  "generate-build-meta": "./node_modules/react-clear-cache-v2/bin/cli.js"
+}
