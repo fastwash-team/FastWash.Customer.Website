@@ -49,7 +49,7 @@ export const getScheduleTime = (hourTime) => {
 
 export const calculateWashPrice = (washCount: number) => {
   let price = 0;
-  // 1 wash = 3500, 2 washes = 6100, 3 washes = 2 washes + 1 wash
+  // 1 wash = 3750, 2 washes = 6800, 3 washes = 2 washes + 1 wash
   const washCountIsEven = washCount % 2 === 0;
   if (washCount === 1) {
     price = WASH_PRICES.WASH;
